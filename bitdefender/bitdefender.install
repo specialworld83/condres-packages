@@ -1,0 +1,54 @@
+post_install() {
+    # Add group bitdefender
+    groupadd bitdefender
+    
+    chown -R root:root /opt/BitDefender-scanner /etc/BitDefender-scanner
+    chmod a+r -R /opt/BitDefender-scanner/var/skins
+    chmod +s /opt/BitDefender-scanner/bin/ultool
+
+    # initialise license data
+    bdscan --help >/dev/null 2>&1
+
+    # change update server for existing installation
+    for d in /home/*/ ; do
+        if [ -f "$d/.config/BitDefender-scanner/bdscan.conf" ]; then
+	    sed -i "s|UpdateHttpLocation.*|UpdateHttpLocation \= http:\/\/upgrade\.bitdefender\.com/av64bit|g" 
+"$d/.config/BitDefender-scanner/bdscan.conf"
+        fi 
+    done
+
+    # update the desktop-database
+    update-desktop-database -q
+    
+        
+    echo "==> You must be in the 'bitdefender' group to use BitDefender Antivirus Scanner."
+    echo "==>"
+    echo "==>  # gpasswd -a USERNAME bitdefender"
+    echo "==>" 
+    echo "==> Register at the URL below to receive your license key and insert it"
+    echo "==> in '/opt/BitDefender-scanner/etc/bdscan.conf', or use the GUI."    
+    echo "==>"
+    echo "==>    http://www.bitdefender.com/site/Products/ScannerLicense"
+    echo "==>    Fix exec bitdefender gui and remove user. "
+    echo "==>    Fix autostart antivirus and systemtray. "
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    # remove the bitdefender user and group
+    groupdel bitdefender
+
+    # update the desktop-database
+    update-desktop-database -q
+    rm -R /opt/BitDefender-scanner
+
+    # remove any custom config files
+    for d in /home/*/ ; do
+        if [ -d "$d/.config/BitDefender-scanner" ]; then
+            sudo rm -rf $d/.config/BitDefender-scanner
+        fi 
+    done
+}

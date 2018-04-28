@@ -1,0 +1,21 @@
+_pkgname='Condres Wallpapers'
+pkgname=condres-wallpapers
+pkgver=2.6
+pkgrel=5
+epoch=2
+pkgdesc='Wallpapers for Condres OS'
+arch=(any)
+license=(GPL)
+url="codelinsoft.com"
+depends=()
+source=("condres-wallpapers-1.1.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+	mkdir -p "${pkgdir}/usr/share/backgrounds"
+	mkdir -p "${pkgdir}/usr/share/wallpapers"
+	cp -rf "${srcdir}/condres-wallpapers-1.1/condres" "${pkgdir}/usr/share/wallpapers/"
+	cp -rf "${srcdir}/condres-wallpapers-1.1/condres" "${pkgdir}/usr/share/backgrounds/"
+	mkdir -p "${pkgdir}/usr/share/gnome-background-properties"
+	cp -f "${srcdir}/condres-wallpapers-1.1/condres-backgrounds.xml" "${pkgdir}/usr/share/gnome-background-properties"
+}

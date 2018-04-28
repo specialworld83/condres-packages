@@ -1,0 +1,9 @@
+post_install() {
+mv /usr/lib/firefox/distribution/distribution.ini /usr/lib/firefox/distribution/distribution.ini.old
+mv /usr/lib/firefox/distribution/distribution.ini.new  /usr/lib/firefox/distribution/distribution.ini
+}
+
+post_upgrade() {
+mv /usr/lib/firefox/distribution/distribution.ini /usr/lib/firefox/distribution/distribution.ini.old
+mv /usr/lib/firefox/distribution/distribution.ini.new  /usr/lib/firefox/distribution/distribution.ini
+}

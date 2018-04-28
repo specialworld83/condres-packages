@@ -1,0 +1,22 @@
+From 216ca41d080a86bab9d70d65153ae9b656a1d70a Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 15:14:29 -0500
+Subject: [PATCH] nemo-dropbox :: fix error in Makefile
+
+---
+ nemo-dropbox/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nemo-dropbox/Makefile.am b/nemo-dropbox/Makefile.am
+index bd79291..4149847 100644
+--- a/nemo-dropbox/Makefile.am
++++ b/nemo-dropbox/Makefile.am
+@@ -9,7 +9,7 @@ dropbox: dropbox.in serializeimages.py
+ 	python serializeimages.py $(PACKAGE_VERSION) $(datadir)/applications < dropbox.in > dropbox
+ 	chmod +x dropbox
+ 
+-dropbox.1: dropbox.txt.in dropbox docgen.py
++dropbox.1: dropbox dropbox.txt.in docgen.py
+ 	python docgen.py $(PACKAGE_VERSION) < dropbox.txt.in > dropbox.txt
+ 	$(RST2MAN) dropbox.txt > dropbox.1
+ 

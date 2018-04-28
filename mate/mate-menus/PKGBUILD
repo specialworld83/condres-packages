@@ -1,0 +1,35 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=mate-menus
+pkgver=1.20.0
+pkgrel=1
+pkgdesc="MATE menu specifications"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('glib2' 'python2' 'python')
+makedepends=('wget' 'gobject-introspection' 'mate-common')
+groups=('mate')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	PYTHON=/usr/bin/python2 ./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-python \
+		--disable-static
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

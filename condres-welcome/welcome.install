@@ -1,0 +1,12 @@
+post_install() {
+
+systemctl disable welcomed.service
+systemctl stop welcomed.service
+
+}
+
+post_upgrade() {
+systemctl disable welcomed.service
+systemctl stop welcomed.service
+
+} 

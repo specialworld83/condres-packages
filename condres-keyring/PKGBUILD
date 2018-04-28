@@ -1,0 +1,23 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-keyring
+pkgver=2.0
+pkgrel=2
+epoch=1
+pkgdesc='Condres PGP keyring'
+arch=('any')
+url='https://github.com/specialworld83/condres-keyring'
+license=('GPL')
+install="${pkgname}.install"
+source=('condres-keyring.tar.gz')
+sha256sums=('SKIP')
+
+prepare() {
+    bsdtar xvzf condres-keyring.tar.gz
+}
+package() {
+	#cd "${srcdir}/${pkgname}-${pkgver}"
+	cd "${srcdir}/condres-keyring"
+	make PREFIX=/usr DESTDIR=${pkgdir} install
+}
+# -*- mode: bash;-*-

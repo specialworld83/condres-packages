@@ -1,0 +1,38 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=mate-user-share
+pkgver=1.20.0
+pkgrel=1
+pkgdesc="User level public file sharing via WebDAV for MATE."
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('dbus-glib' 'dconf' 'mod_dnssd' 'gtk3')
+makedepends=('wget' 'caja' 'libcanberra' 'libnotify' 'mate-common' 'yelp-tools')
+optdepends=('yelp: for reading MATE help documents')
+groups=('mate-extra')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--libexec=/usr/lib/${pkgname} \
+		--sysconfdir=/etc \
+		--disable-static \
+		--disable-bluetooth
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make  DESTDIR="${pkgdir}" install
+	rm -f "${pkgdir}/usr/share/mate-user-share/dav_user_2.0.conf"
+}
+
+
+# -*- mode: bash;-*-

@@ -1,0 +1,25 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=screenfetch
+pkgver=3.8.0
+pkgrel=30
+epoch=3
+pkgdesc="CLI Bash script to show system/theme info in screenshots"
+arch=('any')
+url="https://github.com/KittyKatt/screenFetch"
+license=('GPL')
+provides=($_pkgname)
+conflicts=($_pkgname)
+depends=('bash' 'xorg-xdpyinfo' 'xorg-xprop')
+optdepends=('scrot: To take screenshot')
+makedepends=('git')
+source=("screenfetch.zip")
+md5sums=('SKIP')
+
+
+
+package() {
+  cd $pkgname
+  install -Dm755 "screenfetch-dev" "$pkgdir/usr/bin/screenfetch"
+  install -Dm644 "screenfetch.1" "$pkgdir/usr/share/man/man1/screenfetch.1"
+} 

@@ -1,0 +1,24 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=gnome-shell-extension-topicons
+pkgver=21
+pkgrel=1
+epoch=1
+pkgdesc="Shows legacy tray icons on the top panel."
+arch=('any')
+url="https://github.com/phocean/TopIcons-plus"
+license=('GPL')
+install=top.install
+makedepends=('gnome-common')
+groups=('gnome-shell-extensions')
+source=("${pkgname}-${pkgver}.zip::${url}/archive/v${pkgver}.zip")
+md5sums=('SKIP')
+
+
+
+
+package() {
+	cd "${srcdir}/TopIcons-plus-${pkgver}"
+
+	make INSTALL_PATH="${pkgdir}/usr/share/gnome-shell/extensions" install
+} 

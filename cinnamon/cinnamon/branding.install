@@ -1,0 +1,20 @@
+pre_install() {
+rm  /usr/share/cinnamon/theme/menu-symbolic.svg_o
+rm /usr/share/cinnamon/theme/menu-symbolic.svg_old
+}
+
+post_install() {
+
+mv /usr/share/cinnamon/theme/menu-symbolic.svg /usr/share/cinnamon/theme/menu-symbolic.svg_o
+mv /usr/share/cinnamon/theme/menu-symbolic.svg_new_branding /usr/share/cinnamon/theme/menu-symbolic.svg
+
+
+
+
+}
+
+post_upgrade() {
+mv /usr/share/cinnamon/theme/menu-symbolic.svg /usr/share/cinnamon/theme/menu-symbolic.svg_o
+mv /usr/share/cinnamon/theme/menu-symbolic.svg_new_branding /usr/share/cinnamon/theme/menu-symbolic.svg
+
+} 

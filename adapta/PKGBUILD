@@ -1,0 +1,459 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+
+pkgname=('adapta-material-theme'
+		 'adapta-condres-theme'
+		 'adapta-gtk-theme'
+		 'adapta-black-material-theme'
+		 'adapta-black-condres-theme'
+		 )
+_pkgname=adapta-gtk-theme
+_theme=condres-gnome-theme
+pkgver="3.93.0.119"
+pkgrel=1
+epoch=2
+arch=(any)
+_commit=8c033459e5a8f08858c8045a1a42f1f974ebaab7
+url="https://github.com/adapta-project/${_pkgname}"
+license=('GPL2' 'CCPL')
+optdepends=('ttf-roboto: The recommended font'
+            'noto-fonts: The recommended font for improved language support'
+            'gtk-engine-murrine: for gtk2 themes')
+makedepends=('libxml2'
+	         'libsass'
+	         'sassc'
+	         'librsvg'
+             'inkscape'
+	         'libcanberra'
+	         'parallel'
+	         'gnome-shell')
+source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        )
+sha256sums=('SKIP'
+            )
+
+prepare() {
+
+#Create separate dir theme
+cd $srcdir
+    for theme in adapta-material-theme adapta-condres-theme adapta-black-material-theme adapta-black-condres-theme; do
+		cp -r $_pkgname-$pkgver $theme-$pkgver
+	done
+} 
+
+build_material-theme() {
+
+
+
+#build
+cd $srcdir
+    cd "adapta-material-theme-${pkgver}"
+    ./autogen.sh --prefix "${pkgdir}/usr" \
+      --enable-plank \
+      --enable-telegram \
+      --disable-unity \
+      --with-selection_color=#00BCD4 \
+      --with-second_selection_color=#00BCD4 \
+      --enable-parallel #--enable-gtk_next
+    make
+}
+
+build_condres-theme() {
+
+
+
+#build
+cd $srcdir
+    cd "adapta-condres-theme-${pkgver}"
+    ./autogen.sh --prefix "${pkgdir}/usr" \
+      --enable-plank \
+      --enable-telegram \
+      --disable-unity \
+      --with-selection_color=#00BCD4 \
+      --with-second_selection_color=#00BCD4 \
+      --with-accent_color=#00BCD4 \
+      --with-suggestion_color=#00BCD4 \
+      --enable-parallel #--enable-gtk_next
+    make
+}
+
+build_adapta-gtk-theme() {
+cd $srcdir
+  cd $_pkgname-$pkgver
+
+  ./autogen.sh \
+    --prefix='/usr' \
+    --enable-parallel \
+    --enable-plank \
+    --enable-telegram \
+    --disable-unity
+  make
+}
+
+_adapta-black() {
+   find ./extra/gedit/adapta.xml \
+	./extra/plank/dock.theme \
+	./extra/telegram/dark/colors.tdesktop-theme \
+	./extra/telegram/light/colors.tdesktop-theme \
+	./gtk/asset/assets-gtk2.svg.in \
+	./gtk/asset/assets-gtk3.svg.in \
+	./gtk/asset/assets-clone/bar-blue.svg \
+	./gtk/asset/assets-clone/z-depth-1.svg \
+	./gtk/asset/assets-clone/z-depth-2.svg \
+	./gtk/gtk-2.0/colors.rc.in \
+	./gtk/gtk-2.0/colors-dark.rc.in \
+	./gtk/gtk-2.0/common.rc \
+	./gtk/gtk-2.0/common-eta.rc \
+	./gtk/sass/common/_colors.scss \
+	./m4/adapta-color-scheme.m4 \
+	./shell/asset/assets-cinnamon/ \
+	./shell/asset/assets-gnome-shell/ \
+	./shell/asset/assets-xfce/ \
+	./shell/sass/common/_colors.scss \
+	./shell/sass/gnome-shell/3.24/_extension-workspaces-to-dock.scss \
+	./shell/sass/gnome-shell/3.26/_extension-workspaces-to-dock.scss \
+	./shell/xfce-notify-4.0/gtkrc \
+	./wm/asset/assets-metacity/ \
+	./wm/asset/assets-openbox/ \
+	./wm/asset/assets-xfwm/ \
+	./wm/metacity-1/metacity-theme-2.xml \
+	./wm/openbox-3/themerc \
+	./wm/openbox-3/themerc-nokto \
+	./wm/xfwm4/themerc -type f -print | xargs sed -i -e \
+	's/#263238/#263238/Ig'  -e \
+	's/#CFD8DC/#CFD8DC/Ig'  -e \
+	's/#000016/#000016/Ig'  -e \
+	's/#00bcd0/#00bcd0/Ig'  -e \
+	's/#001aff/#001aff/Ig'  -e \
+	's/#03A9F4/#03A9F4/Ig'  -e \
+	's/#0B9BAF/#0B9BAF/Ig'  -e \
+	's/#13191C/#13191C/Ig'  -e \
+	's/#212B30/#212B30/Ig'  -e \
+	's/#2196F3/#38a8a3/Ig'  -e \
+	's/#222D32/#031b17/Ig'  -e \
+	's/#243035/#04201a/Ig'  -e \
+	's/#283237/#062823/Ig'  -e \
+	's/#28343A/#052922/Ig'  -e \
+	's/#29343a/#052923/Ig'  -e \
+	's/#29353B/#062d27/Ig'  -e \
+	's/#2A393E/#052e24/Ig'  -e \
+	's/#2A4145/#053826/Ig'  -e \
+	's/#2c383e/#06322a/Ig'  -e \
+	's/#2d383f/#06322d/Ig'  -e \
+	's/#2D4348/#063d2b/Ig'  -e \
+	's/#2f3d44/#073b32/Ig'  -e \
+	's/#2F5254/#054d2c/Ig'  -e \
+	's/#315054/#31544d/Ig'  -e \
+	's/#323D42/#093a31/Ig'  -e \
+	's/#364146/#0a3e34/Ig'  -e \
+	's/#364249/#0a433b/Ig'  -e \
+	's/#374248/#0a423a/Ig'  -e \
+	's/#37474F/#09493e/Ig'  -e \
+	's/#384449/#0a4237/Ig'  -e \
+	's/#39444a/#0b473e/Ig'  -e \
+	's/#3B464B/#0b463b/Ig'  -e \
+	's/#3f4d53/#0d5446/Ig'  -e \
+	's/#404b51/#0d4f45/Ig'  -e \
+	's/#414c51/#0e5346/Ig'  -e \
+	's/#455A64/#0d6858/Ig'  -e \
+	's/#4C575C/#126455/Ig'  -e \
+	's/#4a555b/#115f54/Ig'  -e \
+	's/#4d5a60/#126959/Ig'  -e \
+	's/#4F5B60/#126857/Ig'  -e \
+	's/#5099d0/#31b9b0/Ig'  -e \
+	's/#5294c4/#3baba2/Ig'  -e \
+	's/#546e7a/#118872/Ig'  -e \
+	's/#555F64/#156f60/Ig'  -e \
+	's/#566067/#15746c/Ig'  -e \
+	's/#56707d/#118d78/Ig'  -e \
+	's/#5c9ece/#38bcb1/Ig'  -e \
+	's/#65aadd/#3ad4ca/Ig'  -e \
+	's/#677176/#1c8d7a/Ig'  -e \
+	's/#6ec9cb/#47bd9a/Ig'  -e \
+	's/#72b1df/#48d5ca/Ig'  -e \
+	's/#788286/#23a98c/Ig'  -e \
+	's/#78909C/#1cc4a8/Ig'  -e \
+	's/#979D9F/#32d29f/Ig'  -e \
+	's/#B8C1C6/#a6f7ca/Ig'  -e \
+	's/#B9C2C7/#a6f7ca/Ig'  -e \
+	's/#BEC2C3/#a2fbc6/Ig'  -e \
+	's/#C1C4C6/#acfbcc/Ig'  -e \
+	's/#C5C9CB/#b1fbd4/Ig'  -e \
+	's/#cbd8dc/#c7fadd/Ig'  -e \
+	's/#cdd6da/#cdf9e3/Ig'  -e \
+	's/#CFE9E8/#e0f1f0/Ig'  -e \
+	's/#d4d6d7/#b6fcd6/Ig'  -e \
+	's/#daddde/#d4fce6/Ig'  -e \
+	's/#E1E3E4/#d3fde7/Ig'  -e \
+	's/#e5e6e7/#d3fde0/Ig'  -e \
+	's/#E5E9EC/#dafbe6/Ig'  -e \
+	's/#E5F2F2/#dcfee3/Ig'  -e \
+	's/#e6e7e8/#d3fde0/Ig'  -e \
+	's/#E7E9EA/#d9fde9/Ig'  -e \
+	's/#E9EAEC/#ddfde2/Ig'  -e \
+	's/#e9ebeb/#ddfde4/Ig'  -e \
+	's/#e9ebec/#ddfdec/Ig'  -e \
+	's/#eaebec/#ddfde7/Ig'  -e \
+	's/#eceff1/#e8fcf0/Ig'  -e \
+	's/#F0F2F3/#ecfdf4/Ig'  -e \
+	's/#f1f3f4/#ecfdf4/Ig'  -e \
+	's/#f2f4f5/#ecfdf4/Ig'  -e \
+	's/#F7F9F9/#f1fef4/Ig'  -e \
+	's/#FAFBFC/#f5fef8/Ig'  -e \
+	's/#fdfdfe/#fbfffa/Ig'  -e \
+	's/rgba(19, 25, 28,/rgba(2, 14, 12,/Ig'  -e \
+	's/19;;25;;28;;/2;;14;;12;;/Ig'  -e \
+	's/28;;36;;41;;/2;;18;;16;;/Ig'  -e \
+	's/stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;/stroke-width:1;stroke-miterlimit:2;stroke-dasharray:none;/Ig'  -e \
+	's/mix(0.8, @accent_color, @fg_color)/mix(0.5, @accent_color, @fg_color)/Ig'
+}
+
+
+build_black-material-theme() {
+cd $srcdir
+    cd "adapta-black-material-theme-${pkgver}"
+    msg "Apply black theme"
+    
+    find . -type f -name '*.*' -exec sed -i \
+	"s/#00BCD4/#00BCD4/g;\
+	s/#4DD0E1/#4DD0E1/g" {} \;
+
+    _adapta-black
+		
+	./autogen.sh --prefix "${pkgdir}/usr" \
+      --enable-plank \
+      --enable-telegram \
+      --disable-unity \
+      --enable-parallel #--enable-gtk_next
+    make
+}
+
+build_black-condres-theme() {
+cd $srcdir
+    cd "adapta-black-condres-theme-${pkgver}"
+    msg "Apply Black theme"
+    
+    find . -type f -name '*.*' -exec sed -i \
+	"s/#00BCD4/#00BCD4/g;\
+	s/#009688/#009688/g;\
+	s/#4DD0E1/#4DD0E1/g;\
+	s/#4DB6AC/#4DB6AC/g" {} \;
+    
+    _adapta-black
+	
+	./autogen.sh --prefix "${pkgdir}/usr" \
+      --enable-plank \
+      --enable-telegram \
+      --disable-unity \
+      --enable-parallel #--enable-gtk_next
+    make
+}
+
+package_adapta-material-theme() {
+pkgdesc="An adaptive Gtk+ theme based on Material Design Guidelines.Build with condres material color"
+conflicts=('adapta-material-theme-dev')
+replaces=('adapta-material-theme-dev')
+	build_material-theme
+    #cd "adapta-material-theme-${pkgver}"
+    make install
+    install -dm 755 "${pkgdir}"/usr/share/plank/themes
+  	ln -s /usr/share/themes/Adapta-material/plank "${pkgdir}"/usr/share/plank/themes/Adapta-material
+
+  	install -Dm 644 LICENSE_CC_BY_SA4 -t "${pkgdir}"/usr/share/licenses/adapta-material-theme/    
+
+# Move the file into another folder to match with name
+cd "$pkgdir/usr/share/themes"
+    mv Adapta Adapta-material
+    mv Adapta-Nokto Adapta-Nokto-material
+    mv Adapta-Eta Adapta-Eta-material
+    mv Adapta-Nokto-Eta Adapta-Nokto-Eta-material
+
+# Modify the index theme
+    sed -i -e 's,.*Adapta.*,Adapta-material,' $pkgdir/usr/share/themes/Adapta-material/index.theme
+    sed -i -e 's,.*Adapta-Nokto.*,Adapta-Nokto-material,' $pkgdir/usr/share/themes/Adapta-Nokto-material/index.theme
+    sed -i -e 's,.*Adapta-Eta.*,Adapta-Eta-material,' $pkgdir/usr/share/themes/Adapta-Eta-material/index.theme
+    sed -i -e 's,.*Adapta-Nokto-Eta.*,Adapta-Nokto-Eta-material,' $pkgdir/usr/share/themes/Adapta-Nokto-Eta-material/index.theme
+
+# New symlink
+cd "$pkgdir/usr/share/themes/Adapta-Nokto-material"
+    ln -sf /usr/share/themes/Adapta-material/xfwm4 xfwm4
+    ln -sf /usr/share/themes/Adapta-material/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-material/plank plank
+    ln -sf /usr/share/themes/Adapta-material/gedit gedit
+    ln -sf /usr/share/themes/Adapta-material/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-material/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-material/gtk-3.0 gtk-3.0
+
+cd "$pkgdir/usr/share/themes/Adapta-Eta-material"
+    ln -sf /usr/share/themes/Adapta-material/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-material/plank plank 
+    ln -sf /usr/share/themes/Adapta-material/telegram telegram     
+    ln -sf /usr/share/themes/Adapta-material/metacity-1 metacity-1
+
+cd "$pkgdir/usr/share/themes/Adapta-Nokto-Eta-material"
+    ln -sf /usr/share/themes/Adapta-Eta-material/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-material/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-material/plank plank
+    ln -sf /usr/share/themes/Adapta-Nokto-material/telegram telegram 
+    ln -sf /usr/share/themes/Adapta-material/xfce-notify-4.0 xfce-notify-4.0
+}
+
+package_adapta-condres-theme() {
+pkgdesc="An adaptive Gtk+ theme based on Material Design Guidelines.Build with condres condres color"
+conflicts=('adapta-condres-theme-dev')
+replaces=('adapta-condres-theme-dev')
+	build_condres-theme
+    #cd "adapta-condres-theme-${pkgver}"
+    make install
+	
+	install -dm 755 "${pkgdir}"/usr/share/plank/themes
+  	ln -s /usr/share/themes/Adapta-condres/plank "${pkgdir}"/usr/share/plank/themes/Adapta-condres
+
+  	install -Dm 644 LICENSE_CC_BY_SA4 -t "${pkgdir}"/usr/share/licenses/adapta-condres-theme/ 
+
+# Move the file into another folder to match with name
+cd "$pkgdir/usr/share/themes"
+    mv Adapta Adapta-condres
+    mv Adapta-Nokto Adapta-Nokto-condres
+    mv Adapta-Eta Adapta-Eta-condres
+    mv Adapta-Nokto-Eta Adapta-Nokto-Eta-condres
+
+# Modify the index theme
+    sed -i -e 's,.*Adapta.*,Adapta-condres,' $pkgdir/usr/share/themes/Adapta-condres/index.theme
+    sed -i -e 's,.*Adapta-Nokto.*,Adapta-Nokto-condres,' $pkgdir/usr/share/themes/Adapta-Nokto-condres/index.theme
+    sed -i -e 's,.*Adapta-Eta.*,Adapta-Eta-condres,' $pkgdir/usr/share/themes/Adapta-Eta-condres/index.theme
+    sed -i -e 's,.*Adapta-Nokto-Eta.*,Adapta-Nokto-Eta-condres,' $pkgdir/usr/share/themes/Adapta-Nokto-Eta-condres/index.theme
+
+# New symlink
+cd "$pkgdir/usr/share/themes/Adapta-Nokto-condres"
+    ln -sf /usr/share/themes/Adapta-condres/xfwm4 xfwm4
+    ln -sf /usr/share/themes/Adapta-condres/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-condres/plank plank
+    ln -sf /usr/share/themes/Adapta-condres/gedit gedit
+    ln -sf /usr/share/themes/Adapta-condres/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-condres/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-condres/gtk-3.0 gtk-3.0
+
+cd "$pkgdir/usr/share/themes/Adapta-Eta-condres"
+    ln -sf /usr/share/themes/Adapta-condres/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-condres/plank plank 
+    ln -sf /usr/share/themes/Adapta-condres/telegram telegram    
+    ln -sf /usr/share/themes/Adapta-condres/metacity-1 metacity-1
+
+cd "$pkgdir/usr/share/themes/Adapta-Nokto-Eta-condres"
+    ln -sf /usr/share/themes/Adapta-Eta-condres/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-condres/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-condres/plank plank
+    ln -sf /usr/share/themes/Adapta-Nokto-condres/telegram telegram    
+    ln -sf /usr/share/themes/Adapta-condres/xfce-notify-4.0 xfce-notify-4.0
+}
+
+package_adapta-gtk-theme() {
+pkgdesc='An adaptive Gtk+ theme based on Material Design Guidelines'
+
+	build_adapta-gtk-theme
+	#cd $_pkgname-$pkgver
+	make DESTDIR="${pkgdir}" install
+
+  	install -dm 755 "${pkgdir}"/usr/share/plank/themes
+  	ln -s /usr/share/themes/Adapta/plank "${pkgdir}"/usr/share/plank/themes/Adapta
+
+  	install -Dm 644 LICENSE_CC_BY_SA4 -t "${pkgdir}"/usr/share/licenses/adapta-gtk-theme/
+}
+
+package_adapta-black-material-theme() {
+pkgdesc="An adaptive Gtk+ theme based on Material Design Guidelines.Build with condres material color Black version"
+	build_black-material-theme
+    #cd "adapta-material-theme-${pkgver}"
+    make install
+    install -dm 755 "${pkgdir}"/usr/share/plank/themes
+  	ln -s /usr/share/themes/Adapta-Black-material/plank "${pkgdir}"/usr/share/plank/themes/Adapta-Black-material
+
+  	install -Dm 644 LICENSE_CC_BY_SA4 -t "${pkgdir}"/usr/share/licenses/adapta-black-material-theme/    
+
+# Move the file into another folder to match with name
+cd "$pkgdir/usr/share/themes"
+    mv Adapta Adapta-Black-material
+    mv Adapta-Nokto Adapta-Black-Nokto-material
+    mv Adapta-Eta Adapta-Black-Eta-material
+    mv Adapta-Nokto-Eta Adapta-Black-Nokto-Eta-material
+
+# Modify the index theme
+    sed -i -e 's,.*Adapta.*,Adapta-Black-material,' $pkgdir/usr/share/themes/Adapta-Black-material/index.theme
+    sed -i -e 's,.*Adapta-Nokto.*,Adapta-Black-Nokto-material,' $pkgdir/usr/share/themes/Adapta-Black-Nokto-material/index.theme
+    sed -i -e 's,.*Adapta-Eta.*,Adapta-Black-Eta-material,' $pkgdir/usr/share/themes/Adapta-Black-Eta-material/index.theme
+    sed -i -e 's,.*Adapta-Nokto-Eta.*,Adapta-Black-Nokto-Eta-material,' $pkgdir/usr/share/themes/Adapta-Black-Nokto-Eta-material/index.theme
+
+# New symlink
+cd "$pkgdir/usr/share/themes/Adapta-Black-Nokto-material"
+    ln -sf /usr/share/themes/Adapta-Black-material/xfwm4 xfwm4
+    ln -sf /usr/share/themes/Adapta-Black-material/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-Black-material/plank plank
+    ln -sf /usr/share/themes/Adapta-Black-material/gedit gedit
+    ln -sf /usr/share/themes/Adapta-Black-material/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-Black-material/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-Black-material/gtk-3.0 gtk-3.0
+
+cd "$pkgdir/usr/share/themes/Adapta-Black-Eta-material"
+    ln -sf /usr/share/themes/Adapta-Black-material/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-Black-material/plank plank 
+    ln -sf /usr/share/themes/Adapta-Black-material/telegram telegram     
+    ln -sf /usr/share/themes/Adapta-Black-material/metacity-1 metacity-1
+
+cd "$pkgdir/usr/share/themes/Adapta-Black-Nokto-Eta-material"
+    ln -sf /usr/share/themes/Adapta-Black-Eta-material/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-Black-material/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-Black-material/plank plank
+    ln -sf /usr/share/themes/Adapta-Black-Nokto-material/telegram telegram 
+    ln -sf /usr/share/themes/Adapta-Black-material/xfce-notify-4.0 xfce-notify-4.0
+}
+
+package_adapta-black-condres-theme() {
+pkgdesc="An adaptive Gtk+ theme based on Material Design Guidelines.Build with condres condres color Black version"
+	build_black-condres-theme
+    #cd "adapta-condres-theme-${pkgver}"
+    make install
+	
+	install -dm 755 "${pkgdir}"/usr/share/plank/themes
+  	ln -s /usr/share/themes/Adapta-Black-condres/plank "${pkgdir}"/usr/share/plank/themes/Adapta-Black-condres
+
+  	install -Dm 644 LICENSE_CC_BY_SA4 -t "${pkgdir}"/usr/share/licenses/adapta-black-condres-theme/ 
+
+# Move the file into another folder to match with name
+cd "$pkgdir/usr/share/themes"
+    mv Adapta Adapta-Black-condres
+    mv Adapta-Nokto Adapta-Black-Nokto-condres
+    mv Adapta-Eta Adapta-Black-Eta-condres
+    mv Adapta-Nokto-Eta Adapta-Black-Nokto-Eta-condres
+
+# Modify the index theme
+    sed -i -e 's,.*Adapta.*,Adapta-Black-condres,' $pkgdir/usr/share/themes/Adapta-Black-condres/index.theme
+    sed -i -e 's,.*Adapta-Nokto.*,Adapta-Black-Nokto-condres,' $pkgdir/usr/share/themes/Adapta-Black-Nokto-condres/index.theme
+    sed -i -e 's,.*Adapta-Eta.*,Adapta-Black-Eta-condres,' $pkgdir/usr/share/themes/Adapta-Black-Eta-condres/index.theme
+    sed -i -e 's,.*Adapta-Nokto-Eta.*,Adapta-Black-Nokto-Eta-condres,' $pkgdir/usr/share/themes/Adapta-Black-Nokto-Eta-condres/index.theme
+
+# New symlink
+cd "$pkgdir/usr/share/themes/Adapta-Black-Nokto-condres"
+    ln -sf /usr/share/themes/Adapta-Black-condres/xfwm4 xfwm4
+    ln -sf /usr/share/themes/Adapta-Black-condres/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-Black-condres/plank plank
+    ln -sf /usr/share/themes/Adapta-Black-condres/gedit gedit
+    ln -sf /usr/share/themes/Adapta-Black-condres/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-Black-condres/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-Black-condres/gtk-3.0 gtk-3.0
+
+cd "$pkgdir/usr/share/themes/Adapta-Black-Eta-condres"
+    ln -sf /usr/share/themes/Adapta-Black-condres/xfce-notify-4.0 xfce-notify-4.0
+    ln -sf /usr/share/themes/Adapta-Black-condres/plank plank 
+    ln -sf /usr/share/themes/Adapta-Black-condres/telegram telegram    
+    ln -sf /usr/share/themes/Adapta-Black-condres/metacity-1 metacity-1
+
+cd "$pkgdir/usr/share/themes/Adapta-Black-Nokto-Eta-condres"
+    ln -sf /usr/share/themes/Adapta-Black-Eta-condres/gtk-3.22 gtk-3.22 
+    ln -sf /usr/share/themes/Adapta-Black-condres/metacity-1 metacity-1
+    ln -sf /usr/share/themes/Adapta-Black-condres/plank plank
+    ln -sf /usr/share/themes/Adapta-Black-Nokto-condres/telegram telegram    
+    ln -sf /usr/share/themes/Adapta-Black-condres/xfce-notify-4.0 xfce-notify-4.0
+}
+
+

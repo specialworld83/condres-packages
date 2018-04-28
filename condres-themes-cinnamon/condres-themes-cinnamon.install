@@ -1,0 +1,9 @@
+post_install(){
+rm -r "/usr/share/themes/Arctic Apricity"
+}
+
+post_upgrade(){
+rm -r "/usr/share/themes/Arctic Apricity"
+}
+
+

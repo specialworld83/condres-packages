@@ -1,0 +1,10 @@
+post_upgrade() {
+	if pacman-key -l >/dev/null 2>&1; then
+		pacman-key --populate condres
+	else
+		echo " >>> Run \`pacman-key --init\` to set up your pacman keyring."
+		echo " >>> Then run \`pacman-key --populate condres\` to install the Condres keyring."
+	fi
+}
+
+

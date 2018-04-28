@@ -1,0 +1,34 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname='Condres Assets'
+pkgname=condresassets
+pkgver=2.2
+pkgrel=1
+pkgdesc='Assets for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://github.com/specialworld83/condresassets"
+depends=('kdebase-runtime' 'icedtea-web')
+source=("condresassets.tar.gz")
+sha256sums=('SKIP')
+install=condresassets.install
+
+package() {
+	mkdir -p "${pkgdir}/usr/share/etc"
+	# mkdir -p "${pkgdir}/usr/share/gnome-shell/extensions"
+	mkdir -p "${pkgdir}/etc/skel"
+	mkdir -p "${pkgdir}/usr/share/plymouth/themes"
+	cp -rf "${srcdir}/condresassets/condres-assets" "${pkgdir}/etc"
+	# cp -rf ${srcdir}/condresassets/extensions/* "${pkgdir}/usr/share/gnome-shell/extensions"
+	# cp -rf "${srcdir}/condresassets/.liquidprompt" "${pkgdir}/etc/skel"
+	cp -rf "${srcdir}/condresassets/plymouth/condres_old" "${pkgdir}/usr/share/plymouth/themes"
+	mkdir -p "${pkgdir}/etc/skel/.config/autostart"
+	mkdir -p "${pkgdir}/etc/gdm"
+	mkdir -p "${pkgdir}/etc/sudoers.d"
+	chmod 750 -R "${pkgdir}/etc/sudoers.d"
+	chmod +x ${pkgdir}/etc/condres-assets/postinstall.sh
+	chmod +x ${pkgdir}/etc/condres-assets/postuseradd.sh
+	# cp -f "${srcdir}/condresassets/firstrun.sh" "${pkgdir}/etc/skel/.config/autostart"
+	# cp -f "${srcdir}/condresassets/firstrun.desktop" "${pkgdir}/etc/skel/.config/autostart"
+
+}

@@ -1,0 +1,15 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-permission
+pkgver=1.3
+pkgrel=2
+epoch=1
+pkgdesc="Condres Permission setting"
+arch=('any')
+license=('GPL')
+depends=('lsb-release')
+install=condres-permission.install
+source=('condres-permission-1.0.tar.gz')
+md5sums=('SKIP')
+
+

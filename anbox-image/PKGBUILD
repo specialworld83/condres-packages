@@ -1,0 +1,17 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=anbox-image
+pkgver=10
+_pkgdate=2017/08/04
+pkgrel=2
+epoch=2
+pkgdesc="Android image for running in Anbox"
+arch=('x86_64')
+url="http://anbox.io/"
+license=('custom')
+source=("https://build.anbox.io/android-images/2017/08/04/android_1_arm64.img")
+sha256sums=('SKIP')
+
+package() {
+  install -Dm 644 $srcdir/android_1_arm64.img $pkgdir/var/lib/anbox/android.img
+}

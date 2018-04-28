@@ -1,0 +1,30 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=firefox
+pkgver=59.0.2
+_pkgrel=2
+pkgrel=2
+pkgdesc="Standalone web browser from mozilla.org"
+arch=(x86_64)
+license=(MPL GPL LGPL)
+url="https://www.mozilla.org/firefox/"
+depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib ffmpeg
+         nss hunspell sqlite ttf-font libpulse)
+optdepends=('networkmanager: Location detection via available WiFi networks'
+            'libnotify: Notification integration'
+            'pulseaudio: Audio support'
+            'speech-dispatcher: Text-to-Speech')
+source=(https://mirrors.niyawe.de/archlinux/pool/packages/$pkgname-$pkgver-$_pkgrel-x86_64.pkg.tar.xz
+        distribution.ini)
+
+sha256sums=('SKIP'
+            'SKIP')
+
+
+prepare() {
+    cp -rv ../distribution.ini $srcdir/usr/lib/firefox/distribution/
+}
+
+package() {
+    cp -r $srcdir/usr $pkgdir
+}

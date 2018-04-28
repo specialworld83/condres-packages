@@ -1,0 +1,50 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-desktop-settings
+pkgver=2.7
+pkgrel=1
+pkgdesc="Setup configuration for Condres Desktops"
+url="http://github.com/condres/condres-desktop-settings"
+arch=('any')
+license=('GPL2')
+depends=('condres-schemas' 'dconf' 'ttf-lato' 'xfce4-whiskermenu-plugin')
+source=("condres-desktop-settings.tar.gz"
+	"logo_condres_mini.svg"
+	"condres.png"
+	"kdeglobals"
+	"plasmarc"
+	"Trolltech.conf")
+md5sums=('SKIP'
+	 'SKIP'
+	 'SKIP' 
+	 'SKIP' 
+	 'SKIP'
+	 'SKIP')
+backup=('etc/xdg/kdeglobals' 
+        'etc/xdg/plasmarc' 
+        'etc/xdg/Trolltech.conf')
+install=settings.install
+
+
+
+package() {
+    cd "${srcdir}/condres-desktop-settings"
+    install -d $pkgdir/usr/share/icons
+    cp -rv ../../logo_condres_mini.svg $pkgdir/usr/share/icons
+    cp -rv ../../condres.png $pkgdir/usr/share/icons
+    
+    # Install skel
+    for file in $(find skel/. -type f); do
+        install -Dm644 ${file#./} "${pkgdir}/etc/skel/${file#skel/./}"
+    done
+
+    # Cinnamon needs .themes dir
+    install -d "${pkgdir}/etc/skel/.themes"
+ 
+    install -d $pkgdir/etc/xdg/
+    cp -rv ../../kdeglobals $pkgdir/etc/xdg
+    cp -rv ../../plasmarc $pkgdir/etc/xdg
+    cp -rv ../../Trolltech.conf $pkgdir/etc/xdg
+    
+}
+ 

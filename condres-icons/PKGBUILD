@@ -1,0 +1,19 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname='Condres Icons'
+pkgname=condres-icons
+pkgver=2.1
+pkgrel=1
+pkgdesc='Icons for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://condresos.codelinsoft.it"
+depends=()
+source=("condres-icons.tar.gz")
+install=condres-icons.install
+sha256sums=('SKIP')
+
+package() {
+	mkdir -p "${pkgdir}/usr/share/icons"
+	cp -rf "${srcdir}/condres-icons/Condres Icons" "${pkgdir}/usr/share/icons"
+}

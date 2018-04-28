@@ -1,0 +1,24 @@
+_pkgname='Condres Themes'
+pkgname=condres-themes-gnome
+_pkgver=3.7
+pkgrel=1
+_gnomever=3.28
+pkgver=${_gnomever}.${_pkgver}
+pkgdesc='Gnome Assets for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://condresos.codelinsoft.it"
+depends=()
+source=("condres-themes-gnome.tar.gz")
+sha256sums=('SKIP')
+install="condres-themes-gnome.install"
+
+package() {
+	rm -rf "${pkgdir}/usr/share/themes/Arctic Condres"
+	mkdir -p "${pkgdir}/usr/share/themes"
+	# mkdir -p "${pkgdir}/etc/skel/.config/autostart"
+	mkdir -p "${pkgdir}/usr/share/gnome-shell/extensions"
+	cp -rf ${srcdir}/condres-themes-gnome/extensions/* "${pkgdir}/usr/share/gnome-shell/extensions"
+	cp -rf "${srcdir}/condres-themes-gnome/Arctic Condres" "${pkgdir}/usr/share/themes"
+	# cp -f "${srcdir}/condres-themes-gnome/firstrun-desktop.sh" "${pkgdir}/etc/skel/.config/autostart"
+}

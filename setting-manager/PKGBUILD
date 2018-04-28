@@ -1,0 +1,42 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-settings-manager
+pkgver=1.0
+pkgrel=16
+pkgdesc="Condres GNU/Linux System Settings Tool"
+arch=('any')
+url="https://codelinsoft.it/"
+license=('GPL3')
+depends=('icu' 'qt5-base' 'hwinfo' 'kitemmodels' 'kauth' 
+         'kcoreaddons' 'ckbcomp' 'xdg-utils')
+makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools'
+             'knotifications' 'kconfigwidgets' 'kcmutils')
+source=("condres-settings-manager-1.0.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir"/${pkgname}-${pkgver}
+  mkdir -p build
+  cd build
+  cmake ../ \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSYSCONF_INSTALL_DIR=/etc
+  make
+}
+
+package() {
+    #fix issue: Create "/usr/share/pixmaps/faces" directory #28
+    #rm -rf "${pkgdir}/usr/share/pixmaps/faces/"
+    #mkdir -p "${pkgdir}/usr/share/pixmaps/faces/"
+    install -dDm 755 $pkgdir/usr/share/pixmaps/
+    install -dDm 755 $pkgdir/usr/share/icons/
+    install -Dm644 "${srcdir}/condres-settings-manager-1.0/preferences-desktop-condres.png" "${pkgdir}/usr/share/pixmaps/"
+    install -Dm644 "${srcdir}/condres-settings-manager-1.0/preferences-desktop-condres.png" "${pkgdir}/usr/share/icons/"
+
+    cd "${srcdir}/${pkgname}-${pkgver}/build"
+    make DESTDIR=${pkgdir} install 
+}
+

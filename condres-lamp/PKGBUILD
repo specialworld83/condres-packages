@@ -1,0 +1,30 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-lamp
+pkgver=1.0
+pkgrel=2
+pkgdesc='Condres meta package that installs LAMP'
+url='http://condresos.codelinsoft.it'
+arch=('any')
+license=('GPL3')
+depends=('apache' 'php' 'php-apache' 'mariadb' 'phpmyadmin' 'php-mcrypt' 'proftpd')
+install=${pkgname}.install
+source=('consite' 'conissite' 'localhost.conf' 'php.conf')
+md5sums=(
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP')
+
+package() {
+    # Install consite and conissite scripts
+    install -Dm755 consite ${pkgdir}/usr/bin/consite
+    install -Dm755 conissite ${pkgdir}/usr/bin/conissite
+
+    # Install localhost.conf in /etc/httpd/conf/sites-available/
+    install -Dm644 localhost.conf \
+        ${pkgdir}/etc/httpd/conf/sites-available/localhost.conf
+
+    # Install php.conf to load php module
+    install -Dm644 php.conf ${pkgdir}/etc/httpd/conf/mods-enabled/php.conf
+}

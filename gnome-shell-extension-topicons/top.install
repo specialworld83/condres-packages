@@ -1,0 +1,5 @@
+pre_install() {
+rm -rf /usr/share/gnome-shell/extensions/TopIcons@phocean.net/schemas/gschemas.compiled
+rm -rf /usr/share/gnome-shell/extensions/TopIcons@phocean.net/
+rm -rf /usr/share/gnome-shell/extensions/TopIcons@phocean.net/schemas/org.gnome.shell.extensions.topicons.gschema.xml
+}

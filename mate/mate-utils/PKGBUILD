@@ -1,0 +1,39 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=mate-utils
+pkgver=1.20.0
+pkgrel=2
+pkgdesc="Common MATE utilities for viewing disk usage, logs, and fonts, taking screenshots, managing dictionaries, and searching files"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('desktop-file-utils' 'gtk3' 'libcanberra' 'libgtop' 'libsm' 'zlib')
+makedepends=('wget' 'mate-common' 'mate-panel' 'rarian' 'yelp-tools')
+optdepends=('mate-panel: Look up words in dictionaries from the panel'
+			'yelp: for reading MATE help documents')
+groups=('mate-extra')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--libexecdir=/usr/lib/${pkgname} \
+		--sysconfdir=/etc \
+		--enable-deprecated \
+		--disable-maintainer-flags \
+		--disable-static
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+
+# -*- mode: bash;-*-

@@ -1,0 +1,17 @@
+post_install() {
+
+mv /boot/grub/themes/Elegant_Dark_New /boot/grub/themes/Elegant_Dark_New.old
+ln -s /boot/grub/themes/Condres-Default /boot/grub/themes/Elegant_Dark_New
+grub-mkconfig -o /boot/grub/grub.cfg
+
+  cat << _EOF
+
+==> Installation:
+==> Add theme to your /etc/default/grub:
+GRUB_THEME="/boot/grub/themes/Condres-Default/theme.txt"
+==> Preferred resolution 1024x768: GRUB_GFXMODE=1024x768
+==> Update grub:# grub-mkconfig -o /boot/grub/grub.cfg
+
+_EOF
+}
+# -*- mode: bash;-*-

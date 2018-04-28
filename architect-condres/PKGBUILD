@@ -1,0 +1,38 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=architect
+pkgver=1.0.1
+pkgrel=4
+options=(staticlibs)
+pkgdesc='Distribution-independent installer framework'
+arch=('any')
+license=(GPL)
+url="https://github.com/calamares"
+license=('LGPL')
+depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap' 'dmidecode'
+         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache' 'rsync' 'squashfs-tools')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
+
+
+source+=("architect.tar.gz")
+
+sha256sums=('SKIP')
+
+prepare() {
+    bsdtar xvzf architect.tar.gz
+    cd ${srcdir}/architect
+}
+
+
+build() {
+    cd ${srcdir}/architect
+
+}
+
+package() {
+    cd ${srcdir}/architect
+    install -d "$pkgdir"/usr/share/
+    cp -rv "${srcdir}/architect/" "$pkgdir/usr/share/architect/"
+
+}
+

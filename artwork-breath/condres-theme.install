@@ -1,0 +1,25 @@
+post_remove(){
+rm -rf /usr/share/plasma/desktoptheme/default
+mv /usr/share/plasma/desktoptheme/default /usr/share/plasma/desktoptheme/default_old
+ln -s /usr/share/plasma/desktoptheme/breath /usr/share/plasma/desktoptheme/default
+rm -rf /usr/share/sddm/themes/breeze/
+ln -s /usr/share/sddm/themes/breath /usr/share/sddm/themes/breeze
+
+}
+
+pre_upgrade(){
+rm -rf /usr/share/plasma/desktoptheme/default
+mv /usr/share/plasma/desktoptheme/default /usr/share/plasma/desktoptheme/default_old
+ln -s /usr/share/plasma/desktoptheme/breath /usr/share/plasma/desktoptheme/default
+rm -rf /usr/share/sddm/themes/breeze/
+ln -s /usr/share/sddm/themes/breath /usr/share/sddm/themes/breeze
+
+}
+
+pre_install(){
+rm -rf /usr/share/plasma/desktoptheme/default
+mv /usr/share/plasma/desktoptheme/default /usr/share/plasma/desktoptheme/default_old
+ln -s /usr/share/plasma/desktoptheme/breath /usr/share/plasma/desktoptheme/default
+rm -rf /usr/share/sddm/themes/breeze/
+ln -s /usr/share/sddm/themes/breath /usr/share/sddm/themes/breeze
+}

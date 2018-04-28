@@ -1,0 +1,5 @@
+pre_install() {
+mv /etc/skel /etc/skel_old
+rm -rf /etc/skel_old
+}
+

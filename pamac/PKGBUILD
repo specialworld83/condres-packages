@@ -1,0 +1,77 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=(pamac pamac-tray-appindicator)
+pkgver=6.2.6
+_pkgver=6.2.6
+pkgrel=12
+pkgdesc='A GTK3 frontend for libalpm'
+arch=('x86_64')
+url='https://github.com/manjaro/pamac'
+license=('GPL3')
+depends=(
+	'glib2' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3' 'gtk3'
+	'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls'
+	'appstream-glib' 'archlinux-appstream-data'
+)
+makedepends=('gettext' 'itstool' 'vala' 'git' 'libappindicator-gtk3' 'meson')
+backup=('etc/pamac.conf')
+conflicts=('pamac-dev')
+source=(
+	"pamac-$_pkgver.tar.gz::$url/archive/v$_pkgver.tar.gz"
+	'https://patch-diff.githubusercontent.com/raw/manjaro/pamac/pull/369.patch'
+)
+md5sums=('SKIP'
+         'b0ce8a76d50eb58cbf6542db868ca4f5')
+
+
+
+prepare() {
+	cd "${srcdir}/pamac-${pkgver}"
+
+	# adjust version string
+	sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala 
+
+	# patches here
+	# https://github.com/manjaro/pamac/pull/369
+	patch -Np1 -i ../../369.patch
+}
+
+build() {
+	cd "${srcdir}/pamac-${pkgver}"
+	mkdir -p build && cd build
+
+	meson --prefix=/usr --sysconfdir=/etc --libdir=lib -Denable-appindicator=true ..
+	ninja
+}
+
+package_pamac() {
+	optdepends=(
+		'pamac-dev-tray-appindicator: tray icon for KDE'
+	)
+	conflicts=('pamac')
+	provides=('pamac')
+	backup=('etc/pamac.conf')
+
+
+	cd "${srcdir}/pamac-${pkgver}/build"
+	DESTDIR="${pkgdir}" ninja install
+
+	# Enable applicable systemd timers
+	mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
+	ln -sf /usr/lib/systemd/system/pamac-cleancache.timer "${pkgdir}/etc/systemd/system/multi-user.target.wants"
+
+	# Remove pamac-tray-appindicator
+	rm "${pkgdir}/usr/bin/pamac-tray-appindicator"
+	rm -f "${pkgdir}/etc/xdg/autostart/pamac-tray-appindicator.desktop"
+}
+
+package_pamac-tray-appindicator() {
+	pkgdesc='Tray icon using appindicator for improved KDE support.'
+	depends=('pamac' 'libappindicator-gtk3')
+	conflicts=('pamac-tray-appindicator-dev')
+	backup=()
+
+	cd "${srcdir}/pamac-${pkgver}/build"
+	install -Dm755 src/pamac-tray-appindicator "${pkgdir}/usr/bin/pamac-tray-appindicator"
+	install -Dm644 ../data/applications/pamac-tray-appindicator.desktop "${pkgdir}/etc/xdg/autostart/pamac-tray-appindicator.desktop"
+}

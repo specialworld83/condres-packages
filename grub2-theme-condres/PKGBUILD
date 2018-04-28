@@ -1,0 +1,23 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=grub2-fantasy-theme-condres
+pkgver=1.0
+pkgrel=2
+pkgdesc="Condres fantasy Grub2 theme"
+arch=('any')
+license=('GPL')
+url="https://condresos.codelinsoft.it"
+depends=('grub')
+replaces=('deepin-grub2-themes')
+install=$pkgname.install
+source=("Condres-Fantasy.tar.gz"
+        'grub2-fantasy-theme-condres.install')
+sha256sums=('SKIP'
+            'SKIP')
+
+
+package() {
+  mkdir -p ${pkgdir}/etc/condres-assets/
+  cp -R ../Condres-Fantasy ${pkgdir}/etc/condres-assets/Condres-Fantasy
+}
+

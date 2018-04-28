@@ -1,0 +1,21 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=gnome-shell-extension-condres-window-list-main-panel
+pkgver=1.0.5_all
+pkgrel=7
+epoch=1
+pkgdesc="Various settings and changes for the panel in Condres Desktop."
+arch=('i686' 'x86_64')
+url="http://codelinsoft.com/"
+license=('GPL-2+')
+depends=('gnome-shell')
+options=('!emptydirs' '!strip')
+install=${pkgname}.install
+source=('data.tar.xz')
+md5sums=('SKIP')
+
+package() {
+  msg2 "Extracting the data.tar.xz..."
+  bsdtar -xf data.tar.xz -C "$pkgdir/"
+}
+ 

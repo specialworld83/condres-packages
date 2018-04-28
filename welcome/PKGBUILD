@@ -1,0 +1,23 @@
+pkgname=welcome
+pkgver=5.7
+pkgrel=4
+epoch=1
+pkgdesc="Live Welcome app for Condres OS Gnu/Linux"
+arch=('x86_64')
+url="http://condresos.codelinsoft.it/"
+license=('GPL')
+depends=('qt5-quickcontrols2' 'plasma-framework')
+makedepends=('git')
+source=("welcome.tar.gz")
+md5sums=('SKIP')
+
+build() {
+    cd welcome/
+    qmake welcome.pro
+    make
+}
+
+package() {
+    cd welcome/
+   make INSTALL_ROOT=${pkgdir}/ install
+} 

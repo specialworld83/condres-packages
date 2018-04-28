@@ -1,0 +1,36 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=cinnamon-menus
+pkgver=3.8.0
+pkgrel=1
+pkgdesc="Cinnamon menu specifications"
+arch=('x86_64')
+url="https://github.com/linuxmint/${pkgname}"
+license=('GPL' 'LGPL')
+depends=('glib2')
+makedepends=('gobject-introspection')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('d35578643afb156ea61c2f9d7bd57def583f62d7080e6fccf86d961b7c041006')
+
+prepare() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    autoreconf -fi
+}
+
+build() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    ./configure --prefix=/usr \
+                --disable-static
+    make
+}
+
+package(){
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    make DESTDIR="${pkgdir}" install
+}
+ 
+
+ 

@@ -1,0 +1,18 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=plymouth-theme-condres
+pkgver=2.0
+pkgrel=18
+epoch=2
+pkgdesc="Condres Plymouth Theme"
+arch=('any')
+license=('unknown')
+depends=('plymouth')
+install="condres-plymouth.install"
+source=('https://www.codelinsoft.it/updates/condres.tar.gz')
+md5sums=('SKIP')
+
+package() {
+	install -dDm 755 $pkgdir/usr/share/plymouth/themes/
+	cp -rv ${srcdir}/condres $pkgdir/usr/share/plymouth/themes/condres
+} 

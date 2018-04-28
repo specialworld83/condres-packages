@@ -1,0 +1,17 @@
+post_install() {
+  systemctl disable teamviewerd
+   systemctl enable teamviewerd
+   systemctl restart teamviewerd
+}
+
+post_upgrade() {
+   systemctl disable teamviewerd
+   systemctl enable teamviewerd
+   systemctl restart teamviewerd
+}
+
+post_remove() {
+  rm -rf /opt/teamviewer
+}
+
+# vim: ts=2 sw=2 et:

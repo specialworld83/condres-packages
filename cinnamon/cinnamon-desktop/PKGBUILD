@@ -1,0 +1,37 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=cinnamon-desktop
+pkgver=3.8.0
+pkgrel=1
+pkgdesc="Library with common API for various Cinnamon modules"
+arch=('x86_64')
+url="https://github.com/linuxmint/${pkgname}"
+license=('GPL' 'LGPL')
+depends=('accountsservice' 'gtk3' 'libxkbfile' 'libpulse')
+makedepends=('meson' 'gobject-introspection' 'intltool')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "config.patch")
+sha256sums=('83f31043a758224a2de6dc7015b75461f29bc48091cd1bbb3b99e7e683e73524'
+            '45f403e6fe4ec701a0f3d16e990bb36598dd4a58fac5a374f85ccecdf74dd98a')
+
+prepare() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+    # Adjust configuration
+    patch -Np1 -i ../config.patch
+}
+
+build() {
+    mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build
+    cd "${srcdir}"/${pkgname}-${pkgver}/build
+
+    meson --prefix=/usr --buildtype=plain ..
+    ninja
+}
+
+package() {
+    cd "${srcdir}"/${pkgname}-${pkgver}/build
+
+    DESTDIR="${pkgdir}" ninja install
+    # rm legacy migration script (cinnamon 2.4) and its package dependency on python
+    rm -rf "${pkgdir}"/usr/bin
+}

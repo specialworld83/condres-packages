@@ -1,0 +1,22 @@
+/home/calogeroelvira/condres/condres-packages-master/condres-prime/
+
+pkgname=condres-system
+_pkgname=system
+pkgver=0.1
+pkgrel=13
+pkgdesc='Condres OS Gnu/Linux system'
+arch=(any)
+license=(GPL)
+install=system.install
+url="https://condresos.codelinsoft.it"
+depends=('lsb-release' 'linux413' 'linux413-headers')
+replaces=('linux' 'linux-headers')
+source=("system.tar.gz")
+md5sums=('SKIP')
+
+
+
+package() {
+    cd "${srcdir}/${_pkgname}"
+
+}

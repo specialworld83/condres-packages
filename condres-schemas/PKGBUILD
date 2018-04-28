@@ -1,0 +1,27 @@
+pkgname=condres-schemas
+pkgver=4.1
+pkgrel=4
+pkgdesc="Condres Settings Desktop"
+arch=('any')
+license=('GPL')
+depends=('lsb-release' 'condres-permission' 'condres-desktop-settings' 'ttf-lato' 'super-flat-remix-icon-theme' 'condres-settings-manager' 'condres-kernel-manager' 'materia-condres-theme' 'grub2-fantasy-theme-condres')
+install="condres-schemas.install"
+source=('condres-schemas-1.0.tar.gz'
+	'logo_condres_mini.svg')
+backup=('usr/share/glib-2.0/schemas/99_condres-cinnamon.gschema.override' 
+        'usr/share/glib-2.0/schemas/99_condres-mate.gschema.override' 
+        'usr/share/glib-2.0/schemas/99_condres-settings.gschema.override'
+	'usr/share/glib-2.0/schemas/92_condres_deepin.gschema.override')
+md5sums=('SKIP' 'SKIP')
+
+package() {
+	install -dDm 755 $pkgdir/usr/share/glib-2.0/schemas/
+	cp -rv $srcdir/condres-schemas-1.0/99_condres-cinnamon.gschema.override $pkgdir/usr/share/glib-2.0/schemas/
+	cp -rv $srcdir/condres-schemas-1.0/99_condres-mate.gschema.override $pkgdir/usr/share/glib-2.0/schemas/
+	cp -rv $srcdir/condres-schemas-1.0/99_condres-settings.gschema.override $pkgdir/usr/share/glib-2.0/schemas/
+        cp -rv $srcdir/condres-schemas-1.0/92_condres_deepin.gschema.override $pkgdir/usr/share/glib-2.0/schemas/
+        install -dDm 755 $pkgdir/usr/share/icons/Flat-Remix/places/symbolic/
+        cp -rv ../logo_condres_mini.svg $pkgdir/usr/share/icons/Flat-Remix/places/symbolic/
+
+
+} 

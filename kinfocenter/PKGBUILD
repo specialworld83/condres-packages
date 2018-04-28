@@ -1,0 +1,43 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=kinfocenter
+pkgver=5.12.4
+pkgrel=1.2
+pkgdesc='A utility that provides information about a computer system'
+arch=('i686' 'x86_64')
+url='https://www.kde.org/applications/system/kinfocenter/'
+license=('LGPL')
+depends=(kcmutils pciutils glu libraw1394 kwayland )
+makedepends=(extra-cmake-modules python plasma-framework kdoctools)
+groups=('plasma')
+source=("http://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
+        'kcm-about-distrorc'
+	'condres_os.png')
+sha256sums=('SKIP'
+            'SKIP'
+	    'SKIP')
+
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+
+# configure Condres logo
+  install -d $pkgdir/usr/share/icons
+  cp -rv ../../condres_os.png $pkgdir/usr/share/icons/
+  install -Dm644 "$srcdir"/kcm-about-distrorc "$pkgdir"/etc/xdg/kcm-about-distrorc
+} 

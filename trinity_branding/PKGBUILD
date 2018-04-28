@@ -1,0 +1,54 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=trinity-brandring-condres
+pkgver=3.1
+pkgrel=1
+pkgdesc="Setup Trinity Desktop configuration for Condres Desktops"
+url="http://github.com/condres/cinnamon-brandring-condres"
+arch=('any')
+license=('GPL2')
+install=branding.install
+depends=('tde-tdelibs' 'tde-tdebase')
+source=("logo.png"
+        "condres_tux.png"
+        "logo.svgz"
+        "logo_k.svgz"
+        "logo_k.png"
+        "condres_tux.svg"
+	)
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	 )
+
+
+
+
+package() {
+    
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/128x128/apps
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/16x16/apps
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/22x22/apps
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/32x32/apps
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/48x48/apps
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/64x64/apps
+    install -d $pkgdir/opt/trinity/share/icons/crystalsvg/scalable/apps
+    install -d $pkgdir/opt/trinity/share/wallpapers
+    cp -rv ../logo_k.png $pkgdir/opt/trinity/share/icons/crystalsvg/128x128/apps
+    cp -rv ../logo_k.png $pkgdir/opt/trinity/share/icons/crystalsvg/16x16/apps
+    cp -rv ../logo_k.png $pkgdir/opt/trinity/share/icons/crystalsvg/22x22/apps
+    cp -rv ../logo_k.png $pkgdir/opt/trinity/share/icons/crystalsvg/32x32/apps
+    cp -rv ../logo_k.png $pkgdir/opt/trinity/share/icons/crystalsvg/48x48/apps
+    cp -rv ../logo_k.png $pkgdir/opt/trinity/share/icons/crystalsvg/64x64/apps
+    cp -rv ../logo_k.svgz $pkgdir/opt/trinity/share/icons/crystalsvg/scalable/apps
+     cp -rv ../logo.png $pkgdir/opt/trinity/share/icons/crystalsvg/128x128/apps
+    cp -rv ../logo.png $pkgdir/opt/trinity/share/icons/crystalsvg/16x16/apps
+    cp -rv ../logo.png $pkgdir/opt/trinity/share/icons/crystalsvg/22x22/apps
+    cp -rv ../logo.png $pkgdir/opt/trinity/share/icons/crystalsvg/32x32/apps
+    cp -rv ../logo.png $pkgdir/opt/trinity/share/icons/crystalsvg/48x48/apps
+    cp -rv ../logo.png $pkgdir/opt/trinity/share/icons/crystalsvg/64x64/apps
+    cp -rv ../logo.svgz $pkgdir/opt/trinity/share/icons/crystalsvg/scalable/apps
+    cp -rv ../condres_tux.png $pkgdir/opt/trinity/share/wallpapers
+    cp -rv ../condres_tux.svg $pkgdir/opt/trinity/share/wallpapers
+    
+}
+ 
+ 

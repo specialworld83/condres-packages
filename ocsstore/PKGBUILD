@@ -1,0 +1,32 @@
+pkgname=ocsstore
+pkgver=3.0.2
+pkgrel=1
+pkgdesc="OCS-Store frontend.Downloading and Managing Linux softwares,fonts,artworks,desktop-themes and so on."
+arch=('x86_64')
+url="https://www.opendesktop.org/c/1492685474"
+license=('GPL3')
+depends=('gconf' 'libxss' 'qt5-base>=5.3.0' 'qt5-websockets>=5.3.0' 'appimage')
+
+source=("https://dl.opendesktop.org/api/files/downloadfile/id/1517216192/s/fc15e4aa7439b421e2d2abebdc592327/t/1518427092/u//opendesktop-app-3.0.2-1-x86_64.AppImage"
+        "ocsstore.desktop"
+        "ocsstore.png")
+
+
+md5sums=('SKIP' 'SKIP' 'SKIP')
+
+
+package() {
+  install -dm755 ${pkgdir}/opt/
+  install -dm755 ${pkgdir}/opt/opendesktop
+  install -dm755 ${pkgdir}/usr/
+  install -dm755 ${pkgdir}/usr/bin
+  install -dm755 ${pkgdir}/usr/share/icons
+  install -dm755 ${pkgdir}/usr/share/applications
+  cp -rv ../opendesktop-app-3.0.2-1-x86_64.AppImage ${pkgdir}/opt/opendesktop/
+  ln -fs ${pkgdir}/opt/opendesktop/opendesktop-app-3.0.2-1-x86_64.AppImage $pkgdir/usr/bin/opendesktop-app
+  chmod 777 $pkgdir/usr/bin/opendesktop-app
+  chmod 777 ${pkgdir}/opt/opendesktop/opendesktop-app-3.0.2-1-x86_64.AppImage
+  cp -rv ../ocsstore.png ${pkgdir}/usr/share/icons
+  cp -rv ../ocsstore.desktop ${pkgdir}/usr/share/applications
+  
+}

@@ -1,0 +1,30 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-browser-settings
+pkgver=1.2
+pkgrel=3
+epoch=1
+pkgdesc="Condres OS Gnu/Linux settings browser defaults"
+arch=('any')
+url="https://condresos.codelinsoft.it"
+license=('GPL')
+install=brow.install
+backup=('usr/lib/firefox/distribution/distribution.ini')
+source=("condres-browser-settings-master.tar.gz")
+depends=('lsb-release' 'firefox' 'chromium' 'google-chrome')
+md5sums=('SKIP')
+
+
+prepare() {
+    bsdtar xvzf condres-browser-settings-master.tar.gz
+}
+
+package() {
+  cd condres-browser-settings-master
+  mkdir -p $pkgdir/usr/lib/{chrome,chromium,{firefox,light,palemoon}/distribution}
+  cp chrome/* $pkgdir/usr/lib/chrome
+  cp chrome/* $pkgdir/usr/lib/chromium
+  cp firefox/* $pkgdir/usr/lib/firefox/distribution
+  cp palemoon/* $pkgdir/usr/lib/palemoon/distribution
+  ln -s /usr/lib/firefox/distribution $pkgdir/usr/lib/light/distribution
+} 

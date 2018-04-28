@@ -1,0 +1,110 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgbase=mhwd
+pkgname=('mhwd' 'mhwd-db')
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="Condres OS Linux Hardware Detection"
+arch=('i686' 'x86_64')
+url="http://git.manjaro.org"
+license=('GPL')
+depends=('gcc-libs' 'hwinfo')
+makedepends=('git' 'cmake')
+groups=('base')
+_git=yes
+
+getsource() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [ -d $1 ] ; then
+    if [ "$_git" == "yes" ] ; then
+       cd $1 && git pull origin master
+    else
+       cd $1 && git pull origin master && git checkout -b $pkgver
+    fi
+    msg "The local files are updated."
+  else
+    git clone $2 $1
+    if [ "$_git" != "yes" ] ; then
+       cd $1 && git checkout -b $pkgver $pkgver
+    else
+       if [ "$1" == "mhwd" ] ; then
+          cd $1 && git checkout master
+       fi
+    fi
+  fi
+
+  msg "GIT checkout done or server timeout"
+}
+
+prepare() {
+  getsource "mhwd" "https://github.com/manjaro/mhwd.git"
+  getsource "mhwd-db" "https://github.com/manjaro/mhwd-db.git"
+}
+
+build() {
+  cd ${srcdir}/${pkgname}
+
+  if [ -e ${srcdir}/../mhwd-${pkgver}-${pkgrel}.patch ]; then
+     patch -Np1 -i ${srcdir}/../mhwd-${pkgver}-${pkgrel}.patch
+  fi
+
+  cmake ./
+  make all
+}
+
+package_mhwd() {
+  pkgdesc="Condres OS Linux Hardware Detection library and application"
+  depends=('hwinfo' 'mesa' 'mhwd-db' 'v86d' 'pacman')
+    arch=('any')
+  install=mhwd.install
+
+  cd ${srcdir}/${pkgname}
+
+  make DESTDIR="${pkgdir}" install
+  install -d -m755 ${pkgdir}/var/lib/mhwd/{db,local}/{pci,usb}
+}
+
+package_mhwd-db() {
+  pkgdesc="Condres OS Linux Hardware Detection Database"
+  #arch=('i686' 'x86_64')
+  arch=('any')
+  install=mhwd-db.install
+
+  cd ${srcdir}/${pkgname}/
+
+  if [ -e ${srcdir}/../mhwd-db-${pkgver}-${pkgrel}.patch ]; then
+     patch -Np1 -i ${srcdir}/../mhwd-db-${pkgver}-${pkgrel}.patch
+  fi
+
+  mkdir -p ${pkgdir}/var/lib/mhwd/db
+  mkdir -p ${pkgdir}/etc/X11/mhwd.d
+
+  cp -r pci ${pkgdir}/var/lib/mhwd/db/
+  # cp -r usb ${pkgdir}/var/lib/mhwd/db/
+
+  # remove catalyst-legacy
+  #rm -r ${pkgdir}/var/lib/mhwd/db/pci/graphic_drivers/catalyst-legacy
+  # remove catalyst
+  #rm -r ${pkgdir}/var/lib/mhwd/db/pci/graphic_drivers/catalyst
+
+  # remove slmodem on x86_64
+  #if [ "${CARCH}" = "x86_64" ]; then
+     rm -r ${pkgdir}/var/lib/mhwd/db/pci/network_drivers/slmodem/
+  #fi
+}
+
+package_mhwd-db-catalyst() {
+  pkgdesc="Condres OS Linux Hardware Detection Database (Catalyst)"
+  arch='any'
+  install=mhwd-db.install
+
+  getsource "mhwd-db" "git://git.manjaro.org/core/mhwd-db.git"
+
+  cd ${srcdir}/mhwd-db/
+
+  mkdir -p ${pkgdir}/var/lib/mhwd/db/pci/graphic_drivers
+
+  cp -r pci/graphic_drivers/catalyst* ${pkgdir}/var/lib/mhwd/db/pci/graphic_drivers
+} 

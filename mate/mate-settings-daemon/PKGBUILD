@@ -1,0 +1,40 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=mate-settings-daemon
+pkgver=1.20.1
+pkgrel=1
+pkgdesc="The MATE Settings Daemon"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('dbus-glib' 'dconf' 'fontconfig' 'gtk3' 'libcanberra-pulse'
+		 'libmatekbd' 'libmatemixer' 'libnotify' 'libxt'
+		 'mate-desktop' 'nss' 'polkit')
+makedepends=('wget' 'mate-common')
+groups=('mate')
+replaces=("${pkgname}-gstreamer" "${pkgname}-pulseaudio")
+conflicts=("${pkgname}-gstreamer" "${pkgname}-pulseaudio")
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--bindir=/usr/bin \
+		--sbindir=/usr/bin \
+		--libexecdir=/usr/lib/${pkgname} \
+		--sysconfdir=/etc \
+		--enable-polkit \
+		--disable-static
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

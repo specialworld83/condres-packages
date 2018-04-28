@@ -1,0 +1,18 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname='Condres Icons'
+pkgname=condres-mac-icons
+pkgver=1.0.5
+pkgrel=1
+pkgdesc='Icons Apple for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://www.gnome-look.org/p/1102582/"
+depends=()
+source=("https://dl.opendesktop.org/api/files/downloadfile/id/1510321229/s/209051878f84fcc9c898a396918203f8/t/1513679965/macOS.tar.xz")
+sha256sums=('SKIP')
+
+package() {
+	mkdir -p "${pkgdir}/usr/share/icons"
+	cp -rf "${srcdir}/macOS" "${pkgdir}/usr/share/icons"
+} 

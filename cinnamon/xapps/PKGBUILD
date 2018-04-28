@@ -1,0 +1,31 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=xapps
+pkgver=1.0.4
+pkgrel=2
+pkgdesc="Common library for X-Apps project"
+arch=('x86_64')
+url='https://github.com/linuxmint/xapps'
+license=('GPL')
+depends=('libgnomekbd' 'python' 'libxkbfile')
+makedepends=('gnome-common' 'gobject-introspection')
+options=(!emptydirs)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/linuxmint/${pkgname}/archive/${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+
+build() {
+	cd ${pkgname}-${pkgver}
+
+	./autogen.sh \
+		--prefix=/usr \
+		--localstatedir=/var \
+		--libexecdir=/usr/lib/${pkgname}
+	make
+}
+
+package(){
+	cd ${pkgname}-${pkgver}
+	make DESTDIR="$pkgdir" install
+}
+

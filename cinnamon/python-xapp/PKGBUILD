@@ -1,0 +1,23 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=python-xapp
+pkgver=1.2.0
+pkgrel=11
+pkgdesc='Python Xapp library'
+arch=('any')
+license=('GPL2')
+groups=('cinnamon')
+url='https://github.com/linuxmint/python-xapp'
+depends=('python' 'python-psutil')
+makedepends=('python-setuptools')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/linuxmint/${pkgname}/archive/$pkgver.tar.gz")
+md5sums=('SKIP')
+
+
+
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	python setup.py install --root="${pkgdir}" --optimize=1
+}
+

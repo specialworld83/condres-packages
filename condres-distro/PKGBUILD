@@ -1,0 +1,22 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-distro
+_pkgname=distro
+pkgver=0.1
+pkgrel=11
+pkgdesc='Condres OS Gnu/Linux Distro essential'
+arch=(any)
+license=(GPL)
+install=system.install
+url="https://condresos.codelinsoft.it"
+depends=('lsb-release' 'linux' 'linux-headers')
+conficts=('linux413' 'linux413-headers' 'linux318' 'linux318-headers' 'linux412' 'linux412-headers')
+source=("distro.tar.gz")
+md5sums=('SKIP')
+
+
+
+package() {
+    cd "${srcdir}/${_pkgname}"
+
+}

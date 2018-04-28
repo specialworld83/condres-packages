@@ -1,0 +1,82 @@
+# Maintainer: CodeLinSoft <info@codelinsoft.it>
+
+pkgbase=artwork-condres-dark
+pkgname=('condres-icon-theme' 'condres-dark-icon-theme' 'plasma5-themes-condres' 'sddm-condres-theme' )
+pkgver=3.2
+pkgrel=8
+url=https://www.codelinsoft.it/updates/
+arch=('any')
+license=('LGPL')
+#install="condres-theme.install"
+makedepends=('extra-cmake-modules' 'plasma-framework')
+source=("http://www.codelinsoft.it/updates/artwork-breath-master.tar.gz")
+md5sums=('SKIP')
+
+
+prepare() {
+
+  mv $srcdir/artwork-breath-master $srcdir/condres
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../condres \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+
+
+package_condres-icon-theme() {
+  pkgdesc='condres icon theme'
+  cd build
+  make DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}/usr/share/color-schemes"
+  rm -rf "${pkgdir}/usr/share/icons/breath-dark"
+  rm -rf "${pkgdir}/usr/share/kservices5"
+  rm -rf "${pkgdir}/usr/share/metainfo"
+  rm -rf "${pkgdir}/usr/share/plasma"
+  rm -rf "${pkgdir}/usr/share/sddm"
+  rm -rf "${pkgdir}/usr/share/wallpapers"
+}
+
+package_condres-dark-icon-theme() {
+  pkgdesc='condres dark icon theme'
+  cd build
+  make DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}/usr/share/color-schemes"
+  rm -rf "${pkgdir}/usr/share/icons/breath"
+  rm -rf "${pkgdir}/usr/share/kservices5"
+  rm -rf "${pkgdir}/usr/share/metainfo"
+  rm -rf "${pkgdir}/usr/share/plasma"
+  rm -rf "${pkgdir}/usr/share/sddm"
+  rm -rf "${pkgdir}/usr/share/wallpapers"
+}
+
+package_plasma5-themes-condres() {
+  pkgdesc='Condres theme for KDE Plasma 5'
+  depends=('breeze')
+  optdepends=('breath-icon-theme: light icon theme'
+              'breath-dark-icon-theme: dark icon theme')
+  replaces=('breath-themes')
+  cd build
+  make DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}/usr/share/sddm"
+  rm -rf "${pkgdir}/usr/share/icons"
+}
+
+package_sddm-condres-theme() {
+  pkgdesc="condres theme for SDDM"
+  depends=('plasma-framework' 'plasma-workspace')
+  cd build
+  make DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}/usr/share/color-schemes"
+  rm -rf "${pkgdir}/usr/share/icons"
+  rm -rf "${pkgdir}/usr/share/kservices5"
+  rm -rf "${pkgdir}/usr/share/metainfo"
+  rm -rf "${pkgdir}/usr/share/plasma"
+  rm -rf "${pkgdir}/usr/share/wallpapers"
+}

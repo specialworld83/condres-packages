@@ -1,0 +1,47 @@
+pre_install (){
+
+rm /etc/pacman.conf.old
+rm /etc/pacman.conf.new 
+rm /etc/mkinitcpio.conf.new
+rm /usr/lib/os-release.new
+}
+
+
+
+post_install(){
+
+mv /etc/pacman.conf /etc/pacman.conf.old
+mv /etc/pacman.conf.new /etc/pacman.conf
+mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.old
+mv /etc/mkinitcpio.conf.new  /etc/mkinitcpio.conf
+mv /usr/lib/os-release /usr/lib/os-release.old
+mv /usr/lib/os-release.new /usr/lib/os-release
+
+mkinitcpio -P 
+
+ cat << _EOF
+
+==> Fix plymouth and add new module radeon, nouveau, i915 
+
+_EOF
+}
+
+post_upgrade(){
+
+
+mv /etc/pacman.conf /etc/pacman.conf.old
+mv /etc/pacman.conf.new /etc/pacman.conf
+mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.old
+mv /etc/mkinitcpio.conf.new  /etc/mkinitcpio.conf
+mv /usr/lib/os-release /usr/lib/os-release.old
+mv /usr/lib/os-release.new /usr/lib/os-release
+
+mkinitcpio -P 
+
+
+ cat << _EOF
+
+==> Fix plymouth and add new module radeon, nouveau, i915 
+
+_EOF
+}

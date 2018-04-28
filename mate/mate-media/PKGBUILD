@@ -1,0 +1,37 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=mate-media
+pkgver=1.20.0
+pkgrel=2
+url="https://mate-desktop.org"
+pkgdesc="MATE Media Tools"
+arch=('x86_64')
+license=('GPL')
+depends=('gtk3' 'libcanberra')
+makedepends=('wget' 'mate-common' 'libmatemixer' 'mate-desktop')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+groups=('mate-extra')
+replaces=("${pkgname}-gstreamer" "${pkgname}-pulseaudio")
+conflicts=("${pkgname}-gstreamer" "${pkgname}-pulseaudio")
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir=/usr/lib/${pkgname} \
+		--localstatedir=/var \
+		--disable-static
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

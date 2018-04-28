@@ -1,0 +1,39 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=mate-power-manager
+pkgver=1.20.1
+pkgrel=1
+pkgdesc="Power management tool for the MATE desktop"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('dbus-glib' 'gtk3' 'libcanberra' 'libgnome-keyring' 'libnotify' 'upower')
+makedepends=('wget' 'docbook2x' 'docbook-xml' 'mate-common' 'mate-panel' 'xmlto' 'yelp-tools')
+optdepends=('yelp: for reading MATE help documents')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+groups=('mate-extra')
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--libexecdir=/usr/lib/${pkgname} \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--sbindir=/usr/bin \
+		--enable-applets \
+		--disable-strict
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

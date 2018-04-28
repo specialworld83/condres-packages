@@ -1,0 +1,7 @@
+post_install() {
+chmod 777 /usr/bin/fabaria
+}  
+
+post_upgrade() {
+chmod 777 /usr/bin/fabaria
+}

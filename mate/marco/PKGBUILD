@@ -1,0 +1,37 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=marco
+pkgver=1.20.1
+pkgrel=2
+pkgdesc="A window manager for MATE"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('gtk3' 'libcanberra' 'libgtop' 'libice' 'libsm' 'libxt'
+		'mate-desktop' 'startup-notification' 'zenity')
+makedepends=('wget' 'mate-common' 'yelp-tools')
+optdepends=('yelp: for reading MATE help documents')
+groups=('mate')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-startup-notification \
+		--disable-static
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

@@ -1,0 +1,143 @@
+--- a/include/core/dbus/asio/executor.h
++++ b/include/core/dbus/asio/executor.h
+@@ -26,7 +26,7 @@ namespace boost
+ {
+ namespace asio
+ {
+-class io_service;
++class io_context;
+ }
+ }
+ 
+@@ -37,7 +37,7 @@ namespace dbus
+ namespace asio
+ {
+ ORG_FREEDESKTOP_DBUS_DLL_PUBLIC Executor::Ptr make_executor(const Bus::Ptr& bus);
+-ORG_FREEDESKTOP_DBUS_DLL_PUBLIC Executor::Ptr make_executor(const Bus::Ptr& bus, boost::asio::io_service& io);
++ORG_FREEDESKTOP_DBUS_DLL_PUBLIC Executor::Ptr make_executor(const Bus::Ptr& bus, boost::asio::io_context& io);
+ }
+ }
+ }
+--- a/src/core/dbus/asio/executor.cpp
++++ b/src/core/dbus/asio/executor.cpp
+@@ -22,7 +22,7 @@
+ #include <core/dbus/traits/watch.h>
+ 
+ #include <boost/asio.hpp>
+-#include <boost/asio/io_service.hpp>
++#include <boost/asio/io_context.hpp>
+ 
+ #include <stdexcept>
+ 
+@@ -101,9 +101,9 @@ public:
+     template<typename UnderlyingTimeoutType = DBusTimeout>
+     struct Timeout : std::enable_shared_from_this<Timeout<UnderlyingTimeoutType>>
+     {
+-        Timeout(boost::asio::io_service& io_service, UnderlyingTimeoutType* timeout)
+-            : io_service(io_service),
+-              timer(io_service),
++        Timeout(boost::asio::io_context& io_context, UnderlyingTimeoutType* timeout)
++            : io_context(io_context),
++              timer(io_context),
+               timeout(timeout)
+         {
+             if (!timeout)
+@@ -160,7 +160,7 @@ public:
+             traits::Timeout<UnderlyingTimeoutType>::invoke_timeout_handler(timeout);
+         }
+ 
+-        boost::asio::io_service& io_service;
++        boost::asio::io_context& io_context;
+         boost::asio::deadline_timer timer;
+         UnderlyingTimeoutType* timeout;
+     };
+@@ -168,8 +168,8 @@ public:
+     template<typename UnderlyingWatchType = DBusWatch>
+     struct Watch : std::enable_shared_from_this<Watch<UnderlyingWatchType>>
+     {
+-        Watch(boost::asio::io_service& io_service, UnderlyingWatchType* watch) : io_service(io_service),
+-            stream_descriptor(io_service),
++        Watch(boost::asio::io_context& io_context, UnderlyingWatchType* watch) : io_context(io_context),
++            stream_descriptor(io_context),
+             watch(watch)
+         {
+             if (!watch)
+@@ -255,7 +255,7 @@ public:
+             }
+         }
+ 
+-        boost::asio::io_service& io_service;
++        boost::asio::io_context& io_context;
+         boost::asio::posix::stream_descriptor stream_descriptor;
+         UnderlyingWatchType* watch;
+     };
+@@ -281,7 +281,7 @@ public:
+             return TRUE;
+ 
+         auto thiz = static_cast<Executor*>(data);
+-        auto w = std::shared_ptr<Watch<>>(new Watch<>(thiz->io_service, watch));
++        auto w = std::shared_ptr<Watch<>>(new Watch<>(thiz->io_context, watch));
+         auto holder = new Holder<std::shared_ptr<Watch<>>>(w);
+         dbus_watch_set_data(watch, holder, Holder<std::shared_ptr<Watch<>>>::ptr_delete);
+ 
+@@ -309,7 +309,7 @@ public:
+     static dbus_bool_t on_dbus_add_timeout(DBusTimeout* timeout, void* data)
+     {
+         auto thiz = static_cast<Executor*>(data);
+-        auto t = std::shared_ptr<Timeout<>>(new Timeout<>(thiz->io_service, timeout));
++        auto t = std::shared_ptr<Timeout<>>(new Timeout<>(thiz->io_context, timeout));
+         auto holder = new Holder<std::shared_ptr<Timeout<>>>(t);
+         dbus_timeout_set_data(
+                     timeout,
+@@ -335,7 +335,7 @@ public:
+     {
+         auto thiz = static_cast<Executor*>(data);
+         auto bus = thiz->bus;
+-        thiz->io_service.post([bus]()
++        thiz->io_context.post([bus]()
+         {
+             while (dbus_connection_get_dispatch_status(bus->raw()) == DBUS_DISPATCH_DATA_REMAINS)
+             {
+@@ -346,7 +346,7 @@ public:
+ 
+ public:
+ 
+-    Executor(const Bus::Ptr& bus, boost::asio::io_service& io) : bus(bus), io_service(io), work(io_service)
++    Executor(const Bus::Ptr& bus, boost::asio::io_context& io) : bus(bus), io_context(io), work(io_context)
+     {
+         if (!bus)
+             throw std::runtime_error("Precondition violated, cannot construct executor for null bus.");
+@@ -383,27 +383,27 @@ public:
+ 
+     void run()
+     {
+-        io_service.run();
++        io_context.run();
+     }
+ 
+     void stop()
+     {
+-        io_service.stop();
++        io_context.stop();
+     }
+ 
+ private:
+     Bus::Ptr bus;
+-    boost::asio::io_service& io_service;
+-    boost::asio::io_service::work work;
++    boost::asio::io_context& io_context;
++    boost::asio::io_context::work work;
+ };
+ 
+ ORG_FREEDESKTOP_DBUS_DLL_PUBLIC Executor::Ptr make_executor(const Bus::Ptr& bus)
+ {
+-    static boost::asio::io_service io;
++    static boost::asio::io_context io;
+     return std::make_shared<core::dbus::asio::Executor>(bus, io);
+ }
+ 
+-ORG_FREEDESKTOP_DBUS_DLL_PUBLIC Executor::Ptr make_executor(const Bus::Ptr& bus, boost::asio::io_service& io)
++ORG_FREEDESKTOP_DBUS_DLL_PUBLIC Executor::Ptr make_executor(const Bus::Ptr& bus, boost::asio::io_context& io)
+ {
+     return std::make_shared<core::dbus::asio::Executor>(bus, io);
+ }

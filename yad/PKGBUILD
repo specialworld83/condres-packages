@@ -1,0 +1,28 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=yad
+pkgver=0.40.0
+pkgrel=1
+pkgdesc="A fork of zenity - display graphical dialogs from shell scripts or command line"
+url="http://sourceforge.net/projects/yad-dialog"
+arch=('x86_64' 'i686')
+license=('GPL3')
+depends=('gtk3' 'webkit2gtk')
+makedepends=('intltool')
+source=("${url}/files/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=/usr --with-gtk=gtk3 --enable-icon-browser --enable-html
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+} 

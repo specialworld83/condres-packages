@@ -1,0 +1,41 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=cinnamon-screensaver
+pkgver=3.8.0
+pkgrel=1
+pkgdesc="Screensaver designed to integrate well with the Cinnamon desktop."
+arch=('x86_64')
+url="https://github.com/linuxmint/${pkgname}"
+license=('GPL')
+depends=('accountsservice' 'cinnamon-desktop' 'dbus-glib' 'libgnomekbd'
+         'python-cairo' 'python-gobject' 'python-setproctitle' 'python-xapp' 'xapps' 'webkit2gtk')
+optdepends=('cinnamon-translations: i18n')
+makedepends=('gobject-introspection' 'intltool')
+backup=(etc/pam.d/cinnamon-screensaver)
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "cinnamon-screensaver.pam")
+sha256sums=('aaac17cdab736dead7fbf13af17fca37c4a2c029353f1e8263372ce4e8e75359'
+            'SKIP')
+
+prepare() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    autoreconf -fi
+}
+
+build() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    ./configure --prefix=/usr \
+                --sysconfdir=/etc \
+                --libexecdir=/usr/lib/cinnamon-screensaver \
+                --localstatedir=/var
+    make
+}
+
+package() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    make DESTDIR="${pkgdir}" install
+    install -Dm644 ../cinnamon-screensaver.pam "${pkgdir}"/etc/pam.d/cinnamon-screensaver
+}

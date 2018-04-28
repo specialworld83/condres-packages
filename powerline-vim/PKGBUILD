@@ -1,0 +1,14 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=powerline-vim-condres
+pkgver=1.0
+pkgrel=2
+pkgdesc="Condres Powerline Vim"
+arch=('any')
+license=('GPL')
+depends=('lsb-release' )
+install=powerline-vim-condres.install
+source=('powerline-vim-condres.tar.gz')
+md5sums=('SKIP')
+
+

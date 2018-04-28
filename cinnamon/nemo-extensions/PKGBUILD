@@ -1,0 +1,225 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgbase=nemo-extensions
+pkgname=(
+	'nemo-audio-tab'
+	'nemo-fileroller'
+	'nemo-preview'
+	'nemo-python'
+	'nemo-share'
+	'nemo-seahorse'
+	'nemo-dropbox'
+	'nemo-terminal'
+	'nemo-emblems'
+)
+_commit=a0fa86b
+pkgver=3.6.0
+pkgrel=3
+arch=('x86_64')
+license=('GPL2')
+url="https://github.com/linuxmint/nemo-extensions"
+groups=('cinnamon')
+depends=('nemo' 'file-roller' 'cjs' 'clutter-gtk' 'clutter-gst' 'gst-plugins-good' 'libmusicbrainz5'
+		'evince' 'gtksourceview3' 'webkit2gtk' 'python2-gobject' 'libcryptui' 'gcr' 'samba'
+		'libgnome-keyring' 'mutagen' 'vte3')
+makedepends=('gnome-common' 'gtk-doc' 'intltool' 'gobject-introspection' 'python2-distutils-extra'
+			'python2-docutils' 'pygtk' 'python2-gobject2')
+source=("https://github.com/linuxmint/nemo-extensions/archive/${_commit}.tar.gz"
+		'https://github.com/linuxmint/nemo-extensions/pull/212.patch'
+		'https://github.com/linuxmint/nemo-extensions/pull/213.patch')
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP')
+
+
+
+
+_make_install() {
+	cd "${pkgbase}-${_commit}"*/"${pkgname}"
+        
+	make DESTDIR="${pkgdir}" install
+	
+}
+
+_setup.py() {
+	cd "${pkgbase}-${_commit}"*/"${pkgname}"
+	python2 ./setup.py install --root="${pkgdir}" --prefix=/usr --optimize=1
+	cd -
+}
+
+prepare() {
+	cd "${pkgbase}-${_commit}"*
+        
+	# seahorse-nautilus conflict
+	# https://github.com/linuxmint/nemo-extensions/pull/213.patch
+	patch -Np1 -i ../212.patch
+
+	# nemo-dropbox makefile error
+	# https://github.com/linuxmint/nemo-extensions/pull/213.patch
+	patch -Np1 -i ../213.patch
+
+	# Python2 fix
+	find -type f | xargs sed -i 's@^#!.*python$@#!/usr/bin/python2@'
+	sed -i 's/<<EOF | python/&2/g' nemo-dropbox/configure.ac
+        
+	sed -i 's|python|&2|g' nemo-dropbox/Makefile.am
+}
+
+build() {
+	cd "${pkgbase}-${_commit}"*
+        
+	_configure_pkgs=(
+		'nemo-dropbox'
+		'nemo-fileroller'
+		'nemo-seahorse'
+		'nemo-share'
+	)
+
+	_autogen_pkgs=(
+		'nemo-preview'
+		'nemo-python'
+	)
+
+	_distutils_pkgs=(
+		'nemo-audio-tab'
+		'nemo-emblems'
+	)
+
+	for pkg in "${_configure_pkgs[@]}"
+	do
+		cd "${pkg}"
+ 		PYTHON=python2 autoreconf -fi
+
+		if [[ "${pkg}" = 'nemo-dropbox' ]]; then
+			sed -i 's|python rst2man.py|python2 /usr/bin/rst2man2.py|g' configure
+                        sed -i "s/1.2 1.4 2.0 2.1/1.2 1.4 2.0 2.1 2.2/" configure
+		fi
+ 		sed -i "s/1.2 1.4 2.0 2.1/1.2 1.4 2.0 2.1 2.2/" configure
+		PYTHON=python2 ./configure \
+			--prefix=/usr \
+			--sysconfdir=/etc \
+			--localstatedir=/var \
+			--libexecdir="/usr/lib/${pkg}" \
+			--disable-static \
+			--disable-schemas-compile
+		make
+		cd -
+	done
+
+
+	for pkg in "${_autogen_pkgs[@]}"
+	do
+		cd "${pkg}"
+		PYTHON=python2 ./autogen.sh \
+			--prefix=/usr \
+			--sysconfdir=/etc \
+			--localstatedir=/var \
+			--libexecdir="/usr/lib/${pkg}" \
+			--disable-static \
+			--disable-schemas-compile
+		make
+		cd -
+	done
+
+	for pkg in "${_distutils_pkgs[@]}"
+	do
+		cd "${pkg}"
+		python2 ./setup.py build
+		cd -
+	done
+}
+
+package_nemo-audio-tab() {
+	pkgdesc="View audio tag information from within Nemo's file properties tab"
+	arch=('any')
+	depends=('nemo-python' 'mutagen')
+	makedepends=('python2-distutils-extra')
+
+	_setup.py
+}
+
+package_nemo-dropbox() {
+	pkgdesc='Dropbox integration for Nemo'
+	license=('CCPL' 'GPL')
+	depends=('nemo' 'dropbox' 'libnotify')
+	makedepends=('python2-docutils' 'pygtk' 'python2-gobject2')
+
+	_make_install
+
+	# remove dropbox executables since they'll be provided by the 'dropbox' package
+	rm "${pkgdir}/usr/bin/dropbox"
+	rm "${pkgdir}/usr/share/applications/dropbox.desktop"  
+	rm "${pkgdir}/usr/share/man/man1/dropbox.1"
+	rm -rf "${pkgdir}/usr/share/pixmap"
+	rm -rf "${pkgdir}/usr/share/icons"
+}
+
+package_nemo-fileroller(){
+	pkgdesc='File Roller integration for Nemo'
+	depends=('nemo' 'file-roller')
+
+	_make_install
+}
+
+package_nemo-preview(){
+	pkgdesc='Quick file previewer for Nemo'
+	depends=('nemo' 'cjs' 'clutter-gtk' 'clutter-gst' 'libmusicbrainz5' 'evince'
+			'gtksourceview3' 'webkit2gtk' 'gst-plugins-good' 'gst-libav')
+	makedepends=('gnome-common')
+
+	_make_install
+}
+
+package_nemo-python() {
+	pkgdesc='Python2 binding for Nemo components'
+	depends=('nemo' 'python2-gobject')
+	makedepends=('gnome-common')
+
+	_make_install
+}
+
+package_nemo-seahorse(){
+	pkgdesc='OpenPGP extension for Nemo'
+	depends=('nemo' 'libcryptui' 'gcr' 'libgnome-keyring')
+
+	_make_install
+}
+
+package_nemo-share(){
+	pkgdesc='Samba extension for Nemo'
+	depends=('nemo' 'samba')
+
+	_make_install
+}
+
+package_nemo-terminal() {
+	pkgdesc='Embedded terminal for Nemo'
+	arch=('any')
+	depends=('nemo-python' 'python2-gobject' 'vte3')
+
+	cd "${pkgbase}-${_commit}"*/"${pkgname}"
+
+	install -Dm755 \
+		src/nemo_terminal.py \
+		"${pkgdir}/usr/share/nemo-python/extensions/nemo_terminal.py"
+
+	install -Dm644 \
+		src/org.nemo.extensions.nemo-terminal.gschema.xml \
+		"${pkgdir}/usr/share/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml"
+
+	install -Dm644 \
+		pixmap/logo_120x120.png \
+		"${pkgdir}/usr/share/nemo-terminal/logo_120x120.png"
+}
+
+package_nemo-emblems() {
+	pkgdesc='Change your folder and file emblems in Nemo'
+	arch=('any')
+	depends=('nemo-python')
+	makedepends=('python2-distutils-extra')
+
+	_setup.py
+
+	pkgver=3.4.1
+}
+ 

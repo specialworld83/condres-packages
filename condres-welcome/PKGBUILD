@@ -1,0 +1,52 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-welcome
+_pkgname=welcome
+pkgver=0.3
+pkgrel=12
+pkgdesc='Welcome screen for Condres Linux'
+arch=(any)
+license=(GPL)
+install=welcome.install
+url="https://github.com/condres/welcome"
+depends=('python-gobject' 'python-pydbus' 'webkit2gtk' 'python-simplejson' 'notification-daemon' 'pyalpm')
+source=("welcome-0.3.tar.gz")
+md5sums=('SKIP')
+
+
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+
+    # Install condres-welcomed (dbus service)
+    install -d "${pkgdir}/usr/share/condres/welcomed"
+    cp -R src/welcomed/. "${pkgdir}/usr/share/condres/welcomed"
+    install -Dm755 bin/condres-welcomed "${pkgdir}/usr/bin/condres-welcomed"
+
+    # Install condres-welcomed service file
+    install -d "${pkgdir}/usr/lib/systemd/system"
+    install -m644 dbus/welcomed.service \
+        "${pkgdir}/usr/lib/systemd/system/welcomed.service"
+
+    # Install d-bus setup files
+    install -d "${pkgdir}/usr/share/dbus-1/system-services"
+    install -m644 dbus/com.condres.welcome.service \
+        "${pkgdir}/usr/share/dbus-1/system-services/com.condres.welcome.service"
+    install -d "${pkgdir}/etc/dbus-1/system.d"
+    install -m644 dbus/com.condres.welcome.conf \
+        "${pkgdir}/etc/dbus-1/system.d/com.condres.welcome.conf"
+    install -d "${pkgdir}/usr/share/polkit-1/actions"
+    install -m644 dbus/com.condres.welcome.policy \
+        "${pkgdir}/usr/share/polkit-1/actions/com.condres.welcome.policy"
+
+    # Install condres-welcome (client app)
+    install -d "${pkgdir}/usr/share/condres/welcome"
+    cp src/*.py "${pkgdir}/usr/share/condres/welcome"
+    install -Dm755 bin/condres-welcome \
+        "${pkgdir}/usr/bin/condres-welcome"
+    install -Dm644 condres-welcome.desktop \
+        "${pkgdir}/usr/share/applications/condres-welcome.desktop"
+    
+    install -d "${pkgdir}/usr/share/condres/welcome/data"
+    cp -R data/. "${pkgdir}/usr/share/condres/welcome/data"
+}

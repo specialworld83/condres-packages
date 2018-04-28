@@ -1,0 +1,23 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=deepin-grub2-themes
+pkgver=1.0
+pkgrel=2
+epoch=1
+pkgdesc="Condres fantasy Grub2 theme"
+arch=('any')
+license=('GPL')
+url="https://condresos.codelinsoft.it"
+depends=('grub')
+install=deepin-grub2-themes.install
+source=("Condres-Fantasy-Deepin.tar.gz"
+        'deepin-grub2-themes.install')
+sha256sums=('SKIP'
+            'SKIP')
+
+
+package() {
+  mkdir -p ${pkgdir}/etc/condres-assets/
+  cp -R ../Condres-Fantasy-Deepin ${pkgdir}/etc/condres-assets/Condres-Fantasy-Deepin
+}
+

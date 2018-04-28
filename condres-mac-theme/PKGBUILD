@@ -1,0 +1,21 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname="condres-mac-gnome-theme"
+_pkgname="iOS-theme"
+pkgver=1.0
+pkgrel=1
+pkgdesc="Mac GNOME theme is a pretty simple shell theme inspired on apple design."
+arch=('any')
+url="https://github.com/daniruiz/Flat-Remix-GNOME-theme/"
+license=('CC-BY-SA-4.0')
+source=("iOS-theme.zip")
+sha256sums=('SKIP')
+
+
+
+package() {
+    cd "${srcdir}/${_pkgname}/"
+    install -dm755 "${pkgdir}/usr/share/themes"
+    cp -rv ../../"iOS-theme" "${pkgdir}/usr/share/themes/"
+   
+} 

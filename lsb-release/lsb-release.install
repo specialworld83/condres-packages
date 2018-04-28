@@ -1,0 +1,12 @@
+post_install() {
+  echo "Condres OS release" >> /etc/arch-release
+}
+
+post_upgrade() {
+  sed -e "/Condres OS release/d" -i /etc/arch-release
+  echo "Condres OS release" >> /etc/arch-release
+}
+
+pre_remove() {
+  sed -e "/Condres OS release/d" -i /etc/arch-release
+}

@@ -1,0 +1,21 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=ndiswrapper-utils
+pkgver=1.61
+pkgrel=2
+pkgdesc="Binaries for ndiswrapper module"
+arch=('i686' 'x86_64')
+license=('GPL')
+url="http://ndiswrapper.sourceforge.net"
+depends=('wireless_tools' 'glibc' 'perl')
+replaces=('ndiswrapper-bin')
+conflicts=('ndiswrapper-bin')
+source=(http://downloads.sourceforge.net/ndiswrapper/ndiswrapper-$pkgver.tar.gz)
+md5sums=('SKIP')
+
+package() {
+  cd $startdir/src/ndiswrapper-$pkgver/utils
+  make || return 1
+  make DESTDIR=$startdir/pkg install
+}
+ 

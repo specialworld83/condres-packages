@@ -1,0 +1,33 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=python-caja
+pkgver=1.20.0
+pkgrel=1
+pkgdesc="Python binding for Caja. Enables support for property page and menu item extensions that are written in Python"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+groups=('mate-extra' 'caja-extensions')
+depends=('caja' 'python-gobject')
+makedepends=('wget' 'mate-common')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	PYTHON=/usr/bin/python ./configure \
+		--prefix=/usr \
+		--disable-static
+	make
+}
+
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

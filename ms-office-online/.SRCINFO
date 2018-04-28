@@ -1,0 +1,39 @@
+pkgbase = ms-office-online
+        pkgdesc = Microsoft Office Suite Online for Manjaro Linux
+        pkgver = 17.10.5
+        pkgrel = 3
+        url = https://www.office.com/
+        arch = any
+        license = custom
+        depends = python-jade-application-kit>=0.a26
+        source = ms-office-online
+        source = Office.png
+        source = PowerPoint.png
+        source = Excel.png
+        source = Word.png
+        source = Outlook.png
+        source = OneNote.png
+        source = MSOffice.desktop
+        source = PowerPoint.desktop
+        source = Excel.desktop
+        source = Word.desktop
+        source = Outlook.desktop
+        source = OneNote.desktop
+        source = application-settings.json
+        sha256sums = 0b586cec923ef651156f7cd91440a2ddb0faf107177356a891136b89dc54dd3e
+        sha256sums = f60711baf4e761493e20895fd48c1715f40cd3aae13c3a31281ac66a681f4b4f
+        sha256sums = 2d2e4aaf4eb7fe3bc486a33d5d5916223554cad0a4b30be14407e45cc169b517
+        sha256sums = e58d848d97212c0faa4c4c854931422c714f603636f41f1ab69798f50322a62f
+        sha256sums = 30054dc858159919b71fb92c047a596696717c1a744bba9388320b354f1a50fa
+        sha256sums = 067b43cfe2c1f2a6298a39509992525e03e95d8ffb0140b887e4e68706925efd
+        sha256sums = dfa2b513a8a27b52ae1e441f745e01e85929b4bbfe393a347428d2eec27be2c9
+        sha256sums = 1ca746fbffffd27197a3cc706549ec70def84d6841fd85886373f9d990572b4f
+        sha256sums = 9d06d13dcb717505b6dad8f8a571d46ca5ff77b7df54d8d3801ecc5d03097d94
+        sha256sums = 5eb8fa731876811fa57079f7a7a28ee7b803b1b95cc836637361be5728c8b1a6
+        sha256sums = 5ae79390d43e82273c5acd76b65bcc610ac37420faae4ce9c8e74d71e1e08355
+        sha256sums = 439143c1fa418a2aa460bb2b181b575975dc2eda0acacfd6601bd427a4d0e7fa
+        sha256sums = 11c7701466a62cb5369e686a2ba37f63d4c92d073562c26656a4f35046648e29
+        sha256sums = f6f495b08137736b97d19478ad56e56a26f893775428af8489a12795e94fe843
+
+pkgname = ms-office-online
+

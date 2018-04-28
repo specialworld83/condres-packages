@@ -1,0 +1,22 @@
+/home/calogeroelvira/condres/condres-packages-master/condres-prime/
+
+_pkgname='Condres Themes'
+pkgname=Condres-themes-cinnamon
+pkgver=2.0
+pkgrel=1
+pkgdesc='Cinnamon Assets for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://condresos.codelinsoft.it"
+depends=()
+source=("condres-themes-cinnamon.tar.gz")
+sha256sums=('SKIP')
+install="condres-themes-cinnamon.install"
+
+package() {
+	rm -rf "${pkgdir}/usr/share/themes/Arctic Condres"
+	mkdir -p "${pkgdir}/usr/share/themes"
+	mkdir -p "${pkgdir}/etc/skel/.config/autostart"
+	cp -rf "${srcdir}/condres-themes-cinnamon/Arctic Condres" "${pkgdir}/usr/share/themes"
+	# cp -f "${srcdir}/condres-themes-cinnamon/firstrun-desktop.sh" "${pkgdir}/etc/skel/.config/autostart"
+}

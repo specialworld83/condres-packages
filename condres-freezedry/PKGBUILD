@@ -1,0 +1,26 @@
+# Maintainer: CodeLinSoft <info@codelinsoft.it>
+
+pkgname=condres-freezedry
+pkgver=2.0
+pkgrel=5
+pkgdesc='Condres configuration tool'
+arch=('any')
+url='https://condresos.codelinsoft.it'
+license=('GPL')
+depends=('python-pip' 'git' 'python-toml')
+source=('https://www.codelinsoft.it/updates/condres-freezedry-1.0.tar.gz')
+sha256sums=('SKIP')
+
+package() {
+	#cd "${srcdir}/${pkgname}-${pkgver}"
+	cd "${srcdir}/condres-freezedry-1.0"
+	mkdir -p ${pkgdir}/usr/bin
+	cp -f freezedry.sh ${pkgdir}/usr/bin/freezedry
+	mkdir -p ${pkgdir}/etc/freezedry
+	cp -f gdm-xsession-format.sh ${pkgdir}/etc/freezedry
+	cp -f gdm-custom-format.conf ${pkgdir}/etc/freezedry
+	cp -f gdm-custom-live-format.conf ${pkgdir}/etc/freezedry
+	cp -f gdm-account-format.conf ${pkgdir}/etc/freezedry
+	python setup.py install --prefix=/usr --root="$pkgdir" || return 1
+}
+# -*- mode: bash;-*-

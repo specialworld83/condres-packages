@@ -1,0 +1,44 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=eom
+pkgver=1.20.0
+pkgrel=1
+pkgdesc="An image viewing and cataloging program for MATE"
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('dbus-glib' 'desktop-file-utils' 'gobject-introspection-runtime' 'libpeas'
+		'gtk3' 'exempi' 'lcms2' 'libexif' 'libjpeg-turbo' 'librsvg' 'mate-desktop'
+		'python-gobject' 'startup-notification' 'zlib')
+makedepends=('wget' 'gobject-introspection' 'mate-common' 'yelp-tools')
+optdepends=('yelp: for reading MATE help documents')
+groups=('mate-extra')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+# BEGIN ANTBS METADATA
+_autosums='True'
+_is_monitored='True'
+_monitored_service='mate-desktop'
+_monitored_match_pattern='/^\d\.\d[02468]\.\d+$/'
+# END ANTBS METADATA
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	PYTHON=/usr/bin/python2 ./configure \
+		--prefix=/usr \
+		--bindir=/usr/bin \
+		--sbindir=/usr/bin \
+		--libexecdir=/usr/lib/${pkgname} \
+		--localstatedir=/var \
+		--with-librsvg
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

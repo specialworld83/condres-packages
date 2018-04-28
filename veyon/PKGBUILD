@@ -1,0 +1,54 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=veyon
+pkgver=4.0.7
+pkgrel=8
+pkgdesc="Free and Open Source computer monitoring and classroom management" 
+url="https://github.com/veyon"
+arch=('i686' 'x86_64')
+depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-multimedia' 'qt5-svg' 'qt5-tools'  'qt5-translations' 'qt5-webkit' 'qt5-websockets' 'qt5-x11extras' 'qt5-xmlpatterns' 'mysql' 'cmake' 'curl' 'jansson' 'liboauth' 'zlib' 'nspr' 'lsb-release' 'nss' 'libxtst' 'libjpeg-turbo' 'zlib' 'openssl' 'pam' 'lzo' 'qca-qt5' 'libldap' )
+license=(LGPL)
+optdepends=('kldap: KDE support')
+makedepends=('git' 'cmake' 'qt5-tools')
+_commit=9347b20d83e7ad002aafbb5e9d31698337e21ccc #tags/4.0.7
+source=("git+${url}/veyon#commit=$_commit"
+    "git+${url}/ultravnc.git"
+    "git+${url}/libvncserver.git"
+    "git+${url}/x11vnc.git"
+    "git+git://anongit.kde.org/kldap.git")
+
+md5sums=('SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP')
+
+prepare() {
+    mkdir -p build
+    for file in ultravnc libvncserver x11vnc kldap
+    do
+        cp -a --no-preserve=ownership "${srcdir}/$file" "${srcdir}/${pkgname}/3rdparty/"
+    done
+    cd "${pkgname}"
+    git submodule update --init
+}
+
+build() {
+    cd build
+    cmake ../"${pkgname}" \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DCMAKE_VEYON_X11VNC_EXTERNAL=ON \
+        -DCMAKE_BUILD_TYPE=Release
+    make
+}
+
+package_veyon() {
+    cd build
+    make DESTDIR="${pkgdir}" install
+    cd ${pkgdir}/usr/lib/${pkgname}
+    for lib in $(ls *.so)
+    do
+       ln -s "/usr/lib/veyon/$lib" "${pkgdir}/usr/lib/$lib"
+    done
+}

@@ -1,0 +1,83 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgbase=caja-extensions
+pkgname=(caja-extensions-common caja-gksu caja-image-converter caja-open-terminal caja-sendto caja-share)
+pkgver=1.20.0
+pkgrel=1
+url="https://mate-desktop.org"
+arch=('x86_64')
+license=('GPL')
+depends=('caja' 'dbus-glib' 'gksu' 'gtk3' 'gupnp' 'imagemagick' 'samba' 'python-gobject')
+makedepends=('wget' 'mate-common')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgbase}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgbase}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+
+
+build() {
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	PYTHON=/usr/bin/python2 ./configure --prefix=/usr
+	make
+}
+
+package_caja-extensions-common() {
+	pkgdesc="Caja extensions (common files)"
+	groups=('mate-extra' 'caja-extensions')
+
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	make -C po DESTDIR="${pkgdir}" install
+}
+
+package_caja-gksu() {
+	pkgdesc="Privilege granting extension for Caja using gksu"
+	depends=('caja' 'caja-extensions-common' 'gksu')
+	groups=('mate-extra' 'caja-extensions')
+
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	make -C gksu DESTDIR="${pkgdir}" install
+}
+
+package_caja-image-converter() {
+	pkgdesc="A Caja extension for simple image conversions"
+	depends=('caja' 'caja-extensions-common' 'imagemagick')
+	groups=('mate-extra' 'caja-extensions')
+
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	make -C image-converter DESTDIR="${pkgdir}" install
+}
+
+package_caja-open-terminal() {
+	pkgdesc="A Caja extension for opening terminals in arbitrary local paths"
+	depends=('caja' 'caja-extensions-common')
+	groups=('mate-extra' 'caja-extensions')
+
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	make -C open-terminal DESTDIR="${pkgdir}" install
+}
+
+package_caja-sendto() {
+	pkgdesc="A Caja extension for sending files"
+	depends=('caja' 'caja-extensions-common' 'dbus-glib' 'gupnp')
+	groups=('mate-extra' 'caja-extensions')
+	optdepends=('pidgin: Support for sending to instant messaging networks.'
+				'gajim: Support for sending to Jabber.')
+
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	make -C sendto DESTDIR="${pkgdir}" install
+}
+
+
+package_caja-share() {
+	pkgdesc="A Caja extension to quickly share a folder"
+	depends=('caja' 'caja-extensions-common' 'samba')
+	groups=('mate-extra' 'caja-extensions')
+
+	cd "${srcdir}/${pkgbase}-${pkgver}"
+	make -C share DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-
+

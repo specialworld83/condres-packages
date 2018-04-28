@@ -1,0 +1,29 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=papirus-icon-theme
+_pkgname=papirus-icon-theme
+_commit=f5259bd
+pkgver=20180214
+pkgrel=1
+pkgdesc="Papirus theme for LibreOffice"
+url="https://github.com/PapirusDevelopmentTeam/${_pkgname}"
+arch=('any')
+license=('GPL')
+makedepends=('git' 'make')
+conflicts=('papirus-libreoffice-theme-git' 'libreoffice-papirus-theme' 'libreoffice-papirus-theme-git')
+optdepends=('libreoffice' 'libreoffice-fresh-rpm')
+options=('!strip')
+source=("${_pkgname}::git+${url}.git#commit=${_commit}")
+sha256sums=('SKIP')
+
+pkgver() {
+    cd ${_pkgname}
+    git log -1 --format="%cd" --date=short | tr -d '-'
+}
+
+package() {
+    cd ${_pkgname}
+    make install \
+      PREFIX="/usr/lib" \
+      DESTDIR="$pkgdir"
+}

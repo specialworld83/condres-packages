@@ -1,0 +1,23 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=iso-flag-png
+pkgver=1.0.1
+pkgrel=2
+pkgdesc='ISO country flags in PNG format.'
+arch=('any')
+groups=('cinnamon')
+url='https://github.com/linuxmint/flags'
+license=('custom')
+source=("https://github.com/linuxmint/flags/archive/${pkgver}.tar.gz")
+md5sums=('SKIP')
+
+
+
+
+
+package() {
+	cd "flags-${pkgver}"
+	cp -R usr ${pkgdir}
+}
+
+# -*- mode: bash;-*-

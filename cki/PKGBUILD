@@ -1,0 +1,22 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=cki
+pkgver=0.2
+pkgrel=1
+pkgdesc="Condres Kernel Installer"
+url="http://condresos.codelinsoft.it"
+arch=('any')
+license=('GPL3')
+depends=('bash')
+optdepends=('grub: bootloader support')
+source=("cki-0.2.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  install -Dm755 ${pkgname} ${pkgdir}/usr/bin/${pkgname}
+  install -Dm644 kernels.txt ${pkgdir}/usr/share/cki/kernels.txt
+  install -Dm644 kernels-aur.txt ${pkgdir}/usr/share/cki/kernels-aur.txt
+}
+
+

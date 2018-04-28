@@ -1,0 +1,58 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname=mintmenu
+pkgname=mate-mint-menu
+pkgver=5.8.4
+pkgrel=1
+pkgdesc="Linux Mint Menu for MATE"
+arch=('any')
+url="http://github.com/linuxmint/mintmenu"
+license=('GPL2')
+options=('!strip')
+depends=('python2-gobject' 'python2-xdg' 'xdg-utils' 'mozo' 'mate-panel>=1.16.0'
+		'python2-keybinder2' 'python2-xlib' 'gksu' 'python2-six')
+optdepends=('mate-screensaver: lock screen button'
+			'pamac: package manager button')
+# "http://packages.linuxmint.com/pool/main/m/mintmenu/mintmenu_${pkgver}.tar.xz"
+source=("${pkgname}-${pkgver}.zip::https://github.com/linuxmint/mintmenu/archive/5.8.4.zip"
+		'http://github.com/linuxmint/mint-translations/archive/master.tar.gz'
+		
+		'removescript')
+md5sums=('SKIP'
+         'SKIP'
+         
+         'bcdbc95fc35331f1f5e13a86b9d770f0')
+
+
+package() {
+	cd "$srcdir/mint-translations-master/po-export/mintmenu"
+
+	for files in ./*; do
+		if [ -f "$files" ] && [ "$files" != 'po/mintmenu.pot' ]; then
+			STRING_PO_F=`echo ${files#*/}`
+			STRING_PO=`echo ${STRING_PO_F/mintmenu-}`
+			STRING=`echo ${STRING_PO%.po}`
+			mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
+			msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/mintmenu.mo
+		 	echo "${STRING} installed..."
+		fi
+	done
+
+	#cd "$srcdir/${_pkgname}"
+	cd "$srcdir/${_pkgname}-master"
+	
+
+	# Disable the software-manager entry under Places
+	sed -i "351s/true/false/" usr/share/glib-2.0/schemas/com.linuxmint.mintmenu.gschema.xml
+
+	sed -i 's|xed.desktop|pluma.desktop|g' usr/lib/linuxmint/mintMenu/applications.list
+
+
+	#cd "$srcdir/${_pkgname}"
+	cd "$srcdir/${_pkgname}-master"
+	cp -R usr "$pkgdir/"
+	install -m755 "$srcdir/removescript" "$pkgdir/usr/lib/linuxmint/mintMenu/"
+	cd "$pkgdir"/usr/lib/linuxmint/mintMenu
+	./compile.py
+}
+

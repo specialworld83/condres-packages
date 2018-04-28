@@ -1,0 +1,73 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+pkgbase=palemoon-i18n
+pkgver=27.8.1
+pkgrel=1
+pkgdesc="Language pack for Palemoon"
+arch=('any')
+url="http://www.palemoon.org/langpacks.shtml"
+license=('MPL' 'GPL')
+depends=("palemoon>=27")
+makedepends=('git' 'zip')
+
+_languages=('ar    "Arabic AR"'
+            'bg    "Bulgarian BG"'
+            'zh-CN "Chinese Simplified"'
+            'zh-TW "Chinese Traditional"'
+            'hr    "Croatian HR"'
+            'cs    "Czech CZ"'
+            'da    "Danish DK"'
+            'nl    "Dutch NL"'
+            'en-GB "English GB"'
+            'fi    "Finnish FI"'
+            'fr    "French FR"'
+            'gl    "Galician GL"'
+            'de    "German DE"'
+            'el    "Greek EL"'
+            'hu    "Hungarian HU"'
+			'id    "Indonesian ID"'
+            'is    "Icelandic IS"'
+            'it    "Italian IT"'
+            'ja    "Japanese JP"'
+            'kn    "Kannada IN"'
+            'ko    "Korean KR"'
+            'pl    "Polish PL"'
+            'pt-PT "Portuguese PT"'
+            'pt-BR "Portuguese Brazilian"'
+            'ro    "Romanian RO"'
+            'ru    "Russian RU"'
+            'sr    "Serbian RS"'
+            'sk    "Slovak SK"'
+            'sl    "Slovenian SI"'
+            'tl    "Tagalog TL"'
+            'es-ES "Spanish Spain"'
+            'es-AR "Spanish Argentina"'
+            'es-MX "Spanish Mexico"'
+            'sv-SE "Swedish SE"'
+            'tr    "Turkish TR"'
+            'uk    "Ukrainian UA"'
+            'vi    "Vietnamese VI"')
+
+source=("git+https://github.com/MoonchildProductions/pale-moon-localization.git#commit=db3903541364659a9299cae4016a1210b5f5fbd2")
+sha256sums=('SKIP')
+pkgname=()
+
+for _lang in "${_languages[@]}"; do
+  _locale=${_lang%% *}
+  _pkgname=palemoon-i18n-${_locale,,}
+
+  pkgname+=("$_pkgname")
+  eval "package_$_pkgname() {
+    _package $_lang
+  }"
+done
+
+_package() {
+  pkgdesc="$2 language pack for Palemoon"
+
+  cd "$srcdir"/pale-moon-localization/"$1"
+  zip -9 "$srcdir"/langpack-"$1"@palemoon.org.xpi -r .
+
+  cd "$srcdir"
+  install -Dm644 langpack-"$1"@palemoon.org.xpi \
+    "$pkgdir/usr/lib/palemoon/browser/extensions/langpack-$1@palemoon.org.xpi"
+}

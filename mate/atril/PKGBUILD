@@ -1,0 +1,46 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=atril
+pkgver=1.20.1
+pkgrel=1
+pkgdesc='MATE document viewer'
+url='https://mate-desktop.org'
+arch=('x86_64')
+license=('GPL')
+depends=('gtk3' 'libgxps' 'libsecret' 'libsm' 'libspectre' 'mathjax' 'poppler-glib' 'webkit2gtk'
+		'zlib' 'gsfonts' 'djvulibre' 't1lib' 'libarchive')
+makedepends=('wget' 'caja-extensions-common' 'gobject-introspection' 'mate-common' 'docbook-xsl' 'python'
+			'texlive-bin' 'yelp-tools' 'texlive-core')
+optdepends=('texlive-bin: DVI support'
+			'yelp: for reading MATE help documents')
+groups=('mate-extra')
+source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
+_sha1sums_url="https://pub.mate-desktop.org/releases/${pkgver::(-2)}/SHA1SUMS"
+sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure \
+		--prefix=/usr \
+		--libexecdir=/usr/lib/${pkgname} \
+		--enable-gtk-doc \
+		--enable-djvu \
+		--enable-dvi \
+		--enable-epub \
+		--enable-t1lib \
+		--enable-pixbuf \
+		--enable-comics \
+		--enable-xps \
+		--enable-introspection \
+		--disable-static
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+# -*- mode: bash;-*-

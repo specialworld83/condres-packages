@@ -1,0 +1,31 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=teamviewer
+pkgver=13.1.3026
+pkgrel=7
+pkgdesc='All-In-One Software for Remote Support and Online Meetings'
+arch=('x86_64')
+url='https://www.teamviewer.com'
+license=('custom')
+depends=('hicolor-icon-theme'
+         'qt5-quickcontrols'
+         'qt5-webkit'
+         'qt5-x11extras')
+install=teamviewer.install
+source=("https://dl.tvcdn.de/download/linux/version_${pkgver%%.*}x/teamviewer_${pkgver}.x86_64.rpm")
+md5sums=('SKIP')
+
+package() {
+  cp -dr --no-preserve=ownership {etc,opt,usr,var} "$pkgdir"
+
+  # Remove useless files
+  rm -rf "$pkgdir"/etc/yum.repos.d
+
+  # Systemd script
+  install -D -m0644 "$pkgdir"/opt/teamviewer/tv_bin/script/teamviewerd.service \
+    -t "$pkgdir"/usr/lib/systemd/system
+  # License
+  install -d -m0755 "$pkgdir"/usr/share/licenses/teamviewer
+  ln -s /opt/teamviewer/doc/License.txt \
+    "$pkgdir"/usr/share/licenses/teamviewer/LICENSE
+}

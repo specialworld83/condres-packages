@@ -1,0 +1,32 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=plasma5-applets-kde-condres-update-notifier
+pkgver=3.3.2
+pkgrel=4
+pkgdesc="A KDE plasmoid for your system tray notifying you of available updates with AUR Support"
+url="https://github.com/I-Dream-in-Code/kde-arch-update-plasmoid"
+arch=('x86_64')
+license=('GPL')
+depends=("fakeroot" "konsole")
+optdepends=("checkupdates-aur")
+makedepends=("make" "cmake" "git" "extra-cmake-modules")
+conflicts=()
+replaces=()
+backup=()
+install=
+source=("git+https://github.com/I-Dream-in-Code/kde-arch-update-plasmoid.git" "archLogo.png" "main.qml" "metadata.desktop")
+md5sums=("SKIP" "SKIP" "SKIP" "SKIP")
+build() {
+	cd kde-arch-update-plasmoid
+    cp -rv ../../archLogo.png ${srcdir}/kde-arch-update-plasmoid/package/contents/images/
+    cp -rv ../../main.qml ${srcdir}/kde-arch-update-plasmoid/package/contents/ui/
+    cp -rv ../../metadata.desktop ${srcdir}/kde-arch-update-plasmoid/package
+	mkdir build
+	cd build
+	cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_LIBDIR=lib -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+}
+package(){
+	cd ${srcdir}/kde-arch-update-plasmoid/build
+	make DESTDIR="$pkgdir" install
+	
+}

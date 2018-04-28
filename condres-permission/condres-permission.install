@@ -1,0 +1,9 @@
+post_install(){
+
+mkinitcpio -P 
+
+chmod 755 -v -R /etc
+
+
+}
+

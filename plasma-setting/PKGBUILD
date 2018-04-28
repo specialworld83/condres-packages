@@ -1,0 +1,33 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgbase=condres-plasma-settings
+pkgname=('condres-plasma-settings'
+         )
+pkgver=20171213
+pkgrel=2
+pkgdesc="Condres Linux plasma settings"
+arch=('any')
+url="https://condresos.codelinsoft.it"
+license=('GPL')
+makedepends=('git')
+depends=('lsb-release')
+source=("condres-plasma-settings.tar.gz")
+sha256sums=('SKIP')
+
+
+
+_inst_dir(){
+	install -d $pkgdir/etc
+	cp -r $srcdir/$pkgbase/xdg $pkgdir/etc
+
+	
+}
+
+package_condres-plasma-settings() {
+	pkgdesc='Condres Linux plasma settings'
+	depends=('lsb-release')
+
+	_inst_dir
+}
+
+

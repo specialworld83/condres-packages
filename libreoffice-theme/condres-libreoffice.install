@@ -1,0 +1,17 @@
+pre_install() {
+rm /usr/lib/libreoffice/program/intro.png.old
+mv /usr/lib/libreoffice/program/intro.png /usr/lib/libreoffice/program/intro.png.old
+mv /usr/lib/libreoffice/program/versionrc /usr/lib/libreoffice/program/versionrc.old
+}
+
+post_install() {
+
+mv /usr/lib/libreoffice/program/libreoffice_splash/libreoffice_splash.png /usr/lib/libreoffice/program/intro.png
+mv /usr/lib/libreoffice/program/versionrc_new /usr/lib/libreoffice/program/versionrc
+}
+
+post_upgrade() {
+mv /usr/lib/libreoffice/program/libreoffice_splash/libreoffice_splash.png /usr/lib/libreoffice/program/intro.png
+mv /usr/lib/libreoffice/program/versionrc_new /usr/lib/libreoffice/program/versionrc
+}
+

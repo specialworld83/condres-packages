@@ -1,0 +1,8 @@
+NAME="Condres OS"
+PRETTY_NAME="Condres OS"
+ID=condres
+ID_LIKE=condresos
+ANSI_COLOR="0;36"
+HOME_URL="https://condresos.codelinsoft.it/"
+SUPPORT_URL="https://condresos.codelinsoft.it/new/index.php/community"
+BUG_REPORT_URL="https://condresos.codelinsoft.it/new/index.php/pages/bug"

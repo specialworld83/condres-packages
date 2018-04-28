@@ -1,0 +1,33 @@
+pkgname=breeze-icons
+pkgver=5.45.0
+pkgrel=1
+epoch=1
+pkgdesc='Breeze icon themes brand Condres OS'
+arch=('any')
+url='https://community.kde.org/Frameworks'
+license=('LGPL')
+groups=('kf5')
+makedepends=('extra-cmake-modules' 'qt5-base')
+source=("https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
+sha256sums=('SKIP'
+           )
+
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBINARY_ICONS_RESOURCE=ON \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

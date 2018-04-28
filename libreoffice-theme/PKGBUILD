@@ -1,0 +1,29 @@
+pkgname=condres-libreoffice-theme
+pkgver=1.9
+pkgrel=2
+epoch=3
+pkgdesc="Condres Linux libreoffice splash theme"
+arch=('any')
+url="https://www.codelinsoft.it/sito"
+license=('GPL')
+install="condres-libreoffice.install"
+source=("condres-libreoffice-theme.tar.gz"
+	"versionrc")
+providers=('libreoffice-fresh')
+depends=('lsb-release' 'libreoffice-fresh')
+md5sums=('SKIP'
+	 'SKIP')
+
+
+prepare() {
+    bsdtar xvzf condres-libreoffice-theme.tar.gz
+}
+
+package() {
+  cd ${srcdir}
+  mkdir -p ${pkgdir}/usr/lib/libreoffice/program/libreoffice_splash/
+  mkdir -p ${pkgdir}/usr/lib/libreoffice/program/
+  cp -R $srcdir/condres-libreoffice-theme/libreoffice_splash.png $pkgdir/usr/lib/libreoffice/program/libreoffice_splash/libreoffice_splash.png
+  cp -R $srcdir/condres-libreoffice-theme/libreoffice_splash.png $pkgdir/usr/lib/libreoffice/program/libreoffice_splash.png
+  cp -R ../versionrc $pkgdir/usr/lib/libreoffice/program/versionrc_new
+}  

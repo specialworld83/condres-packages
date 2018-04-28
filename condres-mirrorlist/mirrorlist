@@ -1,0 +1,8 @@
+##
+## Condres OS repository mirrorlist
+## Generated on 2018-02-03
+##
+
+## Worldwide
+Server = https://repository.codelinsoft.it/condres-core-signed/
+Server = http://build.codelinsoft.it/mirror/

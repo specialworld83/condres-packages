@@ -1,0 +1,12 @@
+post_install() {
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+}
+
+post_upgrade() {
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+} 

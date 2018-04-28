@@ -1,0 +1,10 @@
+[Version]
+AllLanguages=en-US
+BuildVersion=5.4.3-4
+buildid=40m0(Build:2)
+ExtensionUpdateURL=http://updateexte.libreoffice.org/ExtensionUpdateService/check.Update
+ReferenceOOoMajorMinor=4.1
+UpdateID=LibreOffice_5_en-US
+UpdateURL=
+UpdateUserAgent=<PRODUCT> (${buildid}; ${_OS}; ${_ARCH}; <OPTIONAL_OS_HW_DATA>)
+Vendor=Condres OS Gnu/Linux

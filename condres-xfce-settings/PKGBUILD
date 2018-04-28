@@ -1,0 +1,52 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgbase=condres-xfce-settings
+pkgname=('condres-xfce-settings'
+         )
+pkgver=20171213
+pkgrel=3
+pkgdesc="Condres Linux Xfce settings"
+arch=('any')
+url="https://condresos.codelinsoft.it"
+license=('GPL')
+makedepends=('git')
+install=condres-xfce.install
+depends=('condres-wallpapers'
+	         'lsb-release'
+	         'materia-condres-theme'
+	         'qt5ct'
+	         'qt5-styleplugins'
+	         'super-flat-remix-icon-theme'
+	         )
+source=("condres-xfce-settings.tar.gz"
+	"logo_condres_mini.svg")
+sha256sums=('SKIP'
+	    'SKIP')
+
+
+
+_inst_dir(){
+	install -d $pkgdir/etc
+	cp -r $srcdir/$pkgbase/skel $pkgdir/etc
+
+	install -d $pkgdir/usr/share/glib-2.0/schemas
+	cp $srcdir/$pkgbase/schemas/* $pkgdir/usr/share/glib-2.0/schemas
+	
+	install -d $pkgdir/usr/share/icons
+	cp -rv ../logo_condres_mini.svg $pkgdir/usr/share/icons
+}
+
+package_condres-xfce-settings() {
+	pkgdesc='Condres Linux xfce settings'
+	depends=('condres-wallpapers'
+	         'lsb-release'
+	         'materia-condres-theme'
+	         'qt5ct'
+	         'qt5-styleplugins'
+	         'super-flat-remix-icon-theme'
+	         )
+
+	_inst_dir
+}
+
+

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <editions>
+        <edition name="common" description="Packages common to all DE and base">
+            <packages>
+                <pkgname>acpid</pkgname>
+                <pkgname>alsa-utils</pkgname>
+                <pkgname>condres-keyring</pkgname>
+                <pkgname>condres-freezedry</pkgname>
+                <pkgname>condres-permission</pkgname>
+                <pkgname>condres-schemas</pkgname>
+                <pkgname>condres-system</pkgname>
+                <pkgname>condresassets</pkgname>
+                <pkgname>b43-fwcutter</pkgname>
+                <!-- Group -->
+                <pkgname>base</pkgname>
+                <!-- Group -->
+                <pkgname>base-devel</pkgname>
+                <pkgname>bash-completion</pkgname>
+                <pkgname>crda</pkgname>
+                <pkgname>bind-tools</pkgname>
+                <pkgname>dosfstools</pkgname>
+                <pkgname>haveged</pkgname>
+                <pkgname>gzip</pkgname>
+                <pkgname>intel-ucode</pkgname>
+                <pkgname>ipw2100-fw</pkgname>
+                <pkgname>ipw2200-fw</pkgname>
+                <pkgname>mlocate</pkgname>
+                <pkgname>modemmanager</pkgname>
+                <pkgname>net-tools</pkgname>
+                <pkgname>networkmanager</pkgname>
+                <pkgname>ntfs-3g</pkgname>
+                <pkgname>openssh</pkgname>
+                <pkgname>pkgfile</pkgname>
+                <pkgname>reflector</pkgname>
+                <pkgname>sudo</pkgname>
+                <pkgname>terminus-font</pkgname>
+                <pkgname>tar</pkgname>
+                <pkgname>unzip</pkgname>
+                <pkgname>unrar</pkgname>
+                <pkgname>usb_modeswitch</pkgname>
+                <pkgname>wget</pkgname>
+                <pkgname>whois</pkgname>
+                <pkgname>wireless_tools</pkgname>
+                <pkgname>wpa_actiond</pkgname>
+                <pkgname>zd1211-firmware</pkgname>
+                <pkgname>alsa-utils</pkgname>
+            <pkgname>bluez</pkgname>
+            <pkgname>bluez-libs</pkgname>
+            <pkgname>brltty-minimal</pkgname>
+            <pkgname>clonezilla</pkgname>
+            <pkgname>darkhttpd</pkgname>
+            <pkgname>ddrescue</pkgname>
+            <pkgname>dhclient</pkgname>
+            <pkgname>dnsmasq</pkgname>
+            <pkgname>elinks</pkgname>
+            <pkgname>espeak</pkgname>
+            <pkgname>espeakup</pkgname>
+            <pkgname>ethtool</pkgname>
+            <pkgname>gnu-netcat</pkgname>
+            <pkgname>gpm</pkgname>
+            <pkgname>irssi</pkgname>
+            <pkgname>lftp</pkgname>
+            <pkgname>mc</pkgname>
+            <pkgname>orca</pkgname>
+            <pkgname>python2-speechd</pkgname>
+            <pkgname>vim</pkgname>
+            <pkgname>efibootmgr</pkgname>
+            <pkgname>grub</pkgname>
+            <pkgname>os-prober</pkgname>
+            <pkgname>grub2-theme-condres</pkgname>
+            </packages>
+        </edition>
+
+        <edition name="graphic" description="Common to all graphic desktops">
+            <packages>
+                <pkgname>accountsservice</pkgname>
+                <!--<pkgname lib="gtk">antergos-gsettings</pkgname>-->
+                <pkgname>condres-wallpapers</pkgname>
+                <!--<pkgname>antergos-welcome</pkgname>-->
+                <pkgname>cdrtools</pkgname>
+                <pkgname lib="gtk">dconf-editor</pkgname>
+                <pkgname>ffmpegthumbnailer</pkgname>
+                <pkgname>gst-libav</pkgname>
+                <pkgname>gst-plugins-bad</pkgname>
+                <pkgname>gst-plugins-base</pkgname>
+                <pkgname>gst-plugins-good</pkgname>
+                <pkgname>gst-plugins-ugly</pkgname>
+                <pkgname>gstreamer-vaapi</pkgname>
+                <!-- German hunspell dictionaries -->
+                <pkgname lang="de">hunspell-de</pkgname>
+                <!-- English hunspell dictionaries -->
+                <pkgname lang="en">hunspell-en</pkgname>
+                <!-- Spanish hunspell dictionaries -->
+                <pkgname lang="es">hunspell-es</pkgname>
+                <!-- French (modern) hunspell dictionaries -->
+                <pkgname lang="fr">hunspell-fr</pkgname>
+                <!-- Hebrew hunspell dictionary -->
+                <pkgname lang="he">hunspell-he</pkgname>
+                <!-- Italian dictionary for Hunspell -->
+                <pkgname lang="it">hunspell-it</pkgname>
+                <!-- Romanian dictionary for Hunspell -->
+                <pkgname lang="ro">hunspell-ro</pkgname>
+                <!-- Greek hunspell dictionary -->
+                <pkgname lang="el">hunspell-el</pkgname>
+                <!-- Hungarian hunspell dictionary -->
+                <pkgname lang="hu">hunspell-hu</pkgname>
+                <!-- Dutch hunspell dictionaries -->
+                <pkgname lang="nl">hunspell-nl</pkgname>
+                <!-- Polish dictionary for Hunspell -->
+                <pkgname lang="pl">hunspell-pl</pkgname>
+                <pkgname>libdvdcss</pkgname>
+                <pkgname dm='true' name='lightdm'>lightdm</pkgname>
+                <pkgname>lightdm-webkit2-greeter</pkgname>
+                <pkgname>light-locker</pkgname>
+                <pkgname>light-locker-settings</pkgname>
+                <pkgname>mesa</pkgname>
+                <pkgname>mesa-vdpau</pkgname>
+                <pkgname>flatplat-theme</pkgname>
+                <pkgname>super-flat-remix-icon-theme</pkgname>
+                
+                <pkgname>pavucontrol</pkgname>
+                <pkgname>pulseaudio</pkgname>
+                <pkgname>pulseaudio-alsa</pkgname>
+                <pkgname lib="gtk">qt5-styleplugins</pkgname>
+                <pkgname>ttf-bitstream-vera</pkgname>
+                <pkgname>ttf-dejavu</pkgname>
+                <pkgname>ttf-liberation</pkgname>
+                <pkgname>upower</pkgname>
+                <pkgname>xf86-input-synaptics</pkgname>
+                <pkgname>xf86-video-fbdev</pkgname>
+                <pkgname>xf86-video-vesa</pkgname>
+                <pkgname>xorg-apps</pkgname>
+                <pkgname>xorg-fonts</pkgname>
+                <pkgname>xorg-server</pkgname>
+                <pkgname>xorg-xinit</pkgname>
+                <pkgname>xorg-xkill</pkgname>
+                     <pkgname>apache</pkgname>
+            <pkgname>php</pkgname>
+            <pkgname>php-apache</pkgname>
+            <pkgname>mariadb</pkgname>
+            <pkgname>phpmyadmin</pkgname>
+            <pkgname>php-mcrypt</pkgname>
+              <pkgname>btrfs-progs</pkgname>
+        <!-- for smb shares -->
+        <pkgname>cifs-utils</pkgname>
+        <!-- Device mapper RAID interface -->
+        <pkgname>dmraid</pkgname>
+        <!-- for FAT16 and FAT32 partitions -->
+        <pkgname>dosfstools</pkgname>
+        <!-- for exFAT partitions -->
+        <pkgname>exfat-utils</pkgname>
+        <!-- Ext2/3/4 filesystem utilities -->
+        <pkgname>e2fsprogs</pkgname>
+        <!-- for Flash-Friendly File System -->
+        <pkgname>f2fs-tools</pkgname>
+        <!-- for jfs partitions -->
+        <pkgname>jfsutils</pkgname>
+        <!-- for Network File Systems (NFS)-->
+        <pkgname>nfs-utils</pkgname>
+        <!-- for nilfs2 support -->
+        <pkgname>nilfs-utils</pkgname>
+        <!-- for NTFS support -->
+        <pkgname>ntfs-3g</pkgname>
+        <!-- for reiser partitions -->
+        <pkgname>reiserfsprogs</pkgname>
+        <!-- for xfs partitions -->
+        <pkgname>xfsprogs</pkgname>
+            </packages>
+        </edition>
+
+        <edition name="base" description="Without X">
+            <packages>
+                <pkgname>cabextract</pkgname>
+                <pkgname>bzip2</pkgname>
+                <pkgname>dialog</pkgname>
+                <pkgname>rsync</pkgname>
+                <pkgname>sharutils</pkgname>
+                <pkgname>uudeview</pkgname>
+                <pkgname>xz</pkgname>
+                <pkgname>zip</pkgname>
+                 <pkgname>bluez</pkgname>
+            <pkgname>bluez-utils</pkgname>
+            <pkgname>pulseaudio-bluetooth</pkgname>
+             <pkgname>cups</pkgname>
+            <pkgname>cups-pk-helper</pkgname>
+            <!--<pkgname>foomatic-db-nonfree</pkgname>-->
+            <pkgname>gsfonts</pkgname>
+            <!--<pkgname>gutenprint</pkgname>-->
+            <pkgname>hplip</pkgname>
+            <pkgname>openssh</pkgname>
+            <pkgname>grub-zfs</pkgname>
+        <pkgname>spl</pkgname>
+        <pkgname>spl-utils</pkgname>
+        <pkgname>zfs</pkgname>
+        <pkgname>zfs-utils</pkgname>
+            <pkgname>efibootmgr</pkgname>
+            <pkgname>grub</pkgname>
+            <pkgname>os-prober</pkgname>
+            <pkgname>grub2-theme-condres</pkgname>
+             <pkgname>refind-efi</pkgname>
+            </packages>
+        </edition>
+    </editions>

@@ -1,0 +1,4 @@
+post_install(){
+    systemctl enable one-context
+
+}

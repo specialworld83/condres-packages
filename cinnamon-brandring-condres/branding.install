@@ -1,0 +1,17 @@
+
+
+post_install() {
+
+mv /usr/share/cinnamon/theme/menu-symbolic.svg /usr/share/cinnamon/theme/menu-symbolic.svg_old
+mv /usr/share/cinnamon/theme/menu-symbolic.svg_new /usr/share/cinnamon/theme/menu-symbolic.svg
+
+
+
+}
+
+post_upgrade() {
+mv /usr/share/cinnamon/theme/menu-symbolic.svg /usr/share/cinnamon/theme/menu-symbolic.svg_old
+mv /usr/share/cinnamon/theme/menu-symbolic.svg_new /usr/share/cinnamon/theme/menu-symbolic.svg
+
+}
+ 

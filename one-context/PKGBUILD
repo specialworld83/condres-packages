@@ -1,0 +1,28 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=one-context
+pkgver=5.4.2.1
+pkgrel=1
+pkgdesc='OpenNebula Contextualisation'
+arch=('any')
+url='https://github.com/OpenNebula/addon-context-linux/releases'
+license=('Apache')
+depends=('mkinitcpio-growrootfs')
+source=("https://github.com/OpenNebula/addon-context-linux/archive/v5.4.2.1.tar.gz" "targets.sh")
+install=one-context.install
+md5sums=('SKIP' 'SKIP')
+
+prepare() {
+
+mv $srcdir/addon-context-linux-5.4.2.1 $srcdir/one-context
+
+}
+
+package() {
+    cd $srcdir/${pkgname}
+    rm -rf $srcdir/one-context/targets.sh
+    cp -rv ../../targets.sh $srcdir/one-context/targets.sh
+    TARGET=arch OUT=${pkgdir} ./generate.sh
+    cp -rT ${pkgdir}/usr/sbin ${pkgdir}/usr/bin
+    rm -rf ${pkgdir}/usr/sbin
+}

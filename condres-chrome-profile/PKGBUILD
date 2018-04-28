@@ -1,0 +1,19 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname='Condres Chrome Profile'
+pkgname=condres-chrome-profile
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='Default Google Chrome Profile for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://condresos.codelinsoft.it"
+depends=()
+source=("condres-chrome-profile.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+	mkdir -p "${pkgdir}/etc/condres-assets"
+	#cp -rf "${srcdir}/condres-chrome-profile/chrome-apps" "${pkgdir}/etc/condres-assets"
+	cp -rf "${srcdir}/condres-chrome-profile/google-chrome" "${pkgdir}/etc/condres-assets"
+}

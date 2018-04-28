@@ -1,0 +1,28 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=cinnamon-brandring-condres
+pkgver=2.6
+pkgrel=1
+pkgdesc="Setup Cinnamon configuration for Condres Desktops"
+url="http://github.com/condres/cinnamon-brandring-condres"
+arch=('any')
+license=('GPL2')
+install=branding.install
+depends=('condres-schemas' 'cinnamon-session')
+source=("menu-symbolic.svg_new"
+	)
+md5sums=('SKIP'
+	 )
+
+
+
+
+package() {
+    
+    install -d $pkgdir/usr/share/cinnamon/theme/
+    cp -rv ../menu-symbolic.svg_new $pkgdir/usr/share/cinnamon/theme/
+    
+    
+   
+}
+ 

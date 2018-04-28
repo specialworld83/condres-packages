@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Ocsstore
+Comment=OCS-Store frontend.Downloading and Managing Linux softwares.
+Exec=/usr/bin/opendesktop-app %U
+Terminal=false
+Type=Application
+Icon=/usr/share/icons/ocsstore.png
+Categories=Development;

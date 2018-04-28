@@ -1,0 +1,13 @@
+post_install() {
+        plymouth-set-default-theme condres -R
+        mkinitcpio -p linux
+        
+}
+
+post_upgrade() {
+        plymouth-set-default-theme condres -R
+        mkinitcpio -p linux
+	
+}
+
+# -*- mode: bash;-*-

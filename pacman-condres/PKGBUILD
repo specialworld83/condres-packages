@@ -1,0 +1,25 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=pacman-condres
+pkgver=2.2
+pkgrel=7
+epoch=2
+pkgdesc="Condres Release System"
+arch=('any')
+license=('GPL')
+depends=('lsb-release' 'condres-mirrorlist')
+install=pacman-condres.install
+source=('pacman-condres.tar.gz')
+md5sums=('SKIP')
+
+package() {
+       
+       cd ${srcdir}/pacman-condres/
+       install -d "$pkgdir"/etc/
+       install -d "$pkgdir"/usr/lib/
+       install -Dm755 "pacman.conf.new" "$pkgdir/etc/pacman.conf.new"
+       install -Dm755 "mkinitcpio.conf.new" "$pkgdir/etc/mkinitcpio.conf.new"
+       install -Dm755 "os-release.new" "$pkgdir/usr/lib/os-release.new"
+       chmod 755 "$pkgdir"/etc/pacman.conf.new
+       chmod 755 "$pkgdir"/etc/mkinitcpio.conf.new
+}

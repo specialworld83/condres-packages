@@ -1,0 +1,449 @@
+From b6decbd37bb45b6d0729dc281952c02c2f4eed43 Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 14:42:16 -0500
+Subject: [PATCH 1/6] workaround conflict with seahorse-nautilus by renaming
+ seahorse-tool to seahorse-tool-nemo. While not the ideal solution, its better
+ than the status quo.
+
+---
+ nemo-seahorse/data/Makefile.am                                    | 6 +++---
+ nemo-seahorse/data/org.gnome.seahorse.nautilus.convert            | 2 +-
+ nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml        | 2 +-
+ nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml | 2 +-
+ nemo-seahorse/nemo-ext/nemo-seahorse.c                            | 4 ++--
+ nemo-seahorse/tool/seahorse-tool.1                                | 2 +-
+ nemo-seahorse/tool/seahorse-tool.c                                | 2 +-
+ nemo-seahorse/tool/seahorse-widget.c                              | 4 ++--
+ 8 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/nemo-seahorse/data/Makefile.am b/nemo-seahorse/data/Makefile.am
+index c3efc91..1242ec1 100644
+--- a/nemo-seahorse/data/Makefile.am
++++ b/nemo-seahorse/data/Makefile.am
+@@ -1,11 +1,11 @@
+ gsettings_SCHEMAS = \
+-	org.gnome.seahorse.nautilus.gschema.xml \
+-	org.gnome.seahorse.nautilus.window.gschema.xml
++	org.nemo.seahorse.gschema.xml \
++	org.nemo.seahorse.window.gschema.xml
+ 
+ @GSETTINGS_RULES@
+ 
+ convert_DATA = \
+-	org.gnome.seahorse.nautilus.convert
++	org.nemo.seahorse.convert
+ 
+ convertdir = \
+ 	$(datarootdir)/GConf/gsettings
+diff --git a/nemo-seahorse/data/org.gnome.seahorse.nautilus.convert b/nemo-seahorse/data/org.gnome.seahorse.nautilus.convert
+index 54618da..2b666e1 100644
+--- a/nemo-seahorse/data/org.gnome.seahorse.nautilus.convert
++++ b/nemo-seahorse/data/org.gnome.seahorse.nautilus.convert
+@@ -1,4 +1,4 @@
+-[org.gnome.seahorse.nautilus]
++[org.nemo.seahorse]
+ package-extension = /desktop/pgp/package_extension
+ separate-files = /desktop/pgp/multi_seperate
+ armor-mode = /desktop/pgp/ascii_armor
+diff --git a/nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml b/nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml
+index 8f134a9..471f612 100644
+--- a/nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml
++++ b/nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml
+@@ -1,5 +1,5 @@
+ <schemalist>
+-	<schema id="org.gnome.seahorse.nautilus" path="/org/gnome/seahorse/nautilus/">
++	<schema id="org.nemo.seahorse" path="/org.nemo.seahorse/">
+ 		<key name="package-extension" type="s">
+ 			<default>'.zip'</default>
+ 			<summary>File extension for packages</summary>
+diff --git a/nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml b/nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml
+index 89f49f1..8d2d0a1 100644
+--- a/nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml
++++ b/nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml
+@@ -1,5 +1,5 @@
+ <schemalist>
+-	<schema id="org.gnome.seahorse.nautilus.window">
++	<schema id="org.nemo.seahorse.window">
+ 		<key name="width" type="i">
+ 			<default>-1</default>
+ 			<summary>Width of the window</summary>
+diff --git a/nemo-seahorse/nemo-ext/nemo-seahorse.c b/nemo-seahorse/nemo-ext/nemo-seahorse.c
+index c180bce..5509075 100644
+--- a/nemo-seahorse/nemo-ext/nemo-seahorse.c
++++ b/nemo-seahorse/nemo-ext/nemo-seahorse.c
+@@ -42,7 +42,7 @@ crypt_callback (NemoMenuItem *item, gpointer user_data)
+     files = g_object_get_data (G_OBJECT (item), "files");
+     g_assert (files != NULL);
+ 
+-    cmd = g_string_new ("seahorse-tool");
++    cmd = g_string_new (("seahorse-tool-nemo"));
+     g_string_append_printf (cmd, " --encrypt");
+ 
+     for (scan = files; scan; scan = scan->next) {
+@@ -67,7 +67,7 @@ sign_callback (NemoMenuItem *item, gpointer user_data)
+     char *uri, *t;
+     GString *cmd;
+ 
+-    cmd = g_string_new ("seahorse-tool");
++    cmd = g_string_new (("seahorse-tool-nemo"));
+     g_string_append_printf (cmd, " --sign");
+     files = g_object_get_data (G_OBJECT (item), "files");
+     g_assert (files != NULL);
+diff --git a/nemo-seahorse/tool/seahorse-tool.1 b/nemo-seahorse/tool/seahorse-tool.1
+index ce050d6..e65f21a 100644
+--- a/nemo-seahorse/tool/seahorse-tool.1
++++ b/nemo-seahorse/tool/seahorse-tool.1
+@@ -3,7 +3,7 @@
+ .\" ``makeman.pl'' is part of the ``MakeMan'' project.
+ .\" For more information, please see http://mama.sourceforge.net
+ .\"
+-.TH seahorse-tool 1 "May 04, 2006" "seahorse" "GNOME" 
++.TH seahorse-tool-nemo 1 "May 04, 2006" "seahorse" "GNOME" 
+ 
+ .SH NAME
+ seahorse-tool \- PGP/GnuPG file encryption for the GNOME Desktop
+diff --git a/nemo-seahorse/tool/seahorse-tool.c b/nemo-seahorse/tool/seahorse-tool.c
+index c019057..ef20c56 100644
+--- a/nemo-seahorse/tool/seahorse-tool.c
++++ b/nemo-seahorse/tool/seahorse-tool.c
+@@ -703,7 +703,7 @@ main (int argc, char **argv)
+         return 2;
+     }
+ 
+-    seahorse_tool_settings = g_settings_new ("org.gnome.seahorse.nautilus");
++    seahorse_tool_settings = g_settings_new ("org.nemo.seahorse");
+ 
+     /* The basic settings for the operation */
+     memset (&mode, 0, sizeof (mode));
+diff --git a/nemo-seahorse/tool/seahorse-widget.c b/nemo-seahorse/tool/seahorse-widget.c
+index b4311cd..f0df575 100644
+--- a/nemo-seahorse/tool/seahorse-widget.c
++++ b/nemo-seahorse/tool/seahorse-widget.c
+@@ -106,8 +106,8 @@ seahorse_widget_constructed (GObject *object)
+ 	/* Load window size for windows that aren't dialogs */
+ 	window = GTK_WINDOW (seahorse_widget_get_toplevel (self));
+ 	if (!GTK_IS_DIALOG (window)) {
+-		path = g_strdup_printf ("/org/gnome/seahorse/nautilus/windows/%s/", self->name);
+-		self->settings = g_settings_new_with_path ("org.gnome.seahorse.nautilus.window", path);
++		path = g_strdup_printf ("/org.nemo.seahorse/windows/%s/", self->name);
++		self->settings = g_settings_new_with_path ("org.nemo.seahorse.window", path);
+ 		g_free (path);
+ 
+ 		width = g_settings_get_int (self->settings, "width");
+
+From b49cc4711156f8cbd0ae2111346f0d2a66887dab Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 14:45:11 -0500
+Subject: [PATCH 2/6] fix typo
+
+---
+ nemo-seahorse/nemo-ext/nemo-seahorse.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nemo-seahorse/nemo-ext/nemo-seahorse.c b/nemo-seahorse/nemo-ext/nemo-seahorse.c
+index 5509075..764412c 100644
+--- a/nemo-seahorse/nemo-ext/nemo-seahorse.c
++++ b/nemo-seahorse/nemo-ext/nemo-seahorse.c
+@@ -42,7 +42,7 @@ crypt_callback (NemoMenuItem *item, gpointer user_data)
+     files = g_object_get_data (G_OBJECT (item), "files");
+     g_assert (files != NULL);
+ 
+-    cmd = g_string_new (("seahorse-tool-nemo"));
++    cmd = g_string_new ("seahorse-tool-nemo");
+     g_string_append_printf (cmd, " --encrypt");
+ 
+     for (scan = files; scan; scan = scan->next) {
+@@ -67,7 +67,7 @@ sign_callback (NemoMenuItem *item, gpointer user_data)
+     char *uri, *t;
+     GString *cmd;
+ 
+-    cmd = g_string_new (("seahorse-tool-nemo"));
++    cmd = g_string_new ("seahorse-tool-nemo");
+     g_string_append_printf (cmd, " --sign");
+     files = g_object_get_data (G_OBJECT (item), "files");
+     g_assert (files != NULL);
+
+From 6b2de06e86030433adabd687ca8dfa53e971d6c3 Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 14:53:32 -0500
+Subject: [PATCH 3/6] rename distributed files
+
+---
+ ....nautilus.convert => org.nemo.seahorse.convert} |  0
+ ...s.gschema.xml => org.nemo.seahorse.gschema.xml} |  0
+ ...ma.xml => org.nemo.seahorse.window.gschema.xml} |  0
+ nemo-seahorse/tool/Makefile.am                     | 26 +++++++++++-----------
+ ...n => nemo-seahorse-pgp-encrypted.desktop.in.in} |  0
+ ....in.in => nemo-seahorse-pgp-keys.desktop.in.in} |  0
+ ...n => nemo-seahorse-pgp-signature.desktop.in.in} |  0
+ .../tool/{seahorse-tool.1 => seahorse-tool-nemo.1} |  0
+ 8 files changed, 13 insertions(+), 13 deletions(-)
+ rename nemo-seahorse/data/{org.gnome.seahorse.nautilus.convert => org.nemo.seahorse.convert} (100%)
+ rename nemo-seahorse/data/{org.gnome.seahorse.nautilus.gschema.xml => org.nemo.seahorse.gschema.xml} (100%)
+ rename nemo-seahorse/data/{org.gnome.seahorse.nautilus.window.gschema.xml => org.nemo.seahorse.window.gschema.xml} (100%)
+ rename nemo-seahorse/tool/{seahorse-pgp-encrypted.desktop.in.in => nemo-seahorse-pgp-encrypted.desktop.in.in} (100%)
+ rename nemo-seahorse/tool/{seahorse-pgp-keys.desktop.in.in => nemo-seahorse-pgp-keys.desktop.in.in} (100%)
+ rename nemo-seahorse/tool/{seahorse-pgp-signature.desktop.in.in => nemo-seahorse-pgp-signature.desktop.in.in} (100%)
+ rename nemo-seahorse/tool/{seahorse-tool.1 => seahorse-tool-nemo.1} (100%)
+
+diff --git a/nemo-seahorse/data/org.gnome.seahorse.nautilus.convert b/nemo-seahorse/data/org.nemo.seahorse.convert
+similarity index 100%
+rename from nemo-seahorse/data/org.gnome.seahorse.nautilus.convert
+rename to nemo-seahorse/data/org.nemo.seahorse.convert
+diff --git a/nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml b/nemo-seahorse/data/org.nemo.seahorse.gschema.xml
+similarity index 100%
+rename from nemo-seahorse/data/org.gnome.seahorse.nautilus.gschema.xml
+rename to nemo-seahorse/data/org.nemo.seahorse.gschema.xml
+diff --git a/nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml b/nemo-seahorse/data/org.nemo.seahorse.window.gschema.xml
+similarity index 100%
+rename from nemo-seahorse/data/org.gnome.seahorse.nautilus.window.gschema.xml
+rename to nemo-seahorse/data/org.nemo.seahorse.window.gschema.xml
+diff --git a/nemo-seahorse/tool/Makefile.am b/nemo-seahorse/tool/Makefile.am
+index 925304b..d5dc918 100644
+--- a/nemo-seahorse/tool/Makefile.am
++++ b/nemo-seahorse/tool/Makefile.am
+@@ -11,12 +11,12 @@ INCLUDES = -I$(top_builddir) \
+ 	-DLIBCRYPTUI_API_SUBJECT_TO_CHANGE \
+ 	-DGCR_API_SUBJECT_TO_CHANGE
+ 
+-bin_PROGRAMS = seahorse-tool
++bin_PROGRAMS = seahorse-tool-nemo
+ 
+ BUILT_SOURCES = \
+ 	seahorse-marshal.c seahorse-marshal.h
+ 
+-seahorse_tool_SOURCES = \
++seahorse_tool_nemo_SOURCES = \
+ 	seahorse-libdialogs.h \
+ 	seahorse-notification.c \
+ 	seahorse-operation.c seahorse-operation.h \
+@@ -43,19 +43,19 @@ ui_DATA = \
+ 	seahorse-progress.xml \
+ 	seahorse-multi-encrypt.xml
+ 
+-seahorse_tool_LDADD = \
++seahorse_tool_nemo_LDADD = \
+ 	$(SEAHORSE_LIBS) \
+ 	$(LIBCRYPTUI_LIBS)
+ 
+ @INTLTOOL_DESKTOP_RULE@
+ desktopdir = $(datadir)/applications
+ desktop_in_files = \
+-	seahorse-pgp-encrypted.desktop.in \
+-	seahorse-pgp-signature.desktop.in \
+-	seahorse-pgp-keys.desktop.in
++	nemo-seahorse-pgp-encrypted.desktop.in \
++	nemo-seahorse-pgp-signature.desktop.in \
++	nemo-seahorse-pgp-keys.desktop.in
+ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+ 
+-man_MANS = seahorse-tool.1
++man_MANS = seahorse-tool-nemo.1
+ 
+ EXTRA_DIST = \
+ 	$(ui_DATA) \
+@@ -63,13 +63,13 @@ EXTRA_DIST = \
+ 	$(mime_DATA) \
+ 	$(mimeinfo_DATA) \
+ 	$(desktop_in_files) \
+-	seahorse-pgp-encrypted.desktop.in.in \
+-	seahorse-pgp-keys.desktop.in.in \
+-	seahorse-pgp-signature.desktop.in.in \
++	nemo-seahorse-pgp-encrypted.desktop.in.in \
++	nemo-seahorse-pgp-keys.desktop.in.in \
++	nemo-seahorse-pgp-signature.desktop.in.in \
+ 	seahorse-marshal.list
+ 
+ CLEANFILES = *.bak \
+ 	$(desktop_DATA) \
+-	seahorse-pgp-encrypted.desktop.in \
+-	seahorse-pgp-keys.desktop.in \
+-	seahorse-pgp-signature.desktop.in
++	nemo-seahorse-pgp-encrypted.desktop.in \
++	nemo-seahorse-pgp-keys.desktop.in \
++	nemo-seahorse-pgp-signature.desktop.in
+diff --git a/nemo-seahorse/tool/seahorse-pgp-encrypted.desktop.in.in b/nemo-seahorse/tool/nemo-seahorse-pgp-encrypted.desktop.in.in
+similarity index 100%
+rename from nemo-seahorse/tool/seahorse-pgp-encrypted.desktop.in.in
+rename to nemo-seahorse/tool/nemo-seahorse-pgp-encrypted.desktop.in.in
+diff --git a/nemo-seahorse/tool/seahorse-pgp-keys.desktop.in.in b/nemo-seahorse/tool/nemo-seahorse-pgp-keys.desktop.in.in
+similarity index 100%
+rename from nemo-seahorse/tool/seahorse-pgp-keys.desktop.in.in
+rename to nemo-seahorse/tool/nemo-seahorse-pgp-keys.desktop.in.in
+diff --git a/nemo-seahorse/tool/seahorse-pgp-signature.desktop.in.in b/nemo-seahorse/tool/nemo-seahorse-pgp-signature.desktop.in.in
+similarity index 100%
+rename from nemo-seahorse/tool/seahorse-pgp-signature.desktop.in.in
+rename to nemo-seahorse/tool/nemo-seahorse-pgp-signature.desktop.in.in
+diff --git a/nemo-seahorse/tool/seahorse-tool.1 b/nemo-seahorse/tool/seahorse-tool-nemo.1
+similarity index 100%
+rename from nemo-seahorse/tool/seahorse-tool.1
+rename to nemo-seahorse/tool/seahorse-tool-nemo.1
+
+From 0ca2bf7c36f47fcf59852da8da15a81f28b2f313 Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 14:56:29 -0500
+Subject: [PATCH 4/6] update configure.ac
+
+---
+ nemo-seahorse/configure.ac | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/nemo-seahorse/configure.ac b/nemo-seahorse/configure.ac
+index 9763130..678633d 100644
+--- a/nemo-seahorse/configure.ac
++++ b/nemo-seahorse/configure.ac
+@@ -297,9 +297,9 @@ Makefile
+ data/Makefile
+ po/Makefile.in
+ tool/Makefile
+-tool/seahorse-pgp-encrypted.desktop.in
+-tool/seahorse-pgp-keys.desktop.in
+-tool/seahorse-pgp-signature.desktop.in
++tool/nemo-seahorse-pgp-encrypted.desktop.in
++tool/nemo-seahorse-pgp-keys.desktop.in
++tool/nemo-seahorse-pgp-signature.desktop.in
+ nemo-ext/Makefile
+ ])
+ 
+
+From a47edb81d1ac21c9b28cf8489f086dd92bd78061 Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 15:01:14 -0500
+Subject: [PATCH 5/6] remove usages of depracated INCLUDE automake variable
+
+---
+ nemo-seahorse/nemo-ext/Makefile.am | 2 +-
+ nemo-seahorse/tool/Makefile.am     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nemo-seahorse/nemo-ext/Makefile.am b/nemo-seahorse/nemo-ext/Makefile.am
+index 801e5fe..46a200b 100644
+--- a/nemo-seahorse/nemo-ext/Makefile.am
++++ b/nemo-seahorse/nemo-ext/Makefile.am
+@@ -1,5 +1,5 @@
+ 
+-INCLUDES = -I$(top_builddir) 	\
++AM_CPPFLAGS = -I$(top_builddir) 	\
+ 	-I$(top_srcdir) 			\
+ 	$(NEMO_CFLAGS) 			\
+ 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"
+diff --git a/nemo-seahorse/tool/Makefile.am b/nemo-seahorse/tool/Makefile.am
+index d5dc918..08d1f41 100644
+--- a/nemo-seahorse/tool/Makefile.am
++++ b/nemo-seahorse/tool/Makefile.am
+@@ -1,7 +1,7 @@
+ uidir = $(datadir)/nemo-seahorse/ui/
+ localedir = $(datadir)/locale
+ 
+-INCLUDES = -I$(top_builddir) \
++AM_CPPFLAGS = -I$(top_builddir) \
+ 	-I$(top_srcdir) \
+ 	-I$(top_srcdir)/libseahorse \
+ 	$(SEAHORSE_CFLAGS) \
+
+From fc91b37c81c3c46726322abe2f442773a518142d Mon Sep 17 00:00:00 2001
+From: Dustin Falgout <dustin@falgout.us>
+Date: Sat, 6 May 2017 16:21:45 -0500
+Subject: [PATCH 6/6] fix gsettings id and path to be consistant with the other
+ extensions
+
+---
+ nemo-seahorse/data/Makefile.am                                      | 6 +++---
+ ...g.nemo.seahorse.convert => org.nemo.extensions.seahorse.convert} | 2 +-
+ ...eahorse.gschema.xml => org.nemo.extensions.seahorse.gschema.xml} | 2 +-
+ ....gschema.xml => org.nemo.extensions.seahorse.window.gschema.xml} | 2 +-
+ nemo-seahorse/tool/seahorse-tool.c                                  | 2 +-
+ nemo-seahorse/tool/seahorse-widget.c                                | 4 ++--
+ 6 files changed, 9 insertions(+), 9 deletions(-)
+ rename nemo-seahorse/data/{org.nemo.seahorse.convert => org.nemo.extensions.seahorse.convert} (81%)
+ rename nemo-seahorse/data/{org.nemo.seahorse.gschema.xml => org.nemo.extensions.seahorse.gschema.xml} (89%)
+ rename nemo-seahorse/data/{org.nemo.seahorse.window.gschema.xml => org.nemo.extensions.seahorse.window.gschema.xml} (88%)
+
+diff --git a/nemo-seahorse/data/Makefile.am b/nemo-seahorse/data/Makefile.am
+index 1242ec1..55d7879 100644
+--- a/nemo-seahorse/data/Makefile.am
++++ b/nemo-seahorse/data/Makefile.am
+@@ -1,11 +1,11 @@
+ gsettings_SCHEMAS = \
+-	org.nemo.seahorse.gschema.xml \
+-	org.nemo.seahorse.window.gschema.xml
++	org.nemo.extensions.seahorse.gschema.xml \
++	org.nemo.extensions.seahorse.window.gschema.xml
+ 
+ @GSETTINGS_RULES@
+ 
+ convert_DATA = \
+-	org.nemo.seahorse.convert
++	org.nemo.extensions.seahorse.convert
+ 
+ convertdir = \
+ 	$(datarootdir)/GConf/gsettings
+diff --git a/nemo-seahorse/data/org.nemo.seahorse.convert b/nemo-seahorse/data/org.nemo.extensions.seahorse.convert
+similarity index 81%
+rename from nemo-seahorse/data/org.nemo.seahorse.convert
+rename to nemo-seahorse/data/org.nemo.extensions.seahorse.convert
+index 2b666e1..517e54e 100644
+--- a/nemo-seahorse/data/org.nemo.seahorse.convert
++++ b/nemo-seahorse/data/org.nemo.extensions.seahorse.convert
+@@ -1,4 +1,4 @@
+-[org.nemo.seahorse]
++[org.nemo.extensions.seahorse]
+ package-extension = /desktop/pgp/package_extension
+ separate-files = /desktop/pgp/multi_seperate
+ armor-mode = /desktop/pgp/ascii_armor
+diff --git a/nemo-seahorse/data/org.nemo.seahorse.gschema.xml b/nemo-seahorse/data/org.nemo.extensions.seahorse.gschema.xml
+similarity index 89%
+rename from nemo-seahorse/data/org.nemo.seahorse.gschema.xml
+rename to nemo-seahorse/data/org.nemo.extensions.seahorse.gschema.xml
+index 471f612..fb17469 100644
+--- a/nemo-seahorse/data/org.nemo.seahorse.gschema.xml
++++ b/nemo-seahorse/data/org.nemo.extensions.seahorse.gschema.xml
+@@ -1,5 +1,5 @@
+ <schemalist>
+-	<schema id="org.nemo.seahorse" path="/org.nemo.seahorse/">
++	<schema id="org.nemo.extensions.seahorse" path="/org/nemo/extensions/seahorse/">
+ 		<key name="package-extension" type="s">
+ 			<default>'.zip'</default>
+ 			<summary>File extension for packages</summary>
+diff --git a/nemo-seahorse/data/org.nemo.seahorse.window.gschema.xml b/nemo-seahorse/data/org.nemo.extensions.seahorse.window.gschema.xml
+similarity index 88%
+rename from nemo-seahorse/data/org.nemo.seahorse.window.gschema.xml
+rename to nemo-seahorse/data/org.nemo.extensions.seahorse.window.gschema.xml
+index 8d2d0a1..bcb6d88 100644
+--- a/nemo-seahorse/data/org.nemo.seahorse.window.gschema.xml
++++ b/nemo-seahorse/data/org.nemo.extensions.seahorse.window.gschema.xml
+@@ -1,5 +1,5 @@
+ <schemalist>
+-	<schema id="org.nemo.seahorse.window">
++	<schema id="org.nemo.extensions.seahorse.window">
+ 		<key name="width" type="i">
+ 			<default>-1</default>
+ 			<summary>Width of the window</summary>
+diff --git a/nemo-seahorse/tool/seahorse-tool.c b/nemo-seahorse/tool/seahorse-tool.c
+index ef20c56..be73705 100644
+--- a/nemo-seahorse/tool/seahorse-tool.c
++++ b/nemo-seahorse/tool/seahorse-tool.c
+@@ -703,7 +703,7 @@ main (int argc, char **argv)
+         return 2;
+     }
+ 
+-    seahorse_tool_settings = g_settings_new ("org.nemo.seahorse");
++    seahorse_tool_settings = g_settings_new ("org.nemo.extensions.seahorse");
+ 
+     /* The basic settings for the operation */
+     memset (&mode, 0, sizeof (mode));
+diff --git a/nemo-seahorse/tool/seahorse-widget.c b/nemo-seahorse/tool/seahorse-widget.c
+index f0df575..62d5b4c 100644
+--- a/nemo-seahorse/tool/seahorse-widget.c
++++ b/nemo-seahorse/tool/seahorse-widget.c
+@@ -106,8 +106,8 @@ seahorse_widget_constructed (GObject *object)
+ 	/* Load window size for windows that aren't dialogs */
+ 	window = GTK_WINDOW (seahorse_widget_get_toplevel (self));
+ 	if (!GTK_IS_DIALOG (window)) {
+-		path = g_strdup_printf ("/org.nemo.seahorse/windows/%s/", self->name);
+-		self->settings = g_settings_new_with_path ("org.nemo.seahorse.window", path);
++		path = g_strdup_printf ("/org.nemo.extensions.seahorse/windows/%s/", self->name);
++		self->settings = g_settings_new_with_path ("org.nemo.extensions.seahorse.window", path);
+ 		g_free (path);
+ 
+ 		width = g_settings_get_int (self->settings, "width");

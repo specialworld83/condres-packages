@@ -1,0 +1,30 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname="condres-kernel-manager"
+_pkgname="Condres-Kernel-Manager"
+pkgver=1.6
+pkgrel=1
+pkgdesc='An easy kernel manager for everyone'
+url='https://condresos.codelinsoft.it'
+arch=('any')
+license=('GPL3')
+depends=('yad' 'downgrade' 'xterm' 'cki')
+source=("Condres-Kernel-Manager-1.6.tar.gz")
+md5sums=('SKIP')
+
+
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+
+    install -D -m 755 condres-kernel-manager \
+    	 "${pkgdir}/usr/bin/condres-kernel-manager"
+
+    install -D -m 755 condres-kernel-manager.desktop \
+    	 "${pkgdir}/usr/share/applications/condres-kernel-manager.desktop"
+
+    install -D -m 644 logo_condres_mini.svg \
+    	 "${pkgdir}/usr/share/icons/default/logo_condres_mini.svg"
+
+    install -D -m 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

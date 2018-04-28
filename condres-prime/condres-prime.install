@@ -1,0 +1,7 @@
+post_install(){
+    /usr/bin/systemctl -f enable sddm-plymouth
+}
+
+post_upgrade(){
+    /usr/bin/systemctl -f enable sddm-plymouth
+}

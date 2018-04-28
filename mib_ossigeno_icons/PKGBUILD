@@ -1,0 +1,18 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname='Ossigeno Icons'
+pkgname=condres-icons-ossigeno
+pkgver=1.0.5
+pkgrel=1
+pkgdesc='Icons Ossigeno for Condres OS'
+arch=(any)
+license=(GPL)
+url="http://mib.pianetalinux.org/MIB/2010.2/others/projects/old/MIB-Ossigeno-Ultimate/Tarball/"
+depends=()
+source=("Condres-Ossigeno-Ultimate-Icons.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+	mkdir -p "${pkgdir}/usr/share/icons"
+	cp -rf "${srcdir}/Condres-Ossigeno-Ultimate-Icons" "${pkgdir}/usr/share/icons"
+}

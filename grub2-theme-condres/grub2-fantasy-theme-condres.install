@@ -1,0 +1,8 @@
+post_install() {
+sh /etc/condres-assets/Condres-Fantasy/install.sh
+}
+
+post_upgrade() {
+    post_install
+}
+# -*- mode: bash;-*-
