@@ -1,5 +1,4 @@
-# Maintainer: twa022 <twa022 at gmail dot com>
-# Contributor: Angelo Scarnà <angelo.scarna@codelinsoft.it>
+# Maintainer: Angelo Scarnà <angelo.scarna@codelinsoft.it>
 
 _pkgname=gimp
 pkgname=${_pkgname}
