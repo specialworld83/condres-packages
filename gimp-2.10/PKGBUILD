@@ -68,4 +68,4 @@ package() {
 #  ln -s gimp-${pkgver%.*} ${pkgdir}/usr/bin/gimp
 #  ln -s gimp-console-${pkgver%.*} ${pkgdir}/usr/bin/gimp-console
 }
-
+ 

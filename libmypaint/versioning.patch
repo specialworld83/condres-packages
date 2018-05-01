@@ -608,4 +608,4 @@ diff -Naur ./libmypaint-1.3.0.orig/tests/Makefile.am ./libmypaint-1.3.0/tests/Ma
 +	$(top_builddir)/libmypaint-@LIBMYPAINT_API_PLATFORM_VERSION@.la
  
  EXTRA_DIST = \
- 	brushes/bulk.myb			\
+ 	brushes/bulk.myb			\ 

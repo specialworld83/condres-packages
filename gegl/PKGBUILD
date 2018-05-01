@@ -47,4 +47,4 @@ package() {
 pkgver() {
   cd $_gitname
   git describe --always | sed -e 's/GEGL_//' -e 's/-g.*$//' -e 's/[_-]/./g'
-}
+} 

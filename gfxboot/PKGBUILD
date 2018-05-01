@@ -1,7 +1,8 @@
 # Contributions from KaOS: https://github.com/KaOSx/main/blob/master/gfxboot/PKGBUILD
 
 pkgname=gfxboot
-pkgver=4.5.6
+pkgver=4.6
+_pkgvers=4.5.6
 _pkgver=1.1
 pkgrel=2
 arch=('x86_64')
@@ -11,33 +12,33 @@ pkgdesc="Graphical Boot Logo tool"
 url="http://www.opensuse.org"
 depends=('perl-html-parser' 'freetype2' 'cpio' 'nasm')
 makedepends=('rpmextract')
-source=("http://download.opensuse.org/source/distribution/13.2/repo/oss/suse/src/${pkgname}-${pkgver}-${_pkgver}.src.rpm"
+source=("http://download.opensuse.org/source/distribution/13.2/repo/oss/suse/src/${pkgname}-${_pkgvers}-${_pkgver}.src.rpm"
 	'gfxboot.html'
 	'isolinux.patch')
 options=(docs)
-md5sums=('30435f328f89b4afee69d2f9f4b48db3'
+md5sums=('SKIP'
          'f824c5bc2f716f8029677cae6956c1c7'
          '224289270f7ea288aaded3272a9c53f4')
 
 prepare() {
   echo -e "\033[1;34m :: \033[1;39m Preparing ... please wait \033[1;0m"
 
-  rpmextract.sh ${pkgname}-${pkgver}-${_pkgver}.src.rpm
+  rpmextract.sh ${pkgname}-${_pkgvers}-${_pkgver}.src.rpm
   
   for i in $(find -name '*.tar.xz');do tar -Jxf $i;done
-  mv -f themes ${pkgname}-${pkgver}/
+  mv -f themes ${pkgname}-${_pkgvers}/
 
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgvers}
   patch -p1 -i ${srcdir}/isolinux.patch
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgvers}
   make -s  
 }
   
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgvers}
   make -s DESTDIR=$pkgdir installsrc 
 
   install -d -m 755 ${pkgdir}/usr/{bin,share/man/man8,share/doc/gfxboot} 
