@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=cinnamon-screensaver
-pkgver=3.8.0
+pkgver=3.8.1
 pkgrel=1
 pkgdesc="Screensaver designed to integrate well with the Cinnamon desktop."
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('gobject-introspection' 'intltool')
 backup=(etc/pam.d/cinnamon-screensaver)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         "cinnamon-screensaver.pam")
-sha256sums=('aaac17cdab736dead7fbf13af17fca37c4a2c029353f1e8263372ce4e8e75359'
+sha256sums=('SKIP'
             'SKIP')
 
 prepare() {

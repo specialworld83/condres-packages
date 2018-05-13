@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=muffin
-pkgver=3.8.0
+pkgver=3.8.1
 pkgrel=1
 pkgdesc="Cinnamon window manager based on Mutter"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('cinnamon-desktop' 'clutter' 'gobject-introspection-runtime' 'libcanber
 makedepends=('intltool' 'gobject-introspection' 'gtk-doc' 'gnome-doc-utils')
 options=('!emptydirs')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('c4da198eedb1437cbfcd96c56e8431cde1af6378a2974aa1f66f8b6a915eabd0')
+sha256sums=('SKIP')
 
 prepare() {
     cd "${srcdir}"/${pkgname}-${pkgver}

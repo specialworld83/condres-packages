@@ -1,9 +1,9 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=6.2.6
-_pkgver=6.2.6
-pkgrel=12
+pkgver=6.3.1
+_pkgver=6.3.1
+pkgrel=1
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
 url='https://github.com/manjaro/pamac'
@@ -18,10 +18,10 @@ backup=('etc/pamac.conf')
 conflicts=('pamac-dev')
 source=(
 	"pamac-$_pkgver.tar.gz::$url/archive/v$_pkgver.tar.gz"
-	'https://patch-diff.githubusercontent.com/raw/manjaro/pamac/pull/369.patch'
+	"git-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...afd343e.patch"
 )
 md5sums=('SKIP'
-         'b0ce8a76d50eb58cbf6542db868ca4f5')
+         'd41d8cd98f00b204e9800998ecf8427e')
 
 
 
@@ -32,8 +32,7 @@ prepare() {
 	sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala 
 
 	# patches here
-	# https://github.com/manjaro/pamac/pull/369
-	patch -Np1 -i ../../369.patch
+	patch -Np1 -i ../../"git-$pkgver-$pkgrel.patch"
 }
 
 build() {

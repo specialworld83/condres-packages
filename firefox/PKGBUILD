@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=firefox
-pkgver=59.0.2
-_pkgrel=2
+pkgver=60.0
+_pkgrel=1
 pkgrel=2
 pkgdesc="Standalone web browser from mozilla.org"
 arch=(x86_64)

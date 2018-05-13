@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=cinnamon
-pkgver=3.8.0
+pkgver=3.8.2
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=('x86_64')
@@ -25,7 +25,7 @@ source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         "set_wheel.patch"
         "default-theme.patch"
         "menu-symbolic.svg_new_branding")
-sha512sums=('5b5129a71e650470935f3bdabf3052a47d4673c31927308d311e638ccff5073e7ab9aee526f66b90b8b77de0a66e91eaaad9033d716379c680cc524851694e82'
+sha512sums=('SKIP'
             'a0a9f4d25053fe96f9b1495394adb829252367099931d3f0e9bdfd2371093b4e86ff13fc945301b3a59691bbb7ee14da89e68c4ef3d8e7a1b5ec6bdedccb9137'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             '3c460141b277df61c4546cc311fa5ecc7e7ea19a7d39a92d1d0214c37a91b4e163bc91823df7098bd2cf6fb430361cdb9839ab96abe53fe82f2a735e187de563'

@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=nemo
-pkgver=3.8.0
+pkgver=3.8.2
 pkgrel=1
 pkgdesc="Cinnamon file manager (Nautilus fork)"
 arch=('x86_64')
@@ -12,7 +12,7 @@ optdepends=('cinnamon-translations: i18n'
             'ffmpegthumbnailer: support for video thumbnails')
 makedepends=('meson' 'gobject-introspection' 'intltool')
 source=("$pkgname-$pkgver.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha512sums=('488282d607296bfefa692af2bf12f25fe5f0570945f75fa17ba64dd38eb5b982f8163d311310a6619bdba6241e0b3f15d5bcc10799234a01bc47e7ec63132c25')
+sha512sums=('d0a1ba1c9cab5e3e922d82d896e4b2abfb7b82185d8ae8748ddeb9b3f5ce4de688c0e774757ec8fa1f57e7dff92351f7a0d257088704a9e7121b951f92042add')
 
 prepare() {
     cd "${srcdir}"/${pkgname}-${pkgver}
@@ -36,9 +36,4 @@ package() {
     cd "${srcdir}"/${pkgname}-${pkgver}/build
 
     DESTDIR="${pkgdir}" ninja install
-
-    # https://github.com/linuxmint/nemo/pull/1835
-    rm "${pkgdir}"/usr/lib/libnemo-private.a
-
-
 }
