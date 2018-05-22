@@ -1,7 +1,7 @@
 pkgname=appimage
 _gitname=AppImageKit
 pkgdesc="Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, Ubuntu, Fedora, debian and derivatives."
-pkgver=r1211.378d3a1
+pkgver=r1342.c0ff6f7
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://appimage.org"
@@ -58,7 +58,7 @@ build() {
   mkdir -p appimaged.AppDir/usr/share/metainfo/
 
   cp resources/usr/share/metainfo/appimagetool.appdata.xml appimagetool.AppDir/usr/share/metainfo/
-  cp resources/usr/share/metainfo/appimaged.appdata.xml appimaged.AppDir/usr/share/metainfo/
+ 
 
   # Generate appimage files
   cd build/out

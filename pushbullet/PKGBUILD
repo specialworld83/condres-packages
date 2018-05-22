@@ -2,7 +2,7 @@
 
 pkgname=pushbullet
 pkgrel=1
-pkgver=6.9.1
+pkgver=7.0.0
 _pkgver="v$pkgver"
 pkgdesc="The missing Desktop application for Pushbullet"
 url="https://github.com/sidneys/pb-for-desktop"
@@ -11,7 +11,7 @@ arch=('i686' 'x86_64')
 license=('MIT')
 makedepends=('unzip')
 depends=('libnotify' 'gconf' 'libappindicator-gtk2' 'libappindicator-gtk3' 'libxtst' 'nss')
-source=("https://github.com/sidneys/pb-for-desktop/releases/download/v6.8.1/pb-for-desktop-6.8.1-amd64.deb")
+source=("https://github.com/sidneys/pb-for-desktop/releases/download/v7.0.0/pb-for-desktop-7.0.0-amd64.deb")
 sha256sums=('SKIP')
 
 package() {
