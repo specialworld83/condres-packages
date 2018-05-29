@@ -1,0 +1,39 @@
+ # Maintainer : Angelo Scarnà <angelo.scarna@codelinsoft.it>
+
+pkgname=dvdstyler
+pkgver=3.0.4
+pkgrel=1
+pkgdesc="Cross-platform DVD authoring application"
+arch=('x86_64')
+url="http://www.dvdstyler.de/"
+license=('GPL')
+depends=('cdrkit' 'dvdauthor' 'dvd+rw-tools' 'zip' 'xmlto' 'wxgtk' 'wxsvg>=1.5.12' 'mjpegtools'  'libexif')
+makedepends=('docbook-xsl' 'flex')
+optdepends=('dvdisaster: ECC support'
+	    'xine-ui: DVD preview player'
+	    'vlc: DVD preview player'
+	    'smplayer: DVD preview player')
+source=(http://downloads.sourceforge.net/dvdstyler/${pkgver}/DVDStyler-${pkgver}.tar.bz2
+               'patch_encode.patch')
+sha1sums=('0ff6de099d177c05c34f536defc1562e520b9703'
+                      '8cbc0a0bbaee995636ac310b3463076012d8a2a8')
+
+
+prepare() {
+ cd "${srcdir}/DVDStyler-${pkgver}"
+ patch -Np1 -i "${srcdir}/patch_encode.patch"
+}
+
+build() {
+  cd "${srcdir}/DVDStyler-${pkgver}"
+
+  ./configure --prefix=/usr --with-wx-config=/usr/bin/wx-config
+  make -j5
+}
+
+package() {
+  cd "${srcdir}/DVDStyler-${pkgver}"
+
+  make DESTDIR="${pkgdir}" install
+  install -m 644 -D ${pkgdir}/usr/share/doc/dvdstyler/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
