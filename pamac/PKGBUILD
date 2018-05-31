@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=6.3.2
-_pkgver=6.3.2
+pkgver=6.3.3
+_pkgver=6.3.3
 pkgrel=1
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
@@ -10,7 +10,7 @@ url='https://github.com/manjaro/pamac'
 license=('GPL3')
 depends=(
 	'glib2' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3' 'gtk3'
-	'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'pacman<5.1' 'gnutls'
+	'libnotify' 'desktop-file-utils' 'pacman>=5.0' 'gnutls'
 	'appstream-glib' 'archlinux-appstream-data'
 )
 makedepends=('gettext' 'itstool' 'vala' 'git' 'libappindicator-gtk3' 'meson')
