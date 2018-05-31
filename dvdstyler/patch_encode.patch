@@ -1,0 +1,11 @@
+--- DVDStyler-3.0.4/src/mediaenc_ffmpeg.cpp	2016-10-23 21:03:35.000000000 +0200
++++ DVDStyler-3.0.4/src/mediaenc_ffmpeg.cpp	2018-05-27 08:59:13.468028518 +0200
+@@ -223,7 +223,7 @@
+ 	c->time_base = (AVRational){ 1, c->sample_rate };
+ 	// some formats want stream headers to be separate
+ 	if(m_outputCtx->oformat->flags & AVFMT_GLOBALHEADER)
+-	    c->flags |= CODEC_FLAG_GLOBAL_HEADER;
++	    c->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
+ 	
+ 	return true;
+ }
