@@ -2,7 +2,7 @@
 
 pkgbase=opensnitch-git
 pkgname=(opensnitch-git)
-pkgver=r340.f71d8ce
+pkgver=r342.d325c85
 pkgrel=1
 pkgdesc="OpenSnitch is a GNU/Linux port of the Little Snitch application firewall."
 arch=(any)
@@ -22,7 +22,12 @@ pkgver() {
 
 build() {
   cd $pkgname
-  make
+  go get github.com/golang/protobuf/protoc-gen-go
+  go get -u github.com/golang/dep/cmd/dep
+  python3 -m pip install --user grpcio-tools
+  go get github.com/evilsocket/opensnitch
+  cd $GOPATH/src/github.com/evilsocket/opensnitch
+  make $GOPATH/src/github.com/evilsocket/opensnitch
 }
 
 package() {

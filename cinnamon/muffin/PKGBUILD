@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=muffin
-pkgver=3.8.1
+pkgver=3.8.2
 pkgrel=1
 pkgdesc="Cinnamon window manager based on Mutter"
 arch=('x86_64')

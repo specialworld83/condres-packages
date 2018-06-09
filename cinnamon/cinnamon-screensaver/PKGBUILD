@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=cinnamon-screensaver
-pkgver=3.8.1
+pkgver=3.8.2
 pkgrel=1
 pkgdesc="Screensaver designed to integrate well with the Cinnamon desktop."
 arch=('x86_64')
