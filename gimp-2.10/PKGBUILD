@@ -4,7 +4,7 @@ _pkgname=gimp
 pkgname=${_pkgname}
 epoch=1
 pkgver=2.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU Image Manipulation Program (Development version)"
 arch=('i686' 'x86_64')
 url="http://www.gimp.org/"
@@ -23,7 +23,7 @@ conflicts=("${_pkgname}")
 provides=("${_pkgname}=${pkgver}")
 source=(https://download.gimp.org/pub/gimp/v${pkgver%.*}/${_pkgname}-${pkgver}.tar.bz2 linux.gpl)
 sha256sums=('1cb0baaecdefe44d371a15f2739a1bcbce4682336b4ccf8eb7b587ce52c333eb'
-            '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
+            'SKIP')
 
 prepare() {
   export PYTHON=/usr/bin/python2
@@ -65,6 +65,7 @@ package() {
   ln -s gimp-${pkgver%.*}.1.gz "${pkgdir}/usr/share/man/man1/gimp.1.gz"
 
   ln -s gimptool-2.0 "${pkgdir}/usr/bin/gimptool"
+  ln -s /usr/lib/libjson-c.so "${pkgdir}/usr/lib/libjson-c.so.3"
 #  ln -s gimp-${pkgver%.*} ${pkgdir}/usr/bin/gimp
 #  ln -s gimp-console-${pkgver%.*} ${pkgdir}/usr/bin/gimp-console
 }
