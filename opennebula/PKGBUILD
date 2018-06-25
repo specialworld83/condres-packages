@@ -2,7 +2,7 @@
 
 pkgname=opennebula
 _pkgname=one-release
-pkgver=5.4.12
+pkgver=5.4.15
 pkgrel=3
 pkgdesc="Virtual management infrastructure as a service (IaaS) toolkit for cloud computing"
 arch=('i686' 'x86_64')
@@ -82,7 +82,7 @@ backup=('etc/one/oned.conf'
         'etc/one/sched.conf'
         'etc/one/ec2_driver.default')
 changelog=ChangeLog
-source=("https://github.com/OpenNebula/one/archive/release-5.4.12.tar.gz"
+source=("https://github.com/OpenNebula/one/archive/release-5.4.15.tar.gz"
         'opennebula.service'
         'opennebula-scheduler.service'
         'opennebula-sunstone.service'

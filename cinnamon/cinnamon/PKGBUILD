@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=cinnamon
-pkgver=3.8.4
+pkgver=3.8.6
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=('x86_64')

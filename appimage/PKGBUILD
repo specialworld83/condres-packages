@@ -1,7 +1,7 @@
 pkgname=appimage
 _gitname=AppImageKit
 pkgdesc="Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, Ubuntu, Fedora, debian and derivatives."
-pkgver=r1342.c0ff6f7
+pkgver=r1364.a01f60b
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://appimage.org"

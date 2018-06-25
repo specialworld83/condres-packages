@@ -2,7 +2,7 @@
 
 _pkgname=mintmenu
 pkgname=mate-mint-menu
-pkgver=5.8.4
+pkgver=5.8.8
 pkgrel=1
 pkgdesc="Linux Mint Menu for MATE"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python2-gobject' 'python2-xdg' 'xdg-utils' 'mozo' 'mate-panel>=1.16.0'
 optdepends=('mate-screensaver: lock screen button'
 			'pamac: package manager button')
 # "http://packages.linuxmint.com/pool/main/m/mintmenu/mintmenu_${pkgver}.tar.xz"
-source=("${pkgname}-${pkgver}.zip::https://github.com/linuxmint/mintmenu/archive/5.8.4.zip"
+source=("${pkgname}-${pkgver}.zip::https://github.com/linuxmint/mintmenu/archive/5.8.8.zip"
 		'http://github.com/linuxmint/mint-translations/archive/master.tar.gz'
 		
 		'removescript')
@@ -39,7 +39,7 @@ package() {
 	done
 
 	#cd "$srcdir/${_pkgname}"
-	cd "$srcdir/${_pkgname}-master"
+	cd "$srcdir/${_pkgname}-5.8.4"
 	
 
 	# Disable the software-manager entry under Places
@@ -49,7 +49,7 @@ package() {
 
 
 	#cd "$srcdir/${_pkgname}"
-	cd "$srcdir/${_pkgname}-master"
+	cd "$srcdir/${_pkgname}-5.8.4"
 	cp -R usr "$pkgdir/"
 	install -m755 "$srcdir/removescript" "$pkgdir/usr/lib/linuxmint/mintMenu/"
 	cd "$pkgdir"/usr/lib/linuxmint/mintMenu
