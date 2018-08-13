@@ -1,11 +1,11 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
-_gitname=powerline-2.6
+_gitname=powerline-2.7
 _gitbranch=develop
 pkgbase=python-powerline-git
 pkgname=('python2-powerline-condres' 'python-powerline-condres')
 pkgdesc='The ultimate statusline/prompt utility'
-pkgver=2.6
+pkgver=2.7
 pkgrel=7
 epoch=1
 url='https://github.com/powerline/powerline'
@@ -13,10 +13,10 @@ license=('MIT')
 arch=('any')
 makedepends=('git' 'python2-setuptools' 'python-setuptools' 'python2-sphinx' 'lsb-release')
 install="powerline.install"
-source=("https://github.com/powerline/powerline/archive/2.6.tar.gz"
+source=("https://github.com/powerline/powerline/archive/2.7.tar.gz"
         "${install}")
 sha256sums=('SKIP'
-            'af07852748ddba1544feee53fdf747d3dd163597f026719f8a6f80045d0c5425')
+            'SKIP')
 
 
 
