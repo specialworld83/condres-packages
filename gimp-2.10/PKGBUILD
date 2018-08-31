@@ -22,7 +22,7 @@ options=('!makeflags')
 conflicts=("${_pkgname}")
 provides=("${_pkgname}=${pkgver}")
 source=(https://download.gimp.org/pub/gimp/v${pkgver%.*}/${_pkgname}-${pkgver}.tar.bz2 linux.gpl)
-sha256sums=('ffb0768de14a2631b3d7ed71f283731441a1b48461766c23f0574dce0706f192'
+sha256sums=('SKIP'
             'SKIP')
 
 prepare() {

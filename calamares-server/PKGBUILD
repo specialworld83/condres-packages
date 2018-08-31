@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares-server
-pkgver=3.2.0
-pkgrel=10
+pkgver=3.2.1
+pkgrel=11
 epoch=2
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
@@ -19,7 +19,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 
-source+=("https://github.com/calamares/calamares/releases/download/v3.2.0/calamares-3.2.0.tar.gz"
+source+=("https://github.com/calamares/calamares/releases/download/v3.2.1/calamares-3.2.1.tar.gz"
          https://codelinsoft.it/updates/calamares-condres.tar.gz)
 
 sha256sums=('SKIP'
@@ -27,14 +27,14 @@ sha256sums=('SKIP'
 
 prepare() {
     bsdtar xvzf calamares-condres.tar.gz
-    cp -a ${srcdir}/calamares-condres/* ${srcdir}/calamares-3.2.0
+    cp -a ${srcdir}/calamares-condres/* ${srcdir}/calamares-3.2.1
     rm -rf ${srcdir}/calamares-condres
-    cd ${srcdir}/calamares-3.2.0
+    cd ${srcdir}/calamares-3.2.1
 }
 
 
 build() {
-    cd ${srcdir}/calamares-3.2.0
+    cd ${srcdir}/calamares-3.2.1
 
     mkdir -p build
     cd build
@@ -47,7 +47,7 @@ build() {
 }
 
 package() {
-    cd ${srcdir}/calamares-3.2.0/build
+    cd ${srcdir}/calamares-3.2.1/build
     make DESTDIR="$pkgdir" install
     install -Dm644 "../calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
     install -Dm644 "../calamares.png" "$pkgdir/usr/share/icons/calamares.png"

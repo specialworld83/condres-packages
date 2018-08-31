@@ -26,8 +26,8 @@ build() {
   go get -u github.com/golang/dep/cmd/dep
   python3 -m pip install --user grpcio-tools
   go get github.com/evilsocket/opensnitch
-  cd $GOPATH/src/github.com/evilsocket/opensnitch
-  make $GOPATH/src/github.com/evilsocket/opensnitch
+  cd opensnitch-git
+  make 
 }
 
 package() {

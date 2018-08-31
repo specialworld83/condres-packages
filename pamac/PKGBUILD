@@ -1,12 +1,12 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=6.4.0
-_pkgver=6.4.0
+pkgver=6.9.0
+_pkgver=6.9.0
 pkgrel=1
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
-url='https://github.com/manjaro/pamac'
+url="https://gitlab.manjaro.org/applications/pamac"
 license=('GPL3')
 depends=(
 	'glib2' 'json-glib' 'libsoup' 'dbus-glib' 'polkit' 'vte3' 'gtk3'
@@ -16,31 +16,32 @@ depends=(
 makedepends=('gettext' 'itstool' 'vala' 'git' 'libappindicator-gtk3' 'meson')
 backup=('etc/pamac.conf')
 conflicts=('pamac-dev')
-source=(
-	"pamac-$_pkgver.tar.gz::$url/archive/v$_pkgver.tar.gz"
-	"git-$pkgver-$pkgrel.patch::https://github.com/manjaro/pamac/compare/v$_pkgver...afd343e.patch"
-)
+source=("pamac-$pkgver-$pkgrel.tar.gz::$url/-/archive/v$_pkgver/pamac-v$_pkgver.tar.gz")
 md5sums=('SKIP'
-         'd41d8cd98f00b204e9800998ecf8427e')
+        )
 
 
 
 prepare() {
-	cd "${srcdir}/pamac-${pkgver}"
+	cd "${srcdir}/pamac-v${pkgver}"
 
-	# adjust version string
-	sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala 
+	  # patches here
+  #patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
 
-	# patches here
-	patch -Np1 -i ../../"git-$pkgver-$pkgrel.patch"
+  # adjust version string
+  sed -i -e "s|\"$_pkgver\"|\"$pkgver-$pkgrel\"|g" src/manager_window.vala
+
 }
 
 build() {
-	cd "${srcdir}/pamac-${pkgver}"
-	mkdir -p build && cd build
+	cd "${srcdir}/pamac-v${pkgver}"
+	  mkdir -p builddir
+  cd builddir
+  meson --prefix=/usr --sysconfdir=/etc
 
-	meson --prefix=/usr --sysconfdir=/etc --libdir=lib -Denable-appindicator=true ..
-	ninja
+  # build
+  ninja
+
 }
 
 package_pamac() {
@@ -52,7 +53,7 @@ package_pamac() {
 	backup=('etc/pamac.conf')
 
 
-	cd "${srcdir}/pamac-${pkgver}/build"
+	cd "${srcdir}/pamac-v${pkgver}/builddir"
 	DESTDIR="${pkgdir}" ninja install
 
 	# Enable applicable systemd timers
@@ -60,8 +61,8 @@ package_pamac() {
 	ln -sf /usr/lib/systemd/system/pamac-cleancache.timer "${pkgdir}/etc/systemd/system/multi-user.target.wants"
 
 	# Remove pamac-tray-appindicator
-	rm "${pkgdir}/usr/bin/pamac-tray-appindicator"
-	rm -f "${pkgdir}/etc/xdg/autostart/pamac-tray-appindicator.desktop"
+	rm "${pkgdir}/usr/bin/pamac-tray"
+	rm -f "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
 }
 
 package_pamac-tray-appindicator() {
@@ -70,7 +71,7 @@ package_pamac-tray-appindicator() {
 	conflicts=('pamac-tray-appindicator-dev')
 	backup=()
 
-	cd "${srcdir}/pamac-${pkgver}/build"
-	install -Dm755 src/pamac-tray-appindicator "${pkgdir}/usr/bin/pamac-tray-appindicator"
-	install -Dm644 ../data/applications/pamac-tray-appindicator.desktop "${pkgdir}/etc/xdg/autostart/pamac-tray-appindicator.desktop"
+	cd "${srcdir}/pamac-v${pkgver}/builddir"
+	install -Dm755 src/pamac-tray "${pkgdir}/usr/bin/pamac-tray"
+	install -Dm644 ../data/applications/pamac-tray.desktop "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
 }

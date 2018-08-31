@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=veyon
-pkgver=4.0.7
-pkgrel=8
+pkgver=4.1.1
+pkgrel=9
 pkgdesc="Free and Open Source computer monitoring and classroom management" 
 url="https://github.com/veyon"
 arch=('i686' 'x86_64')
@@ -10,7 +10,7 @@ depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-graphicaleffects' 
 license=(LGPL)
 optdepends=('kldap: KDE support')
 makedepends=('git' 'cmake' 'qt5-tools')
-_commit=9347b20d83e7ad002aafbb5e9d31698337e21ccc #tags/4.0.7
+_commit=d6407825646c0474c91b382e09b79e7fac84bdaf #tags/4.1.1
 source=("git+${url}/veyon#commit=$_commit"
     "git+${url}/ultravnc.git"
     "git+${url}/libvncserver.git"
@@ -46,9 +46,16 @@ build() {
 package_veyon() {
     cd build
     make DESTDIR="${pkgdir}" install
+    
+    ### systemd dir manually until upstream offers it in the build
+    mv ${pkgdir}/lib/systemd ${pkgdir}/usr/lib/systemd
+    rm -r ${pkgdir}/lib
+    ###
+
     cd ${pkgdir}/usr/lib/${pkgname}
     for lib in $(ls *.so)
     do
        ln -s "/usr/lib/veyon/$lib" "${pkgdir}/usr/lib/$lib"
     done
+    
 }
