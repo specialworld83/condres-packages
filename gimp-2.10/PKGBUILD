@@ -3,14 +3,14 @@
 _pkgname=gimp
 pkgname=${_pkgname}
 epoch=1
-pkgver=2.10.2
+pkgver=2.10.6
 pkgrel=1
 pkgdesc="GNU Image Manipulation Program (Development version)"
 arch=('i686' 'x86_64')
 url="http://www.gimp.org/"
 license=('GPL' 'LGPL')
 depends=('pygtk' 'lcms' 'libxpm' 'libwmf' 'libxmu' 'librsvg' 'libmng' 'dbus-glib'
-         'libexif' 'gegl>=0.4.0' 'jasper' 'desktop-file-utils' 'hicolor-icon-theme' 'babl>=0.1.46'
+         'libexif' 'gegl>=0.4.6' 'jasper' 'desktop-file-utils' 'hicolor-icon-theme' 'babl>=0.1.52'
          'openexr' 'libgudev' 'libgexiv2' 'libmypaint>=1.3.0' 'libwebp' 'aalib' 'mypaint-brushes')
 makedepends=('intltool' 'poppler-glib' 'poppler-data' 'alsa-lib' 'iso-codes' 'curl' 'ghostscript' 'gtk-doc' 'glib-networking')
 optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cups print support'
@@ -22,7 +22,7 @@ options=('!makeflags')
 conflicts=("${_pkgname}")
 provides=("${_pkgname}=${pkgver}")
 source=(https://download.gimp.org/pub/gimp/v${pkgver%.*}/${_pkgname}-${pkgver}.tar.bz2 linux.gpl)
-sha256sums=('1cb0baaecdefe44d371a15f2739a1bcbce4682336b4ccf8eb7b587ce52c333eb'
+sha256sums=('SKIP'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
 
 prepare() {

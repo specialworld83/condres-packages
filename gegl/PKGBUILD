@@ -1,13 +1,13 @@
 # Maintainer: Angelo Scarnà <angelo.scarna@codelinsoft.it>
 
 pkgname=gegl
-pkgver=0.4.2.5
+pkgver=0.4.8
 pkgrel=1
 pkgdesc="Graph based image processing framework"
 arch=('i686' 'x86_64')
 url="http://www.gegl.org"
 license=('GPL3' 'LGPL3')
-depends=('babl>=0.1.26' 'libspiro' 'json-glib')
+depends=('babl>=0.1.50' 'libspiro' 'json-glib')
 makedepends=('git' 'intltool' 'python2' 'ruby' 'lua'
              'libraw' 'openexr' 'ffmpeg' 'librsvg' 'jasper'
              'libtiff' 'suitesparse' 'gobject-introspection')
@@ -22,14 +22,14 @@ optdepends=('openexr: for using the openexr plugin'
 provides=("gegl=${pkgver}")
 conflicts=('gegl>=0.3.34')
 options=(!libtool)
-source=(git://git.gnome.org/gegl)
+source=(https://download.gimp.org/pub/gegl/0.4/${pkgname}-${pkgver}.tar.bz2)
 md5sums=('SKIP')
 
 _gitroot=GITURL
 _gitname=gegl
 
 build() {
-  cd "$srcdir/$_gitname"
+  cd "$pkgname-$pkgver"
 
   ./autogen.sh
   ./configure --prefix=/usr --with-sdl --with-openexr --with-librsvg \
@@ -40,11 +40,6 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_gitname"
+  cd "$pkgname-$pkgver"
   make DESTDIR="$pkgdir/" install
-}
-
-pkgver() {
-  cd $_gitname
-  git describe --always | sed -e 's/GEGL_//' -e 's/-g.*$//' -e 's/[_-]/./g'
 }
