@@ -2,13 +2,13 @@
 
 _pkgname='Condres Assets'
 pkgname=condresassets
-pkgver=2.2
+pkgver=2.3
 pkgrel=1
 pkgdesc='Assets for Condres OS'
 arch=(any)
 license=(GPL)
 url="https://github.com/specialworld83/condresassets"
-depends=('kdebase-runtime' 'icedtea-web')
+depends=('icedtea-web')
 source=("condresassets.tar.gz")
 sha256sums=('SKIP')
 install=condresassets.install

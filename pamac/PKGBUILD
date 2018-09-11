@@ -1,9 +1,9 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=6.9.0
-_pkgver=6.9.0
-pkgrel=1
+pkgver=7.0.1
+_pkgver=7.0.1
+pkgrel=2
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
 url="https://gitlab.manjaro.org/applications/pamac"
@@ -16,15 +16,16 @@ depends=(
 makedepends=('gettext' 'itstool' 'vala' 'git' 'libappindicator-gtk3' 'meson')
 backup=('etc/pamac.conf')
 conflicts=('pamac-dev')
-source=("pamac-$pkgver-$pkgrel.tar.gz::$url/-/archive/v$_pkgver/pamac-v$_pkgver.tar.gz")
+source=("pamac-$pkgver-$pkgrel.tar.gz::$url/-/archive/v$_pkgver/pamac-v$_pkgver.tar.gz"
+        "pamac-tray.desktop")
 md5sums=('SKIP'
-        )
+        'SKIP')
 
 
 
 prepare() {
 	cd "${srcdir}/pamac-v${pkgver}"
-
+    cp -rv ../pamac-tray.desktop ${srcdir}/pamac-v${pkgver}/data/applications/
 	  # patches here
   #patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
 
@@ -69,9 +70,8 @@ package_pamac-tray-appindicator() {
 	pkgdesc='Tray icon using appindicator for improved KDE support.'
 	depends=('pamac' 'libappindicator-gtk3')
 	conflicts=('pamac-tray-appindicator-dev')
-	backup=()
+  cd "${srcdir}/pamac-v${pkgver}"
+  install -Dm755 "builddir/src/pamac-tray" "$pkgdir/usr/bin/pamac-tray"
+  install -Dm644 "data/applications/pamac-tray.desktop" "$pkgdir/etc/xdg/autostart/pamac-tray.desktop"
 
-	cd "${srcdir}/pamac-v${pkgver}/builddir"
-	install -Dm755 src/pamac-tray "${pkgdir}/usr/bin/pamac-tray"
-	install -Dm644 ../data/applications/pamac-tray.desktop "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
 }

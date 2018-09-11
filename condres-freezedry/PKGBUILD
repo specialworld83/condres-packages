@@ -1,8 +1,9 @@
 # Maintainer: CodeLinSoft <info@codelinsoft.it>
 
 pkgname=condres-freezedry
-pkgver=2.0
+pkgver=1.0
 pkgrel=5
+epoch=1
 pkgdesc='Condres configuration tool'
 arch=('any')
 url='https://condresos.codelinsoft.it'

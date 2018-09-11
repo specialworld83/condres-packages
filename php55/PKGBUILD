@@ -22,7 +22,7 @@ pkgname=("${pkgbase}"
          "${pkgbase}-tidy"
          "${pkgbase}-xsl")
 pkgver=5.5.38
-pkgrel=5
+pkgrel=6
 pkgdesc="A general-purpose scripting language that is especially suited to web development"
 arch=('i686' 'x86_64')
 license=('PHP')
@@ -33,11 +33,11 @@ makedepends=('apache' 'c-client' 'postgresql-libs' 'libldap' 'smtp-forwarder'
              'openssl-1.0' 'db' 'gmp' 'systemd')
 
 source=("https://php.net/distributions/${_pkgbase}-${pkgver}.tar.xz"
-        
+        '0001-ext-gd-Use-pkg-config-to-detect-the-availability-of-freetype.patch.patch'
         'php.ini.patch' 'enchant2.patch' 'apache.conf' 'php-fpm.conf.in.patch'
         'logrotate.d.php-fpm' 'php-fpm.service' 'php-fpm.tmpfiles')
 sha512sums=('c2cdb18b2c9edaeff66591e8f58f8ff488260f537cdf9ce09820c163f20ff5209c0def89343d429932c9506ad4ef3daacf224946dac1c59622501092483f30c6'
-           
+            'SKIP'
             '4d4a5707d4ceed0b3800b3f89194732f1cf7514059dc38d86ed07aaa746919bdf33422095e91f3b766b202897a7afb8e9dc3f7f7a7f3a09595af057c4244286e'
             'dbb8b433605da0b98f2381d52964258f5bab3718425e1d4b83e10ada55f131810348b28ddfe39465c97a69a3ab55c4d8f5788be298549adb4efe531ceb6bcc1e'
             'a20711e301648c0e7080688d2a2522f8b6a94d35dc4a09169795618f7b09613490b46ae1805ffffca63bc29f3f4b1d36705dec1bcc55e293fc51a31a6c346d8c'
@@ -52,6 +52,7 @@ prepare() {
 
 	patch -p0 -i "${srcdir}/php.ini.patch"
 	patch -p0 -i "${srcdir}/php-fpm.conf.in.patch"
+	patch -p0 -i "${srcdir}/0001-ext-gd-Use-pkg-config-to-detect-the-availability-of-freetype.patch.patch"
 	# Just because our Apache 2.4 is configured with a threaded MPM by default does not mean we want to build a ZTS PHP.
 	# Let's supress this behaviour and build a SAPI that works fine with the prefork MPM.
 	sed '/APACHE_THREADED_MPM=/d' -i sapi/apache2handler/config.m4 -i configure
