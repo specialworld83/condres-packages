@@ -6,7 +6,7 @@ New MacOS theme:
 Install packages: sudo pacman -S condres-mac-icons gnome-osx-hsierra-gtk-theme gnome-osx-shell-theme 
 
 Screenshot:
-![Condres OS Mac theme](https://repository.codelinsoft.it/theme-mac.png)
+![Condres OS Mac theme](https://condresos.codelinsoft.it/theme-mac.png)
 
 # Trinity Condres OS PKGBUILD
 PKGBUILD's for building Trinity on Condres OS
