@@ -2,7 +2,7 @@
 
 _name=toml
 pkgname=python-$_name
-pkgver=0.9.2
+pkgver=0.9.6
 pkgrel=1
 pkgdesc='Parse and emit TOML'
 arch=('any')
@@ -10,7 +10,7 @@ url="https://github.com/uiri/$_name"
 license=('MIT')
 depends=('python')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-md5sums=('910a9573116c91d63e132741183c8a80')
+md5sums=('SKIP')
 
 package() {
 	cd "$_name-$pkgver"
