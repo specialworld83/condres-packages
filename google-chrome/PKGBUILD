@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=google-chrome
-pkgver=69.0.3497.81
+pkgver=69.0.3497.100
 pkgrel=1
 pkgdesc="The popular and trusted web browser by Google (Stable Channel)"
 arch=('x86_64')

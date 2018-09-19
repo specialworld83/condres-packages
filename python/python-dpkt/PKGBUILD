@@ -1,7 +1,7 @@
 pkgname=python-dpkt
 _pkgname=dpkt
 pkgver=1.9.1
-pkgrel=4
+pkgrel=5
 pkgdesc="This is a Python library for interacting with and creating packets."
 arch=('any')
 url="https://github.com/kbandla/dpkt"

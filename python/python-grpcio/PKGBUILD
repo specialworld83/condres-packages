@@ -3,7 +3,7 @@
 # News updates for packages can be followed at https://devblog.square-r00t.net
 pkgname=python-grpcio
 pkgver=1.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="HTTP/2-based RPC framework"
 arch=('any')
 url="https://grpc.io/"

@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname=python-iptables 
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for iptables'
 arch=('x86_64' 'i686')
 url='https://github.com/ldx/python-iptables'
