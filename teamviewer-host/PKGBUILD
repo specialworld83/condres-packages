@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=teamviewer-host
-pkgver=13.2.13582
+pkgver=14.0.12762
 pkgrel=7
 pkgdesc='All-In-One Software for Remote Support and Online Meetings'
 arch=('x86_64')

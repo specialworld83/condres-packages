@@ -1,6 +1,6 @@
 pkgname=welcome
 pkgver=5.7
-pkgrel=4
+pkgrel=5
 epoch=1
 pkgdesc="Live Welcome app for Condres OS Gnu/Linux"
 arch=('x86_64')

@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=condres-keyring
-pkgver=2.0
+pkgver=2.1
 pkgrel=2
 epoch=1
 pkgdesc='Condres PGP keyring'

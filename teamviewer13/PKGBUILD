@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
-pkgname=teamviewer12
-pkgver=12.0.90041
+pkgname=teamviewer13
+pkgver=13.2.26559
 pkgrel=7
 pkgdesc='All-In-One Software for Remote Support and Online Meetings'
 arch=('i686' 'x86_64')
@@ -31,7 +31,7 @@ depends_i686=(
   'freetype2'
   'libxtst')
 install=teamviewer.install
-source_x86_64=("https://download.teamviewer.com/download/version_${pkgver%%.*}x/teamviewer_${pkgver}_amd64.deb"
+source_x86_64=("https://dl.tvcdn.de/download/linux/version_${pkgver%%.*}x/teamviewer_${pkgver}_amd64.deb"
                )
 source_i686=("https://download.teamviewer.com/download/version_${pkgver%%.*}x/teamviewer_${pkgver}_i386.deb"
              )
@@ -44,7 +44,7 @@ prepare() {
 	warning "If the install fails, you need to uninstall previous major version of Teamviewer"
   mkdir data
   cd data
-	tar -xf ../data.tar.bz2
+	tar -xf ../data.tar.xz
 }
 
 package() {

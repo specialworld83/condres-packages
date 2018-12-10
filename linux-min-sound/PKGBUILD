@@ -3,7 +3,7 @@
 pkgbase=mint-artwork-common
 pkgname=mint-sounds
 pkgver=2.1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Common artwork used in Linux Mint.'
 arch=('any')
 license=('GPL')

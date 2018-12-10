@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname=materia-condres-theme
 epoch=2
-_date=20180519
-_gnomever=3.28
+_date=20181125
+_gnomever=3.30
 pkgver=${_gnomever}.${_date}
 pkgrel=2
 pkgdesc="A Material Design-like flat theme for GTK3, GTK2, Metacity, and GNOME-Shell. This package does not contain chrome skin extension."
