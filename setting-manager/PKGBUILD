@@ -2,7 +2,7 @@
 
 pkgname=condres-settings-manager
 pkgver=1.0
-pkgrel=18
+pkgrel=19
 pkgdesc="Condres GNU/Linux System Settings Tool"
 arch=('any')
 url="https://codelinsoft.it/"

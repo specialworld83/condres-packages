@@ -3,7 +3,7 @@
 pkgname=super-flat-remix-icon-theme
 _pkgname=Flat-Remix
 pkgver=20181207
-pkgrel=1
+pkgrel=2
 pkgdesc='a pretty simple icon theme, derived from Ultra-Flat-Icons, Paper and Flattr'
 arch=('any')
 depends=('condres-schemas')
@@ -24,5 +24,6 @@ package() {
 	install -dm755 "${pkgdir}/usr/share/icons"
 	cp -a "Flat-Remix"* "${pkgdir}/usr/share/icons/"
 	rm -rf  "${pkgdir}/usr/share/icons/Flat-Remix-Light"
+	rm -rf  "${pkgdir}/usr/share/icons/Flat-Remix-Dark"
     install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
 }
