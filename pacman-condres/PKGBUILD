@@ -1,13 +1,13 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=pacman-condres
-pkgver=2.2
+pkgver=2.3
 pkgrel=7
 epoch=2
 pkgdesc="Condres Release System"
 arch=('any')
 license=('GPL')
-depends=('lsb-release' 'condres-mirrorlist')
+depends=('lsb-release' 'condres-mirrorlist' )
 install=pacman-condres.install
 source=('pacman-condres.tar.gz')
 md5sums=('SKIP')

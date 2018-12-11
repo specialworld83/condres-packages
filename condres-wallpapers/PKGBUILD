@@ -1,6 +1,6 @@
 _pkgname='Condres Wallpapers'
 pkgname=condres-wallpapers
-pkgver=3.0
+pkgver=3.1
 pkgrel=5
 epoch=2
 pkgdesc='Wallpapers for Condres OS'

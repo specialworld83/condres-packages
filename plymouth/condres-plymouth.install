@@ -5,19 +5,21 @@ rm -rf /usr/share/plymouth/themes/spinner_old1
 rm -rf /usr/share/plymouth/themes/spinfinity1 
 rm -rf /usr/share/plymouth/themes/spinfinity 
 rm -rf /usr/share/plymouth/themes/spinner 
-rm -rf /usr/share/plymouth/themes/condres
-
+mkdir /usr/share/plymouth/themes/spinner
+mkdir /usr/share/plymouth/themes/spinfinity 
 }
 
 post_install() {
 
-ln -s /usr/share/plymouth/themes/condres* /usr/share/plymouth/themes/spinner
-ln -s /usr/share/plymouth/themes/condres/* /usr/share/plymouth/themes/spinfinity
+cp -rv /usr/share/plymouth/themes/condres/* /usr/share/plymouth/themes/spinner
+cp -rv /usr/share/plymouth/themes/condres/* /usr/share/plymouth/themes/spinfinity
 rm -rf /usr/share/plymouth/themes/spinner_old 
 rm -rf /usr/share/plymouth/themes/spinner_old1 
 rm -rf /usr/share/plymouth/themes/spinfinity1 
+rm -rf /usr/share/plymouth/themes/spinner
 rm -rf /usr/share/plymouth/themes/spinfinity 
-rm -rf /usr/share/plymouth/themes/spinner 
+mkdir /usr/share/plymouth/themes/spinner
+mkdir /usr/share/plymouth/themes/spinfinity 
 plymouth-set-default-theme -R condres
 mkinitcpio -P
 
@@ -27,10 +29,12 @@ post_upgrade() {
 rm -rf /usr/share/plymouth/themes/spinner_old 
 rm -rf /usr/share/plymouth/themes/spinner_old1 
 rm -rf /usr/share/plymouth/themes/spinfinity1 
+rm -rf /usr/share/plymouth/themes/spinner
 rm -rf /usr/share/plymouth/themes/spinfinity 
-rm -rf /usr/share/plymouth/themes/spinner 
-ln -s /usr/share/plymouth/themes/condres* /usr/share/plymouth/themes/spinner
-ln -s /usr/share/plymouth/themes/condres/* /usr/share/plymouth/themes/spinfinity
+mkdir /usr/share/plymouth/themes/spinner
+mkdir /usr/share/plymouth/themes/spinfinity 
+cp -rv /usr/share/plymouth/themes/condres/* /usr/share/plymouth/themes/spinner
+cp -rv /usr/share/plymouth/themes/condres/* /usr/share/plymouth/themes/spinfinity
 plymouth-set-default-theme -R condres
 mkinitcpio -P
 
