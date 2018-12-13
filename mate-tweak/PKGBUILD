@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=mate-tweak
-pkgver=18.04.16
-_umsver=18.04.1
+pkgver=18.10.2
+_umsver=18.04.17
 pkgrel=1
 pkgdesc="Tweak tool for MATE"
 arch=('any')

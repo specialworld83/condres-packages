@@ -3,3 +3,4 @@ post_install(){
 echo 'let g:powerline_pycmd = 'py3'' >> /etc/vimrc
 }
 
+
