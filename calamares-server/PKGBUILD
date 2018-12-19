@@ -2,8 +2,8 @@
 
 pkgname=calamares-server
 pkgver=3.2.1
-pkgrel=11
-epoch=2
+pkgrel=12
+epoch=3
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
 arch=('any')
@@ -42,7 +42,7 @@ build() {
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
-              -DSKIP_MODULES="webview interactiveterminal initramfs dracut packages"
+              -DSKIP_MODULES="webview interactiveterminal initramfs dracut"
         make
 }
 

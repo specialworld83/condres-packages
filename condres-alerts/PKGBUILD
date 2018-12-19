@@ -2,16 +2,16 @@
 
 pkgname=condres-alerts
 pkgver=18
-pkgrel=2
+pkgrel=4
 pkgdesc='Notifies users when new Condres OS alerts are issued.'
 arch=('any')
 depends=('pacman' 'python-termcolor' 'libnotify' 'gettext' 'lsb-release')
-replaces=('antergos-repo-priority')
-conflicts=('antergos-repo-priority')
-groups=('antergos-base')
+replaces=('condres-repo-priority')
+conflicts=('condres-repo-priority')
+groups=('condres-base')
 url="https://condresos.codelinsoft.it"
 license=('GPL3')
-source=("condres-alerts-17.7.23.zip")
+source=("condres-alerts-17.7.23.tar.gz")
 md5sums=('SKIP')
 
 
