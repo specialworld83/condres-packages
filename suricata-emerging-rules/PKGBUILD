@@ -1,0 +1,27 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+pkgname=suricata-emerging-rules
+pkgver=4.1.0
+pkgrel=1
+pkgdesc="Suricata rules from emergingthreatspro.com"
+arch=('any')
+url="https://rules.emergingthreatspro.com/open/suricata/"
+license=('custom')
+depends=('suricata')
+optdepends=('suricata')
+makedepends=('curl')
+options=(!strip)
+source=(
+  "https://rules.emergingthreatspro.com/open/suricata-4.0/LICENSE"
+  "https://rules.emergingthreatspro.com/open/suricata-4.0/emerging.rules.tar.gz"
+)
+
+
+
+package() {
+  mkdir -p "$pkgdir/etc/suricata/"
+  cp -r "rules" "$pkgdir/etc/suricata/"
+  install -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+md5sums=('SKIP'
+         '5aa82bc2d83d374839bd88488ad1b2c3')
