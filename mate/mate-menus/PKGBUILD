@@ -2,7 +2,7 @@
 
 pkgname=mate-menus
 pkgver=1.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE menu specifications"
 url="https://mate-desktop.org"
 arch=('x86_64')
@@ -18,7 +18,7 @@ sha1sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
-	PYTHON=/usr/bin/python2 ./configure \
+	PYTHON=/usr/bin/python ./configure \
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
