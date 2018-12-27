@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=mate-panel
-pkgver=1.20.2
+pkgver=1.21.3
 pkgrel=1
 pkgdesc="Desktop panel for MATE"
 url="https://mate-desktop.org"

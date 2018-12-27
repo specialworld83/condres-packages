@@ -11,7 +11,7 @@ license=(GPL)
 url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap' 'dmidecode' 'libpwquality'
-         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache' 'rsync' 'squashfs-tools' 'kcrash')
+         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache' 'rsync' 'squashfs-tools' 'kcrash' 'pythonqt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
@@ -19,22 +19,22 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 
-source+=("https://github.com/calamares/calamares/releases/download/v3.2.1/calamares-3.2.1.tar.gz"
-         https://codelinsoft.it/updates/calamares-condres.tar.gz)
+source+=("https://github.com/calamares/calamares/releases/download/v${pkgver}/calamares-${pkgver}.tar.gz"
+         calamares-condres.tar.gz)
 
 sha256sums=('SKIP'
             'SKIP')
 
 prepare() {
     bsdtar xvzf calamares-condres.tar.gz
-    cp -a ${srcdir}/calamares-condres/* ${srcdir}/calamares-3.2.1
+    cp -a ${srcdir}/calamares-condres/* ${srcdir}/calamares-${pkgver}
     rm -rf ${srcdir}/calamares-condres
-    cd ${srcdir}/calamares-3.2.1
+    cd ${srcdir}/calamares-${pkgver}
 }
 
 
 build() {
-    cd ${srcdir}/calamares-3.2.1
+    cd ${srcdir}/calamares-${pkgver}
 
     mkdir -p build
     cd build
@@ -42,20 +42,26 @@ build() {
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
-              -DSKIP_MODULES="webview interactiveterminal packages initramfs dracut"
+              -DWITH_PYTHONQT:BOOL=OFF \
+              -DSKIP_MODULES="webview interactiveterminal initramfs \
+                              initramfscfg dracut dracutlukscfg \
+                              dummyprocess dummypython dummycpp \
+                              dummypythonqt services-openrc  netinstall"
         make
 }
 
 package() {
-    cd ${srcdir}/calamares-3.2.1/build
+    cd ${srcdir}/calamares-${pkgver}/build
     make DESTDIR="$pkgdir" install
     install -Dm644 "../calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
-    install -Dm644 "../calamares.png" "$pkgdir/usr/share/icons/calamares.png"
 	install -Dm755 "../data/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
     install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
     chmod 750 "$pkgdir"/etc/polkit-1/rules.d
-    rm -r "$pkgdir/usr/lib/calamares/modules/dummyprocess/"
-    rm -r "$pkgdir/usr/lib/calamares/modules/dummypython/"
-    rm "$pkgdir/usr/share/calamares/modules/dummypython.conf"
+    
+    mv "$pkgdir/usr/lib/calamares/modules/services-systemd" "$pkgdir/usr/lib/calamares/modules/services"
+	mv "$pkgdir/usr/share/calamares/modules/services-systemd.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
+	sed -i -e 's/-systemd//' "$pkgdir/usr/lib/calamares/modules/services/module.desc"
+	sed -i -e 's/-systemd//' "$pkgdir/usr/share/calamares/settings.conf"
+
 }
 

@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=mate-polkit
-pkgver=1.20.1
+pkgver=1.21.0
 pkgrel=1
 pkgdesc="PolicyKit integration for the MATE desktop"
 url="https://mate-desktop.org"

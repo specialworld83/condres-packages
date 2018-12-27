@@ -1,6 +1,6 @@
 # Maintainer: lsf
 # Contributor: Adam Hose <adis@blad.is>
-pkgver=20181122.363_61cf3d1
+pkgver=20181221.365_0316580
 pkgrel=1
 _pkgname=opensnitch
 pkgname=opensnitch-git

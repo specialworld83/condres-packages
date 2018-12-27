@@ -21,14 +21,13 @@ pkgbase=octopi
 pkgname=('octopi' 'octopi-repoeditor' 'octopi-pacmanhelper' 'octopi-cachecleaner'
          'octopi-notifier-qt5' 'octopi-notifier-frameworks')
 pkgver=0.9.0
-pkgrel=6
+pkgrel=9
 # This is the release package so the below _gitcommit variable should (usually) be commented out.
 #_gitcommit=
 arch=('i686' 'x86_64')
 url="http://octopiproject.wordpress.com"
 license=('GPL2')
 makedepends=('qt5-declarative' 'knotifications' 'libnotify' 'alpm_octopi_utils' 'clang' 'qtermwidget')
-
 
   source=("octopi-${pkgver}.tar.gz::https://github.com/aarnt/octopi/archive/v${pkgver}.tar.gz")
 
@@ -107,7 +106,7 @@ package_octopi() {
               'octopi-notifier-qt5: for notifications'
               'octopi-notifier-frameworks: for notifications with Knotifications support'
               'pacmanlogviewer: to view pacman log files')
-  replaces=('octopi-qt5')
+  replaces=('pamac' 'pamac-tray-appindicator')
 
   
     cd "${srcdir}/${pkgbase}-${pkgver}"
