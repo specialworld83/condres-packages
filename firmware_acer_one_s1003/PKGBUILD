@@ -1,0 +1,31 @@
+pkgname=firmware_acer_one_s1003
+pkgver=1.0
+pkgrel=1
+pkgdesc="Acer One 10 S1003 fixes. This packages contains fixes for Condres on Acer One 10 S1003."
+url="https://github.com/kratos83/Acer-s1003-CondresOS"
+arch=('x86_64')
+license=('GPL')
+depends=("linux-firmware")
+makedepends=( "git")
+conflicts=()
+replaces=()
+backup=()
+install='acer.install'
+source=("git+https://github.com/kratos83/Acer-s1003-CondresOS")
+md5sums=("SKIP")
+build() {
+	cd ${srcdir}/Acer-s1003-CondresOS/
+    
+}
+package(){
+	cd ${srcdir}/Acer-s1003-CondresOS/
+	echo "--- Fixing Broadcom SDIO WiFi ---"
+	mkdir -p ${pkgdir}/lib/firmware/brcm/
+    cp -f firmware/brcm/* ${pkgdir}/lib/firmware/brcm/
+	echo "--- Fixing audio ---"
+    mkdir -p ${pkgdir}/usr/share/alsa/ucm/Acer-OneS1003-V1.15-OneS1003
+    cp -f firmware/Acer-OneS1003-V1.15-OneS1003/*  ${pkgdir}/usr/share/alsa/ucm/Acer-OneS1003-V1.15-OneS1003/
+    echo "--- Fixing bluetooth ---"
+    mkdir -p ${pkgdir}/lib/firmware/brcm/
+    cp -f firmware/bluetooth/* ${pkgdir}/lib/firmware/brcm/
+}

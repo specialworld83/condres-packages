@@ -1,7 +1,7 @@
 _pkgname='Condres Themes'
 pkgname=condres-themes-gnome
 _pkgver=3.7
-pkgrel=2
+pkgrel=4
 _gnomever=3.30
 pkgver=${_gnomever}.${_pkgver}
 pkgdesc='Gnome Assets for Condres OS'
@@ -9,6 +9,7 @@ arch=(any)
 license=(GPL)
 url="https://condresos.codelinsoft.it"
 depends=()
+conflicts=('gnome-shell-extension-dash-to-dock')
 source=("condres-themes-gnome.tar.gz")
 sha256sums=('SKIP')
 install="condres-themes-gnome.install"
