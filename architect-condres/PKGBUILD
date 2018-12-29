@@ -1,38 +1,48 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
-pkgname=architect
+pkgname=condres-cli-installer
 pkgver=1.0.1
-pkgrel=4
+pkgrel=6
 options=(staticlibs)
-pkgdesc='Distribution-independent installer framework'
+pkgdesc='Distribution-independent cli installer Condres OS framework'
 arch=('any')
 license=(GPL)
-url="https://github.com/calamares"
+url="https://condresos.codelinsoft.it"
 license=('LGPL')
-depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap' 'dmidecode'
-         'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache' 'rsync' 'squashfs-tools')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
+depends=('bash'
+         'dialog'
+         'fzf'
+         'git'
+         'zsh'
+         'f2fs-tools'
+         'gptfdisk'
+         'nilfs-utils'
+         'pacman-mirrorlist'
+         'condres-mirrorlist'
+         'condres-keyring'
+         'parted')
+makedepends=('extra-cmake-modules' 'git' 'boost')
 
 
-source+=("architect.tar.gz")
+source+=("condres-cli-installer.tar.gz")
 
 sha256sums=('SKIP')
 
 prepare() {
-    bsdtar xvzf architect.tar.gz
-    cd ${srcdir}/architect
+    bsdtar xvzf condres-cli-installer.tar.gz
+    cd ${srcdir}/condres-cli-installer
 }
 
 
 build() {
-    cd ${srcdir}/architect
+    cd ${srcdir}/condres-cli-installer
 
 }
 
 package() {
     cd ${srcdir}/architect
     install -d "$pkgdir"/usr/share/
-    cp -rv "${srcdir}/architect/" "$pkgdir/usr/share/architect/"
-
+    cp -rv "${srcdir}/condres-cli-installer/" "$pkgdir/usr/share/condres-architect/"
+    printf "#!/bin/sh\n\nsh /usr/share/condres-architect/architect.sh \"\$@\"\n" | install -Dm755 /dev/stdin "${pkgdir}/usr/bin/setup"
 }
 
