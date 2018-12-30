@@ -1,14 +1,14 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=ksplash-themes-condres
-pkgver=3.1
+pkgver=3.3
 pkgrel=1
 pkgdesc="Setup Trinity Desktop splash for Condres Desktops"
 url="http://github.com/condres/cinnamon-brandring-condres"
 arch=('any')
 license=('GPL2')
 install=ksplash.install
-depends=('tde-tdelibs' 'tde-tdebase' 'trinity-brandring-condres')
+depends=('tde-tdelibs' 'tde-tdebase' 'trinity-brandring-condres' 'ksplash-engine-moodin')
 source=("Default_Condres.tar.gz"
         
 	)

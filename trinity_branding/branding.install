@@ -1,7 +1,8 @@
 
 
 post_install() {
-
+rm -rf /opt/trinity/share/wallpapers/Trinity4.png
+rm -rf /opt/trinity/share/wallpapers/Trinity-lineart.svg
 mv /opt/trinity/share/icons/crystalsvg/128x128/apps/logo.png  /opt/trinity/share/icons/crystalsvg/128x128/apps/go.png
 mv /opt/trinity/share/icons/crystalsvg/64x64/apps/logo.png /opt/trinity/share/icons/crystalsvg/64x64/apps/go.png
 mv /opt/trinity/share/icons/crystalsvg/48x48/apps/logo.png /opt/trinity/share/icons/crystalsvg/48x48/apps/go.png
@@ -23,6 +24,8 @@ mv /opt/trinity/share/wallpapers/condres_tux.svg /opt/trinity/share/wallpapers/T
 }
 
 post_upgrade() {
+rm -rf /opt/trinity/share/wallpapers/Trinity4.png
+rm -rf /opt/trinity/share/wallpapers/Trinity-lineart.svg
 mv /opt/trinity/share/icons/crystalsvg/128x128/apps/logo.png  /opt/trinity/share/icons/crystalsvg/128x128/apps/go.png
 mv /opt/trinity/share/icons/crystalsvg/64x64/apps/logo.png /opt/trinity/share/icons/crystalsvg/64x64/apps/go.png
 mv /opt/trinity/share/icons/crystalsvg/48x48/apps/logo.png /opt/trinity/share/icons/crystalsvg/48x48/apps/go.png
@@ -37,6 +40,7 @@ mv /opt/trinity/share/icons/crystalsvg/32x32/apps/logo_k.png /opt/trinity/share/
 mv /opt/trinity/share/icons/crystalsvg/22x22/apps/logo_k.png /opt/trinity/share/icons/crystalsvg/22x22/apps/kmenu.png
 mv /opt/trinity/share/icons/crystalsvg/16x16/apps/logo_k.png /opt/trinity/share/icons/crystalsvg/16x16/apps/kmenu.png
 mv /opt/trinity/share/icons/crystalsvg/scalable/apps/logo_k.svgz /opt/trinity/share/icons/crystalsvg/scalable/kmenu.svgz
+mv /opt/trinity/share/wallpapers/condres_tux.png /opt/trinity/share/wallpapers/Trinity4.png
 mv /opt/trinity/share/wallpapers/condres_tux.svg /opt/trinity/share/wallpapers/Trinity-lineart.svg
 
 }
