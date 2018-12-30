@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=condres-cli-installer
-pkgver=1.0.1
+pkgver=1.0.3
 pkgrel=7
 options=(staticlibs)
 pkgdesc='Distribution-independent cli installer Condres OS framework'
@@ -20,13 +20,14 @@ depends=('bash'
          'pacman-mirrorlist'
          'condres-mirrorlist'
          'condres-keyring'
-         'parted')
+         'parted'
+         'arch-install-scripts')
 makedepends=('extra-cmake-modules' 'git' 'boost')
 
 
-source+=("condres-cli-installer.tar.gz" "packages.xml")
+source+=("condres-cli-installer.tar.gz")
 
-sha256sums=('SKIP' 'SKIP')
+sha256sums=('SKIP')
 
 prepare() {
     bsdtar xvzf condres-cli-installer.tar.gz
@@ -42,10 +43,7 @@ build() {
 package() {
     cd ${srcdir}/condres-cli-installer
     install -d "$pkgdir"/usr/share/
-     install -d "$pkgdir"/tmp
-     chmod 777 -R "$pkgdir"/tmp
-     cp -rv ../../packages.xml "$pkgdir/tmp/"
     cp -rv "${srcdir}/condres-cli-installer/" "$pkgdir/usr/share/condres-architect/"
-    printf "#!/bin/sh\n\nsh /usr/share/condres-architect/architect.sh \"\$@\"\n" | install -Dm755 /dev/stdin "${pkgdir}/usr/bin/setup"
+    printf "#!/bin/sh\n\nsh /usr/share/condres-architect/condres-installer \"\$@\"\n" | install -Dm755 /dev/stdin "${pkgdir}/usr/bin/setup"
 }
 
