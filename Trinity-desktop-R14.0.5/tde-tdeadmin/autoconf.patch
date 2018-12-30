@@ -1,0 +1,11 @@
+--- detect-autoconf.pl	2018-12-30 10:05:43.364064754 +0100
++++ detect-autoconf_new.pl	2018-12-30 10:06:04.691705640 +0100
+@@ -97,7 +97,7 @@
+     my %versions;
+     my %minimumVersions = (
+ 	'autoconf' => '2.5',
+-	'automake' => '1.6',
++	'automake' => '1.16.1',
+     );
+     my $sgn; # Used for compareVersions results.
+ 

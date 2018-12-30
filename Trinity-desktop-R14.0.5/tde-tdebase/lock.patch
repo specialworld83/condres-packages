@@ -1,0 +1,11 @@
+--- CMakeLists.txt	2018-12-29 23:26:29.913943466 +0100
++++ CMakeLists_new.txt	2018-12-29 23:26:18.300264987 +0100
+@@ -11,7 +11,7 @@
+ 
+ include( ConfigureChecks.cmake )
+ 
+-add_subdirectory( lock )
++
+ add_subdirectory( pics )
+ add_subdirectory( patterns )
+ add_subdirectory( programs )

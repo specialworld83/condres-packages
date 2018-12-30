@@ -20,7 +20,6 @@ mv /opt/trinity/share/icons/crystalsvg/scalable/apps/logo_k.svgz /opt/trinity/sh
 
 mv /opt/trinity/share/wallpapers/condres_tux.png /opt/trinity/share/wallpapers/Trinity4.png
 mv /opt/trinity/share/wallpapers/condres_tux.svg /opt/trinity/share/wallpapers/Trinity-lineart.svg
-
 }
 
 post_upgrade() {

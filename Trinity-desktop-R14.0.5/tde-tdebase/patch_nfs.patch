@@ -1,0 +1,10 @@
+--- src/tdebase/tdeioslave/CMakeLists.txt	2015-09-23 05:07:45.000000000 +0200
++++ src/tdebase/tdeioslave/CMakeLists_new.txt	2018-12-29 22:59:25.873455535 +0100
+@@ -19,7 +19,6 @@
+ add_subdirectory( info )
+ add_subdirectory( mac )
+ add_subdirectory( man )
+-add_subdirectory( nfs )
+ add_subdirectory( nntp )
+ add_subdirectory( pop3 )
+ add_subdirectory( smtp )

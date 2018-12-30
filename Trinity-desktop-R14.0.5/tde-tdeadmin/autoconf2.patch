@@ -1,0 +1,14 @@
+--- cvs.sh	2016-09-11 19:14:39.000000000 +0200
++++ cvs_new.sh	2018-12-30 10:32:17.125647599 +0100
+@@ -54,9 +54,9 @@
+ esac
+ 
+ AUTOMAKE_STRING=`$AUTOMAKE --version | head -n 1`
+-required_automake_version="1.6.1 or newer"
++required_automake_version="1.6 or newer"
+ case $AUTOMAKE_STRING in
+-  automake*1.6.* | automake*1.7* | automake*1.8* | automake*1.9* | automake*1.10* | automake*1.11* | automake*1.12* | automake*1.13* | automake*1.14* | automake*1.15* )
++  automake*1.6.* | automake*1.7* | automake*1.8* | automake*1.9* | automake*1.10* | automake*1.11* | automake*1.12* | automake*1.13* | automake*1.14* | automake*1.15* | automake*1.16* )
+     echo "*** $AUTOMAKE_STRING found."
+     UNSERMAKE=no
+     ;;

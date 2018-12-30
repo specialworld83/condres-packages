@@ -1,0 +1,10 @@
+--- src/tdebase/tdeioslave/Makefile.am	2015-09-23 05:07:45.000000000 +0200
++++ src/tdebase/tdeioslave/Makefile_new.am	2018-12-29 22:59:36.850581418 +0100
+@@ -6,6 +6,6 @@
+ SMB_SUBDIR=smb
+ endif
+ 
+-SUBDIRS = about cgi floppy filter fish info mac man nfs nntp pop3 smtp \
++SUBDIRS = about cgi floppy filter fish info mac man nntp pop3 smtp \
+   sftp tar finger thumbnail $(LDAP_SUBDIR) $(SMB_SUBDIR) settings trash media \
+   remote home system

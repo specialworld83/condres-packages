@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=trinity-brandring-condres
-pkgver=3.2
+pkgver=3.3
 pkgrel=1
 pkgdesc="Setup Trinity Desktop configuration for Condres Desktops"
 url="http://github.com/condres/cinnamon-brandring-condres"

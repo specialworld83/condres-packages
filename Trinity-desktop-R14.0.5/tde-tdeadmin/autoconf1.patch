@@ -1,0 +1,8 @@
+--- Makefile.am.in	2011-11-29 08:38:44.000000000 +0100
++++ Makefile.am_new.in	2018-12-30 10:27:40.185767590 +0100
+@@ -1,4 +1,4 @@
+-AUTOMAKE_OPTIONS = foreign 1.6.1
++AUTOMAKE_OPTIONS = foreign 1.16.1
+ DISTCLEANFILES = inst-apps
+ 
+ MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 SUBDIRS

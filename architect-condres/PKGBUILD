@@ -2,7 +2,7 @@
 
 pkgname=condres-cli-installer
 pkgver=1.0.1
-pkgrel=6
+pkgrel=7
 options=(staticlibs)
 pkgdesc='Distribution-independent cli installer Condres OS framework'
 arch=('any')
@@ -24,9 +24,9 @@ depends=('bash'
 makedepends=('extra-cmake-modules' 'git' 'boost')
 
 
-source+=("condres-cli-installer.tar.gz")
+source+=("condres-cli-installer.tar.gz" "packages.xml")
 
-sha256sums=('SKIP')
+sha256sums=('SKIP' 'SKIP')
 
 prepare() {
     bsdtar xvzf condres-cli-installer.tar.gz
@@ -40,8 +40,11 @@ build() {
 }
 
 package() {
-    cd ${srcdir}/architect
+    cd ${srcdir}/condres-cli-installer
     install -d "$pkgdir"/usr/share/
+     install -d "$pkgdir"/tmp
+     chmod 777 -R "$pkgdir"/tmp
+     cp -rv ../../packages.xml "$pkgdir/tmp/"
     cp -rv "${srcdir}/condres-cli-installer/" "$pkgdir/usr/share/condres-architect/"
     printf "#!/bin/sh\n\nsh /usr/share/condres-architect/architect.sh \"\$@\"\n" | install -Dm755 /dev/stdin "${pkgdir}/usr/bin/setup"
 }
