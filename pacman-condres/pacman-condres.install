@@ -16,6 +16,8 @@ mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.old
 mv /etc/mkinitcpio.conf.new  /etc/mkinitcpio.conf
 mv /usr/lib/os-release /usr/lib/os-release.old
 mv /usr/lib/os-release.new /usr/lib/os-release
+mv /etc/issue /etc/issue.old
+mv /etc/issue.new /etc/issue
 
 mkinitcpio -P 
 
@@ -35,6 +37,8 @@ mv /etc/mkinitcpio.conf /etc/mkinitcpio.conf.old
 mv /etc/mkinitcpio.conf.new  /etc/mkinitcpio.conf
 mv /usr/lib/os-release /usr/lib/os-release.old
 mv /usr/lib/os-release.new /usr/lib/os-release
+mv /etc/issue /etc/issue.old
+mv /etc/issue.new /etc/issue
 
 mkinitcpio -P 
 

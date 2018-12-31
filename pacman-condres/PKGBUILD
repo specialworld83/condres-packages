@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=pacman-condres
-pkgver=2.3
+pkgver=2.4
 pkgrel=7
 epoch=2
 pkgdesc="Condres Release System"
@@ -19,6 +19,7 @@ package() {
        install -d "$pkgdir"/usr/lib/
        install -Dm755 "pacman.conf.new" "$pkgdir/etc/pacman.conf.new"
        install -Dm755 "mkinitcpio.conf.new" "$pkgdir/etc/mkinitcpio.conf.new"
+       install -Dm755 "issue.new" "$pkgdir/etc/issue.new"
        install -Dm755 "os-release.new" "$pkgdir/usr/lib/os-release.new"
        chmod 755 "$pkgdir"/etc/pacman.conf.new
        chmod 755 "$pkgdir"/etc/mkinitcpio.conf.new
