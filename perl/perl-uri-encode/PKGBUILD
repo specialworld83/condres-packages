@@ -1,19 +1,20 @@
-# Maintainer: Condres OS team <info@codelinsoft.it>
+# Contributor: John D Jones III AKA jnbek <jnbek1972 -_AT_- g m a i l -_Dot_- com>
+# Generator  : CPANPLUS::Dist::Arch 1.32
 
-pkgname='perl-expect'
-pkgver='1.33'
-pkgrel='2'
-pkgdesc="automate interactions with command line programs that expose a text terminal interface."
+pkgname='perl-uri-encode'
+pkgver='1.1.1'
+pkgrel='1'
+pkgdesc="Simple percent Encoding/Decoding"
 arch=('any')
 license=('PerlArtistic' 'GPL')
 options=('!emptydirs')
-depends=('perl-io-tty' 'perl>=5.6.0')
+depends=('perl')
 makedepends=()
-url='https://metacpan.org/release/Expect'
-source=('http://search.cpan.org/CPAN/authors/id/J/JA/JACOBY/Expect-1.33.tar.gz')
-md5sums=('1fbb052de1383966a3be5f420a34e83c')
-sha512sums=('6351e681d813a98cf12a882cb135c6dc5f38beb72fb96efe13c690b26704acb9c5654b2f27dd833ad078de83cb4144fef4aea381a768c54f9817247210e6b5bf')
-_distdir="expect.pm-Expect-1.33"
+url='https://metacpan.org/release/URI-Encode'
+source=('http://search.cpan.org/CPAN/authors/id/M/MI/MITHUN/URI-Encode-v1.1.1.tar.gz')
+md5sums=('54e0270f1d9ba1e2a3ed3698337114c6')
+sha512sums=('69290a8e2cea1bf3e826bf8686f642e73258d316371638f3dbb86abc4b8e4ed468b11e8c4219e79e13dbb5307a56a6f022b9c756b8dc75221f8d78734ddefff5')
+_distdir="URI-Encode-v1.1.1"
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \

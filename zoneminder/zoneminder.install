@@ -1,130 +1,251 @@
 post_install() {
-
-    systemd-tmpfiles --create zoneminder.conf
-
-    # edit /etc/php.ini for Zoneminder
-    sed -e '
-    # Enable these libraries by removing the leading comment character
-    \|^;extension=ftp.so$|       s|^;||;
-    \|^;extension=gd.so$|        s|^;||;
-    \|^;extension=gettext.so$|   s|^;||;
-    \|^;extension=mcrypt.so$|    s|^;||;
-    \|^;extension=openssl.so$|   s|^;||;
-    \|^;extension=pdo_mysql.so$| s|^;||;
-    \|^;extension=sockets.so$|   s|^;||;
-    \|^;extension=zip.so$|       s|^;||;
-    ' /etc/php/php.ini > /tmp/php.ini.zoneminder
-
-    # edit /etc/httpd/conf/httpd.conf for Zoneminder
-    sed -e '
-    # Use mod_mpm_prefork instead of mod_mpm_event.so (FS#39218).
-    s|^LoadModule mpm_event_module modules/mod_mpm_event.so$|#&\nLoadModule mpm_prefork_module modules/mod_mpm_prefork.so|;
+    echo
     
-    # Zoneminder needs Apache configured to permit CGI execution
-    \|^\t#LoadModule cgi_module modules/mod_cgi.so$| s|\t#|\t|;
+    systemctl daemon-reload
     
-    # libphp7
-    \|^LoadModule php7_module modules/libphp7.so$|d;
-    s|^#*LoadModule rewrite_module modules/mod_rewrite.so$|&\nLoadModule php7_module modules/libphp7.so|;
-    \|^Include /etc/httpd/conf/extra/php7_module.conf|d;
-    s|^Include conf/extra/httpd-default.conf$|&\nInclude /etc/httpd/conf/extra/php7_module.conf|;
+    ### Nginx & Apache ###
     
-    # Include httpd-zoneminder.conf
-    \|^Include /etc/httpd/conf/extra/httpd-zoneminder.conf$|d;
-    s|^# Server-pool management (MPM specific)$|\nInclude /etc/httpd/conf/extra/httpd-zoneminder.conf\n&|;    
-    ' /etc/httpd/conf/httpd.conf > /tmp/httpd.conf.zoneminder
+    # If Nginx is installed and either is active, or is inactive but Apache is not installed, we prefer Nginx.
+    if [[ "$(pacman -Qs nginx)" = *"local/nginx"* ]] && { [ "$(systemctl is-active nginx)" = "active" ] || [[ "$(pacman -Qs apache)" != *"local/apache"* ]] ; }
+    then
+        # Ensure the main conf file is present
+        if [ -f /etc/nginx/nginx.conf ] 
+        then
+            # Configure Nginx with the folder structure used in Debian-based distributions
+            if ( ! grep -q 'sites-enabled' /etc/nginx/nginx.conf )
+            then
+                sed -i 's|http {|http {\'$'\n    include       sites-enabled/*.conf;|g' /etc/nginx/nginx.conf
+            fi
+            
+            # Create the sites-enabled folder if it's not already created
+            if [ ! -d /etc/nginx/sites-enabled ]
+            then
+                mkdir -p /etc/nginx/sites-enabled
+            fi
+            
+            # Enable ZoneMinder's server block if it's not already enabled
+            if [ ! -f /etc/nginx/sites-enabled/zoneminder.conf ]
+            then
+                ln -sf /etc/nginx/sites-{available,enabled}/zoneminder.conf
+            fi
+            
+            # (Re)start Nginx
+            systemctl is-active --quiet nginx && systemctl stop nginx
+            systemctl start nginx
+        else
+            echo "ERROR: Nginx was detected but file '/etc/nginx/nginx.conf' was not found. Something seems broken."
+            echo
+        fi
+    # Else, if Nginx either is not installed, or is installed and inactive but Apache is also installed, we prefer Apache.
+    elif [[ "$(pacman -Qs apache)" = *"local/apache"* ]]
+    then
+        # Ensure the main conf file is present
+        if [ -f /etc/httpd/conf/httpd.conf ]
+        then
+            # Enable mod_proxy
+            sed -i 's|#LoadModule proxy_module modules/mod_proxy.so|LoadModule proxy_module modules/mod_proxy.so|g' /etc/httpd/conf/httpd.conf
+            # Enable mod_proxy_fcgi
+            sed -i 's|#LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so|LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so|g' /etc/httpd/conf/httpd.conf
+            # Enable mod_rewrite
+            sed -i 's|#LoadModule rewrite_module modules/mod_rewrite.so|LoadModule rewrite_module modules/mod_rewrite.so|g' /etc/httpd/conf/httpd.conf
+            # Enable mod_cgid
+            sed -i 's|#LoadModule cgid_module modules/mod_cgid.so|LoadModule cgid_module modules/mod_cgid.so|g' /etc/httpd/conf/httpd.conf
+            
+            # Enable ZoneMinder's VirtualHost if it's not already enabled
+            if ( ! grep -q 'zoneminder.conf' /etc/httpd/conf/httpd.conf )
+            then
+                echo "Include conf/extra/zoneminder.conf" >> /etc/httpd/conf/httpd.conf
+            fi
     
-    cat << EOF
-
-  Zoneminder database setup:
-  --------------------------
-  Zoneminder operation requires a database named 'zm' which is defined in /usr/share/zoneminder/db/zm_create.sql
-  
-  Create the Zoneminder database (with a password):
-    "mysqladmin --defaults-file=/etc/mysql/my.cnf -p -f reload"
-    "cat /usr/share/zoneminder/db/zm_create.sql | mysql --defaults-file=/etc/mysql/my.cnf -p"
-    "echo 'grant lock tables, alter,select,insert,update,delete on zm.* to 'zmuser'@localhost identified by "zmpass";' | mysql --defaults-file=/etc/mysql/my.cnf -p mysql"
-  (or without a password):
-    "mysqladmin --defaults-file=/etc/mysql/my.cnf -f reload"
-    "cat /usr/share/zoneminder/db/zm_create.sql | mysql --defaults-file=/etc/mysql/my.cnf"
-    "echo 'grant lock tables, alter,select,insert,update,delete on zm.* to 'zmuser'@localhost identified by "zmpass";' | mysql --defaults-file=/etc/mysql/my.cnf mysql"
-
-  PHP configuration
-  -----------------
-  * Check and make sure these are uncommented in /etc/php/php.ini:
-    extension=ftp.so
-    extension=gd.so
-    extension=gettext.so
-    extension=mcrypt.so
-    extension=openssl.so
-    extension=pdo_mysql.so
-    extension=sockets.so
-    extension=zip.so
-  * Set your timezone in php.ini:
-    date.timezone = <your_country>/<your_city>
-
-  Apache configuration
-  --------------------
-  Edit /etc/httpd/conf/httpd.conf and add the line:
-    "LoadModule php7_module modules/libphp7.so"
-  and:
-    "Include /etc/httpd/conf/extra/php7_module.conf"
-    "Include /etc/httpd/conf/extra/httpd-zoneminder.conf"
-
-EOF
+            # (Re)start Apache
+            systemctl is-active --quiet httpd && systemctl stop httpd
+            systemctl start httpd
+        else
+            echo "ERROR: Apache was detected but file '/etc/httpd/conf/httpd.conf' was not found. Something seems broken."
+            echo
+        fi
+    # Else, if neither of them is installed, we inform the user that something is seriously messed up.
+    else
+        echo "ERROR: Neither Nginx nor Apache were detected in your system. I hope you know what you're doing."
+        echo
+    fi
+    
+    ### fcgiwrap ###
+    
+    if [[ "$(pacman -Qs fcgiwrap)" = *"local/fcgiwrap"* ]]
+    then
+        systemctl is-active --quiet fcgiwrap.socket && systemctl stop fcgiwrap.socket
+        systemctl is-active --quiet fcgiwrap && systemctl stop fcgiwrap
+        systemctl is-active --quiet fcgiwrap-multiwatch && systemctl stop fcgiwrap-multiwatch
+        systemctl start fcgiwrap-multiwatch &&
+        {
+        echo "---------------"
+        echo
+        echo "fcgiwrap has been launched in multiple parallel instances via spawn-fcgi and multiwatch."
+        echo
+        echo "The default number of 10 instances should be enough for ZoneMinder to operate with 2 or 3 cameras"
+        echo "under normal circumstances. If you need more than 10 simultaneous CGI threads, edit the provided"
+        echo "fcgiwrap-multiwatch.service file and increase the number of instances to whatever suits your needs."
+        echo
+        }
+    fi
+    
+    ### PHP-FPM ###
+    
+    # Set local timezone in /etc/php/conf.d/zoneminder.ini
+    sed -i 's|PLACEHOLDER|'`timedatectl | grep "Time zone" | tr -s ' ' | cut -f4 -d ' '`'|g' /etc/php/conf.d/zoneminder.ini
+    
+    if [[ "$(pacman -Qs php-fpm)" = *"local/php-fpm"* ]]
+    then
+        systemctl is-active --quiet php-fpm && systemctl stop php-fpm
+        systemctl start php-fpm
+    fi
+    
+    ### MariaDB ###
+    
+    # If MariaDB is installed
+    if [[ "$(pacman -Qs mariadb)" = *"local/mariadb "* ]]
+    then
+        # Initialize MariaDB's default database if it's not already initialized
+        if [ ! -d /var/lib/mysql/mysql ]
+        then
+            # Stop MariaDB if it's active
+            systemctl is-active --quiet mariadb && systemctl stop mariadb
+            # NOTE: This will need to be changed when MariaDB 10.2 hits the repos, as mysql_install_db has been deprecated in favor of mysqld
+            mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql 2> /dev/null
+        fi
+        
+        # Start MariaDB if it's not already active
+        systemctl is-active --quiet mariadb || systemctl start mariadb
+        
+        # Create ZoneMinder's database & user if they do not exist
+        if [ ! -d /var/lib/mysql/zm ]
+        then
+            # Check for database root password
+            if [[ "$(mysql -uroot -e "select * from mysql.user;" 2>&1)" = *"Access denied"* ]]
+            then
+                # If a database root password is set
+                echo "* Secure MariaDB installation found, please enter the database root password."
+                echo
+                mysql -uroot -p < /usr/share/zoneminder/db/zm_create.sql
+                echo
+                echo "* Enter the password one more time..."
+                echo
+                mysql -uroot -p -e "grant select,insert,update,delete,create,drop,alter,index,lock tables,alter routine,create routine,trigger,execute on zm.* to 'zmuser'@localhost identified by 'zmpass';"
+                echo
+            else
+                # If a database root password is not set
+                mysql -uroot < /usr/share/zoneminder/db/zm_create.sql
+                mysql -uroot -e "grant select,insert,update,delete,create,drop,alter,index,lock tables,alter routine,create routine,trigger,execute on zm.* to 'zmuser'@localhost identified by 'zmpass';"
+            fi
+        fi
+    fi
+    
+    ### ZoneMinder ###
+    
+    systemctl is-active --quiet zoneminder && systemctl stop zoneminder
+    systemd-tmpfiles --create
+    systemctl start --quiet zoneminder &&
+    {  
+    echo "---------------"
+    echo
+    
+    if [[ "$(systemctl is-active nginx)" = active ]] || [[ "$(systemctl is-active httpd)" = active ]]
+    then
+        echo "ZoneMinder is listening at http://localhost:8095"
+        echo
+    else
+        echo "WARNING: ZoneMinder is running, but no web server has been configured."
+        echo
+    fi
+    echo
+    }
 }
 
 post_upgrade() {
+    # Parse zm.conf and any custom configuration files
+    . /etc/zoneminder/zm.conf
+    for CONF in /etc/zoneminder/conf.d/*.conf; do
+        . $CONF
+    done
+    
+    # Check if we're running a local database server
+    if [ "$ZM_DB_HOST" = "localhost" ]; then        
+        systemctl daemon-reload
+        
+        # Make sure MariaDB is running before we attempt to use the updater
+        systemctl is-active --quiet mariadb || systemctl start mariadb
+        
+        # Make sure ZoneMinder is *not* running before we attempt to use the updater
+        systemctl is-active --quiet zoneminder && systemctl stop zoneminder
+        
+        echo
+        echo "---------------"
+        
+        # Temporary solution to apply new privileges on preexisting user & database
+        # Check for database root password
+        if [[ "$(mysql -uroot -e "select * from mysql.user;" 2>&1)" = *"Access denied"* ]]
+        then
+            # If a database root password is set
+            echo
+            echo "* Secure MariaDB installation found, please enter the database root password."
+            echo
+            mysql -uroot -p -e "grant select,insert,update,delete,create,drop,alter,index,lock tables,alter routine,create routine,trigger,execute on zm.* to 'zmuser'@localhost identified by 'zmpass';"
+        else
+            # If a database root password is not set
+            mysql -uroot -e "grant select,insert,update,delete,create,drop,alter,index,lock tables,alter routine,create routine,trigger,execute on zm.* to 'zmuser'@localhost identified by 'zmpass';"
+        fi
+        
+        # Run the updater
+        /usr/bin/zmupdate.pl --nointeractive
+        /usr/bin/zmupdate.pl --nointeractive --freshen > /dev/null 2>&1
+        
+        # Update PTZ control presets
+        /usr/bin/zmcamtool.pl --import > /dev/null 2>&1
+    
+        systemctl start zoneminder
+    else
+        echo
+        echo "---------------"
+        echo
+        echo "Multiserver setup detected, database update skipped."
+    fi
+    
     post_install
-    /usr/bin/zmupdate.pl -f >/dev/null
 }
 
 post_remove() {
-    if [[ -d /tmp/zoneminder ]]; then
-        rm -vr /tmp/zoneminder
+    systemctl daemon-reload && systemctl is-active --quiet zoneminder && systemctl stop zoneminder
+    
+    # Disable ZoneMinder's Apache VirtualHost
+    if [ -f /etc/httpd/conf/httpd.conf ]
+    then
+        sed -i '/zoneminder.conf/d' /etc/httpd/conf/httpd.conf
     fi
-    # sed -i -e '
-    # /^open_basedir/ s/:\/srv\/http\/zoneminder//;
-    # /^open_basedir/ s/:\/srv\/http\/zoneminder\///;
-    # ' /etc/php/php.ini || read
-    # sed -i -e '
-    # /^# ZoneMinder/d;
-    # /Include \/etc\/httpd\/conf\/extra\/httpd-zoneminder.conf/d;
-    # ' /etc/httpd/conf/httpd.conf || read
-
-    cat << EOF
-Note:
-==> To clean Zoneminder mysql database, run as root (with password):
-==> "echo 'delete from user where User="zmuser";' | mysql --defaults-file=/etc/mysql/my.cnf -p mysql"
-==> "echo 'delete from db where User="zmuser";' | mysql --defaults-file=/etc/mysql/my.cnf -p mysql"
-==> "mysqladmin --defaults-file=/etc/mysql/my.cnf -p -f drop zm"
-==> (or without password):
-==> "echo 'delete from user where User="zmuser";' | mysql --defaults-file=/etc/mysql/my.cnf mysql"
-==> "echo 'delete from db where User="zmuser";' | mysql --defaults-file=/etc/mysql/my.cnf mysql"
-==> "mysqladmin --defaults-file=/etc/mysql/my.cnf -f drop zm"
-
-==> Disable http with php if it isn't needed with others servers, 
-==> comment or remove that lines in /etc/httpd/conf/httpd.conf:
-==> "LoadModule php7_module modules/libphp7.so"
-==> "Include /etc/httpd/conf/extra/php7_module.conf"
-
-==> Remove line in /etc/httpd/conf/httpd.conf:
-==> "Include /etc/httpd/conf/extra/httpd-zoneminder.conf"
-
-==> Disable php with mysql if it isn't needed with others servers, 
-==> comment that lines in /etc/php/php.ini:
-    # extension=ftp.so
-    # extension=gd.so
-    # extension=gettext.so
-    # extension=mcrypt.so
-    # extension=openssl.so
-    # extension=pdo_mysql.so
-    # extension=sockets.so
-    # extension=zip.so
-    # "date.timezone = <my_country>/<my_city>"
-
-==> Remove log files and "zoneminder" directory in "/var/log/zoneminder".
-
-==> Backup and remove "events", "images" and "temp" dirs in "/var/cache/zoneminder".
-EOF
+    
+    # Disable ZoneMinder's Nginx server block
+    if [ -h /etc/nginx/sites-enabled/zoneminder.conf ]
+    then
+        rm /etc/nginx/sites-enabled/zoneminder.conf
+        
+        # If the sites-enabled directory is empty, remove it as well and also remove reference in nginx.conf
+        if [ -z "$(ls -A /etc/nginx/sites-enabled)" ]
+        then
+            rm -r /etc/nginx/sites-enabled
+            sed -i '/sites-enabled/d' /etc/nginx/nginx.conf
+        fi
+    fi
+    
+    # Notify user about ZoneMinder's database and user not being removed
+    if [ -d /var/lib/mysql/zm ]
+    then
+        echo
+        echo "ZoneMinder's database and user have been left intact. You can remove them by running the following:"
+        echo
+        echo "mysql -uroot -p -e \"drop database zm;\""
+        echo "mysql -uroot -p -e \"drop user 'zmuser'@localhost;\""
+        echo
+        echo "If you haven't yet configured a password for the database root user, omit the '-p' option."
+        echo
+    fi
 }

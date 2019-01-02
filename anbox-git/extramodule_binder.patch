@@ -1,0 +1,11 @@
+--- Makefile	2019-01-02 08:08:08.829493410 +0100
++++ Makefile_new	2019-01-02 08:07:59.642393631 +0100
+@@ -8,7 +8,7 @@
+ 	$(MAKE) -C $(KERNEL_SRC) V=0 M=$$PWD
+ 
+ install:
+-	cp binder_linux.ko $(DESTDIR)/
++	cp binder_linux.ko $(DESTDIR)/lib/modules/$(shell uname -r)/extramodules
+ 
+ clean:
+ 	rm -rf deps.h *.o *.ko *.mod.c *.symvers *.order .*.cmd .tmp_versions

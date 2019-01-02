@@ -2,8 +2,8 @@
 
 pkgname=('anbox-git' 'anbox-modules-dkms-git')
 _pkgname=anbox
-pkgver=r1043.73b8b63
-pkgrel=1
+pkgver=r1045.6d29f4c
+pkgrel=2
 epoch=1
 arch=('x86_64')
 url="http://anbox.io/"
@@ -17,16 +17,19 @@ source=("git+https://github.com/anbox/anbox.git"
 	'anbox.conf'
 	'anbox.desktop'
 	'anbox-bridge.network'
-	'anbox-bridge.netdev')
+	'anbox-bridge.netdev'
+	'extramodule_ashmem.patch'
+	'extramodule_binder.patch')
 sha256sums=('SKIP'
             'SKIP'
             '5be94b63dc30d141f15ca7d1be6e3e81f26ef33f844614975537562f5d08236c'
-            '1f22dbb5a3ca6925bbf62899cd0f0bbaa0b77c879adcdd12ff9d43adfa61b1d8'
+            'SKIP'
             '210eb93342228168f7bb632c8b93d9bfda6f53f62459a6b74987fa1e17530475'
             '3e07dc524a827c1651857cce28a06c1565bc5188101c140ed213bbafedc5abff'
             '7332d09865be553a259a53819cebddd21f661c7a251d78c2f46acd75c66676b6'
             '44899328725667041e6e84912da81c1d0147b708006eb2c2bb6503f271629ff0'
-            '559190df4d6d595480b30d8b13b862081fc4aac52790e33eb24cf7fbcb8003b8')
+            '559190df4d6d595480b30d8b13b862081fc4aac52790e33eb24cf7fbcb8003b8'
+            'SKIP' 'SKIP')
 
 pkgver() {
   cd "$srcdir/$_pkgname"
@@ -42,6 +45,9 @@ prepare() {
   # Don't build tests
   truncate -s 0 cmake/FindGMock.cmake
   truncate -s 0 tests/CMakeLists.txt
+  
+  patch -p1 -i ${srcdir}/extramodule_ashmem.patch ${srcdir}/anbox-modules/ashmem/Makefile
+  patch -p2 -i ${srcdir}/extramodule_binder.patch ${srcdir}/anbox-modules/binder/Makefile
 }
 
 build() {
@@ -53,7 +59,7 @@ build() {
 }
 
 package_anbox-git() {
-  depends=('lxc' 'sdl2_image' 'protobuf' 'anbox-image' 'libsystemd' 'boost-libs')
+  depends=('lxc' 'sdl2_image' 'protobuf' 'anbox-image' 'libsystemd' 'boost-libs' 'android-tools')
   optdepends=('anbox-modules-dkms-git: Required Android kernel modules')
   pkgdesc="Running Android in a container"
 

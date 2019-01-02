@@ -1,19 +1,21 @@
-# Maintainer: Condres OS team <info@codelinsoft.it>
+# Maintainer : <michael dot kogan at gmx dot net>
+# Contributor: John D Jones III AKA jnbek <jnbek1972 -_AT_- g m a i l -_Dot_- com>
+# Generator  : CPANPLUS::Dist::Arch 1.32
 
-pkgname='perl-expect'
-pkgver='1.33'
-pkgrel='2'
-pkgdesc="automate interactions with command line programs that expose a text terminal interface."
+pkgname='perl-json-maybexs'
+pkgver='1.004000'
+pkgrel='1'
+pkgdesc="Use Cpanel::JSON::XS with a fallback to JSON::XS and JSON::PP"
 arch=('any')
 license=('PerlArtistic' 'GPL')
 options=('!emptydirs')
-depends=('perl-io-tty' 'perl>=5.6.0')
+depends=('perl-cpanel-json-xs' 'perl>=5.006')
 makedepends=()
-url='https://metacpan.org/release/Expect'
-source=('http://search.cpan.org/CPAN/authors/id/J/JA/JACOBY/Expect-1.33.tar.gz')
-md5sums=('1fbb052de1383966a3be5f420a34e83c')
-sha512sums=('6351e681d813a98cf12a882cb135c6dc5f38beb72fb96efe13c690b26704acb9c5654b2f27dd833ad078de83cb4144fef4aea381a768c54f9817247210e6b5bf')
-_distdir="expect.pm-Expect-1.33"
+url='https://metacpan.org/release/JSON-MaybeXS'
+source=("https://cpan.metacpan.org/authors/id/H/HA/HAARG/JSON-MaybeXS-$pkgver.tar.gz")
+md5sums=('db61fb5515f8e2f19709a317e26dde42')
+sha512sums=('caebd00e49f4bd79f9a9a748077d58d963f53b656e4f48f9577a14fb36a80e956ff393f0ccdf7066129bcd7ebcec73a201c1c6fc778ce2488522b4e3886d2bbb')
+_distdir="JSON-MaybeXS-$pkgver"
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \

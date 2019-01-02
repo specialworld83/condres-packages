@@ -1,19 +1,20 @@
-# Maintainer: Condres OS team <info@codelinsoft.it>
+# Contributor: Francesco Di Battista <teme.[nospace]84 -_AT_- the domain name google offers a mail service at ending in dot com>
+# Generator  : CPANPLUS::Dist::Arch 1.25
 
-pkgname='perl-expect'
-pkgver='1.33'
-pkgrel='2'
-pkgdesc="automate interactions with command line programs that expose a text terminal interface."
+pkgname='perl-sys-meminfo'
+pkgver='0.99'
+pkgrel='1'
+pkgdesc="Perl extension for return the total amount of physical memory"
 arch=('any')
 license=('PerlArtistic' 'GPL')
 options=('!emptydirs')
-depends=('perl-io-tty' 'perl>=5.6.0')
+depends=('perl')
 makedepends=()
-url='https://metacpan.org/release/Expect'
-source=('http://search.cpan.org/CPAN/authors/id/J/JA/JACOBY/Expect-1.33.tar.gz')
-md5sums=('1fbb052de1383966a3be5f420a34e83c')
-sha512sums=('6351e681d813a98cf12a882cb135c6dc5f38beb72fb96efe13c690b26704acb9c5654b2f27dd833ad078de83cb4144fef4aea381a768c54f9817247210e6b5bf')
-_distdir="expect.pm-Expect-1.33"
+url='http://search.cpan.org/dist/Sys-MemInfo'
+source=('http://search.cpan.org/CPAN/authors/id/S/SC/SCRESTO/Sys-MemInfo-0.98.tar.gz')
+md5sums=('SKIP')
+sha512sums=('SKIP')
+_distdir="Sys-MemInfo-0.98"
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \

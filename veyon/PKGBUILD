@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=veyon
-pkgver=4.1.5
+pkgver=4.1.6
 pkgrel=9
 pkgdesc="Free and Open Source computer monitoring and classroom management" 
 url="https://github.com/veyon"

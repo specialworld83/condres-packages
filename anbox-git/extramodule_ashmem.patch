@@ -1,0 +1,11 @@
+--- Makefile	2019-01-02 08:06:26.441269514 +0100
++++ Makefile_new	2019-01-02 08:08:23.956870868 +0100
+@@ -12,7 +12,7 @@
+ 	$(MAKE) -C $(KERNEL_SRC) V=0 M=$$PWD
+ 
+ install:
+-	cp ashmem_linux.ko $(DESTDIR)/
++	cp ashmem_linux.ko $(DESTDIR)/lib/modules/$(shell uname -r)/extramodules
+ 
+ clean:
+ 	rm -rf deps.h *.o *.ko *.mod.c *.symvers *.order .*.cmd .tmp_versions
