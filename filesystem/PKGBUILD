@@ -1,19 +1,20 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=filesystem
-pkgver=2018.1
-pkgrel=4
+pkgver=2019.1
+pkgrel=8
 epoch=1
 pkgdesc='Base Condres Linux files'
 arch=('x86_64')
 license=('GPL')
 url='https://condresos.codelinsoft.it'
 groups=('base')
+install=filesystem.install
 depends=('iana-etc')
 backup=('etc/crypttab' 'etc/fstab' 'etc/group' 'etc/gshadow' 'etc/host.conf'
         'etc/hosts' 'etc/issue' 'etc/ld.so.conf' 'etc/motd' 'etc/nsswitch.conf'
         'etc/passwd' 'etc/profile' 'etc/resolv.conf' 'etc/securetty'
-        'etc/shadow' 'etc/shells')
+        'etc/shadow' 'etc/shells' 'etc/os-release')
 source=('crypttab' 'env-generator' 'fstab' 'group' 'gshadow' 'host.conf' 'hosts'
         'issue' 'ld.so.conf' 'locale.sh' 'motd' 'nsswitch.conf' 'os-release'
         'passwd' 'profile' 'resolv.conf' 'securetty' 'shadow' 'shells'
@@ -25,7 +26,7 @@ md5sums=('5fa6674df7645d7f5895f2d12b4ef4e9'
          '1c1e3b08acfa286f4b417c49de3e4366'
          '7d119a9cce152aa182fb3392ddeecea7'
          'a1315ea3e2b64d197b6efaf9c14ff778'
-         '7813c481156f6b280a3ba91fc6236368'
+         'f90a8318821b1804ce5d17a2e1ca728e'
          '5deb9f890a4d08a245e9752ede77271e'
          '380ccce470d309efb631f7ec3f86db48'
          'd41d8cd98f00b204e9800998ecf8427e'
@@ -70,6 +71,8 @@ package() {
   touch etc/arch-release
   install -m755 "$srcdir"/locale.sh etc/profile.d/locale.sh
   install -Dm644 "$srcdir"/os-release usr/lib/os-release
+  ln -s /usr/lib/os-release etc/os-release
+  
 
   # setup /var
   for d in cache local opt log/old lib/misc empty; do

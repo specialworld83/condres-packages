@@ -1,0 +1,11 @@
+pre_install() {
+
+rm -rf etc/os-release
+
+}
+
+pre_upgrade() {
+
+rm -rf etc/os-release
+
+}
