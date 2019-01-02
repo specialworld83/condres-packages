@@ -1,0 +1,31 @@
+pre_remove() {
+  /usr/lib/snapd/snap-mgmt --purge || :
+  rm -f /etc/udev/rules.d/70-snap.*.rules || true
+  rm -f /etc/dbus-1/system.d/snap.* || true
+  rm -f /var/lib/snapd/system-key || true
+}
+
+post_install() {
+
+systemctl enable --now apparmor.service
+systemctl enable --now snapd.apparmor.service
+systemctl start --now apparmor.service
+systemctl start --now snapd.apparmor.service
+systemctl start snapd.service
+systemctl enable --now snapd.socket
+systemctl start --now snapd.socket
+ 
+}
+
+post_upgrade() {
+
+systemctl enable --now apparmor.service
+systemctl enable --now snapd.apparmor.service
+systemctl start --now apparmor.service
+systemctl start --now snapd.apparmor.service
+systemctl start snapd.service
+systemctl start --now snapd.socket
+
+}
+# vim:set ts=2 sw=2 et:
+
