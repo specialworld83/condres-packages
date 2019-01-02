@@ -14,6 +14,7 @@ systemctl start --now snapd.apparmor.service
 systemctl start snapd.service
 systemctl enable --now snapd.socket
 systemctl start --now snapd.socket
+ln -s /var/lib/snapd/snap /snap
  
 }
 
@@ -25,6 +26,7 @@ systemctl start --now apparmor.service
 systemctl start --now snapd.apparmor.service
 systemctl start snapd.service
 systemctl start --now snapd.socket
+ln -s /var/lib/snapd/snap /snap
 
 }
 # vim:set ts=2 sw=2 et:
