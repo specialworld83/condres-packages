@@ -1,8 +1,9 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=grub-customizer
-pkgver=5.0.6
-pkgbranch=5.0
+pkgver=5.1.0
+pkgbranch=5.1
+epoch=1
 pkgrel=3
 pkgdesc="A graphical grub2 settings manager"
 url="https://launchpad.net/grub-customizer"
@@ -17,7 +18,7 @@ options=()
 install=${pkgname}.install
 source=("https://launchpad.net/${pkgname}/${pkgbranch}/${pkgver}/+download/${pkgname}_${pkgver}.tar.gz" \
         grub.cfg)
-md5sums=('9c8f40bfbe0476c57bf6269ba5c9535c'
+md5sums=('bc703006c6818d30869cef1d3f459d78'
          'f914f23d66341925238fd0d1922d2b85')
 package(){
   cd "$srcdir"/$pkgname-$pkgver/
