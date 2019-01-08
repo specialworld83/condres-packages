@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares
-pkgver=3.2.1
-pkgrel=14
+pkgver=3.2.2
+pkgrel=15
 epoch=3
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
@@ -30,6 +30,7 @@ prepare() {
     cp -a ${srcdir}/calamares-condres/* ${srcdir}/calamares-${pkgver}
     rm -rf ${srcdir}/calamares-condres
     cd ${srcdir}/calamares-${pkgver}
+    sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' CMakeLists.txt
 }
 
 
@@ -46,7 +47,7 @@ build() {
               -DSKIP_MODULES="webview interactiveterminal initramfs \
                               initramfscfg dracut dracutlukscfg \
                               dummyprocess dummypython dummycpp \
-                              dummypythonqt services-openrc  netinstall"
+                              dummypythonqt services-openrc services-systemd"
         make
 }
 
@@ -58,10 +59,7 @@ package() {
     install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
     chmod 750 "$pkgdir"/etc/polkit-1/rules.d
     
-    mv "$pkgdir/usr/lib/calamares/modules/services-systemd" "$pkgdir/usr/lib/calamares/modules/services"
-	mv "$pkgdir/usr/share/calamares/modules/services-systemd.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
-	sed -i -e 's/-systemd//' "$pkgdir/usr/lib/calamares/modules/services/module.desc"
-	sed -i -e 's/-systemd//' "$pkgdir/usr/share/calamares/settings.conf"
+    
 
 }
 

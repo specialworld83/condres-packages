@@ -1,0 +1,21 @@
+
+
+
+pkgname=artwork-gfxboot-condres
+pkgver=2.0
+pkgrel=1
+pkgdesc='Artwork-gfxboot for Condres OS'
+arch=(any)
+license=(GPL)
+url="https://condresos.codelinsoft.it"
+depends=()
+source=("artwork-gfxboot.tar.gz")
+sha256sums=('SKIP')
+
+
+package() {
+    cd "$srcdir/artwork-gfxboot"
+	install -dDm 755 $pkgdir/usr/share/gfxboot/themes/artwork-gfxboot
+	cp -rv $srcdir/artwork-gfxboot/*  $pkgdir/usr/share/gfxboot/themes/artwork-gfxboot
+}
+ 
