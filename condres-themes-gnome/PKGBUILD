@@ -1,6 +1,6 @@
 _pkgname='Condres Themes'
 pkgname=condres-themes-gnome
-_pkgver=3.7
+_pkgver=3.8
 pkgrel=4
 _gnomever=3.30
 pkgver=${_gnomever}.${_pkgver}
