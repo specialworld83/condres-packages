@@ -30,6 +30,7 @@ install=settings.install
 package() {
     cd "${srcdir}/condres-desktop-settings"
     install -d $pkgdir/usr/share/icons
+   
     cp -rv ../../logo_condres_mini.svg $pkgdir/usr/share/icons
     cp -rv ../../condres.png $pkgdir/usr/share/icons
     
@@ -37,14 +38,16 @@ package() {
     for file in $(find skel/. -type f); do
         install -Dm644 ${file#./} "${pkgdir}/etc/skel/${file#skel/./}"
     done
+    
 
     # Cinnamon needs .themes dir
     install -d "${pkgdir}/etc/skel/.themes"
- 
+   
     install -d $pkgdir/etc/xdg/
     cp -rv ../../kdeglobals $pkgdir/etc/xdg
     cp -rv ../../plasmarc $pkgdir/etc/xdg
     cp -rv ../../Trolltech.conf $pkgdir/etc/xdg
+    
     
 }
  
