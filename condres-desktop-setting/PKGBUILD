@@ -1,13 +1,13 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=condres-desktop-settings
-pkgver=2.7
+pkgver=2.8
 pkgrel=1
 pkgdesc="Setup configuration for Condres Desktops"
 url="http://github.com/condres/condres-desktop-settings"
 arch=('any')
 license=('GPL2')
-depends=('condres-schemas' 'dconf' 'ttf-lato' 'xfce4-whiskermenu-plugin')
+depends=('condres-schemas' 'dconf' 'ttf-lato')
 source=("condres-desktop-settings.tar.gz"
 	"logo_condres_mini.svg"
 	"condres.png"
