@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=7.3.3
-_pkgver=7.3.3
+pkgver=7.3.4
+_pkgver=7.3.4
 pkgrel=2
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
