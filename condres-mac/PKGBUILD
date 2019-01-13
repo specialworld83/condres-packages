@@ -3,14 +3,19 @@
 _pkgname='Condres Icons'
 pkgname=condres-mac-icons
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Icons Apple for Condres OS'
 arch=(any)
 license=(GPL)
 url="https://www.gnome-look.org/p/1102582/"
 depends=()
-source=("https://dl.opendesktop.org/api/files/downloadfile/id/1510321229/s/209051878f84fcc9c898a396918203f8/t/1513679965/macOS.tar.xz")
+source=("https://dl.opendesktop.org/api/files/download/id/1545202506/s/8b99c1a35e641860dfb9207ae52aa0671a82ae778544badb11c8db868d161b5d991caf00bae174f1964fbe1421e981c102ce1e4b30ff80fac49eb90130e74425/t/1547403470/u//macOS.tar.xz")
 sha256sums=('SKIP')
+
+prepare() {
+    cd ${srcdir}
+    bsdtar Jxvf macOS.tar.xz
+}
 
 package() {
 	mkdir -p "${pkgdir}/usr/share/icons"

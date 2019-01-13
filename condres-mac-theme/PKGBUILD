@@ -3,7 +3,7 @@
 pkgname="condres-mac-gnome-theme"
 _pkgname="iOS-theme"
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Mac GNOME theme is a pretty simple shell theme inspired on apple design."
 arch=('any')
 url="https://github.com/daniruiz/Flat-Remix-GNOME-theme/"
@@ -16,6 +16,6 @@ sha256sums=('SKIP')
 package() {
     cd "${srcdir}/${_pkgname}/"
     install -dm755 "${pkgdir}/usr/share/themes"
-    cp -rv ../../"iOS-theme" "${pkgdir}/usr/share/themes/"
+    cp -rv ../"iOS-theme" "${pkgdir}/usr/share/themes/"
    
 } 

@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=ktrans-theme-condres
-pkgver=0.6
+pkgver=0.98
 epoch=1
 pkgrel=2
 pkgdesc='Plasma theme for Condres OS'
@@ -9,8 +9,13 @@ arch=(any)
 license=(GPL)
 url="https://condresos.codelinsoft.it"
 depends=('plasma-desktop')
-source=("https://dl.opendesktop.org/api/files/downloadfile/id/1508789516/s/5a71ee400e9077c71c1d37afcfd37235/t/1515840544/u//ktrans_0_6.tar.gz" "start.svg")
+source=("https://dl.opendesktop.org/api/files/download/id/1526471940/s/099850fb2b5f681a74e5e9f2c5f1d7ff112106c6ee555bd603891f4d77cd531ffa6a34308a36da8060c5a2426fee2a3c8506eda56388f3746c3d9704525fe015/t/1547403705/u//KTrans-0.98.tar.gz" "start.svg")
 sha256sums=('SKIP' 'SKIP')
+
+prepare() {
+    cd ${srcdir}
+    bsdtar xvzf KTrans-0.98.tar.gz
+}
 
 package() {
 	mkdir -p "${pkgdir}/usr/share/plasma/desktoptheme/"
