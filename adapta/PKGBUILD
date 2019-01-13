@@ -9,7 +9,7 @@ pkgname=('adapta-material-theme'
 		 )
 _pkgname=adapta-gtk-theme
 _theme=condres-gnome-theme
-pkgver="3.93.0.119"
+pkgver="3.95.0.11"
 pkgrel=1
 epoch=2
 arch=(any)
