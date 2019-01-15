@@ -1,0 +1,14 @@
+--- CMakeLists.txt	2018-10-21 14:10:35.000000000 +0200
++++ CMakeLists_new.txt	2019-01-15 08:12:11.613941791 +0100
+@@ -81,11 +81,4 @@
+ 
+ add_subdirectory(src)
+ 
+-################################
+-#           packaging          #
+-################################
+-set(APPIMAGEKIT_PACKAGE_DEBS FALSE CACHE BOOL "")
+ 
+-if(APPIMAGEKIT_PACKAGE_DEBS)
+-    include(cmake/cpack_debs.cmake)
+-endif()

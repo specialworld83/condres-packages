@@ -1,8 +1,9 @@
 pkgname=appimage
-_gitname=AppImageKit
+_gitname=AppImageKit-11
 pkgdesc="Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, Ubuntu, Fedora, debian and derivatives."
-pkgver=r1529.5697940
+pkgver=11
 pkgrel=1
+epoch=1
 arch=('i686' 'x86_64')
 url="http://appimage.org"
 license=('MIT')
@@ -13,26 +14,32 @@ conflicts=('appimage')
 options=('!strip')
 install="$pkgname.install"
 source=(
-  'git://github.com/probonopd/AppImageKit'
+  'https://github.com/AppImage/AppImageKit/archive/11.tar.gz'
+  'https://github.com/AppImage/libappimage/archive/v0.1.6.tar.gz'
+  'git://github.com/arsenm/sanitizers-cmake.git'
+  'remove_deb_cpack.patch'
+  'https://github.com/google/googletest/archive/release-1.8.1.tar.gz'
 )
 md5sums=(
   'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
 )
 
-pkgver() {
-  cd "${srcdir}/${_gitname}"
-  ( set -o pipefail
-    git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
-    printf "r%s.%s" \
-      "$(git rev-list --count HEAD)" \
-      "$(git log | head -n 1 | cut -d" " -f2 | awk '{print substr($0,0,7)}')"
-  )
-}
+
 
 prepare() {
+  cp -rv sanitizers-cmake/* ${srcdir}/${_gitname}/cmake/sanitizers-cmake/
+  bsdtar xvzf v0.1.6.tar.gz
+  cp -rv ${srcdir}/libappimage-0.1.6/* ${srcdir}/${_gitname}/lib/libappimage/
+  bsdtar xvzf release-1.8.1.tar.gz
+  cp -rv ${srcdir}/googletest-release-1.8.1/* ${srcdir}/${_gitname}/lib/libappimage/lib/gtest/
+  patch -p1 -i ${srcdir}/remove_deb_cpack.patch ${srcdir}/${_gitname}/CMakeLists.txt
   cd "${srcdir}/${_gitname}"
 
-  ./build.sh --clean
+  
 
   sed -i "s/ctest -V/echo 'Skip Tests...'/g" build.sh
 
@@ -50,6 +57,9 @@ prepare() {
 }
 
 build() {
+  cd "${srcdir}/${_gitname}"
+  cd ${srcdir}/${_gitname}/cmake/sanitizers-cmake/
+  cmake .
   cd "${srcdir}/${_gitname}"
   ./build.sh --no-dependencies --use-shared-libs
 
