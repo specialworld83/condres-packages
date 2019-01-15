@@ -1,4 +1,4 @@
-pkgname=brisk-menu-git
+pkgname=brisk-menu
 _gitname=brisk
 pkgver=v0.5.0.r25.ga28e660
 pkgrel=1
