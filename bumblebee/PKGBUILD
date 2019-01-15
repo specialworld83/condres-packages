@@ -22,7 +22,7 @@
 
 pkgname=bumblebee
 pkgver=3.2.1
-pkgrel=18
+pkgrel=25
 pkgdesc="NVIDIA Optimus support for Linux through VirtualGL"
 arch=('i686' 'x86_64')
 depends=('virtualgl' 'glib2' 'mesa-libgl' 'primus')
