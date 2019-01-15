@@ -23,8 +23,4 @@ cd ${pwd}/*perl-sys-cpu && makepkg -sf --noconfirm -d
 cd ${pwd}/*perl-sys-meminfo && makepkg -sf -d --noconfirm -d
 cd ${pwd}/*perl-sys-mmap && makepkg -d --noconfirm -d
 cd ${pwd}/*perl-uri-encode && makepkg -sf --noconfirm -d
-echo 'create repo'
-mkdir -p ${pwd}/repo-`uname -m`
-mv ${pwd}/*/*`uname -m`.pkg* ${pwd}/repo-`uname -m`
-ls ${pwd}/repo-`uname -m`
 echo 'building perl module done'
