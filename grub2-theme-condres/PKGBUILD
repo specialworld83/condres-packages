@@ -18,6 +18,6 @@ sha256sums=('SKIP'
 
 package() {
   mkdir -p ${pkgdir}/etc/condres-assets/
-  cp -R ../Condres-Fantasy ${pkgdir}/etc/condres-assets/Condres-Fantasy
+  cp -R Condres-Fantasy ${pkgdir}/etc/condres-assets/Condres-Fantasy
 }
 
