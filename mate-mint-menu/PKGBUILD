@@ -3,7 +3,7 @@
 _pkgname=mintmenu
 pkgname=mate-mint-menu
 pkgver=5.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux Mint Menu for MATE"
 arch=('any')
 url="http://github.com/linuxmint/mintmenu"
@@ -39,7 +39,7 @@ package() {
 	done
 
 	#cd "$srcdir/${_pkgname}"
-	cd "$srcdir/${_pkgname}-5.8.4"
+	cd "$srcdir/${_pkgname}-${pkgver}"
 	
 
 	# Disable the software-manager entry under Places
@@ -49,7 +49,7 @@ package() {
 
 
 	#cd "$srcdir/${_pkgname}"
-	cd "$srcdir/${_pkgname}-5.8.4"
+	cd "$srcdir/${_pkgname}-${pkgver}"
 	cp -R usr "$pkgdir/"
 	install -m755 "$srcdir/removescript" "$pkgdir/usr/lib/linuxmint/mintMenu/"
 	cd "$pkgdir"/usr/lib/linuxmint/mintMenu
