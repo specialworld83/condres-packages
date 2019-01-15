@@ -14,7 +14,7 @@ options=('!strip')
 source=("https://github.com/Microsoft/msbuild/releases/download/mono-hosted-msbuild-v${pkgver}/mono_msbuild_d25dd923839404bd64cc63f420e75acf96fc75c4.zip")
 
 build() {
-  cd msbuild
+  cd ${srcdir}/msbuild
 }
 
 package() {
