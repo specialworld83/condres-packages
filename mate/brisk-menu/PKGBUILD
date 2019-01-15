@@ -24,6 +24,7 @@ pkgver() {
 build() {
     cd "$srcdir/brisk-menu"
     meson --buildtype plain build --prefix=/usr
+    
     ninja -C build -j$(($(getconf _NPROCESSORS_ONLN)+1))
 }
 
