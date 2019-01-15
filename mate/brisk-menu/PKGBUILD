@@ -1,38 +1,35 @@
-# Maintainer: Condres OS team <info@codelinsoft.it>
-
-pkgname=brisk-menu
-pkgver=0.5.0
+pkgname=brisk-menu-git
+_gitname=brisk
+pkgver=v0.5.0.r25.ga28e660
 pkgrel=1
-pkgdesc='Modern, efficient menu for the MATE Desktop Environment.'
-arch=('x86_64')
-url='https://github.com/solus-project/brisk-menu'
+pkgdesc='Modern, efficient menu for the MATE Desktop Environment - git version'
+arch=('i686' 'x86_64')
+url='https://github.com/getsolus/brisk-menu'
 license=('GPL2')
 groups=('mate')
-depends=('gtk3' 'mate-panel' 'libnotify')
-makedepends=('wget' 'gnome-common' 'meson')
-source=("https://github.com/solus-project/${pkgname}/releases/download/v${pkgver}/${pkgname}-v${pkgver}.tar.xz")
-md5sums=('7230dba13a9ddb15cc5d6d7e16ac6e16')
+depends=('mate-panel' 'libnotify')
+makedepends=('gnome-common' 'gettext' 'itstool' 'vala>=0.36' 'meson' 'ninja' )
+optdepends=('mozo: for menu edition'
+		'menulibre: for menu edition') 
+options=('!libtool' '!emptydirs')
+provides=('brisk-menu')
+conflicts=('brisk-menu')
+source=(git+https://github.com/getsolus/brisk-menu.git)
+sha1sums=('SKIP')
 
-
-
-
+pkgver() {
+    cd "$srcdir/brisk-menu"
+    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
 
 build() {
-	cd "${srcdir}/${pkgname}-v${pkgver}"
-	mkdir build
-
-	meson build \
-		--prefix=/usr \
-		--bindir=/usr/bin \
-		--libexecdir=/usr/lib/${pkgname}
-
-	ninja -C build
+    cd "$srcdir/brisk-menu"
+    meson --buildtype plain build --prefix=/usr
+    ninja -C build -j$(($(getconf _NPROCESSORS_ONLN)+1))
 }
 
 
 package() {
-	cd "${srcdir}/${pkgname}-v${pkgver}/build"
-
-	DESTDIR="${pkgdir}" ninja install
+    cd "$srcdir/brisk-menu"
+    DESTDIR="$pkgdir" ninja -C build install
 }
-
