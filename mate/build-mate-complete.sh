@@ -11,8 +11,8 @@ echo 'cleaning environment'
 rm -R ${pwd}/*/{src,pkg} -f
 echo 'building extramodules'
 cd ${pwd}/*atril && makepkg -sf --noconfirm
-cd ${pwd}/*brisk-menu && makepkg -sf --noconfirm
-cd ${pwd}/*caja && makepkg -sf --noconfirm
+#cd ${pwd}/*brisk-menu && makepkg -sf --noconfirm
+#cd ${pwd}/*caja && makepkg -sf --noconfirm
 cd ${pwd}/*caja-extensions && makepkg -df --noconfirm
 cd ${pwd}/*caja-extensions-common && makepkg -sf --noconfirm
 cd ${pwd}/*caja-gksu && makepkg -sf -d --noconfirm
@@ -52,8 +52,4 @@ cd ${pwd}/*mate-utils && makepkg -sf --noconfirm
 cd ${pwd}/*mozo && makepkg -sf --noconfirm
 cd ${pwd}/*pluma && makepkg -sf --noconfirm
 cd ${pwd}/*python-caja && makepkg -sf --noconfirm
-echo 'create repo'
-mkdir -p ${pwd}/repo-`uname -m`
-mv ${pwd}/*/*`uname -m`.pkg* ${pwd}/repo-`uname -m`
-ls ${pwd}/repo-`uname -m`
 echo 'building extramodules done'
