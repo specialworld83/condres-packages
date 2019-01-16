@@ -81,8 +81,5 @@ cd ${pwd}/*tde-i18n-vi && makepkg -sf --noconfirm
 cd ${pwd}/*tde-i18n-wa && makepkg -sf --noconfirm
 cd ${pwd}/*tde-i18n-zh_CN && makepkg -sf --noconfirm
 cd ${pwd}/*tde-i18n-zh_TW && makepkg -sf --noconfirm
-echo 'create repo'
-mkdir -p ${pwd}/repo-`uname -m`
-mv ${pwd}/*/*`uname -m`.pkg* ${pwd}/repo-`uname -m`
-ls ${pwd}/repo-`uname -m`
 echo 'building extramodules done'
+rm -Rf ${pwd}/*/{src}
