@@ -10,7 +10,7 @@ pkgdesc="Trinity Desktop core libraries and applications"
 arch=('i686' 'x86_64')
 url='http://scm.trinitydesktop.org/scm/git/tdelibs'
 license=('GPL')
-groups=('tde-core' 'tde-base' 'trinity-brandring-condres')
+groups=('tde-core' 'tde-base')
 depends=('aspell'
 	'hspell'
 	'jasper'
