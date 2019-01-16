@@ -7,4 +7,4 @@ for pkg in tqt3 tqtinterface arts dbus-tqt dbus-1-tqt tqca-tls libart-lgpl avahi
 done
 
 pwd=`pwd`
-rm -Rf ${pwd}/*/{src}
+rm -Rf "$dir"/tde-"$pkg"/{src,pkg}
