@@ -21,8 +21,4 @@ cd ${pwd}/*python-powerline-git && makepkg -d --noconfirm -d
 cd ${pwd}/*python-pychromecast && makepkg -sf --noconfirm -d
 cd ${pwd}/*python-pydbus && makepkg -sf --noconfirm -d
 cd ${pwd}/*python2-mutagen && makepkg -sf -d --noconfirm -d
-echo 'create repo'
-mkdir -p ${pwd}/repo-`uname -m`
-mv ${pwd}/*/*`uname -m`.pkg* ${pwd}/repo-`uname -m`
-ls ${pwd}/repo-`uname -m`
 echo 'building python packages'
