@@ -3,7 +3,7 @@
 
 pkgname=sierrabreeze-aurorae-theme
 _gitname=SierraBreeze
-pkgver=r13
+pkgver=r60.ca6e144
 pkgrel=1
 pkgdesc="OSX-like window decoration for KDE Plasma written in C++ (git version)"
 arch=('x86_64')
@@ -14,6 +14,13 @@ makedepends=('git' 'cmake' 'extra-cmake-modules')
 source=("git+${url}.git")
 sha256sums=('SKIP')
 
+pkgver() {
+  
+   cd ${srcdir}/${_gitname}
+
+   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  
+}
 
 build() {
   
