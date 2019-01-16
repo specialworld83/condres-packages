@@ -1,6 +1,6 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname=suricata-emerging-rules
-pkgver=4.1.0
+pkgver=4.1.2
 pkgrel=1
 pkgdesc="Suricata rules from emergingthreatspro.com"
 arch=('any')
@@ -24,4 +24,4 @@ package() {
 }
 
 md5sums=('SKIP'
-         '5aa82bc2d83d374839bd88488ad1b2c3')
+         'SKIP')

@@ -14,7 +14,7 @@ backup=('etc/suricata/suricata.yaml'
         'etc/suricata/reference.config')
 source=(http://openinfosecfoundation.org/download/$pkgname-$pkgver.tar.gz)
 validpgpkeys=('801C7171DAC74A6D3A61ED81F7F9B0A300C1B70D') # Open Information Security Foundation
-sha256sums=('bd9b00fb4fc255566d4d8a8b52eb4977b4e8b49b37710d166cba75e6a93a504a'
+sha256sums=('SKIP'
             )
 
 build() {
