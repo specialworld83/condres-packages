@@ -1,0 +1,17 @@
+--- include/zpios-ctl.h.orig	2018-12-24 10:04:41.956948311 +0100
++++ include/zpios-ctl.h	2018-12-24 10:37:59.457719586 +0100
+@@ -181,9 +181,12 @@ zpios_timespec_t
+ zpios_timespec_now(void)
+ {
+ 	zpios_timespec_t zts_now;
+-	struct timespec ts_now;
+ 
+-	ts_now = current_kernel_time();
++#if defined(HAVE_INODE_TIMESPEC64_TIMES)
++	inode_timespec_t ts_now = current_kernel_time64();
++#else
++	inode_timespec_t ts_now = current_kernel_time();
++#endif
+ 	zts_now.ts_sec  = ts_now.tv_sec;
+ 	zts_now.ts_nsec = ts_now.tv_nsec;
+ 

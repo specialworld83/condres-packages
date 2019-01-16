@@ -1,0 +1,21 @@
+diff -Npur fglrx-15.201.1151.orig/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c
+--- fglrx-15.201.1151.orig/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c	2016-10-23 12:52:17.447509000 +0200
++++ fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c	2016-10-23 13:15:08.241825797 +0200
+@@ -3232,7 +3232,7 @@ int ATI_API_CALL KCL_LockUserPages(unsig
+     int ret;
+ 
+     down_read(&current->mm->mmap_sem);
+-    ret = get_user_pages(vaddr, page_cnt, 1, 0, (struct page **)page_list, NULL);
++    ret = get_user_pages(vaddr, page_cnt, FOLL_WRITE, (struct page **)page_list, NULL);
+     up_read(&current->mm->mmap_sem);
+ 
+     return ret;
+@@ -3250,7 +3250,7 @@ int ATI_API_CALL KCL_LockReadOnlyUserPag
+     int ret;
+ 
+     down_read(&current->mm->mmap_sem);
+-    ret = get_user_pages(vaddr, page_cnt, 0, 0, (struct page **)page_list, NULL);
++    ret = get_user_pages(vaddr, page_cnt, 0, (struct page **)page_list, NULL);
+     up_read(&current->mm->mmap_sem);
+ 
+     return ret;

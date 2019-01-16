@@ -1,0 +1,18 @@
+EXTRAMODULES='extramodules-4.20-CONDRES'
+VERSION='linux420'
+
+post_install() {
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    echo "nvidiabl" > /etc/modules-load.d/$VERSION-nvidiabl.conf
+}
+
+post_upgrade() {
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    echo "nvidiabl" > /etc/modules-load.d/$VERSION-nvidiabl.conf
+}
+
+
+post_remove() {
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    rm /etc/modules-load.d/$VERSION-nvidiabl.conf
+}

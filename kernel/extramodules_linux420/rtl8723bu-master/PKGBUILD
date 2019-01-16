@@ -1,0 +1,58 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+_linuxprefix=linux420
+_extramodules=extramodules-4.20-CONDRES
+pkgname=$_linuxprefix-rtl8723bu
+#_pkgname=rtl8723bu-master
+_pkgname=rtl8723bu
+_libname=8723bu
+pkgver=4.3.9.3.13200
+pkgrel=1.1
+pkgdesc="A kernel module for Realtek 8723bu network cards"
+url="http://www.realtek.com.tw"
+license=("GPL")
+arch=('x86_64')
+#depends=('glibc' "$_linuxprefix")
+depends=("$_linuxprefix")
+makedepends=("git" "$_linuxprefix-headers")
+builddepends=("$_linuxprefix-headers")
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+source=("${_pkgname}::git+https://github.com/lwfinger/rtl8723bu"
+        #'https://github.com/lwfinger/rtl8723bu/archive/master.zip'
+       	'blacklist-rtl8xxxu.conf')
+sha256sums=('SKIP'
+            '7c726ad04083c8e620bc11c837e5f51d3e9e2a5c3e19c333b2968eb39f1ef07e')
+install=rtl8723bu.install
+
+#pkgver() {
+#  cd "$_pkgname"
+#  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+#}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
+    _srcroot="$srcdir/$_pkgname"
+    cd "${_srcroot}"
+    # do not compile with CONCURRENT_MODE
+    sed -i 's/EXTRA_CFLAGS += -DCONFIG_CONCURRENT_MODE/#EXTRA_CFLAGS += -DCONFIG_CONCURRENT_MODE/g' Makefile
+
+    # avoid using the Makefile directly -- it doesn't understand
+    # any kernel but the current.
+    make clean
+    make -C /usr/lib/modules/$_kernver/build SUBDIRS="$srcdir/$_pkgname" modules
+}
+
+package() {
+    ls -la
+    install -d m644 $pkgdir/etc/modprobe.d
+    install -t "$pkgdir/etc/modprobe.d" "blacklist-rtl8xxxu.conf"
+
+    #cd "$srcdir/$_pkgname"
+    install -D -m644 $srcdir/$_pkgname/$_libname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_libname.ko"
+
+    # set the kernel we've built for inside the install script
+    sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${install}"
+
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+}

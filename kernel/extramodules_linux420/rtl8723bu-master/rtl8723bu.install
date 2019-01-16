@@ -1,0 +1,24 @@
+rebuild_module_dependencies() {
+	EXTRAMODULES=extramodules-4.20-CONDRES
+	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}
+
+post_install() {
+  rebuild_module_dependencies
+	echo '>>> The module rtl8723bu conflicts with rtl8xxxu.'
+	echo '>>> rtl8xxxu has been blacklisted using \`/etc/modprobe.d/blacklist_rtlxxxu.conf\`'
+    modprobe -r rtl8xxxu
+    modprobe 8723bu
+
+}
+post_upgrade() {
+	rebuild_module_dependencies
+    modprobe -r 8723bu
+    modprobe 8723bu
+}
+
+post_remove() {
+	rebuild_module_dependencies
+    modprobe -r 8723bu
+    modprobe rtl8xxxu
+}

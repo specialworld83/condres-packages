@@ -1,0 +1,13 @@
+EXTRAMODULES=extramodules-4.20-CONDRES
+
+post_install() {
+  depmod -v $(cat /usr/lib/modules/$EXTRAMODULES/version) > /dev/null 2>&1
+}
+
+post_upgrade() {
+  depmod -v $(cat /usr/lib/modules/$EXTRAMODULES/version) > /dev/null 2>&1
+}
+
+post_remove() {
+  depmod -v $(cat /usr/lib/modules/$EXTRAMODULES/version) > /dev/null 2>&1
+}

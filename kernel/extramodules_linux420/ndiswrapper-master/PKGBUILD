@@ -1,0 +1,86 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+
+_linuxprefix=linux420
+_extramodules=extramodules-4.20-CONDRES
+pkgbase=ndiswrapper
+pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
+_pkgname=ndiswrapper
+groups=("$_linuxprefix-extramodules")
+pkgver=1.61
+pkgrel=2
+pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
+license=('GPL')
+arch=('i686' 'x86_64')
+url="http://ndiswrapper.sourceforge.net"
+makedepends=("$_linuxprefix-headers" "$_linuxprefix")
+source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
+        "kernel-4.0.patch"
+        "kernel-4.2.patch"
+        "kernel-4.11.patch"
+        "kernel-4.13.patch"
+        "kernel-4.15.patch")
+options=('!strip')
+sha256sums=('2ac1847c24cbfa4f48a800b04c9721219614f1663a4ac94af3c7939b45c47584'
+            '80f89025a3de4b1decb82550bd89a3b4e43732b8f5104bac6e2e4b66d20d2d57'
+            '4019d3f06f69dc1f67b3bf2faa7632ed2d58eb2c22878d52daece0d496bb3810'
+            '4a366208b875cc7132b0247077f376111435e60453cab59ad061d69a29e6b5dc'
+            '86f4c828f052ed283c85f67d7b035b4c2a4a0f67f605901cf71c2f31acddb90a'
+            '3128d855bf67c4772aacf7fd7006c415306072516c7648290516cbc918371de7')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  patch -Np1 -i $srcdir/kernel-4.0.patch
+  patch -Np1 -i $srcdir/kernel-4.2.patch
+  patch -Np1 -i $srcdir/kernel-4.11.patch
+  patch -Np1 -i $srcdir/kernel-4.13.patch
+  patch -Np1 -i $srcdir/kernel-4.15.patch
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  # modinfo path fix
+  sed -i "/modinfo/s/s/usr\//" driver/Makefile
+
+  # make sure we point to the right build directory
+  sed -i "/^KBUILD/ s,.*,KBUILD = $(readlink -f /usr/lib/modules/$_kernver/build)," driver/Makefile
+
+  make KVERS=$_kernver
+}
+
+package_linux420-ndiswrapper() {
+  depends=("$_linuxprefix" "$_pkgname-utils")
+  provides=('ndiswrapper-extramodule')
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  provides=("$_pkgname=$pkgver")
+  install=ndiswrapper.install
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  make INST_DIR="usr/lib/modules/$_extramodules" \
+    KVERS=$_kernver DESTDIR="$pkgdir/" sbindir=/usr/bin usrsbindir=/usr/bin install
+
+  # set the kernel we've built for inside the install script
+  sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
+
+  gzip "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
+
+  # mv ndiswrapper-utils
+  mkdir -p $srcdir/tmp-ndis-utils/usr
+  mv -v "$pkgdir/usr/share" "$srcdir/tmp-ndis-utils/usr"
+  mv -v "$pkgdir/usr/bin" "$srcdir/tmp-ndis-utils/usr"
+}
+
+package_ndiswrapper-utils() {
+  pkgrel=2.15
+  depends=('wireless_tools' 'perl')
+  pkgdesc="Utils for NDIS (Windows Network Drivers) drivers supplied by vendors."
+  pkgrel=2.15
+  cd $srcdir/tmp-ndis-utils
+  mv -v usr "$pkgdir"
+}
+
+# vim:set ts=2 sw=2 et:

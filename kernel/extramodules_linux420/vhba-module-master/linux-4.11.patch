@@ -1,0 +1,14 @@
+--- vhba.c.orig	2017-05-02 08:41:46.705778355 +0200
++++ vhba.c	2017-05-02 08:41:19.278259526 +0200
+@@ -43,6 +43,11 @@
+ #include <linux/scatterlist.h>
+ #endif
+ 
++/* Linux 4.11 moves signal function declarations to its own header file */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++#include <linux/sched/signal.h>
++#endif
++
+ MODULE_AUTHOR("Chia-I Wu");
+ MODULE_VERSION(VHBA_VERSION);
+ MODULE_DESCRIPTION("Virtual SCSI HBA");
