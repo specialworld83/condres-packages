@@ -4,7 +4,7 @@
 # Contributor: David C. Rankin <drankinatty at gmail dot com>
 
 pkgname=tde-i18n-en_GB
-pkgver=14.0.4
+pkgver=14.0.5
 pkgrel=1
 pkgdesc="Trinity  languagepack"
 arch=('i686' 'x86_64')
@@ -22,7 +22,7 @@ depends=('alsa-plugins'
 	'pulseaudio-alsa'
 	'tde-tqtinterface')
 makedepends=('pkgconfig' 'cmake')
-source=("http://tde-mirror.yosemite.net/trinity/releases/R14.0.4/tde-i18n-R14.0.4.tar.bz2")
+source=("http://tde-mirror.yosemite.net/trinity/releases/R${pkgver}/tde-i18n-R${pkgver}.tar.bz2")
 md5sums=('SKIP')
 
 build() {
