@@ -5,25 +5,37 @@
 
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
-_pkgver=2.03
-_GRUB_GIT_TAG=2.03
+_pkgver=2.02
+_GRUB_GIT_TAG=2.02
 _SNAPSHOT="386128648606a3aa6ae7108d1c9af52258202279"
 _SNAPSHOT_EXTRAS="f2a079441939eee7251bf141986cdd78946e1d20"
+
+_IA32_EFI_IN_ARCH_X64="1"
+
+## "1" to enable EMU build, "0" to disable
+_GRUB_EMU_BUILD="0"
+
+_GRUB_EXTRAS_COMMIT="f2a079441939eee7251bf141986cdd78946e1d20"
 
 _UNIFONT_VER="10.0.06"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
 
+[[ "${CARCH}" == "x86_64" ]] && _EMU_ARCH="x86_64"
+[[ "${CARCH}" == "i686" ]] && _EMU_ARCH="i386"
+
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
-pkgver=2.03.3
-pkgrel=1
+pkgver=2.02
+pkgrel=9
 epoch=3
 url="https://www.gnu.org/software/grub/"
-arch=('x86_64' 'i686')
+arch=('x86_64')
 license=('GPL3')
-backup=('boot/grub/grub.cfg' 'etc/default/grub' 'etc/grub.d/40_custom')
+backup=('boot/grub/grub.cfg'
+        'etc/default/grub'
+        'etc/grub.d/40_custom')
 install="${pkgname}.install"
 options=('!makeflags')
 
@@ -44,10 +56,9 @@ optdepends=('freetype2: For grub-mkfont usage'
             'os-prober: To detect other OSes when generating grub.cfg in BIOS systems'
             'mtools: For grub-mkrescue FAT FS support')
 
-source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG}"
-        "grub-${pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/grub.git/snapshot/grub-${_SNAPSHOT}.tar.gz"
-        "grub-extras-${_pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/grub-extras.git/snapshot/grub-extras-${_SNAPSHOT_EXTRAS}.tar.gz"
-        "http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"
+source=("https://ftp.gnu.org/gnu/${pkgname}/${pkgname}-${pkgver}.tar.xz"
+        "https://git.savannah.nongnu.org/cgit/grub-extras.git/snapshot/grub-extras-${_GRUB_EXTRAS_COMMIT}.tar.gz"
+        "https://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"
         #"http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz.sig"
         'grub-revert-6400613.patch'
         'grub-export-path.patch'
@@ -76,9 +87,9 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'update-grub'
         "${pkgname}.hook")
 
-sha256sums=('41480d21a48820403c02e325685303ae1bd4d5dd335efc5ef43f357693245428'
+sha256sums=('810b3798d316394f94096ec2797909dbf23c858e48f7b3830826b8daa06b7b0f'
             '2844601914cea6b1231eca0104853a93c4d67a5209933a0766f1475953300646'
-            '0d81571fc519573057b7641d26a31ead55cc0b02a931589fb346a3a534c3dcc1'
+            'SKIP'
             '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
@@ -111,8 +122,6 @@ sha256sums=('41480d21a48820403c02e325685303ae1bd4d5dd335efc5ef43f357693245428'
 #}
 
 prepare() {
-	mv "${srcdir}/grub-${_SNAPSHOT}/" "${srcdir}/grub-${_pkgver}/"
-	mv "${srcdir}/grub-extras-${_SNAPSHOT_EXTRAS}/" "${srcdir}/grub-extras-${_pkgver}/"
 
 	cd "${srcdir}/grub-${_pkgver}/"
 
