@@ -135,8 +135,8 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-add-GRUB_COLOR_variables.patch"
 	echo
 
-	msg "Patch to include Manjaro Linux Modifications"
-	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
+	msg "Patch to include Condres Linux Modifications"
+	patch -Np1 -i "${srcdir}/grub-condres-modifications.patch"
 	echo
 
 	msg "Add Fedora patches"
