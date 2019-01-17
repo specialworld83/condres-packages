@@ -1,6 +1,6 @@
 From 009ecc71a0b397faed8fafb3c4d62e96d0d86a8a Mon Sep 17 00:00:00 2001
 From: Keshav Padram Amburay <address@hidden>
-Modified for condres by: Philip Müller <address@hidden>
+Modified for Manjaro by: Philip Müller <address@hidden>
 Date: Wed, 6 Nov 2013 21:49:40 +0530
 Subject: [PATCH] Add Arch Linux specific grub-mkconfig fixes
 
@@ -79,7 +79,7 @@ index 00d1931..f403585 100644
    alt_version=`echo $version | sed -e "s,\.old$,,g"`
    linux_root_device_thisversion="${LINUX_ROOT_DEVICE}"
  
-+  if test -e "/etc/os-release" ; then
++  if test -e "/etc/manjaro-release" ; then
 +    kbasename="`echo "${basename}" | sed -e 's,vmlinuz-,linux,g'`"
 +    if test -e "${dirname}/${kbasename}.kver" ; then
 + 	version="$(cat ${dirname}/${kbasename}.kver)"
@@ -105,7 +105,7 @@ index 00d1931..f403585 100644
    done
  
    initrd_real=
-+  initramfs_condres="`echo "${basename}" | sed -e 's,vmlinuz,initramfs,g'`"
++  initramfs_manjaro="`echo "${basename}" | sed -e 's,vmlinuz,initramfs,g'`"
    for i in "initrd.img-${version}" "initrd-${version}.img" "initrd-${version}.gz" \
  	   "initrd-${version}" "initramfs-${version}.img" \
  	   "initrd.img-${alt_version}" "initrd-${alt_version}.img" \
@@ -115,7 +115,7 @@ index 00d1931..f403585 100644
  	   "initramfs-genkernel-${GENKERNEL_ARCH}-${version}" \
 -	   "initramfs-genkernel-${GENKERNEL_ARCH}-${alt_version}"; do
 +	   "initramfs-genkernel-${GENKERNEL_ARCH}-${alt_version}" \
-+	   "${initramfs_condres}.img" ; do
++	   "${initramfs_manjaro}.img" ; do
      if test -e "${dirname}/${i}" ; then
        initrd_real="${i}"
        break
@@ -124,7 +124,7 @@ index 00d1931..f403585 100644
    linux_entry "${OS}" "${version}" advanced \
                "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
 +
-+  for i in "${initramfs_condres}-fallback.img" "initramfs-${version}-fallback.img" ; do
++  for i in "${initramfs_manjaro}-fallback.img" "initramfs-${version}-fallback.img" ; do
 +    if test -e "${dirname}/${i}" ; then
 +      initrd="${i}"
 +      gettext_printf "Found initrd fallback image: %s\n" "${dirname}/${initrd}" >&2

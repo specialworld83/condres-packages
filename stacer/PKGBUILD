@@ -2,48 +2,21 @@
 
 pkgname=stacer
 pkgver=1.0.9
-pkgrel=2
+pkgrel=3
 pkgdesc="Ubuntu System Optimizer"
 url="https://github.com/oguzhaninan/Stacer"
 arch=('any')
 license=('MIT')
 depends=('qt5-charts' 'qt5-svg' 'hicolor-icon-theme')
-makedepends=('qt5-tools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/oguzhaninan/Stacer/archive/v${pkgver}.tar.gz")
-sha256sums=('SKIP')
-
-build() {
-  cd "$srcdir/${pkgname^}-${pkgver}"
-  [ -d build ] && rm -fr build
-  mkdir build
-  cd build
-  qmake -spec linux-g++ "CONFIG += release" ../Stacer.pro 
-  make
-  
-  # Build translations
-  lrelease ../stacer/stacer.pro
-}
-
+source_x86_64=("https://github.com/oguzhaninan/Stacer/releases/download/v${pkgver}/stacer_${pkgver}_amd64.deb")
+source=($pkgname.desktop)
+sha512sums=('c1935570166c402295d92dad30fe7b4e8189a869561d56bd8d5244138de11d4fa16145ad017f9e7b22733fb7de8a6b79708aba595a80bce7bbe0a037da63260f')
+sha512sums_x86_64=('b28c09cdc388c25db8aa145ac0a6ea7aae31ef9647af8068201cceff58a87d5cb2b86b8bbd382acc8dca6e3b6483a9ba6239123a4eedf68b28c507fb867c3a46')
+        
 package() {
-  cd "$srcdir/${pkgname^}-${pkgver}"/build
-  mkdir -p "${pkgdir}"/usr/lib/stacer
-  
-  install -Dm755 stacer/stacer "${pkgdir}"/usr/lib/stacer/stacer
-  
-  mkdir -p "${pkgdir}"/usr/bin
-  ln -s /usr/lib/stacer/stacer "${pkgdir}"/usr/bin/stacer
-  
-  install -Dm755 stacer-core/libstacer-core.so.1.0.0 "${pkgdir}"/usr/lib/
-  ln -s './libstacer-core.so.1.0.0' "${pkgdir}"/usr/lib/libstacer-core.so.1.0
-  ln -s './libstacer-core.so.1.0.0' "${pkgdir}"/usr/lib/libstacer-core.so.1
-  ln -s './libstacer-core.so.1.0.0' "${pkgdir}"/usr/lib/libstacer-core.so
-  
-  mkdir -p "${pkgdir}"/usr/share/
-  cp -ar ../icons "${pkgdir}"/usr/share/
-  
-  install -Dm644 ../stacer.desktop "${pkgdir}"/usr/share/applications/stacer.desktop
-
-  # Install translations
-  mkdir -p "${pkgdir}"/usr/lib/stacer/translations
-  install -Dm644 ../translations/*qm "${pkgdir}"/usr/lib/stacer/translations/
+  cd $srcdir
+  tar xvf data.tar.xz
+  cp -r usr $pkgdir
+  rm $pkgdir/usr/share/applications/stacer.desktop
+  install -vDm644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
 }
