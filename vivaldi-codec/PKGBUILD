@@ -12,9 +12,7 @@ depends=('vivaldi')
 provides=(
   'vivaldi-ffmpeg-codecs'
 )
-conflicts=(
-  'vivaldi-ffmpeg-codecs'
-)
+
 source=(
   "http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-codecs-ffmpeg-extra_${pkgver}-${pkgver2}_amd64.deb"
 )
