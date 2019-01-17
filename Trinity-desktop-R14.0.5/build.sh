@@ -1,11 +1,26 @@
-#!/bin/sh
-
-dir=$PWD
-for pkg in tqt3 tqtinterface arts dbus-tqt dbus-1-tqt tqca-tls libart-lgpl avahi-tqt tdelibs tdebase   ; do
-  cd "$dir"/tde-"$pkg"
-  makepkg -Lsci
-done
-cp -rv "$dir"/tde-"$pkg"/*.pkg.tar.xz /srv/ftp/userftp/mirror/
+#!/bin/bash
 
 pwd=`pwd`
-rm -Rf "$dir"/tde-"$pkg"/{src,pkg}
+
+if [ "`sudo cat /etc/sudoers | grep pacman`" == "" ] ; then
+   echo "please add '`whoami` ALL=NOPASSWD: /usr/bin/pacman' to your /etc/sudoers file"
+   exit 1
+fi
+
+echo 'cleaning environment'
+rm -R ${pwd}/*/{src,pkg} -f
+echo 'building extramodules'
+cd ${pwd}/*tde-tqt3 && makepkg -sf --noconfirm
+cd ${pwd}/*tde-tqtinterface && makepkg -sf --noconfirm
+cd ${pwd}/*tde-arts && makepkg -sf --noconfirm
+cd ${pwd}/*tde-dbus-tqt && makepkg -df --noconfirm
+cd ${pwd}/*tde-dbus-1-tqt && makepkg -sf --noconfirm
+cd ${pwd}/*tde-tqca-tls && makepkg -sf -d --noconfirm
+cd ${pwd}/*tde-libart-lgpl && makepkg -d --noconfirm
+cd ${pwd}/*tde-avahi-tqt && makepkg -d --noconfirm
+cd ${pwd}/*tde-tdelibs && makepkg -sf --noconfirm
+cd ${pwd}/*tde-tdebase && makepkg -sf --noconfirm
+echo 'copy packages'
+mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
+echo 'building base packages done'
+rm -Rf ${pwd}/*/{src}
