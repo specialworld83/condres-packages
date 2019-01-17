@@ -1,0 +1,10 @@
+##
+## Condres OS repository mirrorlist
+## Generated on 2019-01-17
+##
+
+## Worldwide
+Server = https://repository.codelinsoft.it/condres-core-signed/condresrepotesting/
+Server = http://build.codelinsoft.it/mirror/condresrepotesting/
+Server = http://specialworld83.bplaced.net/repository/condresrepotesting/
+ 
