@@ -2,7 +2,7 @@
 
 pkgname=pure-ftpd
 pkgver=1.0.47
-pkgrel=3
+pkgrel=4
 pkgdesc="A secure, production-quality and standard-conformant FTP server, focused on efficiency and ease of use."
 arch=('i686' 'x86_64')
 url="http://www.pureftpd.org/"
