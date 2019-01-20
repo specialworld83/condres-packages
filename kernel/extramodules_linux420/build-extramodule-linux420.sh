@@ -26,6 +26,6 @@ cd ${pwd}/*tp_smapi-master && makepkg -sf --noconfirm
 cd ${pwd}/*vhba-module-master && makepkg -df --noconfirm
 cd ${pwd}/*virtualbox-modules-master && makepkg -sf --noconfirm
 echo 'copy packages'
-mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/testing/
+mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
 echo 'building language done'
 rm -Rf ${pwd}/*/{src}
