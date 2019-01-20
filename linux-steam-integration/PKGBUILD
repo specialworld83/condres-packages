@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
  
 pkgname=linux-steam-integration
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=2
 pkgdesc="Helper for enabling better Steam integration on Linux"
 url="https://github.com/solus-project/linux-steam-integration"
