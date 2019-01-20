@@ -2,7 +2,7 @@
 
 pkgname=condres-cli-installer
 pkgver=1.0.3
-pkgrel=11
+pkgrel=12
 options=(staticlibs)
 pkgdesc='Distribution-independent cli installer Condres OS framework'
 arch=('any')
