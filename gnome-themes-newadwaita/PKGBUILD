@@ -1,6 +1,6 @@
 pkgname=gnome-themes-newadwaita
 _pkgver=1.0
-pkgrel=5
+pkgrel=6
 _gnomever=3.30
 pkgver=${_gnomever}.${_pkgver}
 pkgdesc='Gnome AdwaitaNew for Condres OS'
@@ -8,7 +8,7 @@ arch=(any)
 license=(GPL)
 url="https://gnome.org"
 depends=('gnome-themes-extra')
-source=("https://download.gnome.org/misc/testing/Adwaita/NewAdwaita-1.tar.xz")
+source=("https://download.gnome.org/misc/testing/Adwaita/NewAdwaita-2.tar.xz")
 sha256sums=('SKIP')
 
 package() {
