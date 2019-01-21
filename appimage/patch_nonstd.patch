@@ -1,0 +1,11 @@
+--- runtime.c	2018-10-21 14:10:35.000000000 +0200
++++ runtime_new.c	2019-01-20 18:45:06.662299333 +0100
+@@ -31,7 +31,7 @@
+ 
+ #include "squashfuse.h"
+ #include <squashfs_fs.h>
+-#include <nonstd.h>
++#include <squashfuse/nonstd.h>
+ 
+ #include <limits.h>
+ #include <stdlib.h>
