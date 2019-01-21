@@ -39,5 +39,6 @@ cd ${pwd}/*tde-tdewebdev && makepkg -sf -d --noconfirm
 cd ${pwd}/*tde-tqca-tls && makepkg -d --noconfirm
 echo 'copy packages'
 mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
+rm -R ${pwd}/*/{src,pkg} -f
 echo 'building extra packages done'
-rm -Rf ${pwd}/*/{src}
+

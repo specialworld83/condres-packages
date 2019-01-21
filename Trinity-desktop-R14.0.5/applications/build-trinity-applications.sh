@@ -24,5 +24,6 @@ cd ${pwd}/*tde-tdmtheme && makepkg -Lsci
 cd ${pwd}/*tde-twin-style-crystal && makepkg -Lsci 
 echo 'copy packages'
 mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
+rm -R ${pwd}/*/{src,pkg} -f
 echo 'building application done'
-rm -Rf ${pwd}/*/{src}
+

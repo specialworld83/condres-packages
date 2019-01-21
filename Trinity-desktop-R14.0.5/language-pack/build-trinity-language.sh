@@ -83,5 +83,5 @@ cd ${pwd}/*tde-i18n-zh_CN && makepkg -sf --noconfirm
 cd ${pwd}/*tde-i18n-zh_TW && makepkg -sf --noconfirm
 echo 'copy packages'
 mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
+rm -R ${pwd}/*/{src,pkg} -f
 echo 'building language done'
-rm -Rf ${pwd}/*/{src}
