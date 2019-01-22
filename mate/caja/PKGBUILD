@@ -2,7 +2,7 @@
 
 pkgname=caja
 pkgver=1.21.3
-pkgrel=1
+pkgrel=2
 pkgdesc='File manager for the MATE desktop'
 url='https://mate-desktop.org'
 arch=('x86_64')
@@ -33,6 +33,7 @@ build() {
 package() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
 	make DESTDIR="${pkgdir}" install
+	 ln -s /usr/lib/libexempi.so.8.0.0 ${pkgdir}/usr/lib/libexempi.so.3 
 }
 
 # -*- mode: bash;-*-
