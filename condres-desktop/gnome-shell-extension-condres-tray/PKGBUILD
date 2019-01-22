@@ -3,7 +3,7 @@
 pkgname=gnome-shell-extension-condres-tray
 pkgver=1.0.6_all
 pkgrel=6
-epoch=1
+epoch=2
 pkgdesc="Various settings and changes for the panel in Condres Desktop."
 arch=('i686' 'x86_64')
 url="http://codelinsoft.com/"
