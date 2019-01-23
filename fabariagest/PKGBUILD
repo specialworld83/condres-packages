@@ -17,7 +17,7 @@ md5sums=("SKIP")
 
 build() {
 cd "${srcdir}/fabariagest-${pkgver}"
-cmake -DCMAKE_INSTALL_PREFIX=/opt/fabaria_gest -DCMAKE_INSTALL_LIBDIR=/opt/fabaria_gest/lib 
+cmake . -DCMAKE_INSTALL_PREFIX=/opt/fabaria_gest -DCMAKE_INSTALL_LIBDIR=/opt/fabaria_gest/lib 
 make -j5
 }
 
