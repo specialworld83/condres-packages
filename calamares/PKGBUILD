@@ -1,9 +1,9 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares
-pkgver=3.2.2
+pkgver=3.2.3
 pkgrel=15
-epoch=3
+epoch=4
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
 arch=('any')
