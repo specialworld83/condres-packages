@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname="flat-remix-gnome"
-pkgver=20180519
+pkgver=20190116
 pkgrel=1
 pkgdesc="Flat Remix GNOME theme is a pretty simple shell theme inspired on material design."
 arch=('any')

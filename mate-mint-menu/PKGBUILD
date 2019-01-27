@@ -2,7 +2,7 @@
 
 _pkgname=mintmenu
 pkgname=mate-mint-menu
-pkgver=5.8.8
+pkgver=5.8.9
 pkgrel=2
 pkgdesc="Linux Mint Menu for MATE"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python2-gobject' 'python2-xdg' 'xdg-utils' 'mozo' 'mate-panel>=1.16.0'
 optdepends=('mate-screensaver: lock screen button'
 			'pamac: package manager button')
 # "http://packages.linuxmint.com/pool/main/m/mintmenu/mintmenu_${pkgver}.tar.xz"
-source=("${pkgname}-${pkgver}.zip::https://github.com/linuxmint/mintmenu/archive/5.8.8.zip"
+source=("${pkgname}-${pkgver}.zip::https://github.com/linuxmint/mintmenu/archive/5.8.9.zip"
 		'http://github.com/linuxmint/mint-translations/archive/master.tar.gz'
 		
 		'removescript')

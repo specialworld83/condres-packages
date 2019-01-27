@@ -1,5 +1,5 @@
 pkgname=breeze-icons
-pkgver=5.52.0
+pkgver=5.54.0
 pkgrel=1
 epoch=1
 pkgdesc='Breeze icon themes brand Condres OS'
@@ -8,12 +8,19 @@ url='https://community.kde.org/Frameworks'
 license=('LGPL')
 groups=('kf5')
 makedepends=('extra-cmake-modules' 'qt5-base')
-source=("https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
+source=("https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz"
+        'start-here-kde.svg')
 sha256sums=('SKIP'
-           )
+            'SKIP')
 
 
 prepare() {
+  cp -rv ../start-here-kde.svg ${srcdir}/${pkgname}-${pkgver}/icons/places/16/
+  cp -rv ../start-here-kde.svg ${srcdir}/${pkgname}-${pkgver}/icons/places/22/
+  cp -rv ../start-here-kde.svg ${srcdir}/${pkgname}-${pkgver}/icons/places/22/
+  cp -rv ../start-here-kde.svg ${srcdir}/${pkgname}-${pkgver}/icons/places/32/
+  cp -rv ../start-here-kde.svg ${srcdir}/${pkgname}-${pkgver}/icons/places/64/
+  cp -rv ../start-here-kde.svg ${srcdir}/${pkgname}-${pkgver}/icons/places/symbolic/
   mkdir -p build
 }
 

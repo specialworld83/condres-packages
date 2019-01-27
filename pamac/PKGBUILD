@@ -3,7 +3,7 @@
 pkgname=(pamac pamac-tray-appindicator)
 pkgver=7.3.4
 _pkgver=7.3.4
-pkgrel=2
+pkgrel=3
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
 url="https://gitlab.manjaro.org/applications/pamac"
@@ -17,14 +17,16 @@ makedepends=('gettext' 'itstool' 'vala' 'git' 'libappindicator-gtk3' 'meson')
 backup=('etc/pamac.conf')
 conflicts=('pamac-dev')
 source=("pamac-$pkgver-$pkgrel.tar.gz::$url/-/archive/v$_pkgver/pamac-v$_pkgver.tar.gz"
-        "pamac-tray.desktop")
+        "pamac-tray.desktop"
+        "fix_build_vala045.patch")
 md5sums=('SKIP'
-        'SKIP')
+        'SKIP' 'SKIP')
 
 
 
 prepare() {
 	cd "${srcdir}/pamac-v${pkgver}"
+	patch -p1 -i ${srcdir}/fix_build_vala045.patch ${srcdir}/pamac-v${pkgver}/src/meson.build
     cp -rv ../pamac-tray.desktop ${srcdir}/pamac-v${pkgver}/data/applications/
 	  # patches here
   #patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"

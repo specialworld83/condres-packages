@@ -2,7 +2,7 @@
 
 pkgname=super-flat-remix-icon-theme
 _pkgname=Flat-Remix
-pkgver=20181207
+pkgver=20190109
 pkgrel=2
 pkgdesc='a pretty simple icon theme, derived from Ultra-Flat-Icons, Paper and Flattr'
 arch=('any')
