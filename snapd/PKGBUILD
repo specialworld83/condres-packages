@@ -17,7 +17,7 @@ conflicts=('snap-confine')
 options=('!strip' 'emptydirs')
 install=snapd.install
 source=("$pkgname-$pkgver.tar.xz::https://github.com/snapcore/${pkgname}/releases/download/${pkgver}/${pkgname}_${pkgver}.vendor.tar.xz")
-sha256sums=('77b98473b334678abbb36ea58fba005dad441f9f453ee87b4ec2ed3dad4aeb59')
+sha256sums=('SKIP')
 
 _gourl=github.com/snapcore/snapd
 
