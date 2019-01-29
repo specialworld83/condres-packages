@@ -1,5 +1,5 @@
 pkgname=condres-schemas
-pkgver=4.5
+pkgver=4.6
 pkgrel=4
 pkgdesc="Condres Settings Desktop"
 arch=('any')
