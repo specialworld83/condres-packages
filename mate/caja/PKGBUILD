@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=caja
-pkgver=1.21.3
+pkgver=1.21.4
 pkgrel=2
 pkgdesc='File manager for the MATE desktop'
 url='https://mate-desktop.org'
@@ -33,7 +33,6 @@ build() {
 package() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
 	make DESTDIR="${pkgdir}" install
-	 ln -s /usr/lib/libexempi.so.8.0.0 ${pkgdir}/usr/lib/libexempi.so.3 
 }
 
 # -*- mode: bash;-*-
