@@ -13,6 +13,7 @@ optdepends=('mozo: for menu edition'
 		'menulibre: for menu edition') 
 options=('!libtool' '!emptydirs')
 provides=('brisk-menu')
+conflicts=('brisk-menu')
 source=(git+https://github.com/getsolus/brisk-menu.git)
 sha1sums=('SKIP')
 
@@ -24,7 +25,6 @@ pkgver() {
 build() {
     cd "$srcdir/brisk-menu"
     meson --buildtype plain build --prefix=/usr
-    
     ninja -C build -j$(($(getconf _NPROCESSORS_ONLN)+1))
 }
 
