@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname=materia-condres-theme
 epoch=2
-_date=20181125
+_date=20190201
 _gnomever=3.30
 pkgver=${_gnomever}.${_date}
 pkgrel=2
