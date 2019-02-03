@@ -1,0 +1,26 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=filmora-condres
+pkgver=9
+pkgrel=1
+pkgdesc="Video Editing Simplified"
+arch=('any')
+url="https://filmora.wondershare.com/"
+license=('commercial')
+depends=(
+         'wine'
+         'winetricks'
+         'wine-mono'
+         'wine_gecko'
+        )
+install=filmora.install
+source=("https://effects.wondershare.com/download/5bf4f349ad488/filmora_full846.exe"
+        "filmora.sh")
+sha256sums=('SKIP'
+            '182e84ffd90fa4ef989f5135c22cd98fb0c446807c3fabf428219a3cd7251c63')
+
+ install -D -m 755 filmora.sh \
+    	 "${pkgdir}/usr/bin/filmora.sh"
+
+
+ 

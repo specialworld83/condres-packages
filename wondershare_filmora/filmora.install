@@ -1,0 +1,9 @@
+post_install() {
+   echo "-- Run from /usr/bin/filmora.sh terminal from normal user  --"
+}
+
+post_upgrade() {
+   post_install
+}
+
+
