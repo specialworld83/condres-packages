@@ -33,7 +33,7 @@ sha256sums=('0c68f5655528aed4f99dae71a5b259edc93239fa899e2df79c055275c21749a1'
             '36b1118c8dedadc4851150ddd4eb07b1c58ac5bbf3022cc2501a27c2b476da98')
 
 _kernelname=${pkgbase#linux}
-
+: ${_kernelname:=-lts-CONDRES}
 prepare() {
   cd ${_srcname}
 
