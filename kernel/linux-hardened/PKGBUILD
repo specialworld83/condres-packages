@@ -7,7 +7,7 @@
 #Maintainer: Condres OS Dev Team
 
 pkgbase=linux-hardened
-_pkgver=4.20.6
+_pkgver=4.20.7
 _hardenedver=a
 _srcname=linux-${_pkgver}
 pkgver=${_pkgver}.${_hardenedver}
