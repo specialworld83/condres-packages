@@ -51,7 +51,7 @@ build() {
   make KVERS=$_kernver
 }
 
-package_linux420-ndiswrapper() {
+package_linux-ndiswrapper() {
   depends=("$_linuxprefix" "$_pkgname-utils")
   provides=('ndiswrapper-extramodule')
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
