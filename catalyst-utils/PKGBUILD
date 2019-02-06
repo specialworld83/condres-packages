@@ -29,7 +29,7 @@ source=(
 	temp_links_catalyst
 	temp-links-catalyst.service)
 
-md5sums=('d2de2df6946b452c266a3c892e6e46ff'
+md5sums=('SKIP'
 	'bdafe749e046bfddee2d1c5e90eabd83'
 	'9d9ea496eadf7e883d56723d65e96edf'
 	'b79e144932616221f6d01c4b05dc9306'
