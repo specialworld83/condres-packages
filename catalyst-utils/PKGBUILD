@@ -16,7 +16,7 @@ url_ref="https://support.amd.com/en-us/download/desktop?os=Linux+x86"
 DLAGENTS="https::/usr/bin/curl --referer ${url_ref} -o %o %u"
 
 source=(
-	https://www2.ati.com/drivers/linux/amd-catalyst-${pkgver}-linux-installer-${_amdver}-x86.x86_64.zip
+	"https://www2.ati.com/drivers/linux/amd-catalyst-15.9-linux-installer-15.201.1151-x86.x86_64.zip"
 	catalyst.sh
 	atieventsd.sh
 	atieventsd.service
