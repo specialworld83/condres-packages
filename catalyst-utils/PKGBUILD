@@ -10,7 +10,7 @@ epoch=1
 arch=('i686' 'x86_64')
 url="https://www.amd.com"
 license=('custom')
-options=('staticlibs' 'libtool' '!strip' '!upx')
+options=('staticlibs' 'libtool' '!strip')
 
 url_ref="https://support.amd.com/en-us/download/desktop?os=Linux+x86"
 DLAGENTS="https::/usr/bin/curl --referer ${url_ref} -o %o %u"
