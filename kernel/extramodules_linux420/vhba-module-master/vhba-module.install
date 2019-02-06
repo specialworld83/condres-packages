@@ -1,4 +1,4 @@
-EXTRAMODULES=extramodules-4.20-CONDRES
+EXTRAMODULES=extramodules-CONDRES
 
 _updatemod() {
   echo "  > Updating module dependencies..."

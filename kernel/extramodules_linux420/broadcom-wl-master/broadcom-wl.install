@@ -1,14 +1,14 @@
 post_install() {
-  EXTRAMODULES='extramodules-4.20-CONDRES'
+  EXTRAMODULES='extramodules-CONDRES'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_upgrade() {
-  EXTRAMODULES='extramodules-4.20-CONDRES'
+  EXTRAMODULES='extramodules-CONDRES'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_remove() {
-  EXTRAMODULES='extramodules-4.20-CONDRES'
+  EXTRAMODULES='extramodules-CONDRES'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }

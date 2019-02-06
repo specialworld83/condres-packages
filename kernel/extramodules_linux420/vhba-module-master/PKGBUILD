@@ -1,11 +1,11 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
-_linuxprefix=linux420
-_extramodules=extramodules-4.20-CONDRES
+_linuxprefix=linux
+_extramodules=extramodules-CONDRES
 pkgname=$_linuxprefix-vhba-module
 _pkgname=vhba-module
 pkgver=20161009
-pkgrel=0
+pkgrel=1
 pkgdesc="Kernel module that emulates SCSI devices"
 arch=('i686' 'x86_64')
 url="http://cdemu.sourceforge.net/"

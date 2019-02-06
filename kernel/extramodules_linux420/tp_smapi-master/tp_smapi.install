@@ -1,4 +1,4 @@
-extramodules=/usr/lib/modules/extramodules-4.20-CONDRES
+extramodules=/usr/lib/modules/extramodules-CONDRES
 
 post_install() {
   depmod -v $(< "$extramodules/version") &>/dev/null

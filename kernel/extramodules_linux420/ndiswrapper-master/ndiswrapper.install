@@ -5,7 +5,7 @@ post_install()
 
 post_upgrade()
 {
-  EXTRAMODULES=extramodules-4.20-MANJARO
+  EXTRAMODULES=extramodules-CONDRES
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 

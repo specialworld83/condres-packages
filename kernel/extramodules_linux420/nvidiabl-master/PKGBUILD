@@ -1,11 +1,11 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
-_linuxprefix=linux420
-_extramodules=extramodules-4.20-CONDRES
+_linuxprefix=linux
+_extramodules=extramodules-CONDRES
 pkgname=$_linuxprefix-nvidiabl
 _pkgname=nvidiabl
 pkgver=0.88
-pkgrel=2
+pkgrel=3
 epoch=
 pkgdesc="Driver to adjust display backlight on modern mobile NVidia graphics adapters."
 arch=('x86_64' 'i686')

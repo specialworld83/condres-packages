@@ -1,14 +1,14 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 
-_linuxprefix=linux420
-_extramodules=extramodules-4.20-CONDRES
+_linuxprefix=linux
+_extramodules=extramodules-CONDRES
 pkgbase=ndiswrapper
 pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
 _pkgname=ndiswrapper
 groups=("$_linuxprefix-extramodules")
 pkgver=1.61
-pkgrel=2
+pkgrel=3
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')

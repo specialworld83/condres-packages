@@ -1,11 +1,11 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
-_linuxprefix=linux420
-_extraver=extramodules-4.20-CONDRES
+_linuxprefix=linux
+_extraver=extramodules-CONDRES
 _pkgname=tp_smapi
 pkgname=$_linuxprefix-tp_smapi
 pkgver=0.41
-pkgrel=0
+pkgrel=1
 pkgdesc="Modules for ThinkPad's SMAPI functionality"
 arch=(i686 x86_64)
 url='https://github.com/evgeni/tp_smapi'

@@ -1,11 +1,11 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
-_linuxprefix=linux420
-_extramodules=extramodules-4.20-CONDRES
+_linuxprefix=linux
+_extramodules=extramodules-CONDRES
 pkgname=$_linuxprefix-nvidia-390xx
 _pkgname=nvidia
 pkgver=390.87
-pkgrel=2
+pkgrel=3
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."

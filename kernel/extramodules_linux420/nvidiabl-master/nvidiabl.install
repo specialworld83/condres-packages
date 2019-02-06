@@ -1,5 +1,5 @@
-EXTRAMODULES='extramodules-4.20-CONDRES'
-VERSION='linux420'
+EXTRAMODULES='extramodules-CONDRES'
+VERSION='linux'
 
 post_install() {
     depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
