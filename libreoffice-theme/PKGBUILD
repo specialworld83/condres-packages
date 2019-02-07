@@ -12,7 +12,7 @@ source=("condres-libreoffice-theme.tar.gz"
 providers=('libreoffice-fresh')
 depends=('lsb-release' 'libreoffice-fresh')
 md5sums=('SKIP'
-	 'SKIP')
+	 )
 
 
 prepare() {
