@@ -1,5 +1,5 @@
 pkgname=condres-libreoffice-theme
-pkgver=1.9
+pkgver=2.0
 pkgrel=2
 epoch=3
 pkgdesc="Condres Linux libreoffice splash theme"
@@ -23,7 +23,8 @@ package() {
   cd ${srcdir}
   mkdir -p ${pkgdir}/usr/lib/libreoffice/program/libreoffice_splash/
   mkdir -p ${pkgdir}/usr/lib/libreoffice/program/
+  mkdir -p ${pkgdir}/etc/libreoffice/
   cp -R $srcdir/condres-libreoffice-theme/libreoffice_splash.png $pkgdir/usr/lib/libreoffice/program/libreoffice_splash/libreoffice_splash.png
   cp -R $srcdir/condres-libreoffice-theme/libreoffice_splash.png $pkgdir/usr/lib/libreoffice/program/libreoffice_splash.png
-  cp -R ../versionrc $pkgdir/usr/lib/libreoffice/program/versionrc_new
+  cp -rv ../sofficerc_new $pkgdir/etc/libreoffice/sofficerc_new
 }  
