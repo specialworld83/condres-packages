@@ -5,7 +5,7 @@ _other_agents=n # you want agents for other operating systems? (y / n)
 _agent=n # agent is in seperate package check_mk-agent
 
 pkgname=check_mk
-pkgver=1.5.0p11
+pkgver=1.2.8p23
 pkgrel=1
 pkgdesc="A comprehensive IT monitoring solution in the tradition of Nagios"
 license=('GPL2')
@@ -13,7 +13,6 @@ arch=('i686' 'x86_64')
 url="http://mathias-kettner.com/check_mk.html"
 depends=( 'python2'
 	  'nagios>=4.0.0'
-	  'nagios-plugins'
 	  'xinetd'
 	  'mod_python2'
 	  'apache'
