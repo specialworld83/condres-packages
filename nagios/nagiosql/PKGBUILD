@@ -21,16 +21,12 @@ source=("http://downloads.sourceforge.net/project/nagiosql/nagiosql/NagiosQL%203
 noextract=()
 md5sums=('SKIP')
 
-build() {
-  _base="$pkgdir/srv/http"
-  install -dm755 "${pkgdir}/$_base"
-  mv "$srcdir/${pkgname}-${pkgver}" $_base/
-}
+
 
 package() {
-  _base="$pkgdir/srv/http"
-  install -dm755 "${pkgdir}/$_base"
-  mv "$srcdir/${pkgname}-${pkgver}" $_base/
+  install -dm755 "${pkgdir}/srv/http"
+  mv "$srcdir/${pkgname}-${pkgver}" ${pkgdir}/srv/http/
+  mv ${pkgdir}/srv/http/${pkgname}-${pkgver} ${pkgdir}/srv/http/${pkgname}
 }
 
 # vim:set ts=2 sw=2 et:
