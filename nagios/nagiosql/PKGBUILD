@@ -19,7 +19,7 @@ options=()
 install=
 source=("http://downloads.sourceforge.net/project/nagiosql/nagiosql/NagiosQL%203.2.0/$pkgname_320.tar.gz")
 noextract=()
-md5sums=('6a0a533fa220cce7a6123d8481d99b61')
+md5sums=('SKIP')
 
 build() {
   _base="$pkgdir/srv/http"
