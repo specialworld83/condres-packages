@@ -23,14 +23,14 @@ md5sums=('SKIP')
 
 build() {
   _base="$pkgdir/srv/http"
-  mkdir -p  $_base
-  mv "$srcdir/${pkgname}32" $_base/
+  install -dm755 "${pkgdir}/$_base"
+  mv "$srcdir/${pkgname}-${pkgver}" $_base/
 }
 
 package() {
   _base="$pkgdir/srv/http"
-  mkdir -p  $_base
-  mv "$srcdir/${pkgname}32" $_base/
+  install -dm755 "${pkgdir}/$_base"
+  mv "$srcdir/${pkgname}-${pkgver}" $_base/
 }
 
 # vim:set ts=2 sw=2 et:
