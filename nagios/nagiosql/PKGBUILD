@@ -17,11 +17,17 @@ replaces=()
 backup=()
 options=()
 install=
-source=("http://downloads.sourceforge.net/project/nagiosql/nagiosql/NagiosQL%203.2.0/$pkgname_320.tar.gz")
+source=("http://downloads.sourceforge.net/project/nagiosql/nagiosql/NagiosQL%203.4.0/$pkgname_320.tar.gz")
 noextract=()
 md5sums=('SKIP')
 
 build() {
+  _base="$pkgdir/srv/http"
+  mkdir -p  $_base
+  mv "$srcdir/${pkgname}32" $_base/
+}
+
+package() {
   _base="$pkgdir/srv/http"
   mkdir -p  $_base
   mv "$srcdir/${pkgname}32" $_base/
