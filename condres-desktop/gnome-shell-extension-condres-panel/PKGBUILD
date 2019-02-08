@@ -2,7 +2,7 @@
 
 pkgname=gnome-shell-extension-condres-panel
 pkgver=1.5.3_all
-pkgrel=8
+pkgrel=11
 epoch=2
 pkgdesc="Various settings and changes for the panel in Condres Desktop."
 arch=('i686' 'x86_64')
