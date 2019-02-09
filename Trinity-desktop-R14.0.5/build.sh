@@ -22,5 +22,6 @@ cd ${pwd}/*tde-tdelibs && makepkg -sf --noconfirm
 cd ${pwd}/*tde-tdebase && makepkg -sf --noconfirm
 echo 'copy packages'
 mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
+rm -Rf ${pwd}/*/{src,pkg} -f
 echo 'building base packages done'
-rm -Rf ${pwd}/*/{src}
+

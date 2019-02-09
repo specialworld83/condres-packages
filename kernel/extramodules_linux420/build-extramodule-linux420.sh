@@ -27,5 +27,6 @@ cd ${pwd}/*vhba-module-master && makepkg -df --noconfirm
 cd ${pwd}/*virtualbox-modules-master && makepkg -sf --noconfirm
 echo 'copy packages'
 mv ${pwd}/*/*`uname -m`.pkg* /srv/ftp/userftp/mirror/
-echo 'building language done'
 rm -Rf ${pwd}/*/{src}
+echo 'building language done'
+
