@@ -47,7 +47,6 @@ prepare() {
 
   # fix network detection
   patch -p1 -i $srcdir/remove-qdialog.patch
-
   cp -r notifier notifier-qt5
   cp -r notifier notifier-frameworks
   sed -i 's|#KSTATUS|KSTATUS|' notifier-frameworks/octopi-notifier/octopi-notifier.pro
