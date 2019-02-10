@@ -1,0 +1,11 @@
+--- io.github.jliljebl.Flowblade.desktop	2019-02-04 10:29:07.000000000 +0100
++++ io.github.jliljebl.Flowblade_new.desktop	2019-02-10 11:52:17.869853409 +0100
+@@ -3,7 +3,7 @@
+ GenericName=Movie Editor
+ X-GNOME-FullName=Flowblade Movie Editor
+ Comment=Edit media to create movies
+-Exec=env GDK_BACKEND=x11 flowblade %f
++Exec=env GDK_BACKEND=x11 /usr/bin/flowblade %f
+ Terminal=false
+ Type=Application
+ Icon=io.github.jliljebl.Flowblade
