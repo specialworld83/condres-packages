@@ -1,6 +1,6 @@
 pkgname=condres-libreoffice-theme
 pkgver=2.1
-pkgrel=2
+pkgrel=3
 epoch=3
 pkgdesc="Condres Linux libreoffice splash theme"
 arch=('any')
