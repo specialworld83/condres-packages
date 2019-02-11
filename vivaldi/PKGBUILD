@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=vivaldi
-pkgver=2.2.1388.37
+pkgver=2.3.1440.41
 pkgrel=1
 pkgdesc='An advanced browser made with the power user in mind.'
 url="https://vivaldi.com"
