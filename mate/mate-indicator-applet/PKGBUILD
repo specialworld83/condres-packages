@@ -1,0 +1,27 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+pkgname="mate-indicator-applet"
+pkgver=1.21.0
+pkgrel=1
+pkgdesc="Applet to display information from various applications consistently in the MATE panel."
+url="https://github.com/mate-desktop/${pkgname}"
+arch=('i686' 'x86_64')
+license=('GPLv3')
+makedepends=('intltool' 'mate-common')
+depends=('mate-panel' 'libappindicator-gtk3' 'ido')
+optdepends=('indicator-sound')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.xz")
+sha256sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+
+build() {
+    cd "${pkgname}-${pkgver}"
+    ./autogen.sh
+    ./configure --prefix=/usr
+    make
+}
+
+package() {
+    cd "${pkgname}-${pkgver}"
+    make DESTDIR=${pkgdir} install
+}
+
+# vim: set ts=4 sw=4 et syn=sh ft=sh:
