@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=mate-user-share
-pkgver=1.20.1
+pkgver=1.21.0
 pkgrel=2
 pkgdesc="User level public file sharing via WebDAV for MATE."
 url="https://mate-desktop.org"
