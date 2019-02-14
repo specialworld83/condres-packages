@@ -10,7 +10,7 @@ makedepends=('intltool' 'mate-common')
 depends=('mate-panel' 'libappindicator-gtk3' 'ido')
 optdepends=('indicator-sound')
 source=("https://pub.mate-desktop.org/releases/${pkgver::(-2)}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+sha256sums=('SKIP')
 
 build() {
     cd "${pkgname}-${pkgver}"
