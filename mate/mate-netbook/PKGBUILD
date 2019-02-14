@@ -13,7 +13,7 @@ groups=('mate-extra')
 conflicts=('mate-netbook-gtk3')
 replaces=('mate-netbook-gtk3')
 source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=($(wget -q "${_sha1sums_url}" && grep "${pkgname}-${pkgver}.tar.xz" SHA1SUMS | cut -f1))
+sha256sums=('SKIP')
 
 build() {
     cd ${pkgname}-${pkgver}
