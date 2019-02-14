@@ -52,5 +52,7 @@ cd ${pwd}/*mate-utils && makepkg -sf --noconfirm
 cd ${pwd}/*mozo && makepkg -sf --noconfirm
 cd ${pwd}/*pluma && makepkg -sf --noconfirm
 cd ${pwd}/*python-caja && makepkg -sf --noconfirm
+cd ${pwd}/*mate-indicator-applet && makepkg -sf --noconfirm
+cd ${pwd}/*mate-netbook && makepkg -sf --noconfirm
 rm -R ${pwd}/*/{src,pkg} -f
 echo 'building extramodules done'
