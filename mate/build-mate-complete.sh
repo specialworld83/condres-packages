@@ -55,4 +55,5 @@ cd ${pwd}/*python-caja && makepkg -sf --noconfirm
 cd ${pwd}/*mate-indicator-applet && makepkg -sf --noconfirm
 cd ${pwd}/*mate-netbook && makepkg -sf --noconfirm
 rm -R ${pwd}/*/{src,pkg} -f
+rm -R  ${pwd}/*/SHA1SUMS*
 echo 'building extramodules done'
