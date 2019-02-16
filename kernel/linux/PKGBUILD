@@ -10,7 +10,7 @@ pkgbase=linux               # Build stock -CONDRES kernel
 #pkgbase=linux-custom       # Build kernel with a different name
 _srcver=4.20.10-arch1
 pkgver=${_srcver//-/.}
-pkgrel=1
+pkgrel=2
 _aufs=20190211
 _bfq=v9
 _bfqdate=20190204
@@ -23,6 +23,8 @@ options=('!strip')
 _srcname=archlinux-linux
 source=(
   "$_srcname::git+https://git.archlinux.org/linux.git?signed#tag=v$_srcver"
+  # Patch kernel panic trace new code issue
+  trace.tar.gz
   saa716x-driver.tar.xz
   config         # the main kernel config file
   60-linux.hook  # pacman hook for depmod
@@ -102,6 +104,7 @@ validpgpkeys=(
   '4F76D9DD88F78E3F' #Condres OS Dev team
 )
 sha256sums=('SKIP'
+            '50a4690051e78ea6aceb67465f3fde30ad14f6aa8340c687f55f15d9564e5049'
             'e40086e3148f8dacd761f308cdd747775e0b065f9f824bfc81b0bb47b9aec2f3'
             'f863b3e9640161f61e859f22f2d1258c940101de8f007a207c1ede2f71d36206'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
@@ -177,6 +180,7 @@ prepare() {
   cd $_srcname
   #Add 
   cp -rv ${srcdir}/drivers/* ${srcdir}/$_srcname/drivers/
+  cp -rv ${srcdir}/trace/* ${srcdir}/$_srcname/kernel/trace/
   # Add bootsplash - http://lkml.iu.edu/hypermail/linux/kernel/1710.3/01542.html
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
