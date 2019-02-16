@@ -5,7 +5,7 @@ _extramodules=extramodules-CONDRES
 pkgname=$_linuxprefix-nvidia-340xx
 _pkgname=nvidia
 pkgver=340.107
-pkgrel=4
+pkgrel=5
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
