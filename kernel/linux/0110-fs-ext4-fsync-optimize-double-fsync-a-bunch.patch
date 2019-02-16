@@ -1,0 +1,128 @@
+diff -up linux-4.20/block/bio.c.36~ linux-4.20/block/bio.c
+--- linux-4.20/block/bio.c.36~	2018-12-24 00:55:59.000000000 +0100
++++ linux-4.20/block/bio.c	2018-12-24 14:40:09.872351871 +0100
+@@ -933,6 +933,25 @@ int submit_bio_wait(struct bio *bio)
+ }
+ EXPORT_SYMBOL(submit_bio_wait);
+ 
++static void submit_bio_nowait_endio(struct bio *bio)
++{
++	bio_put(bio);
++}
++
++/**
++ * submit_bio_nowait - submit a bio for fire-and-forge for fire-and-forget
++ * @bio: The &struct bio which describes the I/O
++ *
++ * Simple wrapper around submit_bio() that takes care of bio_put() on completion
++ */
++void submit_bio_nowait(struct bio *bio)
++{
++	bio->bi_end_io = submit_bio_nowait_endio;
++	bio->bi_opf |= REQ_SYNC;
++	submit_bio(bio);
++}
++EXPORT_SYMBOL(submit_bio_nowait);
++
+ /**
+  * bio_advance - increment/complete a bio by some number of bytes
+  * @bio:	bio to advance
+diff -up linux-4.20/block/blk-flush.c.36~ linux-4.20/block/blk-flush.c
+--- linux-4.20/block/blk-flush.c.36~	2018-12-24 14:40:09.872351871 +0100
++++ linux-4.20/block/blk-flush.c	2018-12-24 14:41:33.780475104 +0100
+@@ -565,6 +565,46 @@ int blkdev_issue_flush(struct block_devi
+ }
+ EXPORT_SYMBOL(blkdev_issue_flush);
+ 
++/**
++ * blkdev_issue_flush_nowait - queue a flush
++ * @bdev:	blockdev to issue flush for
++ * @gfp_mask:	memory allocation flags (for bio_alloc)
++ *
++ * Description:
++ *    Issue a flush for the block device in question. Caller can supply
++ *    room for storing the error offset in case of a flush error, if they
++ *    wish to. If WAIT flag is not passed then caller may check only what
++ *    request was pushed in some internal queue for later handling.
++ */
++void blkdev_issue_flush_nowait(struct block_device *bdev, gfp_t gfp_mask)
++{
++	struct request_queue *q;
++	struct bio *bio;
++
++	if (bdev->bd_disk == NULL)
++		return;
++
++	q = bdev_get_queue(bdev);
++	if (!q)
++		return;
++
++	/*
++	 * some block devices may not have their queue correctly set up here
++	 * (e.g. loop device without a backing file) and so issuing a flush
++	 * here will panic. Ensure there is a request function before issuing
++	 * the flush.
++	 */
++	if (!q->make_request_fn)
++		return;
++
++	bio = bio_alloc(gfp_mask, 0);
++	bio_set_dev(bio, bdev);
++	bio->bi_opf = REQ_OP_WRITE | REQ_PREFLUSH;
++
++	submit_bio_nowait(bio);
++}
++EXPORT_SYMBOL(blkdev_issue_flush_nowait);
++
+ struct blk_flush_queue *blk_alloc_flush_queue(struct request_queue *q,
+ 		int node, int cmd_size, gfp_t flags)
+ {
+diff -up linux-4.20/fs/ext4/fsync.c.36~ linux-4.20/fs/ext4/fsync.c
+--- linux-4.20/fs/ext4/fsync.c.36~	2018-12-24 00:55:59.000000000 +0100
++++ linux-4.20/fs/ext4/fsync.c	2018-12-24 14:40:09.872351871 +0100
+@@ -154,7 +154,11 @@ int ext4_sync_file(struct file *file, lo
+ 	ret = jbd2_complete_transaction(journal, commit_tid);
+ 	if (needs_barrier) {
+ 	issue_flush:
+-		err = blkdev_issue_flush(inode->i_sb->s_bdev, GFP_KERNEL, NULL);
++		err = 0;
++		if (!blk_queue_nonrot(bdev_get_queue(inode->i_sb->s_bdev)))
++			err = blkdev_issue_flush(inode->i_sb->s_bdev, GFP_KERNEL, NULL);
++		else
++			blkdev_issue_flush_nowait(inode->i_sb->s_bdev, GFP_KERNEL);
+ 		if (!ret)
+ 			ret = err;
+ 	}
+diff -up linux-4.20/include/linux/bio.h.36~ linux-4.20/include/linux/bio.h
+--- linux-4.20/include/linux/bio.h.36~	2018-12-24 00:55:59.000000000 +0100
++++ linux-4.20/include/linux/bio.h	2018-12-24 14:40:09.872351871 +0100
+@@ -418,6 +418,7 @@ struct request_queue;
+ extern int bio_phys_segments(struct request_queue *, struct bio *);
+ 
+ extern int submit_bio_wait(struct bio *bio);
++extern void submit_bio_nowait(struct bio *bio);
+ extern void bio_advance(struct bio *, unsigned);
+ 
+ extern void bio_init(struct bio *bio, struct bio_vec *table,
+diff -up linux-4.20/include/linux/blkdev.h.36~ linux-4.20/include/linux/blkdev.h
+--- linux-4.20/include/linux/blkdev.h.36~	2018-12-24 00:55:59.000000000 +0100
++++ linux-4.20/include/linux/blkdev.h	2018-12-24 14:40:09.872351871 +0100
+@@ -1384,6 +1384,7 @@ static inline struct request *blk_map_qu
+ }
+ 
+ extern int blkdev_issue_flush(struct block_device *, gfp_t, sector_t *);
++extern void blkdev_issue_flush_nowait(struct block_device *, gfp_t);
+ extern int blkdev_issue_write_same(struct block_device *bdev, sector_t sector,
+ 		sector_t nr_sects, gfp_t gfp_mask, struct page *page);
+ 
+@@ -1980,6 +1981,10 @@ static inline int blkdev_issue_flush(str
+ 	return 0;
+ }
+ 
++static inline void blkdev_issue_flush_nowait(struct block_device *bdev, gfp_t gfp_mask)
++{
++}
++
+ #endif /* CONFIG_BLOCK */
+ 
+ #endif
