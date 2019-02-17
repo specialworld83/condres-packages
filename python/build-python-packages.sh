@@ -20,5 +20,4 @@ cd ${pwd}/*python-netfilterqueue && makepkg -d --noconfirm -d
 cd ${pwd}/*python-powerline-git && makepkg -d --noconfirm -d
 cd ${pwd}/*python-pychromecast && makepkg -sf --noconfirm -d
 cd ${pwd}/*python-pydbus && makepkg -sf --noconfirm -d
-cd ${pwd}/*python2-mutagen && makepkg -sf -d --noconfirm -d
 echo 'building python packages'
