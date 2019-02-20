@@ -1,13 +1,18 @@
 # Maintainer: CodeLinSoft <info@codelinsoft.it>
 
 pkgname="condres-control-center"
-pkgver=r8.f931ef3
+pkgver=r19.b94fb5e
 pkgrel=1
 pkgdesc="CondresControlCenter is a beatiful system software management."
 arch=('any')
 url="https://github.com/kratos83/CondresControlCenter"
 license=('GPL 3.0')
-depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-multimedia' 'qt5-svg' 'qt5-tools'  'qt5-translations' 'qt5-webkit' 'qt5-websockets' 'qt5-x11extras' 'qt5-xmlpatterns'  'alpm_octopi_utils' 'glib2' )
+depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-multimedia' 'qt5-svg' 'qt5-tools'  'qt5-translations' 'qt5-webkit' 'qt5-websockets' 'qt5-x11extras' 'qt5-xmlpatterns'  'alpm_octopi_utils' 'glib2' 'knotifications' 'polkit')
+optdepends=('polkit-gnome: Legacy polkit authentication agent for GNOME'
+            'deepin-polkit-agent: Deepin Polkit Agent'
+            'polkit-qt5: A library that allows developers to access PolicyKit API with a nice Qt-style API'
+            'polkit-kde-agent: Daemon providing a polkit authentication UI for KDE'
+            'mate-polkit: PolicyKit integration for the MATE desktop' )
 source=("${pkgname}::git+https://github.com/kratos83/CondresControlCenter.git")
 sha256sums=('SKIP')
 
@@ -18,7 +23,7 @@ pkgver () {
 
 build() {
     cd "${srcdir}/${pkgname}/"
-	cmake . -DCMAKE_INSTALL_PREFIX=/usr
+	cmake . -DCMAKE_INSTALL_PREFIX=/usr 
 }
 
 package() {
