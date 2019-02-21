@@ -259,7 +259,7 @@ cp -rv ${srcdir}/drivers/* ${srcdir}/$_srcname/drivers/
 
   make -s kernelrelease > ../version
   msg2 "Prepared %s version %s" "$pkgbase" "$(<../version)"
-}
+
 }
 
 build() {
