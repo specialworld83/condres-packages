@@ -1,7 +1,7 @@
 # Maintainer: CodeLinSoft <info@codelinsoft.it>
 
 pkgname="condres-control-center"
-pkgver=r19.b94fb5e
+pkgver=r27.eac3c44
 pkgrel=1
 pkgdesc="CondresControlCenter is a beatiful system software management."
 arch=('any')
@@ -28,5 +28,5 @@ build() {
 
 package() {
 	cd "${srcdir}/${pkgname}/"
-	make DESTDIR=$pkgdir install
+	make -j8 DESTDIR=$pkgdir install
 }
