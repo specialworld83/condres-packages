@@ -1,0 +1,450 @@
+# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Tobias Powalowski <tpowa@archlinux.org>
+# Maintainer: Thomas Baechler <thomas@archlinux.org>
+
+#Kernel base Condres OS .
+#Maintainer: Condres OS Dev Team
+# Kernel based to arch and add new patch.
+
+#pkgbase=linux               # Build stock -Condres kernel
+pkgbase=linux-macbook        # Build kernel with a different name
+_srcver=4.20.11-arch1
+epoch=1
+_aufs=20190211
+_bfq=v9
+_bfqdate=20190204
+pkgver=${_srcver//-/.}
+pkgrel=1
+arch=(x86_64)
+url="https://git.archlinux.org/linux.git/log/?h=v$_srcver"
+license=(GPL2)
+makedepends=(xmlto kmod inetutils bc libelf git python-sphinx graphviz)
+options=('!strip')
+_srcname=archlinux-linux
+source=(
+  "$_srcname::git+https://git.archlinux.org/linux.git?signed#tag=v$_srcver"
+  saa716x-driver.tar.xz
+  config         # the main kernel config file
+  60-linux.hook  # pacman hook for depmod
+  90-linux.hook  # pacman hook for initramfs regeneration
+  linux.preset   # standard config files for mkinitcpio ramdisk
+  macbook-wakeup.service # service file for suspend/resume events
+  RFC-PCI-Workaround-to-enable-poweroff-on-Mac-Pro-11.patch
+  'config.aufs'
+  # Condres Patches
+  "aufs4.20.4+-${_aufs}.patch.bz2"
+  'aufs4-base.patch'
+  'aufs4-kbuild.patch'
+  'aufs4-loopback.patch'
+  'aufs4-mmap.patch'
+  'aufs4-standalone.patch'
+  'tmpfs-idr.patch'
+  'vfs-ino.patch'
+  #"0001-BFQ-${_bfq}-${_bfqdate}.patch::https://github.com/Algodev-github/bfq-mq/compare/0adb328...698937e.patch"
+  0001-BFQ-${_bfq}-${_bfqdate}.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/4.20/bfq-sq-mq/4.20-bfq-sq-mq-v9r1-2K190204-rc1.patch
+  # CONDRES Patches
+  # Bootsplash
+  '0001-bootsplash.patch'
+  '0002-bootsplash.patch'
+  '0003-bootsplash.patch'
+  '0004-bootsplash.patch'
+  '0005-bootsplash.patch'
+  '0006-bootsplash.patch'
+  '0007-bootsplash.patch'
+  '0008-bootsplash.patch'
+  '0009-bootsplash.patch'
+  '0010-bootsplash.patch'
+  '0011-bootsplash.patch'
+  '0012-bootsplash.patch'
+  '0013-bootsplash.patch'
+  0001-Add-support-for-Acer-Predator-macro-keys.patch
+  0001-gcctunes-4.18-merge-graysky-s-patchset.patch
+  0001-uksm-4.20-initial-submission.patch
+  0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
+  0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
+  0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
+  0101-i8042-decrease-debug-message-level-to-info.patch
+  0103-Increase-the-ext4-default-commit-age.patch
+  0103-silence-rapl.patch
+  0105-pci-pme-wakeups.patch
+  0106-ksm-wakeups.patch
+  0107-intel_idle-tweak-cpuidle-cstates.patch
+  0110-fs-ext4-fsync-optimize-double-fsync-a-bunch.patch
+  0112-give-rdrand-some-credit.patch
+  0114-smpboot-reuse-timer-calibration.patch
+  0116-Initialize-ata-before-graphics.patch
+  0117-reduce-e1000e-boot-time-by-tightening-sleep-ranges.patch
+  0119-e1000e-change-default-policy.patch
+  0120-ipv4-tcp-allow-the-memory-tuning-for-tcp-to-go-a-lit.patch
+  0122-tweak-perfbias.patch
+  0123-e1000e-increase-pause-and-refresh-time.patch
+  0124-Extend-FEC-enum.patch
+  0124-kernel-time-reduce-ntp-wakeups.patch
+  0125-init-wait-for-partition-and-retry-scan.patch
+  0502-locking-rwsem-spin-faster.patch
+  android-enable-building-ashmem-and-binder-as-modules.patch
+  ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
+  die-floppy-die.patch
+  drop_ancient-and-wrong-msg.patch
+  export-symbols-needed-by-android-drivers.patch
+  fix-C2D-CPUs-booting.patch
+  long-long.patch
+  nouveau-pascal-backlight.patch
+  saa716x-4.15.patch
+  saa716x-driver-integration.patch
+  saa716x-linux-4.19.patch
+  Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
+  v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
+  v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
+)
+validpgpkeys=(
+  'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
+  '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
+  '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
+   '4F76D9DD88F78E3F' #Condres OS Dev team
+)
+sha256sums=('SKIP'
+            'e40086e3148f8dacd761f308cdd747775e0b065f9f824bfc81b0bb47b9aec2f3'
+            'f863b3e9640161f61e859f22f2d1258c940101de8f007a207c1ede2f71d36206'
+            'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
+            'c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636'
+            'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
+            'c5a714823c3418692bc5c212dd5d094a0e2ae6147d6726822911f1c26e3a1d1b'
+            'a4e044fb954f035aa70af4c7d79f8a6076933bdbbf9efee749304829621d77ed'
+            'b44d81446d8b53d5637287c30ae3eb64cae0078c3fbc45fcf1081dd6699818b5'
+            '2891876a566e91aa7b12823ec523ac6b0ac988cab4dfb61f7630b8299a7f2417'
+            'a42d5d3732e794aa618d86b5d35b78d67b2954247c7c9f79f899521003fe36ee'
+            '298703c7dc231cc28c5949e2c96f2b86a1a11ff592862ff61e4f35a348db2e14'
+            '6d03acb120c076c22ad5846f68090e24f0f4388cf0a6d3f2ba0d099731f6454f'
+            '6c9520147d7c7c3e0eb187c22429f32741765f302f36ebcd9444a25f9cf0f641'
+            'ff4ec0fc6bd3d43ae22c3a84e21fde96729521802cbe2b4f8fa5ef80da8819d3'
+            '78fd61b9d76f5009f3fd3aa77c2d6b968c3e870cd2fad4d1d7cb72864f1bb32b'
+            '5504d2c0c1c0937624bae1c9d10b6044532e059c3c86fde5e7a88b61ccac0adc' 
+            '0998de1fd20f531f4f147e42af78137ee44c549dcfc9b6027ca91b5c791af11e'
+            'a504f6cf84094e08eaa3cc5b28440261797bf4f06f04993ee46a20628ff2b53c'
+            'e096b127a5208f56d368d2cb938933454d7200d70c86b763aa22c38e0ddb8717'
+            '8c1c880f2caa9c7ae43281a35410203887ea8eae750fe8d360d0c8bf80fcc6e0'
+            '1144d51e5eb980fceeec16004f3645ed04a60fac9e0c7cf88a15c5c1e7a4b89e'
+            'dd4b69def2efacf4a6c442202ad5cb93d492c03886d7c61de87696e5a83e2846'
+            '028b07f0c954f70ca37237b62e04103e81f7c658bb8bd65d7d3c2ace301297dc'
+            'c8b0cb231659d33c3cfaed4b1f8d7c8305ab170bdd4c77fce85270d7b6a68000'
+            '8dbb5ab3cb99e48d97d4e2f2e3df5d0de66f3721b4f7fd94a708089f53245c77'
+            'a7aefeacf22c600fafd9e040a985a913643095db7272c296b77a0a651c6a140a'
+            'e9f22cbb542591087d2d66dc6dc912b1434330ba3cd13d2df741d869a2c31e89'
+            '27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc'
+            '60e295601e4fb33d9bf65f198c54c7eb07c0d1e91e2ad1e0dd6cd6e142cb266d'
+            '035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef'
+            'd6c6db6d20d24e7f4153abc5b0434dc2205a65cfa609139e2eff5839252b07c8' 
+            '65d8e8879b718c825eba24da995174661fcf8a9d262a3255e1a23338dd36313e'
+            '6d88f89c351ebb3b6be0d0cfa7a63b888fd3cd4a9156ce3600b990d10dc32b6d'
+            'e7c102e3af34cd6bd48d9ee1c4bd1c7775820999225f87c4433403384130bc23'
+            '2b581e62941df0d5e80cbce13d8c7c473914a8f4306ea8e74348a688856f56a1'
+            'ee41e90278251d4d13ff7e0c679fb07a3579b9d4e3a1699c263e7a1f3353937e'
+            'ddb7eca777b81172809796e7bd31d1591fab411c765496f0cb11481bd78ff866'
+            '90f35bbc3e62ac613d4f336b4cefd8a56761c3a8441f70a36f5eb252ac0e6306'
+            '742074f41787d9596e9ebf0dee347979032095bdc4ca87f4af79f0c1596b9310'
+            '73ce8e1118ae56b775a39a261512eda89caaa599efb2d2a9e26ca9c31a750717'
+            'df6d4bf7b0131914fc9b178e13e7492f2865d426d44e229d97a280bce0083c3b'
+            '0aa9f603f614cadaf6faf8b5d7ead0a111fc1e9faf68a4044d63db60fa8b15c4'
+            '99b7ff949d6ea1418d1decb7e75342675dba93431de4677a471d76ba1b3e7662'
+            '16d2ed058a378b23e17dcfe7ab8c9fe532b0f324480c5eeb2a860351ac718aec'
+            'cc899fecb90d76b65c4f09d277776a9f0cd5316e916af6e3033cb8983b033f15'
+            '84125f671a35ef993ecfb1034796f319b45b3657a1539e9ebcad7303f7ec8ac3'
+            '1f9294be3d470b7f0fda668af33439b6aec6f7cb2338a36c86d4f07e643a0b07'
+            '35aa851cb4c6e1444390fc7541afb8e9b24e2b126407e73280da6565549797c6'
+            '0a8e7b7e12c5c08068cd35c7384a3dd01db8864a4d21946828126542da8332e2'
+            '871dd1755b03a693e2fb5dbe177c99359a8f5d0a1abd83b3bdd3210d19b6a65b'
+            '7fc194fc210ec5771efc790c5ea4a0694b25b1a4710937886494a7f5b162ad25' 
+            '62a19331b3184f2ad0d1c37ec77fe4949760dd8418121496c6710508c9c9e137'
+            '45672256c8c19dae493c98894b61850b727e66d428b492a03e1c886b3b53853a'
+            '73ae32826620674aef05fdf8f0ada92f3b9734a27de47aba772825bbccea47a1'
+            'b7f84870dd0c9bba4bae2e177c57485e428a4097d28b1765afad6796694296ca'
+            'd8617e48b64409cd0bde78100d51fdd593712b836fbf449ab16e5bb7beb57fb5'
+            'ea49fcd736fbbaa24f142fdbdd9b00345a96fcd5eba3781ac79679e30ed82dd1'
+            'e7042319f1e33b5706348c21e4f0999fc78e71c6ee8f63042af7871e3e910485'
+            '1f8835750131a697203a81bdfc1f9caad53b6cfc43f1826b86123b55c7ae4cc3'
+            '0ff56764a1819c838b765806fabceeb0eb22f7899cf0c61e470754964bf06b45'
+            '1696c962b3d8fb6e100dc8221cef9bdc1188c7a5cb9e9512b8fa0c1cbc5e410e'
+            'b4f490ffdb87aa67b712c6e4113b6873d6ca038948c237812b4d00578e2ea853'
+            '5757178252e34a9d3f548d37f476faa4dfc219653a319070e2023d379bfe3746'
+            '9ef842aa7a9da8cefbecd17abec3cfb350db920c4e617e00106c73dadba11b83'
+            'ce7b0296797fce25132ff8953a6524d2fe99f127811d5df58f720c916872f898'
+            '40e6734891091d6cdd4561e4388189ab712b6fe8313ea8a0d3e013afdc99b93a'
+            'a1868acbeb5cb30b15b33d4a06a82ee9e93994b75b5e51bb04cb3e1e8dd472b4'
+            '03b3641089d931ca7a31c8096c531fdf26ff8679bf5955d95409040dfabcff64'
+            'd428e5b2c2d5b76db61f2849e0932fdcf584cfd062db6b8f4b4ba8f39eac54a8' )
+_kernelname=${pkgbase#linux}
+: ${_kernelname:=-condres-macbook}
+
+prepare() {
+  cd $_srcname
+cp -rv ${srcdir}/drivers/* ${srcdir}/$_srcname/drivers/
+  # Add bootsplash - http://lkml.iu.edu/hypermail/linux/kernel/1710.3/01542.html
+  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  # use git-apply to add binary files
+  git apply -p1 < "${srcdir}/0013-bootsplash.patch"
+  # add aufs4 support
+  patch -Np1 -i "${srcdir}/aufs4.20.4+-${_aufs}.patch"
+  patch -Np1 -i "${srcdir}/aufs4-base.patch"
+  patch -Np1 -i "${srcdir}/aufs4-kbuild.patch"
+  patch -Np1 -i "${srcdir}/aufs4-loopback.patch"
+  patch -Np1 -i "${srcdir}/aufs4-mmap.patch"
+  patch -Np1 -i "${srcdir}/aufs4-standalone.patch"
+  patch -Np1 -i "${srcdir}/tmpfs-idr.patch"
+  patch -Np1 -i "${srcdir}/vfs-ino.patch"
+  # extra patch condres kernel
+  patch -Np1 -i ${srcdir}/0001-Add-support-for-Acer-Predator-macro-keys.patch
+  patch -Np1 -i ${srcdir}/0001-gcctunes-4.18-merge-graysky-s-patchset.patch
+  patch -Np1 -i ${srcdir}/0001-uksm-4.20-initial-submission.patch
+  patch -Np1 -i ${srcdir}/0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
+  patch -Np1 -i ${srcdir}/0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
+  patch -Np1 -i ${srcdir}/0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
+  patch -Np1 -i ${srcdir}/0101-i8042-decrease-debug-message-level-to-info.patch
+  patch -Np1 -i ${srcdir}/0103-Increase-the-ext4-default-commit-age.patch
+  patch -Np1 -i ${srcdir}/0103-silence-rapl.patch
+  patch -Np1 -i ${srcdir}/0105-pci-pme-wakeups.patch
+  patch -Np1 -i ${srcdir}/0106-ksm-wakeups.patch
+  patch -Np1 -i ${srcdir}/0107-intel_idle-tweak-cpuidle-cstates.patch
+  patch -Np1 -i ${srcdir}/0110-fs-ext4-fsync-optimize-double-fsync-a-bunch.patch
+  patch -Np1 -i ${srcdir}/0112-give-rdrand-some-credit.patch
+  patch -Np1 -i ${srcdir}/0114-smpboot-reuse-timer-calibration.patch
+  patch -Np1 -i ${srcdir}/0116-Initialize-ata-before-graphics.patch
+  patch -Np1 -i ${srcdir}/0117-reduce-e1000e-boot-time-by-tightening-sleep-ranges.patch
+  patch -Np1 -i ${srcdir}/0119-e1000e-change-default-policy.patch
+  patch -Np1 -i ${srcdir}/0120-ipv4-tcp-allow-the-memory-tuning-for-tcp-to-go-a-lit.patch
+  patch -Np1 -i ${srcdir}/0122-tweak-perfbias.patch
+  patch -Np1 -i ${srcdir}/0123-e1000e-increase-pause-and-refresh-time.patch
+  patch -Np1 -i ${srcdir}/0124-Extend-FEC-enum.patch
+  patch -Np1 -i ${srcdir}/0124-kernel-time-reduce-ntp-wakeups.patch
+  patch -Np1 -i ${srcdir}/0125-init-wait-for-partition-and-retry-scan.patch
+  patch -Np1 -i ${srcdir}/0502-locking-rwsem-spin-faster.patch
+  patch -Np1 -i ${srcdir}/android-enable-building-ashmem-and-binder-as-modules.patch
+  patch -Np1 -i ${srcdir}/ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
+  patch -Np1 -i ${srcdir}/die-floppy-die.patch
+  patch -Np1 -i ${srcdir}/drop_ancient-and-wrong-msg.patch
+  patch -Np1 -i ${srcdir}/export-symbols-needed-by-android-drivers.patch
+  patch -Np1 -i ${srcdir}/fix-C2D-CPUs-booting.patch
+  patch -Np1 -i ${srcdir}/long-long.patch
+  patch -Np1 -i ${srcdir}/nouveau-pascal-backlight.patch
+  patch -Np1 -i ${srcdir}/saa716x-4.15.patch
+  patch -Np1 -i ${srcdir}/saa716x-driver-integration.patch
+  patch -Np1 -i ${srcdir}/saa716x-linux-4.19.patch
+  patch -Np1 -i ${srcdir}/Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
+  patch -Np1 -i ${srcdir}/v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
+  patch -Np1 -i ${srcdir}/v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
+  
+  msg2 "Setting config..."
+  cp ../config .config
+  cat "${srcdir}/config.aufs" >> .config
+  yes "" | make config >/dev/null
+  
+  msg2 "Setting version..."
+  scripts/setlocalversion --save-scmversion
+  echo "-$pkgrel" > localversion.10-pkgrel
+  echo "$_kernelname" > localversion.20-pkgname
+  
+  msg2 "Setting config..."
+  make olddefconfig
+
+  make -s kernelrelease > ../version
+  msg2 "Prepared %s version %s" "$pkgbase" "$(<../version)"
+}
+}
+
+build() {
+  cd $_srcname
+  make bzImage modules htmldocs
+}
+
+_package() {
+  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules"
+  [[ $pkgbase = linux ]] && groups=(base)
+  depends=(coreutils linux-firmware kmod mkinitcpio)
+  optdepends=('crda: to set the correct wireless channels of your country')
+  backup=("etc/mkinitcpio.d/$pkgbase.preset")
+  install=linux.install
+
+  local kernver="$(<version)"
+  local modulesdir="$pkgdir/usr/lib/modules/$kernver"
+
+  cd $_srcname
+
+  msg2 "Installing boot image..."
+  # systemd expects to find the kernel here to allow hibernation
+  # https://github.com/systemd/systemd/commit/edda44605f06a41fb86b7ab8128dcf99161d2344
+  install -Dm644 "$(make -s image_name)" "$modulesdir/vmlinuz"
+  install -Dm644 "$modulesdir/vmlinuz" "$pkgdir/boot/vmlinuz-$pkgbase"
+
+  msg2 "Installing modules..."
+  make INSTALL_MOD_PATH="$pkgdir/usr" modules_install
+
+  # a place for external modules,
+  # with version file for building modules and running depmod from hook
+  local extramodules="extramodules$_kernelname"
+  local extradir="$pkgdir/usr/lib/modules/$extramodules"
+  install -Dt "$extradir" -m644 ../version
+  ln -sr "$extradir" "$modulesdir/extramodules"
+
+  # remove build and source links
+  rm "$modulesdir"/{source,build}
+
+  # copy macbook-wakeup.service to systemd
+  mkdir -p "${pkgdir}/usr/lib/systemd/system"
+  cp "${srcdir}/macbook-wakeup.service" "${pkgdir}/usr/lib/systemd/system"
+
+  msg2 "Installing hooks..."
+  # sed expression for following substitutions
+  local subst="
+    s|%PKGBASE%|$pkgbase|g
+    s|%KERNVER%|$kernver|g
+    s|%EXTRAMODULES%|$extramodules|g
+  "
+
+  # hack to allow specifying an initially nonexisting install file
+  sed "$subst" "$startdir/$install" > "$startdir/$install.pkg"
+  true && install=$install.pkg
+
+  # fill in mkinitcpio preset and pacman hooks
+  sed "$subst" ../linux.preset | install -Dm644 /dev/stdin \
+    "$pkgdir/etc/mkinitcpio.d/$pkgbase.preset"
+  sed "$subst" ../60-linux.hook | install -Dm644 /dev/stdin \
+    "$pkgdir/usr/share/libalpm/hooks/60-$pkgbase.hook"
+  sed "$subst" ../90-linux.hook | install -Dm644 /dev/stdin \
+    "$pkgdir/usr/share/libalpm/hooks/90-$pkgbase.hook"
+
+  msg2 "Fixing permissions..."
+  chmod -Rc u=rwX,go=rX "$pkgdir"
+}
+
+_package-headers() {
+  pkgdesc="Header files and scripts for building modules for ${pkgbase/linux/Linux} kernel"
+
+  local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
+
+  cd $_srcname
+
+  msg2 "Installing build files..."
+  install -Dt "$builddir" -m644 Makefile .config Module.symvers System.map vmlinux
+  install -Dt "$builddir/kernel" -m644 kernel/Makefile
+  install -Dt "$builddir/arch/x86" -m644 arch/x86/Makefile
+  cp -t "$builddir" -a scripts
+
+  # add objtool for external module building and enabled VALIDATION_STACK option
+  install -Dt "$builddir/tools/objtool" tools/objtool/objtool
+
+  # add xfs and shmem for aufs building
+  mkdir -p "$builddir"/{fs/xfs,mm}
+
+  # ???
+  mkdir "$builddir/.tmp_versions"
+
+  msg2 "Installing headers..."
+  cp -t "$builddir" -a include
+  cp -t "$builddir/arch/x86" -a arch/x86/include
+  install -Dt "$builddir/arch/x86/kernel" -m644 arch/x86/kernel/asm-offsets.s
+
+  install -Dt "$builddir/drivers/md" -m644 drivers/md/*.h
+  install -Dt "$builddir/net/mac80211" -m644 net/mac80211/*.h
+
+  # http://bugs.archlinux.org/task/13146
+  install -Dt "$builddir/drivers/media/i2c" -m644 drivers/media/i2c/msp3400-driver.h
+
+  # http://bugs.archlinux.org/task/20402
+  install -Dt "$builddir/drivers/media/usb/dvb-usb" -m644 drivers/media/usb/dvb-usb/*.h
+  install -Dt "$builddir/drivers/media/dvb-frontends" -m644 drivers/media/dvb-frontends/*.h
+  install -Dt "$builddir/drivers/media/tuners" -m644 drivers/media/tuners/*.h
+
+  msg2 "Installing KConfig files..."
+  find . -name 'Kconfig*' -exec install -Dm644 {} "$builddir/{}" \;
+
+  msg2 "Removing unneeded architectures..."
+  local arch
+  for arch in "$builddir"/arch/*/; do
+    [[ $arch = */x86/ ]] && continue
+    echo "Removing $(basename "$arch")"
+    rm -r "$arch"
+  done
+
+  msg2 "Removing documentation..."
+  rm -r "$builddir/Documentation"
+
+  msg2 "Removing broken symlinks..."
+  find -L "$builddir" -type l -printf 'Removing %P\n' -delete
+
+  msg2 "Removing loose objects..."
+  find "$builddir" -type f -name '*.o' -printf 'Removing %P\n' -delete
+
+  msg2 "Stripping build tools..."
+  local file
+  while read -rd '' file; do
+    case "$(file -bi "$file")" in
+      application/x-sharedlib\;*)      # Libraries (.so)
+        strip -v $STRIP_SHARED "$file" ;;
+      application/x-archive\;*)        # Libraries (.a)
+        strip -v $STRIP_STATIC "$file" ;;
+      application/x-executable\;*)     # Binaries
+        strip -v $STRIP_BINARIES "$file" ;;
+      application/x-pie-executable\;*) # Relocatable binaries
+        strip -v $STRIP_SHARED "$file" ;;
+    esac
+  done < <(find "$builddir" -type f -perm -u+x ! -name vmlinux -print0)
+
+  msg2 "Adding symlink..."
+  mkdir -p "$pkgdir/usr/src"
+  ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase-$pkgver"
+
+  msg2 "Fixing permissions..."
+  chmod -Rc u=rwX,go=rX "$pkgdir"
+}
+
+_package-docs() {
+  pkgdesc="Kernel hackers manual - HTML documentation that comes with the ${pkgbase/linux/Linux} kernel"
+
+  local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
+
+  cd $_srcname
+
+  msg2 "Installing documentation..."
+  mkdir -p "$builddir"
+  cp -t "$builddir" -a Documentation
+
+  msg2 "Removing doctrees..."
+  rm -r "$builddir/Documentation/output/.doctrees"
+
+  msg2 "Moving HTML docs..."
+  local src dst
+  while read -rd '' src; do
+    dst="$builddir/Documentation/${src#$builddir/Documentation/output/}"
+    mkdir -p "${dst%/*}"
+    mv "$src" "$dst"
+    rmdir -p --ignore-fail-on-non-empty "${src%/*}"
+  done < <(find "$builddir/Documentation/output" -type f -print0)
+
+  msg2 "Adding symlink..."
+  mkdir -p "$pkgdir/usr/share/doc"
+  ln -sr "$builddir/Documentation" "$pkgdir/usr/share/doc/$pkgbase"
+
+  msg2 "Fixing permissions..."
+  chmod -Rc u=rwX,go=rX "$pkgdir"
+}
+
+pkgname=("$pkgbase" "$pkgbase-headers" "$pkgbase-docs")
+for _p in "${pkgname[@]}"; do
+  eval "package_$_p() {
+    $(declare -f "_package${_p#$pkgbase}")
+    _package${_p#$pkgbase}
+  }"
+done
+
+# vim:set ts=8 sts=2 sw=2 et:
