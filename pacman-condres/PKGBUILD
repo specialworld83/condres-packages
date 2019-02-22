@@ -2,7 +2,7 @@
 
 pkgname=pacman-condres
 pkgver=2.4
-pkgrel=7
+pkgrel=8
 epoch=2
 pkgdesc="Condres Release System"
 arch=('any')

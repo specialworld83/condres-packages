@@ -2,7 +2,7 @@
 
 pkgname=lsb-release
 pkgver=1.4
-pkgrel=64
+pkgrel=65
 epoch=2
 pkgdesc="LSB version query program"
 arch=('any')
@@ -29,7 +29,7 @@ package() {
   install -dm755 "$pkgdir/etc"
   echo "LSB_VERSION=$pkgver" >> "$pkgdir/etc/lsb-release"
   echo "DISTRIB_ID=Condres" >> "$pkgdir/etc/lsb-release"
-  echo "DISTRIB_RELEASE=19.02" >> "$pkgdir/etc/lsb-release"
+  echo "DISTRIB_RELEASE=19.03" >> "$pkgdir/etc/lsb-release"
   echo "DISTRIB_DESCRIPTION=\"Condres OS\"" >> "$pkgdir/etc/lsb-release"
 
   install -Dm 644 lsb_release.1.gz "$pkgdir/usr/share/man/man1/lsb_release.1.gz"
