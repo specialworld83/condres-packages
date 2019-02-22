@@ -1,0 +1,52 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+_linuxprefix=linux
+_extramodules=extramodules-CONDRES
+pkgname=$_linuxprefix-nvidiabl
+_pkgname=nvidiabl
+pkgver=0.88
+pkgrel=6
+epoch=
+pkgdesc="Driver to adjust display backlight on modern mobile NVidia graphics adapters."
+arch=('x86_64' 'i686')
+url="https://github.com/guillaumezin/$_pkgname"
+license=('GPL')
+depends=()
+makedepends=($_linuxprefix{,-headers})
+optdepends=()
+conflicts=(nvidia-bl)
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+install=$_pkgname.install
+source=("$_pkgname-$pkgver::$url/archive/master.zip" 
+        nvidiabl-master.patch
+        kernel-4.8.patch)
+md5sums=('c1cec85b0a9f4469d433a2756bdb2497'
+         '79e5699da970908d6ec8dba114df87cb'
+         'd94abebc5f40586fbed015d9fab29a37')
+
+prepare() {
+  cd "${srcdir}/nvidiabl-master/"
+  patch -p1 -i "${srcdir}/nvidiabl-master.patch"
+  patch -p1 -i "${srcdir}/kernel-4.8.patch"
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  cd "${srcdir}/nvidiabl-master/"
+  make KVER="${_kernver}"
+}
+
+package() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  cd "${srcdir}/nvidiabl-master/"
+  MODPATH="${pkgdir}/usr/lib/modules/${_extramodules}/"
+  install -d $MODPATH
+  install -m 644 -c nvidiabl.ko $MODPATH
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidiabl.install"
+  sed -i -e "s/VERSION='.*'/VERSION='${_linuxprefix}'/" "${startdir}/nvidiabl.install"
+}
+
+# vim:set ts=2 sw=2 et:

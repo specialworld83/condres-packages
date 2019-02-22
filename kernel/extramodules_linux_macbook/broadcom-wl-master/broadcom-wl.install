@@ -1,0 +1,14 @@
+post_install() {
+  EXTRAMODULES='extramodules-macbook'
+  depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}
+
+post_upgrade() {
+  EXTRAMODULES='extramodules-macbook'
+  depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}
+
+post_remove() {
+  EXTRAMODULES='extramodules-macbook'
+  depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}

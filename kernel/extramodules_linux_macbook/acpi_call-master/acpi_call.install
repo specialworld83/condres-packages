@@ -1,0 +1,16 @@
+EXTRAMODULES=extramodules-macbook
+
+post_install() {
+  echo "  > Updating module dependencies..."
+  depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}
+
+post_upgrade() {
+  post_install
+}
+
+post_remove() {
+  post_install
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,0 +1,97 @@
+--- fglrx-15.201.1151.orig/archive_files/common/lib/modules/fglrx/build_mod/kcl_acpi.c	2016-12-26 15:59:09.550634494 +0100
++++ fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/kcl_acpi.c	2016-12-26 16:01:46.182237894 +0100
+@@ -360,7 +360,8 @@ void* KCL_ACPI_GetVfctBios(unsigned long
+     struct acpi_table_header *hdr;
+     acpi_size tbl_size ;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,6,3)    
+-    if (!ACPI_SUCCESS(acpi_get_table_with_size("VFCT", 1, &hdr, &tbl_size)))
++    if (!ACPI_SUCCESS(acpi_get_table("VFCT", 1, &hdr)))
++    tbl_size = hdr->length;
+ #else
+     tbl_size = 0x7fffffff;
+     if (!ACPI_SUCCESS(acpi_get_table("VFCT", 1, &hdr)))
+@@ -1030,7 +1031,8 @@ int ATI_API_CALL KCL_ACPI_ParseTable(cha
+     }
+ 
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,6,3)    
+-    if (!ACPI_SUCCESS(acpi_get_table_with_size(id, 0, &hdr, &tbl_size)))
++    if (!ACPI_SUCCESS(acpi_get_table(id, 0, &hdr)))
++    tbl_size = hdr->length;
+ #else
+     tbl_size = 0x7fffffff;
+     if (!ACPI_SUCCESS(acpi_get_table(id, 0, &hdr)))
+--- fglrx-15.201.1151.orig/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c	2016-12-26 16:05:18.154828961 +0100
++++ fglrx-15.201.1151/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c	2016-12-26 16:16:59.430448549 +0100
+@@ -3620,7 +3620,7 @@ static __inline__ int do_vm_shm_fault(st
+     unsigned long pte_linear;
+     mem_map_t* pMmPage;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)
+-    unsigned long address = (unsigned long) (vmf->virtual_address);
++    unsigned long address = vmf->address;
+ #endif
+ 
+     /*
+@@ -3695,7 +3695,7 @@ static __inline__ int do_vm_dma_fault(st
+     unsigned long kaddr;
+     mem_map_t* pMmPage;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)
+-    unsigned long address = (unsigned long) (vmf->virtual_address);
++    unsigned long address = vmf->address;
+ #endif
+ 
+     if (address > vma->vm_end)
+@@ -3740,7 +3740,7 @@ static __inline__ int do_vm_kmap_fault(s
+     unsigned long kaddr;
+     mem_map_t* pMmPage;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)
+-    unsigned long address = (unsigned long) (vmf->virtual_address);
++    unsigned long address = vmf->address;
+ #endif
+ 
+     if (address > vma->vm_end)
+@@ -3803,7 +3803,7 @@ static __inline__ int do_vm_pcie_fault(s
+     struct firegl_pcie_mem* pciemem;
+     unsigned long* pagelist;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)
+-    unsigned long address = (unsigned long) (vmf->virtual_address);
++    unsigned long address = vmf->address;
+ #endif
+     
+     drm_device_t *dev = (drm_device_t *)firegl_get_dev_from_vm(vma);
+@@ -3865,7 +3865,7 @@ static __inline__ int do_vm_gart_fault(s
+     unsigned long offset;
+     struct page *page;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)
+-    unsigned long address = (unsigned long) (vmf->virtual_address);
++    unsigned long address = vmf->address;
+ #endif
+ 
+     if (address > vma->vm_end)
+@@ -4161,7 +4161,7 @@ static vm_nopage_ret_t ip_vm_gart_nopage
+ 
+ #define TRACE_FAULT(_f, _v,_a)                                          \
+    int  ret;                                                            \
+-   KCL_DEBUG_TRACEIN(FN_DRM_NOPAGE, (unsigned long)_a->virtual_address, NULL); \
++   KCL_DEBUG_TRACEIN(FN_DRM_NOPAGE, _a->address, NULL); \
+    ret = _f(_v,_a);                                                     \
+    KCL_DEBUG_TRACEOUT(FN_DRM_NOPAGE, ret, NULL);                                \
+    return ret;
+@@ -6581,9 +6581,6 @@ void ATI_API_CALL KCL_fpu_begin(void)
+ #else
+          __save_init_fpu(cur_task);
+ #endif
+-    else
+-         clts();
+-
+ #else
+     /* TS_USEDFPU is removed in kernel 3.3+ and 3.2.8+ with the commit below:
+      * https://github.com/torvalds/linux/commit/f94edacf998516ac9d849f7bc6949a703977a7f3
+@@ -6607,8 +6604,6 @@ void ATI_API_CALL KCL_fpu_begin(void)
+ #else
+         __save_init_fpu(cur_task);
+ #endif
+-    else
+-         clts();
+ #endif
+ #endif
+ }

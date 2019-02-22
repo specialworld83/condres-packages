@@ -1,0 +1,74 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+_linuxprefix=linux-macbook
+_extramodules=extramodules-macbook
+pkgbase=$_linuxprefix-spl_zfs
+pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
+pkgver=0.7.12
+_pkgver=spl-0.7.12
+pkgrel=6
+url="http://zfsonlinux.org/"
+arch=('i686' 'x86_64')
+license=("CDDL")
+depends=("$_linuxprefix" "kmod")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+install=install
+source=("https://github.com/zfsonlinux/spl/archive/spl-${pkgver}.tar.gz"
+        "https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        'zfs-linux420.patch')
+sha256sums=('f64fa9dd687a738236bc821d41385897e8c8cda99ae53bc6b248142c1e348666'
+            '720e3b221c1ba5d4c18c990e48b86a2eb613575a0c3cc84c0aa784b17b7c2848'
+            'e421c712f2632ca3fb21a1d0cbca2fe3b4799f398ccd0cfd0688f530d59a9385')
+
+prepare() {
+  cd "${srcdir}/spl-${_pkgver}"
+  # patches here
+  cd "${srcdir}/zfs-${pkgver}"
+  # patches here
+  patch -p0 -i ../zfs-linux420.patch
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+  cd "${srcdir}/spl-${_pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --libdir=/usr/lib --sbindir=/usr/bin \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-config=kernel
+  make
+  cd "${srcdir}/zfs-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
+              --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
+              --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
+              --with-linux=/usr/lib/modules/${_kernver}/build \
+              --with-spl=${srcdir}/spl-${_pkgver}
+  make
+}
+
+package_linux420-spl(){
+  pkgdesc='Solaris Porting Layer kernel modules.'
+  provides=("spl=$pkgver")
+  depends+=("spl-utils=${pkgver}")
+
+  cd "${srcdir}/spl-${_pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}
+
+package_linux420-zfs(){
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("zfs=$pkgver")
+  depends+=("$_linuxprefix-spl" "zfs-utils=${pkgver}")
+
+  cd "${srcdir}/zfs-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}

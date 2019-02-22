@@ -1,0 +1,60 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+_linuxprefix=linux-macbook
+_extramodules=extramodules-macbook
+pkgname=$_linuxprefix-nvidia-390xx
+_pkgname=nvidia
+pkgver=390.87
+pkgrel=7
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+pkgdesc="NVIDIA drivers for linux."
+arch=('i686' 'x86_64')
+url="http://www.nvidia.com/"
+depends=("$_linuxprefix" "nvidia-390xx-utils=${pkgver}")
+makedepends=("$_linuxprefix-headers")
+conflicts=('nvidia-96xx' 'nvidia-183xx')
+license=('custom')
+install=nvidia.install
+options=(!strip)
+durl="http://us.download.nvidia.com/XFree86/Linux-x86"
+source=('linux420.patch')
+source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+sha256sums=('2451c9ea6e5d9155b1346a61ce3df5493f697e86cd1c954f5d82fb571c0b0693')
+sha256sums_i686=('5c29c5f9d80a07ea71219c6323fe5fc9b7577847b970f23161685d4b890b9966')
+sha256sums_x86_64=('c7c07151e17f610af11f7870560d96c3a3ee9bb91ba1bb82fcc7b5d473d40b66')
+
+[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+
+prepare() {
+    sh "${_pkg}.run" --extract-only
+    cd "${_pkg}"
+    # patches here
+    patch -p0 -i ../linux420.patch
+    # Linux 419 compat
+    sed -i -e 's/drm_mode_connector_attach_encoder/drm_connector_attach_encoder/g' kernel/nvidia-drm/nvidia-drm-encoder.c
+    sed -i -e 's/drm_mode_connector_update_edid_property/drm_connector_update_edid_property/g' kernel/nvidia-drm/nvidia-drm-connector.c
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    cd "${_pkg}"/kernel
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+}
+
+package() {
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-modeset.ko" \
+         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-modeset.ko"
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-drm.ko" \
+         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-drm.ko"
+    if [[ "$CARCH" = "x86_64" ]]; then
+        install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-uvm.ko" \
+            "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
+    fi
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+}

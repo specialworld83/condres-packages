@@ -1,0 +1,15 @@
+post_install() {
+    EXTRAMODULES=extramodules-macbook
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    echo 'In order to use catalyst module, reboot the system.'
+}
+
+post_upgrade() {
+    EXTRAMODULES=extramodules-macbook
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}
+
+post_remove() {
+    EXTRAMODULES=extramodules-macbook
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}

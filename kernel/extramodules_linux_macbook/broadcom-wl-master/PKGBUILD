@@ -1,0 +1,53 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+_linuxprefix=linux-macbook
+_extramodules=extramodules-macbook
+pkgname=$_linuxprefix-broadcom-wl
+_pkgname=broadcom-wl
+pkgver=6.30.223.271
+pkgrel=6
+pkgdesc='Broadcom 802.11 Linux STA wireless driver BCM43142.'
+url='https://bbs.archlinux.org/viewtopic.php?id=145884'
+arch=('i686' 'x86_64')
+license=('custom')
+depends=("$_linuxprefix")
+makedepends=("broadcom-wl-dkms>=$pkgver"
+             'dkms'
+             "$_linuxprefix" "$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+provides=("$_pkgname=$pkgver")
+install=$_pkgname.install
+backup=('etc/modprobe.d/linux420-broadcom-wl.conf')
+source=(broadcom-wl-dkms.conf)
+sha256sums=('b97bc588420d1542f73279e71975ccb5d81d75e534e7b5717e01d6e6adf6a283')
+
+prepare() {
+  # dkms need modification to be run as user
+  cp -r /var/lib/dkms .
+  echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  # build host modules
+  msg2 'Build module'
+
+  CFLAGS="${CFLAGS} -Wno-error"
+  CXXFLAGS="${CXXFLAGS}  -Wno-error"
+
+  msg2 "$CFLAGS, ${CXXFLAGS}"
+
+  dkms --dkmsframework dkms.conf build "broadcom-wl/$pkgver" -k "$_kernver"
+}
+
+package(){
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  cd "dkms/broadcom-wl/$pkgver/$_kernver/$CARCH/module"
+  install -m644 * "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/$_pkgname.install"
+  install -D -m 644 "${srcdir}"/broadcom-wl-dkms.conf "${pkgdir}/etc/modprobe.d/${_linuxprefix}-broadcom-wl.conf"
+}

@@ -1,0 +1,162 @@
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
+
+
+_linuxprefix=linux-macbook
+_extramodules=extramodules-macbook
+pkgname=$_linuxprefix-catalyst
+_pkgname=catalyst
+pkgver=15.201.1151
+pkgrel=6
+epoch=1
+_pkgver=15.201.1151
+provides=("$_pkgname=$_pkgver")
+groups=("$_linuxprefix-extramodules")
+pkgdesc="AMD/ATI Catalyst drivers for linux. fglrx kernel module only."
+arch=('i686' 'x86_64')
+url="http://www.amd.com"
+license=('custom')
+depends=("$_linuxprefix" "catalyst-utils=${epoch}:${pkgver}")
+makedepends=("$_linuxprefix-headers")
+conflicts=('catalyst-legacy' "$_linuxprefix-catalyst-legacy")
+install=catalyst.install
+
+source=(https://drivers.amd.com/drivers/linux/amd-catalyst-15.9-linux-installer-${_pkgver}-x86.x86_64.zip
+        #https://launchpad.net/ubuntu/+archive/primary/+files/fglrx-installer_${_tarball}.orig.tar.gz
+        ati_make.sh
+        makefile_compat.patch
+        lano1106_fglrx_intel_iommu.patch
+        lano1106_kcl_agp_13_4.patch
+        fglrx_gpl_symbol.patch
+        4.3-kolasa-seq_printf.patch
+        4.3-gentoo-mtrr.patch
+        4.2-amd-from_crimson_15.11.patch
+        crimson_i686_xg.patch
+        4.4-manjaro-xstate.patch
+        grsec_arch.patch
+        4.7-arch-cpu_has_pge-v2.patch
+        4.9-manjaro.patch
+        4.10-manjaro.patch
+        4.11-npfeiler-signal_vmf.patch
+        4.12-npfeiler-PUD_OFFSET.patch
+        4.12-npfeiler-movsl_mask.patch
+        4.13-npfeiler-wait_queue_t.patch
+        4.14-npfeiler-task_struct-mm_segment_t.patch
+        4.16-manjaro.patch
+        4.17-manjaro.patch
+	LICENSE.TXT)
+
+url_ref="https://support.amd.com/en-us/download/desktop?os=Linux+x86"
+DLAGENTS="https::/usr/bin/curl --referer ${url_ref} -o %o %u"
+
+sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
+            '8b2adf804c2691d075bb75fbb626be59f3769a2f4f1418554fc3de91a65451ab'
+            'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
+            'd7ab220204976b5802dbfa7cbd05ec0c5a9ff3524a2020b1b8deff4f601a05fa'
+            '37344e6949b391a54491bcba68c2239393e442a00114ee36fe25d775d9656520'
+            'bf9cfd7252b3a33c50087233f7270180c0f59837bcc9a82482a0367c995c89e6'
+            '33b87af3b1b5ab53b32bf972949db1e845beebe1e3d7effc06d11cf8c57f3768'
+            '2881026d607f242efc4569bd39d647eae4f2e402da06de5b90476a57c349777c'
+            'd4fdd09b5897eccaccaaa95a3b5a8846ccd7c6f63b3e63659a0fc0f7f3cf661b'
+            'cae7603b0b4dfb6594a7d2c7de83f7e37dd2567486a1aced5870b4611a09f422'
+            '411c7aea2929cc9bb776cb1ba1df57e1d0f75ee6c84766a7fb791cb6f82446d2'
+            'd3695c90d14de5a52a7f4c878ec161a0282ae169c59bbf953950aad7bfb59fdc'
+            '39a09293916c876681591dbf20ee09c2971a016081f8aacb90f40227b13d5677'
+            'f846b24a56179abbae694f3f3379dc4e2883e13719d23e9c9125f353e9babfe8'
+            'fe6cd988c1492c350fd87f6885e5b01ea1ee20a88bbf8830d1727deaa021b3c4'
+            '50cf50dced85d267c3a9df997219f75bef1fc19755041f83931eddafd713051b'
+            '6c54da21862f11747449d9d4de3fdec1047ca9c1b7a8bc3e1d4b66098fa18ba0'
+            'f613e1bc2de3c558e9c808b52f48a6803a778673a9ac009c31cd0cf3c142e5a9'
+            '57db04fb9d6f4f5a434ff58c225f882531f74e3d17bc6c9c2defb075b0fb3496'
+            'b3b1ccb42829e39a829d71cad2caf4628b83cc22cb18595408c35405f0e5ab6f'
+            '1fa9c117cd9aaf32aa230bc0ccc9204f8efd05e3681bf43ed8eabb6e19322f45'
+            '2b7dd2aa25bcad250e43f1bb9917aa401cc198800cb80eadb2f22137aee27fad'
+            '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
+
+prepare() {
+	#cd ${srcdir}/fglrx-$_pkgver
+	/bin/sh ./AMD-Catalyst-15.9-Linux-installer-${_pkgver}-x86.x86_64.run --extract archive_files
+	#/bin/sh ./amd-catalyst-${_pkgver}-linux-x86.x86_64.run --extract archive_files
+
+	# move files
+	#mkdir common
+	#mv etc lib usr common
+	#mkdir -p fglrx-$_pkgver/archive_files
+	#mv arch common xpic xpic_64a LICENSE.TXT fglrx-$_pkgver/archive_files
+	mkdir -p fglrx-$_pkgver
+	mv archive_files fglrx-$_pkgver
+
+	# page_cache_release() -> put_page(); 09cbfeaf1a5a67bfb3201e0c83c810cecb2efa5a
+	# get_user_pages() to not pass tsk/mm; d4edcf0d56958db0aca0196314ca38a5e730ea92
+	sed -i 's|page_cache_release|put_page|g' "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c"
+	sed -i 's|get_user_pages(current, current->mm, |get_user_pages(|g'  "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c"
+}
+
+build() {
+	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+	## include ati_make.sh and use _ati_check function from it
+	cd "${srcdir}"
+	. ati_make.sh
+	_ati_check
+
+	if [ "${CARCH}" = "x86_64" ]; then
+		BUILDARCH=x86_64
+		_archdir=x86_64
+	fi
+	if [ "${CARCH}" = "i686" ]; then
+		BUILDARCH=i386
+		_archdir=x86
+	fi
+
+	cd "${srcdir}/fglrx-$_pkgver/archive_files"
+
+	## makefile patch to choose arch_compat_alloc_user_space or older compat_alloc_user_space
+	## works only in combination with ati_make.sh script
+        patch -Np1 -i  ${srcdir}/makefile_compat.patch
+        patch -Np1 -i  ${srcdir}/lano1106_fglrx_intel_iommu.patch
+        patch -Np1 -i  ${srcdir}/lano1106_kcl_agp_13_4.patch
+        patch -Np1 -i  ${srcdir}/4.2-amd-from_crimson_15.11.patch
+        patch -Np1 -i  ${srcdir}/4.3-kolasa-seq_printf.patch
+        patch -Np1 -i  ${srcdir}/4.3-gentoo-mtrr.patch
+        patch -Np1 -i  ${srcdir}/fglrx_gpl_symbol.patch
+        test "${CARCH}" = "i686" && patch -Np1 -i  ${srcdir}/crimson_i686_xg.patch
+        patch -Np1 -i  ${srcdir}/4.4-manjaro-xstate.patch
+        patch -Np1 -i  ${srcdir}/grsec_arch.patch
+        patch -Np1 -i  ${srcdir}/4.7-arch-cpu_has_pge-v2.patch
+        patch -Np2 -i  ${srcdir}/4.9-manjaro.patch
+        patch -Np2 -i  ${srcdir}/4.10-manjaro.patch
+        patch -Np1 -i  ${srcdir}/4.11-npfeiler-signal_vmf.patch
+        patch -Np1 -i  ${srcdir}/4.12-npfeiler-PUD_OFFSET.patch
+        patch -Np1 -i  ${srcdir}/4.12-npfeiler-movsl_mask.patch
+        patch -Np1 -i  ${srcdir}/4.13-npfeiler-wait_queue_t.patch
+        patch -Np1 -i  ${srcdir}/4.14-npfeiler-task_struct-mm_segment_t.patch
+        patch -Np1 -i  ${srcdir}/4.16-manjaro.patch
+        patch -Np1 -i  ${srcdir}/4.17-manjaro.patch
+
+        cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
+	cp "${srcdir}/fglrx-$_pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
+	cp 2.6.x/Makefile .
+
+	## Compile module using _ati_check variables
+	make -C /usr/lib/modules/${_kernver}/build SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
+	MODFLAGS="-DMODULE -DATI -DFGL -DPAGE_ATTR_FIX=$PAGE_ATTR_FIX -DCOMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE $def_smp $def_modversions" \
+	PAGE_ATTR_FIX=$PAGE_ATTR_FIX COMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE modules
+}
+
+
+package() {
+	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+	cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
+	install -m755 -d "${pkgdir}/usr/lib/modules/${_extramodules}/"
+	install -m644 fglrx.ko "${pkgdir}/usr/lib/modules/${_extramodules}/"
+	find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
+
+	## License
+	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+	install -m644 "${srcdir}/fglrx-$_pkgver/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}"
+
+	## Install script
+	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" "$startdir"/*.install
+	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/" "$startdir"/*.install
+}

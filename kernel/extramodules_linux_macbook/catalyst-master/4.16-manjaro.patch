@@ -1,0 +1,11 @@
+--- archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c	2018-02-18 10:25:30.638843058 +0100
++++ archive_filesb/common/lib/modules/fglrx/build_mod/firegl_public.c	2018-02-18 10:30:41.139221428 +0100
+@@ -2989,7 +2989,7 @@ unsigned int ATI_API_CALL KCL_GetPageSiz
+ static void kcl_flush_tlb_one(void *va)
+ {
+     unsigned long *addr = (unsigned long *)va;
+-    __flush_tlb_one(*addr);
++    __flush_tlb_one_kernel(*addr);
+ }
+ 
+ /** /brief Flush one page on all cpus

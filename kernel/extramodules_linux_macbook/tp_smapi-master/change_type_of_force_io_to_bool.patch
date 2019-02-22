@@ -1,0 +1,46 @@
+From 8f40fcf3d9a4bfb9c3dae1caa2107ea3a367a609 Mon Sep 17 00:00:00 2001
+From: Joerg Mayer <jmayer@loplof.de>
+Date: Tue, 29 Apr 2014 02:30:55 +0200
+Subject: [PATCH] change type of force_io to bool
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+v2: Fix the type warning the other way round as proposed by Bjorn Mork
+
+Fix for the following warning:
+  CC [M]  /home/jmayer/work/thinkpad/git/thinkpad_ec.o
+In file included from /usr/src/linux-3.14.1-1.geafcebd/include/linux/module.h:17:0,
+                 from /home/jmayer/work/thinkpad/git/thinkpad_ec.c:33:
+/home/jmayer/work/thinkpad/git/thinkpad_ec.c: In function ‘__check_force_io’:
+/usr/src/linux-3.14.1-1.geafcebd/include/linux/moduleparam.h:349:45: warning: return from incompatible pointer type [enabled by default]
+  static inline type *__check_##name(void) { return(p); }
+                                             ^
+/usr/src/linux-3.14.1-1.geafcebd/include/linux/moduleparam.h:395:35: note: in expansion of macro ‘__param_check’
+ #define param_check_bool(name, p) __param_check(name, p, bool)
+                                   ^
+/usr/src/linux-3.14.1-1.geafcebd/include/linux/moduleparam.h:127:2: note: in expansion of macro ‘param_check_bool’
+  param_check_##type(name, &(value));       \
+  ^
+/home/jmayer/work/thinkpad/git/thinkpad_ec.c:100:1: note: in expansion of macro ‘module_param_named’
+ module_param_named(force_io, force_io, bool, 0600);
+ ^
+
+Signed-off-by: Joerg Mayer <jmayer@loplof.de>
+---
+ thinkpad_ec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/thinkpad_ec.c b/thinkpad_ec.c
+index a1c94d9..9689d72 100644
+--- a/thinkpad_ec.c
++++ b/thinkpad_ec.c
+@@ -95,7 +95,7 @@ static DEFINE_SEMAPHORE(thinkpad_ec_mutex);
+ #endif
+ 
+ /* Kludge in case the ACPI DSDT reserves the ports we need. */
+-static int force_io;    /* Willing to do IO to ports we couldn't reserve? */
++static bool force_io;    /* Willing to do IO to ports we couldn't reserve? */
+ static int reserved_io; /* Successfully reserved the ports? */
+ module_param_named(force_io, force_io, bool, 0600);
+ MODULE_PARM_DESC(force_io, "Force IO even if region already reserved (0=off, 1=on)");
