@@ -1,7 +1,7 @@
 # Maintainer: CodeLinSoft <info@codelinsoft.it>
 
 pkgname="condres-control-center"
-pkgver=r27.eac3c44
+pkgver=r30.88706ee
 pkgrel=1
 pkgdesc="CondresControlCenter is a beatiful system software management."
 arch=('any')
