@@ -4,7 +4,7 @@ _linuxprefix=linux-macbook
 _extramodules=extramodules-macbook
 pkgname=$_linuxprefix-nvidia-390xx
 _pkgname=nvidia
-pkgver=390.87
+pkgver=390.116
 pkgrel=7
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -21,9 +21,9 @@ durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source=('linux420.patch')
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('2451c9ea6e5d9155b1346a61ce3df5493f697e86cd1c954f5d82fb571c0b0693')
-sha256sums_i686=('5c29c5f9d80a07ea71219c6323fe5fc9b7577847b970f23161685d4b890b9966')
-sha256sums_x86_64=('c7c07151e17f610af11f7870560d96c3a3ee9bb91ba1bb82fcc7b5d473d40b66')
+sha256sums=('SKIP')
+sha256sums_i686=('SKIP')
+sha256sums_x86_64=('SKIP')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
