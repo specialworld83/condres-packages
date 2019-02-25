@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares-macbook
-pkgver=3.2.4
+pkgver=3.2.5
 pkgrel=15
 epoch=4
 options=(staticlibs)
