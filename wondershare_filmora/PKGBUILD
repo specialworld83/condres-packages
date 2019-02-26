@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=filmora-condres
-pkgver=9
+pkgver=10
 pkgrel=1
 pkgdesc="Video Editing Simplified"
 arch=('any')
