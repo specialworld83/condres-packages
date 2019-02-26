@@ -1,9 +1,3 @@
-pre_install() {
-rm /usr/lib/libreoffice/program/intro.png.old
-mv /usr/lib/libreoffice/program/intro.png /usr/lib/libreoffice/program/intro.png.old
-mv /etc/libreoffice/sofficerc /etc/libreoffice/sofficerc.old
-}
-
 post_install() {
 
 mv /usr/lib/libreoffice/program/libreoffice_splash/libreoffice_splash.png /usr/lib/libreoffice/program/intro.png
