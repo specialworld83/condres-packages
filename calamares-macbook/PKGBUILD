@@ -2,7 +2,7 @@
 
 pkgname=calamares-macbook
 pkgver=3.2.4
-pkgrel=16
+pkgrel=17
 epoch=5
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
