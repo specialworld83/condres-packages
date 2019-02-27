@@ -5,7 +5,7 @@ _extramodules=extramodules-macbook
 pkgname=$_linuxprefix-nvidia-390xx
 _pkgname=nvidia
 pkgver=390.116
-pkgrel=8
+pkgrel=9
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -32,7 +32,7 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    patch -p0 -i ../linux420.patch
+    #patch -p0 -i ../linux420.patch
     # Linux 419 compat
     sed -i -e 's/drm_mode_connector_attach_encoder/drm_connector_attach_encoder/g' kernel/nvidia-drm/nvidia-drm-encoder.c
     sed -i -e 's/drm_mode_connector_update_edid_property/drm_connector_update_edid_property/g' kernel/nvidia-drm/nvidia-drm-connector.c
