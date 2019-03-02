@@ -2,7 +2,7 @@
 
 pkgname=pushbullet
 pkgrel=1
-pkgver=8.6.0
+pkgver=8.10.1
 _pkgver="v$pkgver"
 pkgdesc="The missing Desktop application for Pushbullet"
 url="https://github.com/sidneys/pb-for-desktop"
