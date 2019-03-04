@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Gnu Linux dev team <info@codelinsoft.it>
 
 pkgname=condres-mirrorlist
-pkgver=20190117
+pkgver=20190304
 pkgrel=2
 epoch=1
 pkgdesc="Condres OS mirror list for use by pacman"
@@ -12,7 +12,8 @@ depends=('lsb-release')
 backup=('etc/pacman.d/condres/mirrorlist'
         'etc/pacman.d/condres/mirrorlist-testing')
 source=('mirrorlist'
-        'mirrorlist-testing')
+        'mirrorlist-testing'
+        )
 
 
 package() {
@@ -22,4 +23,5 @@ package() {
 }
 
 md5sums=('a75fb777c803905ed2c22181d2546135'
-         '8e5842d5d9b9826e79216a70299a6c29')
+         '8e5842d5d9b9826e79216a70299a6c29'
+        )
