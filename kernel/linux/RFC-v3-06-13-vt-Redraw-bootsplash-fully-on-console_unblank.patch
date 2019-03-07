@@ -1,15 +1,14 @@
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 2ebaba16f785..416735ab6dc1 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -105,6 +105,7 @@
+diff -up linux-4.19/drivers/tty/vt/vt.c.0105~ linux-4.19/drivers/tty/vt/vt.c
+--- linux-4.19/drivers/tty/vt/vt.c.0105~	2018-11-15 02:55:33.904454394 +0100
++++ linux-4.19/drivers/tty/vt/vt.c	2018-11-15 02:56:30.804027773 +0100
+@@ -104,6 +104,7 @@
+ #include <linux/kdb.h>
  #include <linux/ctype.h>
  #include <linux/bsearch.h>
- #include <linux/gcd.h>
 +#include <linux/bootsplash.h>
+ #include <linux/gcd.h>
  
  #define MAX_NR_CON_DRIVER 16
- 
 @@ -4235,6 +4236,7 @@ void do_unblank_screen(int leaving_gfx)
  	}
  
@@ -18,10 +17,9 @@ index 2ebaba16f785..416735ab6dc1 100644
  	if (vc->vc_sw->con_blank(vc, 0, leaving_gfx))
  		/* Low-level driver cannot restore -> do it ourselves */
  		update_screen(vc);
-diff --git a/drivers/video/fbdev/core/bootsplash.c b/drivers/video/fbdev/core/bootsplash.c
-index c8642142cfea..13fcaabbc2ca 100644
---- a/drivers/video/fbdev/core/bootsplash.c
-+++ b/drivers/video/fbdev/core/bootsplash.c
+diff -up linux-4.19/drivers/video/fbdev/core/bootsplash.c.0105~ linux-4.19/drivers/video/fbdev/core/bootsplash.c
+--- linux-4.19/drivers/video/fbdev/core/bootsplash.c.0105~	2018-11-15 02:55:33.982455190 +0100
++++ linux-4.19/drivers/video/fbdev/core/bootsplash.c	2018-11-15 02:55:33.983455200 +0100
 @@ -165,6 +165,13 @@ bool bootsplash_would_render_now(void)
  		&& bootsplash_is_enabled();
  }
@@ -47,7 +45,7 @@ index c8642142cfea..13fcaabbc2ca 100644
  
  		schedule_work(&splash_state.work_redraw_vc);
  	}
-@@ -272,9 +277,7 @@ static int splash_resume(struct device *device)
+@@ -272,9 +277,7 @@ static int splash_resume(struct device *
  	 * Force full redraw on resume since we've probably lost the
  	 * framebuffer's contents meanwhile
  	 */
@@ -58,11 +56,10 @@ index c8642142cfea..13fcaabbc2ca 100644
  
  	if (bootsplash_would_render_now())
  		schedule_work(&splash_state.work_redraw_vc);
-diff --git a/include/linux/bootsplash.h b/include/linux/bootsplash.h
-index c6dd0b43180d..4075098aaadd 100644
---- a/include/linux/bootsplash.h
-+++ b/include/linux/bootsplash.h
-@@ -19,6 +19,8 @@ extern void bootsplash_render_full(struct fb_info *info);
+diff -up linux-4.19/include/linux/bootsplash.h.0105~ linux-4.19/include/linux/bootsplash.h
+--- linux-4.19/include/linux/bootsplash.h.0105~	2018-11-15 02:55:33.975455118 +0100
++++ linux-4.19/include/linux/bootsplash.h	2018-11-15 02:55:33.984455210 +0100
+@@ -19,6 +19,8 @@ extern void bootsplash_render_full(struc
  
  extern bool bootsplash_would_render_now(void);
  
