@@ -39,7 +39,7 @@ source=(
   'tmpfs-idr.patch'
   'vfs-ino.patch'
   #"0001-BFQ-${_bfq}-${_bfqdate}.patch::https://github.com/Algodev-github/bfq-mq/compare/0adb328...698937e.patch"
-  #0001-BFQ-${_bfq}-${_bfqdate}.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/4.20/bfq-sq-mq/4.20-bfq-sq-mq-v9r1-2K190204-rc1.patch
+  0001-BFQ-${_bfq}-${_bfqdate}.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/4.20/bfq-sq-mq/4.20-bfq-sq-mq-v9r1-2K190204-rc1.patch
   # CONDRES Patches
   # Bootsplash
   '0001-bootsplash.patch'
