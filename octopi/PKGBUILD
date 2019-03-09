@@ -21,26 +21,31 @@ pkgbase=octopi
 pkgname=('octopi' 'octopi-repoeditor' 'octopi-pacmanhelper' 'octopi-cachecleaner'
          'octopi-notifier')
 pkgver=0.9.0
-pkgrel=12
+pkgrel=13
 # This is the release package so the below _gitcommit variable should (usually) be commented out.
-#_gitcommit=
+_gitcommit='1dba4e4565cb696aa81e8fe20447770dfa5dcc0d' #add Condres OS News
 arch=('i686' 'x86_64')
 url="http://octopiproject.wordpress.com"
 license=('GPL2')
 makedepends=('qt5-declarative' 'knotifications' 'libnotify' 'alpm_octopi_utils' 'clang' 'qtermwidget')
-
+if [ "${_gitcommit}" != "" ]; then
+  source=("octopi-${pkgver}-${pkgrel}.tar.gz::https://github.com/aarnt/octopi/archive/${_gitcommit}.tar.gz")
+else
   source=("octopi-${pkgver}.tar.gz::https://github.com/aarnt/octopi/archive/v${pkgver}.tar.gz")
-
+fi
 source+=('remove-qdialog.patch')
-sha256sums=('f6c7fe6bbcc26a79b1e455a42a8dc906bee4edd1b386b4f76178f006f4d7f822'
-            'af8ebc8892a37c866556df391a078a50c6c56a4425e7ef31d35b27871e490229'
-            )
+sha256sums=('SKIP'
+            'af8ebc8892a37c866556df391a078a50c6c56a4425e7ef31d35b27871e490229')
 
 
 prepare() {
-  
+  mv ${srcdir}/${pkgbase}-${_gitcommit} ${srcdir}/${pkgbase}-${pkgver}
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
-    
+  fi
+
 
   # sed version
   sed -i -e "s|0.9.0|${pkgver}-${pkgrel}|g" src/strconstants.cpp
@@ -56,9 +61,12 @@ build() {
   cpucount=$(grep -c processor /proc/cpuinfo 2>/dev/null)
   jc=$((${cpucount:-1}))
 
-  
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
- 
+  fi
+
 
   msg "Starting build..."
   qmake-qt5 -makefile octopi.pro -spec linux-clang
@@ -105,7 +113,12 @@ package_octopi() {
               'pacmanlogviewer: to view pacman log files')
 
   
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
+  fi
+
   
 
   install -Dm755 "bin/octopi" "${pkgdir}/usr/bin/octopi"
@@ -124,7 +137,12 @@ package_octopi-pacmanhelper() {
   depends=('qt5-base')
 
   
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
+  fi
+
   
 
   install -Dm755 "notifier/bin/pacmanhelper" "${pkgdir}/usr/lib/octopi/pacmanhelper"
@@ -139,7 +157,12 @@ package_octopi-repoeditor() {
   depends=('qt5-base')
 
   
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
+  fi
+
   
 
   install -D -m755 "repoeditor/bin/octopi-repoeditor" "${pkgdir}/usr/bin/octopi-repoeditor"
@@ -150,7 +173,12 @@ package_octopi-cachecleaner() {
   depends=('qt5-base')
 
   
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
+  fi
+
   
 
   install -D -m755 "cachecleaner/bin/octopi-cachecleaner" "${pkgdir}/usr/bin/octopi-cachecleaner"
@@ -167,7 +195,12 @@ package_octopi-notifier() {
   replaces=('octopi-qt5-notifier' 'octopi-notifier-qt4' 'octopi-notifier-qt5')
 
 
+  if [ -z $_gitcommit ]; then
+    cd "${srcdir}/${pkgbase}-${_gitcommit}"
+  else
     cd "${srcdir}/${pkgbase}-${pkgver}"
+  fi
+
   
 
   # Octopi-notifier-qt5 files
