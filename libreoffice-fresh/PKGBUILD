@@ -15,6 +15,7 @@ pkgname=('libreoffice-fresh-sdk' 'libreoffice-fresh')
 _LOver=6.2.1.2
 pkgver=6.2.1
 pkgrel=1
+epoch=1
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
