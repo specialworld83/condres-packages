@@ -8,7 +8,7 @@
 
 pkgbase=linux               # Build stock -CONDRES kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.0-arch1
+_srcver=5.0.1-arch1
 pkgver=${_srcver//-/.}
 pkgrel=2
 _aufs=20190211
