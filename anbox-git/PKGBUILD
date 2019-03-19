@@ -2,7 +2,7 @@
 
 pkgname=('anbox-git' 'anbox-modules-dkms-git')
 _pkgname=anbox
-pkgver=r1055.bb97f3a
+pkgver=r1063.d521e28
 pkgrel=1
 epoch=1
 arch=('x86_64')
@@ -19,7 +19,8 @@ source=("git+https://github.com/anbox/anbox.git"
 	'anbox-bridge.network'
 	'anbox-bridge.netdev'
 	'extramodule_ashmem.patch'
-	'extramodule_binder.patch')
+	'extramodule_binder.patch'
+	'anbox.patch')
 sha256sums=('SKIP'
             'SKIP'
             '5be94b63dc30d141f15ca7d1be6e3e81f26ef33f844614975537562f5d08236c'
@@ -29,7 +30,9 @@ sha256sums=('SKIP'
             '7332d09865be553a259a53819cebddd21f661c7a251d78c2f46acd75c66676b6'
             '44899328725667041e6e84912da81c1d0147b708006eb2c2bb6503f271629ff0'
             '559190df4d6d595480b30d8b13b862081fc4aac52790e33eb24cf7fbcb8003b8'
-            'SKIP' 'SKIP')
+            'SKIP'
+            'SKIP'
+            'd89df72adced44825b84a8b5c56625daf1800eaff324a5218a2d51f0ae4672ba')
 
 pkgver() {
   cd "$srcdir/$_pkgname"
@@ -45,7 +48,9 @@ prepare() {
   # Don't build tests
   truncate -s 0 cmake/FindGMock.cmake
   truncate -s 0 tests/CMakeLists.txt
-  
+  # Fix build google::protobuf
+  patch -p1 < ${srcdir}/anbox.patch
+  # Build modules
   patch -p1 -i ${srcdir}/extramodule_ashmem.patch ${srcdir}/anbox-modules/ashmem/Makefile
   patch -p2 -i ${srcdir}/extramodule_binder.patch ${srcdir}/anbox-modules/binder/Makefile
 }
