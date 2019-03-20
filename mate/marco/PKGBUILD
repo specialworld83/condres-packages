@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=marco
-pkgver=1.21.1
+pkgver=1.22.0
 pkgrel=2
 pkgdesc="A window manager for MATE"
 url="https://mate-desktop.org"

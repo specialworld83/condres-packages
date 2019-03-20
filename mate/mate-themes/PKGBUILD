@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=mate-themes
-pkgver=3.22.18
+pkgver=3.22.19
 pkgrel=1
 pkgdesc="Default themes for the MATE desktop"
 url="https://mate-desktop.org"

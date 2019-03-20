@@ -1,6 +1,6 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname="mate-indicator-applet"
-pkgver=1.21.0
+pkgver=1.22.0
 pkgrel=1
 pkgdesc="Applet to display information from various applications consistently in the MATE panel."
 url="https://github.com/mate-desktop/${pkgname}"
