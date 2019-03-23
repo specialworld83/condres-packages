@@ -4,8 +4,8 @@ _linuxprefix=linux-macbook
 _extramodules=extramodules-macbook
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=418.43
-pkgrel=9
+pkgver=418.46
+pkgrel=10
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")

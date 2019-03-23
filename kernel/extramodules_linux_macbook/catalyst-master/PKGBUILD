@@ -6,7 +6,7 @@ _extramodules=extramodules-macbook
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=9
+pkgrel=10
 epoch=1
 _pkgver=15.201.1151
 provides=("$_pkgname=$_pkgver")
