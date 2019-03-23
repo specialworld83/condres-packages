@@ -98,7 +98,7 @@ sha256sums=('b83ad3a8aa7bebf34db9e984d518a8f2248ed685e04be8373cfa87bb04e31f69'
             '5099c5e7818a327b661c45c0bd218835c1e70b14861b5112525da1d48beebf8c'
             'SKIP'
             'SKIP'
-
+}
 prepare() {
 
 	cd libreoffice-$_LOver
