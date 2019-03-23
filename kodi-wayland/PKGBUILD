@@ -24,7 +24,7 @@
 #Rebuild packages into repository Condres OS
 
 pkgbase=kodi
-pkgname=('kodi-wayland ' 'kodi-eventclients-wayland ' 'kodi-tools-texturepacker-wayland ' 'kodi-dev-wayland ')
+pkgname=('kodi-wayland' 'kodi-eventclients-wayland' 'kodi-tools-texturepacker-wayland' 'kodi-dev-wayland')
 pkgver=18.1
 pkgrel=2
 arch=('x86_64')
@@ -128,7 +128,7 @@ build() {
 # components: kodi, kodi-bin
 
 package_kodi-wayland() {
-  pkgdesc="A software media player and entertainment hub for digital media"
+  pkgdesc="A software media player and entertainment hub for digital media support wayland"
   depends=(
     'bluez-libs' 'curl' 'desktop-file-utils' 'freetype2' 'fribidi'
     'hicolor-icon-theme' 'libass' 'libcdio' 'libjpeg-turbo' 'mariadb-libs'
@@ -175,7 +175,7 @@ package_kodi-wayland() {
 # components: kodi-eventclients-common kodi-eventclients-ps3 kodi-eventclients-wiiremote kodi-eventclients-kodi-send
 
 package_kodi-eventclients-wayland() {
-  pkgdesc="Kodi Event Clients"
+  pkgdesc="Kodi Event Clients support wayland"
   conflicts=('kodi-eventclients')
   optdepends=('python2: most eventclients are implemented in python2')
 
@@ -202,7 +202,7 @@ package_kodi-eventclients-wayland() {
 # components: kodi-tools-texturepacker
 
 package_kodi-tools-texturepacker-wayland() {
-  pkgdesc="Kodi Texturepacker tool"
+  pkgdesc="Kodi Texturepacker tool support wayland"
   depends=('libpng' 'giflib' 'libjpeg-turbo' 'lzo')
   conflicts=('kodi-tools-texturepacker')
   _components=(
@@ -222,7 +222,7 @@ package_kodi-tools-texturepacker-wayland() {
 # components: kodi-addon-dev kodi-audio-dev kodi-eventclients-dev kodi-game-dev kodi-inputstream-dev kodi-peripheral-dev kodi-pvr-dev kodi-screensaver-dev kodi-visualization-dev
 
 package_kodi-dev-wayland() {
-  pkgdesc="Kodi dev files"
+  pkgdesc="Kodi dev files support wayland"
   depends=('kodi-wayland')
   conflicts=('kodi-dev')
   _components=(
