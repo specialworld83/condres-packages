@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=7.3.4
-_pkgver=7.3.4
+pkgver=7.3.5
+_pkgver=7.3.5
 pkgrel=3
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
@@ -26,7 +26,7 @@ md5sums=('SKIP'
 
 prepare() {
 	cd "${srcdir}/pamac-v${pkgver}"
-	patch -p1 -i ${srcdir}/fix_build_vala045.patch ${srcdir}/pamac-v${pkgver}/src/meson.build
+	
     cp -rv ../pamac-tray.desktop ${srcdir}/pamac-v${pkgver}/data/applications/
 	  # patches here
   #patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
