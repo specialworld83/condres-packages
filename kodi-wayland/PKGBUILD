@@ -91,16 +91,17 @@ prepare() {
   [[ -d kodi-build ]] && rm -rf kodi-build
   mkdir kodi-build
 
-  cd "xbmc-$pkgver-$_codename"
-
+  cd "$srcdir/xbmc-$pkgver-$_codename"
+  
   # detect if building in arch chroot
   if [[ "$srcdir" =~ ^\/build.* ]]; then
     patch -p1 -i "$srcdir/cheat-sse-build.patch"
   fi
+  cp -rv $srcdir/xbmc-$pkgver-$_codename/* $srcdir/kodi-build
 }
 
 build() {
-  cd kodi-build
+  cd $srcdir/kodi-build
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DENABLE_EVENTCLIENTS=ON \
