@@ -8,7 +8,7 @@
 
 #pkgbase=linux               # Build stock -Condres kernel
 pkgbase=linux-macbook        # Build kernel with a different name
-_srcver=5.0.3-arch1
+_srcver=5.0.4-arch1
 epoch=2
 _aufs=20190211
 _bfq=v9
