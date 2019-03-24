@@ -119,7 +119,7 @@ build() {
     -DFSTRCMP_URL="$srcdir/$pkgbase-fstrcmp-$_fstrcmp_version.tar.gz" \
     -DFLATBUFFERS_URL="$srcdir/$pkgbase-flatbuffers-$_flatbuffers_version.tar.gz" \
     -DCORE_PLATFORM_NAME=wayland \
-    -DWAYLAND_RENDER_SYSTEM=gl
+    -DWAYLAND_RENDER_SYSTEM=gl \
     ../"xbmc-$pkgver-$_codename"
   make 
   make preinstall
