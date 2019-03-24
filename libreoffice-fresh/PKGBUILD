@@ -96,9 +96,9 @@ sha256sums=('b83ad3a8aa7bebf34db9e984d518a8f2248ed685e04be8373cfa87bb04e31f69'
             'eafde646a7dbe46d20c291685b0beac2382174d78d66ee990e229a1bf6e6cec6'
             'c463654a73ecfbc242ff109726fb4faecdbfb3d91affafe919b24bea65afb563'
             '5099c5e7818a327b661c45c0bd218835c1e70b14861b5112525da1d48beebf8c'
-            'SKIP'
-            'SKIP'
-}
+            '28c97effbe55e43a1370ab141c676cec9daba9e3dc408bec78136dfefc892a8b'
+            '7af3113c804e4d58c7de3b5ed10f515fc46e349a580ba56eebfc6e891acbef89')
+
 prepare() {
 
 	cd libreoffice-$_LOver
