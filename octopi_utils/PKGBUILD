@@ -1,16 +1,16 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=alpm_octopi_utils
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=2
-_commit=6d93c06d0feec0df7e5958c33df281eda91a6700
+_commit=19276e6269509d94bdb7a216da1b347c8dea6d73
 pkgdesc="Alpm utils for Octopi"
-url="https://octopiproject.wordpress.com/"
+url="https://github.com/aarnt/alpm_octopi_utils"
 arch=('any')
 license=('GPL3')
 makedepends=('vala')
 source=("https://github.com/aarnt/${pkgname}/archive/${_commit}.zip")
-md5sums=('e08da8f28da2bdaae0f267653aaec009')
+md5sums=('8345e79b38e13a09d2131e45ac7b6ff0')
          
 build() {
    cd ${pkgname}-${_commit}
