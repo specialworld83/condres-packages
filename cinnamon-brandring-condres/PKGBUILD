@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=cinnamon-brandring-condres
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 pkgdesc="Setup Cinnamon configuration for Condres Desktops"
 url="http://github.com/condres/cinnamon-brandring-condres"

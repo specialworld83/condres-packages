@@ -18,9 +18,9 @@ arch=('x86_64')
 license=('GPL2')
 makedepends=('xmlto' 'kmod' 'inetutils' 'bc' 'libelf' 'python-sphinx' 'graphviz')
 options=('!strip')
-source=(https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_pkgver}.tar.xz
-        https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_pkgver}.tar.sign
-        https://github.com/anthraxx/${pkgbase}/releases/download/${pkgver}/${pkgbase}-${pkgver}.patch
+source=(https://www.kernel.org/pub/linux/kernel/v${_pkgver//.*}.x/linux-${_pkgver}.tar.xz
+        https://www.kernel.org/pub/linux/kernel/v${_pkgver//.*}.x/linux-${_pkgver}.tar.sign
+         https://github.com/anthraxx/${pkgbase}/releases/download/${pkgver}/${pkgbase}-${pkgver}.patch
         config.x86_64  # the main kernel config files
         60-linux.hook  # pacman hook for depmod
         90-linux.hook  # pacman hook for initramfs regeneration
