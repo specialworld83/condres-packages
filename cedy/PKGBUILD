@@ -1,5 +1,5 @@
 pkgname=cedy
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='Install codecs and additional software to Condres OS'
 arch=('any')
