@@ -3,7 +3,7 @@
 pkgname=gnome-shell-extension-condres-menu
 pkgver=1.2.4_all
 pkgrel=10
-epoch=2
+epoch=3
 pkgdesc="The official applications menu for Condres OS."
 arch=('i686' 'x86_64')
 url="http://codelinsoft.com/"

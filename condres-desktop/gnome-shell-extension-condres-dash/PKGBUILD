@@ -3,7 +3,7 @@
 pkgname=gnome-shell-extension-condres-dash
 pkgver=1.4.1_all
 pkgrel=11
-epoch=1
+epoch=2
 pkgdesc="Various settings and changes for the dash in Condres Desktop."
 arch=('i686' 'x86_64')
 url="http://condres.com/"
