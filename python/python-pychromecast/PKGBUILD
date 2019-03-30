@@ -1,43 +1,31 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
-pkgbase=python-pychromecast
-_pkgname=pychromecast
-pkgname=('python-pychromecast' 'python2-pychromecast')
-pkgver=1.0.3
-pkgrel=2
-pkgdesc='Library for Python 2 and 3 to communicate with the Google Chromecast'
+# Maintainer: Sibren Vasse <arch@sibrenvasse.nl>
+# Contributor: Daniel M. Capella <polyzen@archlinux.info>
+# Contributor: Morten Linderud <morten@linderud.pw>
+
+pkgname=python-pychromecast
+_name=${pkgname#python-}
+pkgver=3.1.0
+pkgrel=1
+pkgdesc='Library for Python 3 to communicate with the Google Chromecast'
 arch=('any')
 url=https://github.com/balloob/pychromecast
 license=('MIT')
-makedepends=('python' 'python-setuptools'
-             'python2' 'python2-setuptools')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('48f0d7ae9fb00f4c5c469d805ae70ff612f7b2b47399cd568d2445998da248e33879af5e80406f63c312ef75732780375aca2ab0b9abf64158b8be05d80cf0d5')
-
-prepare() {
-  cp -a $_pkgname-$pkgver{,-py2}
-}
+depends=('python' 'python-protobuf' 'python-requests' 'python-zeroconf' 'python-six' 'python-setuptools' 'python-casttube')
+makedepends=('python-setuptools')
+source=("https://github.com/balloob/pychromecast/archive/$pkgver.tar.gz")
+sha512sums=('4b9572dda1ba9785480305b54905f2d9a81aa73ed9149036950a9bf06fc818297eaab064a333cacc85fc00d7b3335c372f61c5033029c00912d83e7daeb7d91f')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd "$_name-$pkgver"
   python setup.py build
-
-  cd ../$_pkgname-$pkgver-py2
-  python2 setup.py build
 }
 
-package_python-pychromecast() {
-  depends=('python' 'python-protobuf' 'python-requests' 'python-zeroconf' 'python-six')
-  cd $_pkgname-$pkgver
+package() {
+  cd "$_name-$pkgver"
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm644 -t "$pkgdir"/usr/share/$pkgname/examples examples/*
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
-package_python2-pychromecast() {
-  depends=('python2' 'python2-protobuf' 'python2-requests' 'python2-zeroconf' 'python2-six')
-  cd $_pkgname-$pkgver-py2
-  python2 setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm644 -t "$pkgdir"/usr/share/$pkgname/examples examples/*
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-}
+# vim:set ts=2 sw=2 et:

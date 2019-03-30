@@ -2,7 +2,7 @@
 
 _pkgname=mintmenu
 pkgname=mate-mint-menu
-pkgver=5.8.9
+pkgver=5.9.0
 pkgrel=2
 pkgdesc="Linux Mint Menu for MATE"
 arch=('any')
