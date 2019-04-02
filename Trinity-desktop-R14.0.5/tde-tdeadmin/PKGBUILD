@@ -2,7 +2,7 @@
 # Contributor: David C. Rankin <drankinatty at gmail dot com>
 
 pkgname=tde-tdeadmin
-pkgver=14.0.4
+pkgver=14.0.5
 pkgrel=1
 pkgdesc="The TDE system administration utilities"
 arch=('i686' 'x86_64')
