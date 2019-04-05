@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=veyon
-pkgver=4.1.7
+pkgver=4.1.8
 pkgrel=9
 pkgdesc="Free and Open Source computer monitoring and classroom management" 
 url="https://github.com/veyon"
@@ -10,7 +10,7 @@ depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-graphicaleffects' 
 license=(LGPL)
 optdepends=('kldap: KDE support')
 makedepends=('git' 'cmake' 'qt5-tools')
-_commit=f42294c04c0b4cc3c350e4e15263378123a625d0 #tags/4.1.7
+_commit=a51e9c86ffbe996c91ec84664f75318c2dc88ca6 #tags/4.1.8
 source=("git+${url}/veyon#commit=$_commit"
     "git+${url}/ultravnc.git"
     "git+${url}/libvncserver.git"
