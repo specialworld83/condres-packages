@@ -1,0 +1,20 @@
+--- meson.build	2019-04-06 20:51:25.958282255 +0200
++++ meson.build.new	2019-04-06 20:52:15.756852906 +0200
+@@ -132,7 +132,7 @@
+ mutter320_dep = dependency('libmutter', version: ['>= 3.19', '< 3.21'], required: false)
+ if mutter320_dep.found()
+ 	mutter_packages_command = [
+-		'--pkg', 'libmutter',
++		'--pkg', 'libmutter-2',
+ 		'--pkg', 'cogl-1.0',
+ 		'--pkg', 'clutter-1.0'
+ 	]
+@@ -145,7 +145,7 @@
+ mutter322_dep = dependency('libmutter', version: ['>= 3.21', '< 3.23'], required: false)
+ if mutter322_dep.found()
+ 	mutter_packages_command = [
+-		'--pkg', 'libmutter',
++		'--pkg', 'libmutter-2',
+ 		'--pkg', 'mutter-cogl-1.0',
+ 		'--pkg', 'mutter-cogl-pango-1.0',
+ 		'--pkg', 'mutter-cogl-path-1.0',

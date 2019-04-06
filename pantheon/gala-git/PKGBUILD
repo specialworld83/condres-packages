@@ -48,8 +48,10 @@ provides=(
   libgala.so
 )
 conflicts=(gala)
-source=(git+https://github.com/elementary/gala.git)
-sha256sums=(SKIP)
+source=(git+https://github.com/elementary/gala.git
+        patch_mutter.patch)
+sha256sums=(SKIP
+            SKIP)
 
 pkgver() {
   cd gala
@@ -58,6 +60,7 @@ pkgver() {
 }
 
 build() {
+  patch -p1 -i ${srcdir}/patch_mutter.patch ${srcdir}/gala/meson.build
   arch-meson gala build \
     -D b_pie=false
   ninja -C build
