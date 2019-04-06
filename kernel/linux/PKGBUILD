@@ -197,7 +197,7 @@ prepare() {
  patch -Np1 -i ${srcdir}/kernel-5.0-rc8-lima.patch
  patch -Np1 -i ${srcdir}/linux-4.7-intel-dvi-duallink.patch
  patch -Np1 -i ${srcdir}/linux-4.8.1-buildfix.patch
- patch -Np1 -i ${srcdir}/linux-5.0-rc7-fix-speakers-on-acer-predator-helios-500.patch
+ #patch -Np1 -i ${srcdir}/linux-5.0-rc7-fix-speakers-on-acer-predator-helios-500.patch
  patch -Np1 -i ${srcdir}/long-long.patch
  patch -Np1 -i ${srcdir}/RFC-v3-01-13-bootsplash-Initial-implementation-showing-black-screen.patch
  patch -Np1 -i ${srcdir}/RFC-v3-02-13-bootsplash-Add-file-reading-and-picture-rendering.patch
