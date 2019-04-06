@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Gnu Linux dev team <info@codelinsoft.it>
 
 pkgname=condres-mirrorlist
-pkgver=20190304
+pkgver=20190406
 pkgrel=2
 epoch=1
 pkgdesc="Condres OS mirror list for use by pacman"
