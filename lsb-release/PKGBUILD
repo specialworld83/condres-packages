@@ -8,7 +8,7 @@ pkgdesc="LSB version query program"
 arch=('any')
 url="http://www.linuxbase.org/"
 license=('GPL2')
-depends=('bash' 'condres-settings-manager' 'ttf-hack' 'mint-sounds' 'deja-dup' 'stacer' 'mhwd' 'mhwd-db' 'powerline-vim-condres'  'pacman-condres' 'condres-welcome'   'condres-desktop-settings' 'condres-mirrorlist' 'cedy')
+depends=('bash' 'condres-settings-manager' 'ttf-hack' 'mint-sounds' 'deja-dup' 'stacer' 'mhwd' 'mhwd-db' 'powerline-vim-condres'  'pacman-condres' 'condres-welcome'   'condres-desktop-settings' 'condres-mirrorlist' 'cedy' 'icu63')
 install=lsb-release.install
 source=(http://downloads.sourceforge.net/lsb/$pkgname-$pkgver.tar.gz
         lsb_release_description.patch)
