@@ -2,8 +2,8 @@
 
 pkgname=lsb-release
 pkgver=1.4
-pkgrel=66
-epoch=3
+pkgrel=67
+epoch=4
 pkgdesc="LSB version query program"
 arch=('any')
 url="http://www.linuxbase.org/"
