@@ -4,8 +4,8 @@
 pkgname=cryptsetup
 _pkgver=2.1.0
 pkgver=2.1.0
-pkgrel=1.1
-pkgdesc='Userspace setup tool for transparent encryption of block devices using dm-crypt (Manjaro Overlay)'
+pkgrel=1.2
+pkgdesc='Userspace setup tool for transparent encryption of block devices using dm-crypt'
 arch=(x86_64)
 license=('GPL')
 url='https://gitlab.com/cryptsetup/cryptsetup/'
