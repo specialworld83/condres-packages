@@ -2,8 +2,8 @@
 
 pkgbase=artwork-condres-dark
 pkgname=('condres-icon-theme' 'condres-dark-icon-theme' 'plasma5-themes-condres' 'sddm-condres-theme' )
-pkgver=3.6
-pkgrel=13
+pkgver=3.7
+pkgrel=14
 url=https://www.codelinsoft.it/updates/
 arch=('any')
 license=('LGPL')

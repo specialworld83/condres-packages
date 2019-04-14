@@ -1,9 +1,9 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=plymouth-theme-condres
-pkgver=2.3
+pkgver=2.4
 pkgrel=22
-epoch=4
+epoch=5
 pkgdesc="Condres Plymouth Theme"
 arch=('any')
 license=('unknown')
