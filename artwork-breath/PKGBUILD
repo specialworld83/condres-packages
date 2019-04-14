@@ -2,8 +2,8 @@
 
 pkgbase=artwork-condres-dark
 pkgname=('condres-icon-theme' 'condres-dark-icon-theme' 'plasma5-themes-condres' 'sddm-condres-theme' )
-pkgver=3.5
-pkgrel=12
+pkgver=3.6
+pkgrel=13
 url=https://www.codelinsoft.it/updates/
 arch=('any')
 license=('LGPL')
@@ -70,7 +70,7 @@ package_plasma5-themes-condres() {
 
 package_sddm-condres-theme() {
   pkgdesc="condres theme for SDDM"
-  depends=('plasma-framework' 'plasma-workspace')
+  depends=('plasma-framework' 'plasma-workspace' 'qt5-quickcontrols2' 'qt5-quickcontrols')
   cd build
   make DESTDIR="${pkgdir}" install
   rm -rf "${pkgdir}/usr/share/color-schemes"

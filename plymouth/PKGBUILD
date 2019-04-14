@@ -3,7 +3,7 @@
 pkgname=plymouth-theme-condres
 pkgver=2.3
 pkgrel=22
-epoch=3
+epoch=4
 pkgdesc="Condres Plymouth Theme"
 arch=('any')
 license=('unknown')
