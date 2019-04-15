@@ -30,7 +30,7 @@ replaces=('linux-grsec')
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            '768b0e588cbf83d3cc5a59f4b545022502a64414b20b32abacba5da3ba07f362'
+            'eee58065491176b75927ec5532a0997d352bc6a4d2e844be3a3c337c71295a4b'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             'c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65')

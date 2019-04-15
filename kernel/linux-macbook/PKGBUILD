@@ -9,27 +9,29 @@
 #pkgbase=linux               # Build stock -Condres kernel
 pkgbase=linux-macbook        # Build kernel with a different name
 _srcver=5.0.7-arch1
-epoch=2
-_aufs=20190211
-_bfq=v9
-_bfqdate=20190204
 pkgver=${_srcver//-/.}
-pkgrel=1
+pkgrel=2
+epoch=2
 arch=(x86_64)
-url="https://git.archlinux.org/linux.git/log/?h=v$_srcver"
+_kernelname=-Condres-macbook
+_basekernel=5.0
+_basever=50
+_sub=7
+url="http://www.kernel.org/"
+_pkgver=${_basekernel}.${_sub}
 license=(GPL2)
-makedepends=(xmlto kmod inetutils bc libelf git python-sphinx graphviz)
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'elfutils' 'git')
 options=('!strip')
 _srcname=archlinux-linux
 source=(
-  "$_srcname::git+https://git.archlinux.org/linux.git?signed#tag=v$_srcver"
+  "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
+  "https://www.kernel.org/pub/linux/kernel/v5.x/patch-${_pkgver}.xz"
+  0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
   saa716x-driver.tar.xz
   config         # the main kernel config file
   60-linux.hook  # pacman hook for depmod
   90-linux.hook  # pacman hook for initramfs regeneration
-  linux.preset   # standard config files for mkinitcpio ramdisk
-  macbook-wakeup.service # service file for suspend/resume events
-  RFC-PCI-Workaround-to-enable-poweroff-on-Mac-Pro-11.patch
+  linux.preset   # standard config files for mkinitcpio ramdisk'
   # Condres Patches
   0001-Add-support-for-Acer-Predator-macro-keys.patch
   0001-gcctunes-4.18-merge-graysky-s-patchset.patch
@@ -95,13 +97,13 @@ validpgpkeys=(
   '4F76D9DD88F78E3F' #Condres OS Dev team
 )
 sha256sums=('SKIP'
+            'SKIP'
+            '37b86ca3de148a34258e3176dbf41488d9dbd19e93adbd22a062b3c41332ce85'
             'e40086e3148f8dacd761f308cdd747775e0b065f9f824bfc81b0bb47b9aec2f3'
             'f863b3e9640161f61e859f22f2d1258c940101de8f007a207c1ede2f71d36206'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             'c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-            c5a714823c3418692bc5c212dd5d094a0e2ae6147d6726822911f1c26e3a1d1b
-            a4e044fb954f035aa70af4c7d79f8a6076933bdbbf9efee749304829621d77ed
             'd6c6db6d20d24e7f4153abc5b0434dc2205a65cfa609139e2eff5839252b07c8'
             '65d8e8879b718c825eba24da995174661fcf8a9d262a3255e1a23338dd36313e'
             'a336eac26de35e7801cdba88566573ce65aedc9d12d8b5829df0a68df3768af3'
@@ -161,15 +163,19 @@ sha256sums=('SKIP'
             
             
 )
-_kernelname=${pkgbase#linux}
-: ${_kernelname:=-condres-macbook}
+#_kernelname=${pkgbase#linux}
+#: ${_kernelname:=-CONDRES}
 
 prepare() {
+  mv "${srcdir}/linux-${_basekernel}" "${srcdir}/$_srcname"
   cd $_srcname
+ # add upstream patch
+  patch -p1 -i "${srcdir}/patch-${_pkgver}"
   cp -rv ${srcdir}/drivers/* ${srcdir}/$_srcname/drivers/
+ patch -Np1 -i ${srcdir}/0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
  patch -Np1 -i ${srcdir}/0001-Add-support-for-Acer-Predator-macro-keys.patch
  patch -Np1 -i ${srcdir}/0001-gcctunes-4.18-merge-graysky-s-patchset.patch
-# patch -Np1 -i ${srcdir}/0001-uksm-5.0-initial-submission.patch
+ patch -Np1 -i ${srcdir}/0001-uksm-5.0-initial-submission.patch
  patch -Np1 -i ${srcdir}/0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
  patch -Np1 -i ${srcdir}/0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
  patch -Np1 -i ${srcdir}/0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
@@ -190,7 +196,7 @@ prepare() {
  patch -Np1 -i ${srcdir}/0124-kernel-time-reduce-ntp-wakeups.patch
  patch -Np1 -i ${srcdir}/0125-init-wait-for-partition-and-retry-scan.patch
  patch -Np1 -i ${srcdir}/0502-locking-rwsem-spin-faster.patch
- #patch -Np1 -i ${srcdir}/0915-fixes-from-pfkernel.patch
+ patch -Np1 -i ${srcdir}/0915-fixes-from-pfkernel.patch
  patch -Np1 -i ${srcdir}/android-enable-building-ashmem-and-binder-as-modules.patch
  patch -Np1 -i ${srcdir}/ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
  patch -Np1 -i ${srcdir}/die-floppy-die.patch
@@ -200,7 +206,7 @@ prepare() {
  patch -Np1 -i ${srcdir}/kernel-5.0-rc8-lima.patch
  patch -Np1 -i ${srcdir}/linux-4.7-intel-dvi-duallink.patch
  patch -Np1 -i ${srcdir}/linux-4.8.1-buildfix.patch
- #patch -Np1 -i ${srcdir}/linux-5.0-rc7-fix-speakers-on-acer-predator-helios-500.patch
+ patch -Np1 -i ${srcdir}/linux-5.0-rc7-fix-speakers-on-acer-predator-helios-500.patch
  patch -Np1 -i ${srcdir}/long-long.patch
  patch -Np1 -i ${srcdir}/RFC-v3-01-13-bootsplash-Initial-implementation-showing-black-screen.patch
  patch -Np1 -i ${srcdir}/RFC-v3-02-13-bootsplash-Add-file-reading-and-picture-rendering.patch
