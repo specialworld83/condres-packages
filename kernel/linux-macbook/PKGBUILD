@@ -31,7 +31,9 @@ source=(
   config         # the main kernel config file
   60-linux.hook  # pacman hook for depmod
   90-linux.hook  # pacman hook for initramfs regeneration
-  linux.preset   # standard config files for mkinitcpio ramdisk'
+  linux.preset   # standard config files for mkinitcpio ramdisk
+  macbook-wakeup.service # service file for suspend/resume events
+  RFC-PCI-Workaround-to-enable-poweroff-on-Mac-Pro-11.patch
   # Condres Patches
   0001-Add-support-for-Acer-Predator-macro-keys.patch
   0001-gcctunes-4.18-merge-graysky-s-patchset.patch
@@ -104,6 +106,8 @@ sha256sums=('SKIP'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
             'c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
+             c5a714823c3418692bc5c212dd5d094a0e2ae6147d6726822911f1c26e3a1d1b
+            a4e044fb954f035aa70af4c7d79f8a6076933bdbbf9efee749304829621d77ed
             'd6c6db6d20d24e7f4153abc5b0434dc2205a65cfa609139e2eff5839252b07c8'
             '65d8e8879b718c825eba24da995174661fcf8a9d262a3255e1a23338dd36313e'
             'a336eac26de35e7801cdba88566573ce65aedc9d12d8b5829df0a68df3768af3'

@@ -175,7 +175,7 @@ prepare() {
  patch -Np1 -i ${srcdir}/0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
  patch -Np1 -i ${srcdir}/0001-Add-support-for-Acer-Predator-macro-keys.patch
  patch -Np1 -i ${srcdir}/0001-gcctunes-4.18-merge-graysky-s-patchset.patch
- patch -Np1 -i ${srcdir}/0001-uksm-5.0-initial-submission.patch
+ #patch -Np1 -i ${srcdir}/0001-uksm-5.0-initial-submission.patch
  patch -Np1 -i ${srcdir}/0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
  patch -Np1 -i ${srcdir}/0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
  patch -Np1 -i ${srcdir}/0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
