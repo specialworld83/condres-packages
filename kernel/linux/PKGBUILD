@@ -196,7 +196,7 @@ prepare() {
  patch -Np1 -i ${srcdir}/0124-kernel-time-reduce-ntp-wakeups.patch
  patch -Np1 -i ${srcdir}/0125-init-wait-for-partition-and-retry-scan.patch
  patch -Np1 -i ${srcdir}/0502-locking-rwsem-spin-faster.patch
- patch -Np1 -i ${srcdir}/0915-fixes-from-pfkernel.patch
+ #patch -Np1 -i ${srcdir}/0915-fixes-from-pfkernel.patch
  patch -Np1 -i ${srcdir}/android-enable-building-ashmem-and-binder-as-modules.patch
  patch -Np1 -i ${srcdir}/ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
  patch -Np1 -i ${srcdir}/die-floppy-die.patch
