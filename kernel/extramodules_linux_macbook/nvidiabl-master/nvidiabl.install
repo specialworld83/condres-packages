@@ -1,4 +1,4 @@
-EXTRAMODULES='extramodules-macbook'
+EXTRAMODULES='extramodules-Condres-macbook'
 VERSION='linux-macbook'
 
 post_install() {

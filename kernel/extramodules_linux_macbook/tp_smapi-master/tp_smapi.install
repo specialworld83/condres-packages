@@ -1,4 +1,4 @@
-extramodules=/usr/lib/modules/extramodules-macbook
+extramodules=/usr/lib/modules/extramodules-Condres-macbook
 
 post_install() {
   depmod -v $(< "$extramodules/version") &>/dev/null

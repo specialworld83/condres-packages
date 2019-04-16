@@ -1,5 +1,5 @@
 rebuild_module_dependencies() {
-	EXTRAMODULES=extramodules-macbook
+	EXTRAMODULES=extramodules-Condres-macbook
 	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 

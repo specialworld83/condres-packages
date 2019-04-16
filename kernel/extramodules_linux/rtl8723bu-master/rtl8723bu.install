@@ -1,5 +1,5 @@
 rebuild_module_dependencies() {
-	EXTRAMODULES=extramodules-CONDRES
+	EXTRAMODULES=extramodules-Condres
 	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 

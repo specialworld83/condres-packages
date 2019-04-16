@@ -1,14 +1,14 @@
 post_install() {
-  EXTRAMODULES='extramodules-macbook'
+  EXTRAMODULES='extramodules-Condres-macbook'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_upgrade() {
-  EXTRAMODULES='extramodules-macbook'
+  EXTRAMODULES='extramodules-Condres-macbook'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
 post_remove() {
-  EXTRAMODULES='extramodules-macbook'
+  EXTRAMODULES='extramodules-Condres-macbook'
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }

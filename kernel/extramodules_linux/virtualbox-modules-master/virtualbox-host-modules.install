@@ -1,4 +1,4 @@
-EXTRAMODULES='extramodules-CONDRES'
+EXTRAMODULES='extramodules-Condres'
 
 post_install() {
 cat << EOF
