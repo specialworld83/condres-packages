@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 _linuxprefix=linux
-_extramodules=extramodules-CONDRES
+_extramodules=extramodules-Condres
 pkgbase=$_linuxprefix-spl_zfs
 pkgname=("$_linuxprefix-spl" "$_linuxprefix-zfs")
 pkgver=0.7.12

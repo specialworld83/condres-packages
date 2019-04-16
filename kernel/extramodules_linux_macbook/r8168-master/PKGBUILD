@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 _linuxprefix=linux-macbook
-_extramodules=extramodules-macbook
+_extramodules=extramodules-Condres-macbook
 pkgname=$_linuxprefix-r8168
 _pkgname=r8168
 pkgver=8.045.08

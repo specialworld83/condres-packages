@@ -2,7 +2,7 @@
 
 
 _linuxprefix=linux-macbook
-_extramodules=extramodules-macbook
+_extramodules=extramodules-Condres-macbook
 pkgbase=ndiswrapper
 pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
 _pkgname=ndiswrapper

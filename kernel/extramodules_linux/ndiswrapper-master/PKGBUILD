@@ -2,7 +2,7 @@
 
 
 _linuxprefix=linux
-_extramodules=extramodules-CONDRES
+_extramodules=extramodules-Condres
 pkgbase=ndiswrapper
 pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
 _pkgname=ndiswrapper

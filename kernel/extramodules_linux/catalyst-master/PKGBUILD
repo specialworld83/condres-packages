@@ -2,7 +2,7 @@
 
 
 _linuxprefix=linux
-_extramodules=extramodules-CONDRES
+_extramodules=extramodules-Condres
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151

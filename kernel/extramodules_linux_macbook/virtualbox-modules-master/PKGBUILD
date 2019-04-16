@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 _linuxprefix=linux-macbook
-_extramodules=extramodules-macbook
+_extramodules=extramodules-Condres-macbook
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
 pkgver=6.0.4
