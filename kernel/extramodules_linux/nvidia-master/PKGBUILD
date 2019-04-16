@@ -2,40 +2,32 @@
 
 _linuxprefix=linux
 _extramodules=extramodules-CONDRES
-pkgname=$_linuxprefix-nvidia-390xx
+pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=390.116
-pkgrel=12
+pkgver=418.56
+pkgrel=11
+epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="http://www.nvidia.com/"
-depends=("$_linuxprefix" "nvidia-390xx-utils=${pkgver}")
+depends=("$_linuxprefix" "nvidia-utils=${epoch}:${pkgver}")
 makedepends=("$_linuxprefix-headers")
-conflicts=('nvidia-96xx' 'nvidia-183xx')
+conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=('linux420.patch')
-source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('SKIP')
-sha256sums_i686=('SKIP')
 sha256sums_x86_64=('SKIP')
 
-[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
 prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    #patch -p0 -i ../linux420.patch
-    # Linux 419 compat
-    sed -i -e 's/drm_mode_connector_attach_encoder/drm_connector_attach_encoder/g' kernel/nvidia-drm/nvidia-drm-encoder.c
-    sed -i -e 's/drm_mode_connector_update_edid_property/drm_connector_update_edid_property/g' kernel/nvidia-drm/nvidia-drm-connector.c
 }
 
 build() {
