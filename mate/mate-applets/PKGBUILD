@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=mate-applets
-pkgver=1.22.0
+pkgver=1.22.1
 pkgrel=2
 pkgdesc="Applets for MATE panel"
 arch=('x86_64')
