@@ -14,7 +14,7 @@ pkgbase=libreoffice-fresh
 pkgname=('libreoffice-fresh-sdk' 'libreoffice-fresh')
 _LOver=6.2.3.2
 pkgver=6.2.3
-pkgrel=3
+pkgrel=4
 epoch=1
 arch=('x86_64')
 license=('LGPL3')
@@ -138,7 +138,7 @@ build() {
 	CPPFLAGS+=' -DU_USING_ICU_NAMESPACE=1'
 
 	./autogen.sh --with-build-version="${pkgver}-${pkgrel}" \
-		--with-vendor="Arch Linux" \
+		--with-vendor="Condres OS Linux" \
 		--enable-split-app-modules \
 		--with-parallelism=${_MAKEFLAGS/-j/} \
 		--with-external-tar="${srcdir}/ext_sources" \
