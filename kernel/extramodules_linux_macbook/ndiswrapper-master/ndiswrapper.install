@@ -5,7 +5,7 @@ post_install()
 
 post_upgrade()
 {
-  EXTRAMODULES=extramodules-Condres-macbook
+  EXTRAMODULES=extramodules-Condres
   depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 

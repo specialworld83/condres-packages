@@ -1,49 +1,38 @@
---- kernel/uvm/nvidia_uvm_linux.h  2017-03-31 03:42:21.000000000 +0200
-+++ kernel/uvm/nvidia_uvm_linux.h  2017-04-06 23:53:14.273356795 +0200
-@@ -362,17 +363,6 @@
-     void address_space_init_once(struct address_space *mapping);
- #endif
-
--#if !defined(NV_FATAL_SIGNAL_PENDING_PRESENT)
--    static inline int __fatal_signal_pending(struct task_struct *p)
--    {
--        return unlikely(sigismember(&p->pending.signal, SIGKILL));
--    }
--
--    static inline int fatal_signal_pending(struct task_struct *p)
--    {
--        return signal_pending(p) && __fatal_signal_pending(p);
--    }
--#endif
-
- //
- // Before the current->cred structure was introduced, current->euid,
---- kernel/uvm/nvidia_uvm_lite.c  2017-03-31 03:42:21.000000000 +0200
-+++ kernel/uvm/nvidia_uvm_lite.c  2017-04-06 23:53:14.273356795 +0200
-@@ -818,7 +818,7 @@
+--- kernel/uvm/nvidia_uvm_lite.c	2017-09-27 13:50:46.334075042 +0200
++++ kernel/uvm/nvidia_uvm_lite.c	2017-09-27 13:56:06.358041280 +0200
+@@ -818,7 +818,11 @@
  }
-
+ 
  #if defined(NV_VM_OPERATIONS_STRUCT_HAS_FAULT)
--int _fault(struct vm_area_struct *vma, struct vm_fault *vmf)
-+int _fault(struct vm_fault *vmf)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 11, 0)
+ int _fault(struct vm_area_struct *vma, struct vm_fault *vmf)
++#else 	
++int _fault(struct vm_fault *vmf) 	
++#endif
  {
-     unsigned long vaddr = (unsigned long)vmf->address;
-     struct page *page = NULL;
-@@ -828,7 +828,7 @@
+ #if defined(NV_VM_FAULT_HAS_ADDRESS)
+     unsigned long vaddr = vmf->address;
+@@ -828,7 +832,11 @@
      struct page *page = NULL;
      int retval;
-
--    retval = _fault_common(vma, vaddr, &page, vmf->flags);
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 11, 0)
+     retval = _fault_common(vma, vaddr, &page, vmf->flags);
++#else
 +    retval = _fault_common(NULL, vaddr, &page, vmf->flags);
-
++#endif
+ 
      vmf->page = page;
-
-@@ -866,7 +866,7 @@
+ 
+@@ -866,7 +874,11 @@
  // it's dealing with anonymous mapping (see handle_pte_fault).
  //
  #if defined(NV_VM_OPERATIONS_STRUCT_HAS_FAULT)
--int _sigbus_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 11, 0)
+ int _sigbus_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
++#else
 +int _sigbus_fault(struct vm_fault *vmf)
++#endif
  {
      vmf->page = NULL;
      return VM_FAULT_SIGBUS;
