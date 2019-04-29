@@ -76,7 +76,7 @@ noextract=(35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 validpgpkeys=('C2839ECAD9408FBE9531C3E9F434A1EFAFEEAEA3') # LibreOffice Build Team (CODE SIGNING KEY) <build@documentfoundation.org>
 sha256sums=('SKIP'
             'SKIP'
-            '619f92db787dc8cb4aa81f203b3eefbd02a4affd382bf8d1b9268c846d360d92'
+            'SKIP'
             'SKIP'
             '37e86f2675003a43379658ca5ad65e9093df5353dc0e6dc0a2d34450dbab1745'
             'SKIP'
