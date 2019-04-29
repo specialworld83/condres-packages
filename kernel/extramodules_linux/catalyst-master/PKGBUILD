@@ -6,7 +6,7 @@ _extramodules=extramodules-Condres
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=11
+pkgrel=12
 epoch=1
 _pkgver=15.201.1151
 provides=("$_pkgname=$_pkgver")

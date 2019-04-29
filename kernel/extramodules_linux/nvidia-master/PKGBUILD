@@ -5,7 +5,7 @@ _extramodules=extramodules-Condres
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=418.56
-pkgrel=11
+pkgrel=12
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
