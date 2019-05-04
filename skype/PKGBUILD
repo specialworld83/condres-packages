@@ -1,7 +1,7 @@
 _pkgname=skypeforlinux
 pkgname=$_pkgname-stable
-pkgver=8.43.76.38
-epoch=2
+pkgver=8.44.0.40
+epoch=3
 pkgrel=2
 pkgdesc="Skype for Linux - Stable/Release Version"
 arch=("x86_64")

@@ -3,7 +3,7 @@
 _name=toml
 pkgname=python-$_name
 pkgver=0.9.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Parse and emit TOML'
 arch=('any')
 url="https://github.com/uiri/$_name"

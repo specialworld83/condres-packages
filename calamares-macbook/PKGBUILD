@@ -1,9 +1,9 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares-macbook
-pkgver=3.2.4
+pkgver=3.2.7
 pkgrel=18
-epoch=6
+epoch=7
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
 arch=('any')
