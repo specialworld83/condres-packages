@@ -1,0 +1,46 @@
+--- archive_files/common/lib/modules/fglrx/build_mod/firegl_public.c	2018-12-29 11:59:21.056985641 +0100
++++ archive_filesb/common/lib/modules/fglrx/build_mod/firegl_public.c	2018-12-29 12:30:07.538693938 +0100
+@@ -2737,12 +2741,12 @@ void ATI_API_CALL KCL_UnlockMemPage(void
+ 
+ int ATI_API_CALL KCL_MEM_VerifyReadAccess(void* addr, kcl_size_t size)
+ {
+-    return access_ok(VERIFY_READ, addr, size) ? 0 : -EFAULT;
++    return access_ok(addr, size) ? 0 : -EFAULT;
+ }
+ 
+ int ATI_API_CALL KCL_MEM_VerifyWriteAccess(void* addr, kcl_size_t size)
+ {
+-    return access_ok(VERIFY_WRITE, addr, size) ? 0 : -EFAULT;
++    return access_ok(addr, size) ? 0 : -EFAULT;
+ }
+ 
+ /** \brief Get Init kernel PTE by address. Couldn't be used for kernel >= 2.6.25.
+@@ -6623,7 +6623,7 @@ static int KCL_fpu_save_init(struct task
+ void ATI_API_CALL KCL_fpu_begin(void)
+ {
+ #ifdef CONFIG_X86_64
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4,2,0)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,2,0) || LINUX_VERSION_CODE >= KERNEL_VERSION(4,21,0)
+     kernel_fpu_begin();
+ #else
+     preempt_disable();
+@@ -6673,7 +6673,7 @@ void ATI_API_CALL KCL_fpu_begin(void)
+  */
+ void ATI_API_CALL KCL_fpu_end(void)
+ {
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4,2,0)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,2,0) || LINUX_VERSION_CODE >= KERNEL_VERSION(4,21,0)
+     kernel_fpu_end();
+ #else
+     __kernel_fpu_end();
+--- archive_files/common/lib/modules/fglrx/build_mod/kcl_ioctl.c.orig	2019-03-06 19:23:08.711638000 +0100
+--- archive_files/common/lib/modules/fglrx/build_mod/kcl_ioctl.c	2019-03-06 19:25:24.482601942 +0100
+@@ -228,7 +228,7 @@ void* ATI_API_CALL KCL_IOCTL_AllocUserSp
+     void __user *ret = COMPAT_ALLOC_USER_SPACE(size);
+ 
+     /* prevent stack overflow */
+-    if (!access_ok(VERIFY_WRITE, ret, size))
++    if (!access_ok(ret, size))
+         return NULL;
+ 
+     return (void *)ret;
