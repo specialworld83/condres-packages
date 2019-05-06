@@ -8,7 +8,7 @@
 
 pkgbase=linux               # Build stock -CONDRES kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.0.12-arch1
+_srcver=5.0.13-arch1
 pkgver=${_srcver//-/.}
 pkgrel=3
 epoch=2
@@ -16,7 +16,7 @@ arch=(x86_64)
 _kernelname=-Condres
 _basekernel=5.0
 _basever=50
-_sub=12
+_sub=13
 url="http://www.kernel.org/"
 _pkgver=${_basekernel}.${_sub}
 license=(GPL2)
@@ -198,7 +198,7 @@ prepare() {
  patch -Np1 -i ${srcdir}/0502-locking-rwsem-spin-faster.patch
  #patch -Np1 -i ${srcdir}/0915-fixes-from-pfkernel.patch
  patch -Np1 -i ${srcdir}/android-enable-building-ashmem-and-binder-as-modules.patch
- patch -Np1 -i ${srcdir}/ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
+ #patch -Np1 -i ${srcdir}/ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
  patch -Np1 -i ${srcdir}/die-floppy-die.patch
  patch -Np1 -i ${srcdir}/drop_ancient-and-wrong-msg.patch
  patch -Np1 -i ${srcdir}/export-symbols-needed-by-android-drivers.patch
