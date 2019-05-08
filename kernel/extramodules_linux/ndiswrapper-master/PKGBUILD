@@ -4,7 +4,7 @@
 pkgname=ndiswrapper-condres
 pkgver=1.61
 _extramodules=extramodules-Condres
-pkgrel=25
+pkgrel=26
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors, kernel module for Arch kernel"
 arch=('x86_64')
 url="http://sourceforge.net/projects/ndiswrapper/"

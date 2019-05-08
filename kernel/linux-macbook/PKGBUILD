@@ -8,7 +8,7 @@
 
 #pkgbase=linux               # Build stock -Condres kernel
 pkgbase=linux-macbook        # Build kernel with a different name
-_srcver=5.0.13-arch1
+_srcver=5.0.14-arch1
 pkgver=${_srcver//-/.}
 pkgrel=2
 epoch=2
@@ -16,7 +16,7 @@ arch=(x86_64)
 _kernelname=-Condres-macbook
 _basekernel=5.0
 _basever=50
-_sub=13
+_sub=14
 url="http://www.kernel.org/"
 _pkgver=${_basekernel}.${_sub}
 license=(GPL2)
