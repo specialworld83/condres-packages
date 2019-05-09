@@ -1,5 +1,4 @@
-# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
-# Maintainer: Roland Singer <roland[at]manjaro[dog]org>
+# Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 
 _linuxprefix=linux
@@ -7,7 +6,7 @@ _extramodules=extramodules-Condres
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
 pkgver=15.201.1151
-pkgrel=15
+pkgrel=16
 epoch=1
 _pkgver=15.201.1151
 provides=("$_pkgname=$_pkgver")
