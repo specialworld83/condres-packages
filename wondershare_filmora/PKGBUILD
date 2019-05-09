@@ -17,7 +17,7 @@ install=filmora.install
 source=("https://effects.wondershare.com/download/5bf4f349ad488/filmora_full846.exe"
         "filmora.sh")
 sha256sums=('SKIP'
-            '504e2556e61a6a59ad797f128b9d1bfe0a2da216d49ac7a458ea86a42a141b38')
+            'b0872d85ec0677d2e93dabb224d252c472fec152cd2c3f434f2d3f7349f8f4f7')
 
  package() {
  install -D -m 755 filmora.sh \
