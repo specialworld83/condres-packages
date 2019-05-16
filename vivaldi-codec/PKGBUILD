@@ -16,7 +16,7 @@ provides=(
 source=(
   "http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-codecs-ffmpeg-extra_${pkgver}-${pkgver2}_amd64.deb"
 )
-md5sums=("1f8840a674947f8745de8ba9e461190a")
+md5sums=("SKIP")
 
 prepare() {
   cd "$srcdir"
