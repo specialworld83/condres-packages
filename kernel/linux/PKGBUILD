@@ -6,9 +6,9 @@
 #Maintainer: Condres OS Dev Team
 # Kernel based to arch and add new patch.
 
-pkgbase=linux               # Build stock -CONDRES kernel
+pkgbase=linux50-lts               # Build stock -CONDRES kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.0.15-arch1
+_srcver=5.0.16-lts
 pkgver=${_srcver//-/.}
 pkgrel=3
 epoch=2
@@ -16,7 +16,7 @@ arch=(x86_64)
 _kernelname=-Condres
 _basekernel=5.0
 _basever=50
-_sub=15
+_sub=16
 url="http://www.kernel.org/"
 _pkgver=${_basekernel}.${_sub}
 license=(GPL2)
