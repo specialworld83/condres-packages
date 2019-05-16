@@ -1,27 +1,36 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=veyon
-pkgver=4.1.8
-pkgrel=9
-pkgdesc="Free and Open Source computer monitoring and classroom management" 
-url="https://github.com/veyon"
+pkgver=4.2.1
+pkgrel=1
+pkgdesc="Open Source computer monitoring and classroom management"
 arch=('i686' 'x86_64')
-depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-multimedia' 'qt5-svg' 'qt5-tools'  'qt5-translations' 'qt5-webkit' 'qt5-websockets' 'qt5-x11extras' 'qt5-xmlpatterns' 'mysql' 'cmake' 'curl' 'jansson' 'liboauth' 'zlib' 'nspr' 'lsb-release' 'nss' 'libxtst' 'libjpeg-turbo' 'zlib' 'openssl' 'pam' 'lzo' 'qca-qt5' 'libldap' )
-license=(LGPL)
+url="https://github.com/veyon"
+license=('GPLv2')
+depends=('qt5-base'
+	'libxrandr'
+	'libxtst'
+	'pam'
+	'pam_ldap'
+	'openssl'
+	'libjpeg-turbo'
+	'zlib' 'qca-qt5'
+	'libqtxdg'
+	'lzo'
+	'libxinerama')
 optdepends=('kldap: KDE support')
 makedepends=('git' 'cmake' 'qt5-tools')
-_commit=a51e9c86ffbe996c91ec84664f75318c2dc88ca6 #tags/4.1.8
-source=("git+${url}/veyon#commit=$_commit"
+source=("git+${url}/veyon.git#tag=v${pkgver}"
     "git+${url}/ultravnc.git"
     "git+${url}/libvncserver.git"
     "git+${url}/x11vnc.git"
     "git+git://anongit.kde.org/kldap.git")
 
 md5sums=('SKIP'
-    'SKIP'
-    'SKIP'
-    'SKIP'
-    'SKIP')
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP')
 
 prepare() {
     mkdir -p build
@@ -35,27 +44,22 @@ prepare() {
 
 build() {
     cd build
-    cmake ../"${pkgname}" \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
         -DCMAKE_VEYON_X11VNC_EXTERNAL=ON \
-        -DCMAKE_BUILD_TYPE=Release
+	-DSYSTEMD_SERVICE_INSTALL_DIR=/usr/lib/systemd/system/ \
+        -DCMAKE_BUILD_TYPE=release \
+	../"${pkgname}"
     make
 }
 
 package_veyon() {
     cd build
     make DESTDIR="${pkgdir}" install
-    
-    ### systemd dir manually until upstream offers it in the build
-    mv ${pkgdir}/lib/systemd ${pkgdir}/usr/lib/systemd
-    rm -r ${pkgdir}/lib
-    ###
 
     cd ${pkgdir}/usr/lib/${pkgname}
     for lib in $(ls *.so)
     do
        ln -s "/usr/lib/veyon/$lib" "${pkgdir}/usr/lib/$lib"
     done
-    
 }

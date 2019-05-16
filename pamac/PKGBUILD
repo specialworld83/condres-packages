@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=(pamac pamac-tray-appindicator)
-pkgver=7.3.5
-_pkgver=7.3.5
+pkgver=7.4.0
+_pkgver=7.4.0
 pkgrel=3
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
@@ -17,17 +17,16 @@ makedepends=('gettext' 'itstool' 'vala' 'git' 'libappindicator-gtk3' 'meson')
 backup=('etc/pamac.conf')
 conflicts=('pamac-dev')
 source=("pamac-$pkgver-$pkgrel.tar.gz::$url/-/archive/v$_pkgver/pamac-v$_pkgver.tar.gz"
-        "pamac-tray.desktop"
-        "fix_build_vala045.patch")
+        
+        )
 md5sums=('SKIP'
-        'SKIP' 'SKIP')
+        )
 
 
 
 prepare() {
 	cd "${srcdir}/pamac-v${pkgver}"
 	
-    cp -rv ../pamac-tray.desktop ${srcdir}/pamac-v${pkgver}/data/applications/
 	  # patches here
   #patch -p1 -i "$srcdir/git-$pkgver-$pkgrel.patch"
 
@@ -63,9 +62,6 @@ package_pamac() {
 	mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
 	ln -sf /usr/lib/systemd/system/pamac-cleancache.timer "${pkgdir}/etc/systemd/system/multi-user.target.wants"
 
-	# Remove pamac-tray-appindicator
-	rm "${pkgdir}/usr/bin/pamac-tray"
-	rm -f "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
 }
 
 package_pamac-tray-appindicator() {
