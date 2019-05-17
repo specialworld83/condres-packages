@@ -6,7 +6,7 @@
 pkgbase=linux-lts
 #pkgbase=linux-lts-custom
 _srcname=linux-4.19
-pkgver=4.19.43
+pkgver=4.19.44
 epoch=1
 pkgrel=2
 arch=('x86_64')
