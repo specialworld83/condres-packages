@@ -8,7 +8,7 @@
 
 pkgbase=linux50-lts               # Build stock -CONDRES kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.0.17-lts
+_srcver=5.0.18-lts
 pkgver=${_srcver//-/.}
 pkgrel=3
 epoch=2
@@ -16,7 +16,7 @@ arch=(x86_64)
 _kernelname=-LTS
 _basekernel=5.0
 _basever=50
-_sub=17
+_sub=18
 url="http://www.kernel.org/"
 _pkgver=${_basekernel}.${_sub}
 license=(GPL2)

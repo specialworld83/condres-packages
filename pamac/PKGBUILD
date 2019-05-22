@@ -3,7 +3,7 @@
 pkgname=(pamac pamac-tray-appindicator)
 pkgver=7.4.0
 _pkgver=7.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A GTK3 frontend for libalpm'
 arch=('x86_64')
 url="https://gitlab.manjaro.org/applications/pamac"
@@ -48,7 +48,7 @@ build() {
 
 package_pamac() {
 	optdepends=(
-		'pamac-dev-tray-appindicator: tray icon for KDE'
+		'pamac-tray-appindicator: tray icon for KDE'
 	)
 	conflicts=('pamac')
 	provides=('pamac')
@@ -61,7 +61,10 @@ package_pamac() {
 	# Enable applicable systemd timers
 	mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
 	ln -sf /usr/lib/systemd/system/pamac-cleancache.timer "${pkgdir}/etc/systemd/system/multi-user.target.wants"
-
+    
+    # Remove pamac-tray-appindicator
+	rm "${pkgdir}/usr/bin/pamac-tray"
+	rm -f "${pkgdir}/etc/xdg/autostart/pamac-tray.desktop"
 }
 
 package_pamac-tray-appindicator() {
