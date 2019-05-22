@@ -1,0 +1,38 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=condres-image-writer
+pkgver=1.10
+pkgrel=4
+pkgdesc="A graphical utility for writing raw disk images & hybrid isos to USB keys"
+arch=('i686' 'x86_64')
+url='https://github.com/specialworld83/condres-image-writer'
+license=('GPL2')
+depends=('qt5-base' 'udisks2')
+optdepends=('xdg-su: NEEDED by non-KDE users!'
+	    'kdebase-runtime: provides kdesu')
+source=("git+https://github.com/specialworld83/condres-image-writer")
+sha512sums=('SKIP')
+
+prepare() {
+	cd $srcdir/$pkgname
+	if [ -e /usr/bin/kdesu ]
+	  then sed 's/\/usr\/bin\/xdg-su -c \/usr\/bin\//kdesu /' -i $pkgname.desktop
+	  else sed 's/\/usr\/bin\/xdg-su -c \/usr\/bin\//xdg-su -s /' -i $pkgname.desktop
+	fi
+}
+
+build() {
+	cd "$srcdir/$pkgname"
+	CFLAGS="$CFLAGS -DKIOSKHACK"
+	qmake-qt5 PREFIX="$pkgdir/usr" DEFINES=USEUDISKS2 imagewriter.pro
+	make
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+	make DESTDIR="$pkgdir/" install
+	install -dDm 755 $pkgdir/usr/share/icons/ 
+	cp -rv $srcdir/$pkgname/icons/128x128/imagewriter.png $pkgdir/usr/share/icons/condres-image-writer.png
+	
+	
+} 

@@ -1,0 +1,24 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+pkgname=adobe-after_effect-condres
+pkgver=1
+pkgrel=1
+pkgdesc="Adobe After Effects delivers a comprehensive set of tools to efficiently produce motion graphics and visual effects for film, video, multimedia, and the Web. You can explore unlimited creative possibilities with precise control while working in a 2D or 3D compositing environment. After Effects offers unparalleled integration with Adobe Premiere, Adobe Photoshop, and Adobe Illustrator to produce professional results."
+arch=('any')
+url="http://www.adobe.com/products/aftereffects/main.html"
+license=('commercial')
+depends=('wine'
+         'winetricks'
+         'wine_gecko'
+        )
+install=after_effect
+source=("after_effect.sh")
+sha256sums=('SKIP'
+            '1e0c01ab5e79fe4362a64225624c19d1737a117f0ae3bab33c69e9610620d235')
+
+ package() {
+ install -D -m 755 after_effect.sh \
+    	 "${pkgdir}/usr/bin/after_effect.sh"
+
+}
+ 
