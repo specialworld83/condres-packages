@@ -13,8 +13,7 @@ depends=('wine'
         )
 install=after_effect.install
 source=("after_effect.sh")
-sha256sums=('SKIP'
-            'cfdde12450c787a5234d8a2c9d6167dc0b3b0a2a2e07d8787c5548c1881fa7a6')
+sha256sums=('cfdde12450c787a5234d8a2c9d6167dc0b3b0a2a2e07d8787c5548c1881fa7a6')
 
  package() {
  install -D -m 755 after_effect.sh \
