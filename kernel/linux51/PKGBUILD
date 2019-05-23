@@ -89,6 +89,7 @@ Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
 v10-fs-Add-VirtualBox-guest-shared-folder-vboxsf-support.diff
 v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
 v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
+0001-dm-make-sure-to-obey-max_io_len_target_boundary.patch #bug issu https://bugs.archlinux.org/task/62693
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -161,7 +162,7 @@ a1868acbeb5cb30b15b33d4a06a82ee9e93994b75b5e51bb04cb3e1e8dd472b4
 e5e56d34add691c88a800526ff14e367c6a30ae3f0b9a8d3f8c1031de6f47108
 70d72ca753c4e7868173de7fe4b9a1ab35d40b09bd45c24403c892f2b813c23d
 20dcf46b290d5f4045704604b0508c304187a54e317107ed525262956191f155
-
+aa377aee7585911972e61925314c764e9fbeb3f3227e4e37a8cf0821a4a7951b
 )
 #_kernelname=${pkgbase#linux}
 #: ${_kernelname:=-CONDRES}
