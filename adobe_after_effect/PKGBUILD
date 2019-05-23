@@ -11,7 +11,7 @@ depends=('wine'
          'winetricks'
          'wine_gecko'
         )
-install=after_effect
+install=after_effect.install
 source=("after_effect.sh")
 sha256sums=('SKIP'
             '1e0c01ab5e79fe4362a64225624c19d1737a117f0ae3bab33c69e9610620d235')
