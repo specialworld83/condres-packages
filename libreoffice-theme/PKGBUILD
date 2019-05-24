@@ -1,7 +1,7 @@
 pkgname=condres-libreoffice-theme
 pkgver=2.2
 pkgrel=4
-epoch=9
+epoch=10
 pkgdesc="Condres Linux libreoffice splash theme"
 arch=('any')
 url="https://www.codelinsoft.it/sito"
