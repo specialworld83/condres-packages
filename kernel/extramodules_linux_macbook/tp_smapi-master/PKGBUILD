@@ -49,7 +49,7 @@ package() {
 
   cd "${pkgdir}/${_extramodules%/*}"
   mv "${_kernver}/extra" "${_extramodules##*/}"
-  rmdir "${_kernver}"
+  
 
   # compress kernel modules
   find "${pkgdir}" -name "*.ko" -exec gzip -9 {} +
