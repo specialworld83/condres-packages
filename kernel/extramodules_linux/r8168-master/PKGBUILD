@@ -4,8 +4,8 @@ _linuxprefix=linux
 _extramodules=extramodules-Condres
 pkgname=$_linuxprefix-r8168
 _pkgname=r8168
-pkgver=8.045.08
-pkgrel=17
+pkgver=8.047.01
+pkgrel=18
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -14,14 +14,12 @@ depends=('glibc' "$_linuxprefix")
 makedepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
-source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz" 'linux-4.15.patch')
-sha256sums=('18161cb72fc872a9aed194514f7b8fb8b255b6fa6ed3d2dd459700eaad575f31'
-            '1c9f5bd2890bc98b552bd1b7acc91885c4ed013a2c188bfab70ddaae058fa241')
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
+sha256sums=('d298c4b52bb68b494230c219879eaf57cabe255f3475f7a792f76ad7fd83a0eb')
 install=$_pkgname.install
 
 prepare() {
     cd "$_pkgname-$pkgver"
-    patch -p1 -i "$srcdir/linux-4.15.patch"
 }
 
 build() {

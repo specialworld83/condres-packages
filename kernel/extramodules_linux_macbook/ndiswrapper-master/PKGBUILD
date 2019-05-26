@@ -12,7 +12,7 @@ pkgname=("$_linuxprefix-ndiswrapper" 'ndiswrapper-utils')
 _pkgname=ndiswrapper
 groups=("$_linuxprefix-extramodules")
 pkgver=1.61
-pkgrel=4
+pkgrel=18
 pkgdesc="Module for NDIS (Windows Network Drivers) drivers supplied by vendors."
 license=('GPL')
 arch=('i686' 'x86_64')
@@ -58,7 +58,7 @@ build() {
   make KVERS=$_kernver
 }
 
-package_linux51-ndiswrapper() {
+package_linux-macbook-ndiswrapper() {
   depends=("$_linuxprefix" "$_pkgname-utils")
   provides=('ndiswrapper-extramodule')
   _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
