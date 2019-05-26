@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 
-_linuxprefix=linux
+_linuxprefix=linux-macbook
 _extramodules=extramodules-Condres-macbook
 pkgname=$_linuxprefix-catalyst
 _pkgname=catalyst
