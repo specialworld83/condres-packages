@@ -26,7 +26,7 @@ source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgve
         "kernel-4.15.patch"
         "kernel-5.0.patch")
 options=('!strip')
-sha256sums=('2ac1847c24cbfa4f48a800b04c9721219614f1663a4ac94af3c7939b45c47584'
+sha256sums=('SKIP'
             '80f89025a3de4b1decb82550bd89a3b4e43732b8f5104bac6e2e4b66d20d2d57'
             '4019d3f06f69dc1f67b3bf2faa7632ed2d58eb2c22878d52daece0d496bb3810'
             '4a366208b875cc7132b0247077f376111435e60453cab59ad061d69a29e6b5dc'
