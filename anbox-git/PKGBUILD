@@ -2,7 +2,7 @@
 
 pkgname=('anbox-git' 'anbox-modules-dkms-git')
 _pkgname=anbox
-pkgver=r1063.d521e28
+pkgver=r1096.ea2b7a3
 pkgrel=1
 epoch=1
 arch=('x86_64')
@@ -51,7 +51,8 @@ prepare() {
   truncate -s 0 cmake/FindGMock.cmake
   truncate -s 0 tests/CMakeLists.txt
   # Fix build google::protobuf
-  patch -p0 binder/binder.c < ../19.patch
+  cd "$srcdir/anbox-modules"
+  patch -p0 binder/binder.c < ${srcdir}/19.patch
   # Build modules
   patch -p1 -i ${srcdir}/extramodule_ashmem.patch ${srcdir}/anbox-modules/ashmem/Makefile
   patch -p2 -i ${srcdir}/extramodule_binder.patch ${srcdir}/anbox-modules/binder/Makefile
