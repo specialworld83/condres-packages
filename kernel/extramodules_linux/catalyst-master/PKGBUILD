@@ -44,6 +44,7 @@ source=(https://drivers.amd.com/drivers/linux/amd-catalyst-15.9-linux-installer-
         4.16-manjaro.patch
         4.17-manjaro.patch
         4.21-manjaro.patch
+        kernel51.patch
 	LICENSE.TXT)
 
 url_ref="https://support.amd.com/en-us/download/desktop?os=Linux+x86"
@@ -72,7 +73,8 @@ sha256sums=('bf3e6e7d5c51db3d075410a3f116f865b82823debc1d66698d187249feec6a91'
             '1fa9c117cd9aaf32aa230bc0ccc9204f8efd05e3681bf43ed8eabb6e19322f45'
             '2b7dd2aa25bcad250e43f1bb9917aa401cc198800cb80eadb2f22137aee27fad'
             '7c3c8537594b40ed70344d99035b1b632255c73eed1c7a8805ae5160365a4935'
-            '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47')
+            '4f7530540f6e1ea032746e94bd164160abdf93c15509bfb8bdbecd23bcea5c47'
+            'SKIP')
 
 prepare() {
 	#cd ${srcdir}/fglrx-$_pkgver
@@ -135,6 +137,7 @@ build() {
         patch -Np1 -i  ${srcdir}/4.16-manjaro.patch
         patch -Np1 -i  ${srcdir}/4.17-manjaro.patch
         patch -Np1 -i  ${srcdir}/4.21-manjaro.patch
+        patch -Np1 -i  ${srcdir}/kernel51.patch
 
         cd "${srcdir}/fglrx-$_pkgver/archive_files/common/lib/modules/fglrx/build_mod"
 	cp "${srcdir}/fglrx-$_pkgver/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" .
