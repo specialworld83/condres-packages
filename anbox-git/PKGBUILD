@@ -20,7 +20,8 @@ source=("git+https://github.com/anbox/anbox.git"
 	'anbox-bridge.netdev'
 	'extramodule_ashmem.patch'
 	'extramodule_binder.patch'
-	'anbox.patch')
+	'anbox.patch'
+	'https://github.com/anbox/anbox-modules/pull/19.patch')
 sha256sums=('SKIP'
             'SKIP'
             '5be94b63dc30d141f15ca7d1be6e3e81f26ef33f844614975537562f5d08236c'
@@ -32,7 +33,8 @@ sha256sums=('SKIP'
             '559190df4d6d595480b30d8b13b862081fc4aac52790e33eb24cf7fbcb8003b8'
             'SKIP'
             'SKIP'
-            'd89df72adced44825b84a8b5c56625daf1800eaff324a5218a2d51f0ae4672ba')
+            'd89df72adced44825b84a8b5c56625daf1800eaff324a5218a2d51f0ae4672ba'
+            'SKIP')
 
 pkgver() {
   cd "$srcdir/$_pkgname"
@@ -49,7 +51,7 @@ prepare() {
   truncate -s 0 cmake/FindGMock.cmake
   truncate -s 0 tests/CMakeLists.txt
   # Fix build google::protobuf
-  #patch -p1 < ${srcdir}/anbox.patch
+  patch -p0 binder/binder.c < ../19.patch
   # Build modules
   patch -p1 -i ${srcdir}/extramodule_ashmem.patch ${srcdir}/anbox-modules/ashmem/Makefile
   patch -p2 -i ${srcdir}/extramodule_binder.patch ${srcdir}/anbox-modules/binder/Makefile
