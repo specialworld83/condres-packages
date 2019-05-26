@@ -18,10 +18,10 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source=('linux420.patch')
+source=('linux420.patch' 'kernel-4.16.patch' 'kernel-5.1.patch')
 source_i686=("${durl}/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run")
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP')
 sha256sums_i686=('SKIP')
 sha256sums_x86_64=('SKIP')
 
@@ -32,7 +32,10 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    #patch -p0 -i ../linux420.patch
+    patch -Np1 -i ../kernel-4.16.patch
+
+    patch -Np1 -i ../kernel-5.1.patch
+
     # Linux 419 compat
     sed -i -e 's/drm_mode_connector_attach_encoder/drm_connector_attach_encoder/g' kernel/nvidia-drm/nvidia-drm-encoder.c
     sed -i -e 's/drm_mode_connector_update_edid_property/drm_connector_update_edid_property/g' kernel/nvidia-drm/nvidia-drm-connector.c

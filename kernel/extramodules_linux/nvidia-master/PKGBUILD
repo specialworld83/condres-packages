@@ -1,11 +1,11 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
-_linuxprefix=linux
+_linuxprefix=linux-macbook
 _extramodules=extramodules-Condres
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
 pkgver=430.14
-pkgrel=15
+pkgrel=16
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -19,8 +19,8 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums_x86_64=('SKIP')
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run" 'fs62142.patch')
+sha256sums_x86_64=('SKIP' 'SKIP')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -28,6 +28,7 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+     patch -Np1 -i ../fs62142.patch
 }
 
 build() {
