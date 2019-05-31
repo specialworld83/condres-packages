@@ -29,5 +29,4 @@ package() {
 	make -j8 DESTDIR=$pkgdir install
 	#Fix conflict systemd
 	rm -rf $pkgdir/usr/share/systemd/kbd-model-map
-	rm -rf $pkgdir/etc/xdg/autostart/NotifierControlCenter.desktop
 }
