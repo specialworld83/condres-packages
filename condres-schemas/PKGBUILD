@@ -1,7 +1,6 @@
 pkgname=condres-schemas
-pkgver=4.6
+pkgver=4.7
 pkgrel=4
-epoch=1
 pkgdesc="Condres Settings Desktop"
 arch=('any')
 license=('GPL')
