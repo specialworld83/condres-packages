@@ -3,7 +3,7 @@
 
 pkgname=numix-circle-icon-theme
 pkgver=0.r45.64afc58
-pkgrel=1
+pkgrel=2
 pkgdesc='Circle icon theme from the Numix project'
 arch=('any')
 url='https://github.com/numixproject/numix-icon-theme-circle/'
@@ -11,7 +11,6 @@ license=('GPL3')
 depends=('numix-icon-theme')
 makedepends=('git')
 provides=('numix-circle-icon-theme' 'numix-circle-light-icon-theme')
-conflicts=('numix-circle-icon-theme' 'numix-circle-light-icon-theme')
 options=('!strip')
 source=('numix-circle-icon-theme::git+https://github.com/numixproject/numix-icon-theme-circle.git')
 sha256sums=('SKIP')
