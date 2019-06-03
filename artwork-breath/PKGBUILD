@@ -1,9 +1,10 @@
 # Maintainer: CodeLinSoft <info@codelinsoft.it>
+# Theme based to Qogir
 
 pkgbase=artwork-condres-dark
 pkgname=('condres-icon-theme' 'condres-dark-icon-theme' 'plasma5-themes-condres' 'sddm-condres-theme' )
-pkgver=3.7
-pkgrel=14
+pkgver=3.10
+pkgrel=15
 url=https://www.codelinsoft.it/updates/
 arch=('any')
 license=('LGPL')
@@ -58,14 +59,22 @@ package_condres-dark-icon-theme() {
 
 package_plasma5-themes-condres() {
   pkgdesc='Condres theme for KDE Plasma 5'
-  depends=('breeze')
+  depends=('breeze' 'kvantum-qt5')
   optdepends=('breath-icon-theme: light icon theme'
               'breath-dark-icon-theme: dark icon theme')
   replaces=('breath-themes')
   cd build
   make DESTDIR="${pkgdir}" install
+  install -dm 755 $pkgdir/usr/share/Kvantum/Qogir
+  cp -a ${srcdir}/condres/Qogir/* $pkgdir/usr/share/Kvantum/Qogir
+  cp -a ${srcdir}/condres/Kvantum/kvantum.kvconfig $pkgdir/usr/share/Kvantum/
   rm -rf "${pkgdir}/usr/share/sddm"
   rm -rf "${pkgdir}/usr/share/icons"
+  #Aurora theme
+  install -dm 755 $pkgdir/usr/share/aurorae/themes/Qogir
+  install -dm 755 $pkgdir/usr/share/aurorae/themes/Qogir-dark
+  cp -a ${srcdir}/condres/Qogir-aurorae-themes/Qogir/* $pkgdir/usr/share/aurorae/themes/Qogir
+  cp -a ${srcdir}/condres/Qogir-aurorae-themes/Qogir-dark/* $pkgdir/usr/share/aurorae/themes/Qogir-dark
 }
 
 package_sddm-condres-theme() {

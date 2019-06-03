@@ -1,0 +1,29 @@
+# Maintainer: Daniel Cafe
+# Contributor: 
+
+pkgname=qogir-gtk-theme
+_date=20190315
+_gnomever=3.32
+pkgver=${_gnomever}.${_date}
+pkgrel=1
+pkgdesc='Qogir is a flat Design theme for GTK'
+arch=('any')
+url='https://github.com/vinceliuice/Qogir-theme'
+license=('GPL3')
+depends=('gtk-engine-murrine' 'gtk-engines')
+makedepends=('git')
+optdepends=()
+provides=('qogir-gtk-theme')
+conflicts=('qogir-gtk-theme')
+source=('git+https://github.com/vinceliuice/Qogir-theme')
+sha256sums=('SKIP')
+
+
+
+package() {
+  cd Qogir-theme
+  mkdir -p "${pkgdir}/usr/share/themes"
+  ./Install -d "${pkgdir}/usr/share/themes"
+}
+
+
