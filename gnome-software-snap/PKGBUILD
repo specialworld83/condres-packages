@@ -14,7 +14,7 @@ license=(GPL2)
 makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd ostree
              docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind snapd-glib liboauth)
 source=("http://download.gnome.org/sources/$_pkgbase/$_pkgver/$_pkgbase-$pkgver.tar.xz")
-sha256sums=('54630cdcde67cc571905a2ef5918fb7697f6aff80d937340440869f65c0c9002')
+sha256sums=('893aed85a9f814f5410fb8af432de851469899ff9c70a8dab9bc970898c044e4')
 
 build() {
   arch-meson $_pkgbase-$pkgver build \
