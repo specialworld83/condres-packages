@@ -1,8 +1,8 @@
 _pkgname='Condres Wallpapers'
 pkgname=condres-wallpapers
-pkgver=3.4
+pkgver=3.5
 pkgrel=5
-epoch=3
+epoch=4
 pkgdesc='Wallpapers for Condres OS'
 arch=(any)
 license=(GPL)
