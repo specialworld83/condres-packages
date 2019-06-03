@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=condres-desktop-settings
-pkgver=2.9
+pkgver=3
 pkgrel=1
 pkgdesc="Setup configuration for Condres Desktops"
 url="http://github.com/condres/condres-desktop-settings"
