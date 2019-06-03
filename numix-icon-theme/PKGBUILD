@@ -3,15 +3,13 @@
 
 pkgname=numix-icon-theme
 pkgver=0.r1982.88ba36545
-pkgrel=1
+pkgrel=2
 pkgdesc='Base icon theme from the Numix project'
 arch=('any')
 url='http://numixproject.org/'
 license=('GPL3')
 depends=('gtk-update-icon-cache')
 makedepends=('git')
-provides=('numix-icon-theme' 'numix-light-icon-theme')
-conflicts=('numix-icon-theme' 'numix-light-icon-theme')
 options=('!strip')
 source=('git+https://github.com/numixproject/numix-icon-theme.git')
 sha256sums=('SKIP')
