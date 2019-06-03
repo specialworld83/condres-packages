@@ -1,14 +1,14 @@
 _pkgname='Condres Themes'
 pkgname=condres-themes-gnome
-_pkgver=4.1
-pkgrel=5
+_pkgver=4.2
+pkgrel=6
 _gnomever=3.32
 pkgver=${_gnomever}.${_pkgver}
 pkgdesc='Gnome Assets for Condres OS'
 arch=(any)
 license=(GPL)
 url="https://condresos.codelinsoft.it"
-depends=()
+depends=('numix-icon-theme' 'numix-circle-icon-theme')
 conflicts=('gnome-shell-extension-dash-to-dock')
 source=("condres-themes-gnome.tar.gz")
 sha256sums=('SKIP')
@@ -17,11 +17,9 @@ install="condres-themes-gnome.install"
 package() {
 	rm -rf "${pkgdir}/usr/share/themes/Arctic Condres"
 	mkdir -p "${pkgdir}/usr/share/themes"
-	mkdir -p "${pkgdir}/usr/share/icons"
 	# mkdir -p "${pkgdir}/etc/skel/.config/autostart"
 	mkdir -p "${pkgdir}/usr/share/gnome-shell/extensions"
 	cp -rf ${srcdir}/condres-themes-gnome/extensions/* "${pkgdir}/usr/share/gnome-shell/extensions"
 	cp -rf "${srcdir}/condres-themes-gnome/Arctic Condres" "${pkgdir}/usr/share/themes"
-	cp -rf "${srcdir}/condres-themes-gnome/Condres Apricity" "${pkgdir}/usr/share/icons"
 	# cp -f "${srcdir}/condres-themes-gnome/firstrun-desktop.sh" "${pkgdir}/etc/skel/.config/autostart"
 }
