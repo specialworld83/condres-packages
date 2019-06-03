@@ -1,6 +1,6 @@
 _pkgname='Condres Themes'
 pkgname=condres-themes-gnome
-_pkgver=4.0
+_pkgver=4.1
 pkgrel=5
 _gnomever=3.32
 pkgver=${_gnomever}.${_pkgver}
@@ -22,6 +22,6 @@ package() {
 	mkdir -p "${pkgdir}/usr/share/gnome-shell/extensions"
 	cp -rf ${srcdir}/condres-themes-gnome/extensions/* "${pkgdir}/usr/share/gnome-shell/extensions"
 	cp -rf "${srcdir}/condres-themes-gnome/Arctic Condres" "${pkgdir}/usr/share/themes"
-	cp -rf "${srcdir}/condres-themes-gnome/Condres Icons" "${pkgdir}/usr/share/icons"
+	cp -rf "${srcdir}/condres-themes-gnome/Condres Apricity" "${pkgdir}/usr/share/icons"
 	# cp -f "${srcdir}/condres-themes-gnome/firstrun-desktop.sh" "${pkgdir}/etc/skel/.config/autostart"
 }
