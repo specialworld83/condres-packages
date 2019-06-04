@@ -108,9 +108,18 @@ shadeSortColumn=true
 [Icons]
 Theme=breath
 
+[org.kde.kdecoration2]
+theme=__aurorae__svg__Qogir
+
 [KDE]
 contrast=0
 widgetStyle=kvantum
+
+[KDE]
+ColorScheme=Breath
+LookAndFeelPackage=org.kde.breath.desktop
+contrast=0
+widgetStyle=breeze
 
 [WM]
 activeBackground=40,42,51
