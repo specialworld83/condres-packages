@@ -1,0 +1,16 @@
+pkgname=condres-schemas-apricity
+pkgver=1.0
+pkgrel=4
+pkgdesc="Condres Apricity Schema"
+arch=('any')
+license=('GPL')
+depends=('condres-desktop-settings')
+install="condres-schemas.install"
+source=('condres-schemas-apricity-1.0.tar.gz')
+backup=('usr/share/glib-2.0/schemas/99_condres-apricity.gschema.override')
+md5sums=('SKIP')
+
+package() {
+	install -dDm 755 $pkgdir/usr/share/glib-2.0/schemas/
+	cp -rv $srcdir/$pkgname-1.0/99_condres-apricity.gschema.override $pkgdir/usr/share/glib-2.0/schemas/
+} 
