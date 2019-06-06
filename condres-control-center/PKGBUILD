@@ -1,8 +1,8 @@
 # Maintainer: CodeLinSoft <info@codelinsoft.it>
 
 pkgname="condres-control-center"
-pkgver=0.2.2_beta
-pkgrel=6
+pkgver=0.2.3_beta
+pkgrel=8
 pkgdesc="CondresControlCenter is a beatiful system software management."
 arch=('any')
 url="https://github.com/kratos83/CondresControlCenter"
@@ -29,4 +29,8 @@ package() {
 	make -j8 DESTDIR=$pkgdir install
 	#Fix conflict systemd
 	rm -rf $pkgdir/usr/share/systemd/kbd-model-map
+	#Fix icon tray display
+	install -d $pkgdir/etc/xdg/autostart
+	cp -rv $pkgdir/usr/share/applications/NotifierControlCenter.desktop $pkgdir/etc/xdg/autostart
+	rm -rf $pkgdir/usr/share/applications/NotifierControlCenter.desktop
 }
