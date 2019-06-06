@@ -2,7 +2,7 @@
 
 pkgname="condres-control-center"
 pkgver=0.2.3_beta
-pkgrel=8
+pkgrel=9
 pkgdesc="CondresControlCenter is a beatiful system software management."
 arch=('any')
 url="https://github.com/kratos83/CondresControlCenter"
