@@ -2,7 +2,7 @@
 
 _pkgname='Condres Assets'
 pkgname=condresassets
-pkgver=2.4
+pkgver=4
 pkgrel=1
 pkgdesc='Assets for Condres OS'
 arch=(any)

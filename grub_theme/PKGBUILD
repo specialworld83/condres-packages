@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=grub2-theme-condres
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="Condres default Grub2 theme"
 arch=('any')

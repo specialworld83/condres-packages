@@ -1,3 +1,9 @@
+pre_install(){
+rm -rf /boot/grub/themes/Elegant_Condres
+}
+pre_upgrade(){
+rm -rf /boot/grub/themes/Elegant_Condres
+}
 post_install(){
 rm -rf /etc/apricity-assets/
 sh /etc/condres-assets/Elegant_Condres/install.sh
