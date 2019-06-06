@@ -1,5 +1,5 @@
 pkgname=condres-schemas-apricity
-pkgver=1.1
+pkgver=1.2
 pkgrel=4
 pkgdesc="Condres Apricity Schema"
 arch=('any')
