@@ -106,14 +106,14 @@ XftSubPixel=none
 shadeSortColumn=true
 
 [Icons]
-Theme=breath
+Theme=breeze
 
 [org.kde.kdecoration2]
 theme=__aurorae__svg__Qogir
 
 [KDE]
 contrast=0
-widgetStyle=kvantum
+widgetStyle=breeze
 
 [KDE]
 ColorScheme=Breath
