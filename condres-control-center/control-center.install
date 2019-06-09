@@ -1,0 +1,6 @@
+pre_install(){
+rm -rf /usr/lib/condrescontrolcenter/condrescontrolcenter.db 
+}
+pre_upgrade(){
+rm -rf /usr/lib/condrescontrolcenter/condrescontrolcenter.db 
+}
