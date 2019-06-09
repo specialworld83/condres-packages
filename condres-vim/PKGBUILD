@@ -1,0 +1,28 @@
+# Maintainer: Condres OS team <info@codelinsoft.it>
+
+_pkgname='condres-vim'
+pkgname=condres-vim
+pkgver=1.0.0
+pkgrel=2
+pkgdesc='Vim config for Condres OS'
+arch=(any)
+license=(GPL)
+install="condres.install"
+url="https://condresos.codelinsoft.it"
+source=("condres-vim.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+	mkdir -p "${pkgdir}/etc/skel/"
+	rm -rf "${pkgdir}/etc/skel/.vim"
+	rm -f "${pkgdir}/etc/skel/.vimrc"
+	cp -rf "${srcdir}/condres-vim/.vim" "${pkgdir}/etc/skel"
+	cp -f "${srcdir}/condres-vim/.vimrc" "${pkgdir}/etc/skel"
+
+	mkdir -p "${pkgdir}/root/"
+	rm -rf "${pkgdir}/root/.vim"
+	rm -f "${pkgdir}/root/.vimrc"
+	cp -rf "${srcdir}/condres-vim/.vim" "${pkgdir}/root"
+	cp -f "${srcdir}/condres-vim/.vimrc" "${pkgdir}/root"
+}
+ 
