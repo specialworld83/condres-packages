@@ -6,17 +6,17 @@
 #Maintainer: Condres OS Dev Team
 # Kernel based to arch and add new patch.
 
-#pkgbase=linux               # Build stock -Condres kernel
-pkgbase=linux-macbook        # Build kernel with a different name
-_srcver=5.0.21-arch1
+pkgbase=linux-macbook             # Build stock -CONDRES kernel
+#pkgbase=linux-custom       # Build kernel with a different name
+_srcver=5.1.8-arch1
 pkgver=${_srcver//-/.}
-pkgrel=2
-epoch=2
+pkgrel=1
+epoch=3
 arch=(x86_64)
 _kernelname=-Condres-macbook
-_basekernel=5.0
-_basever=50
-_sub=21
+_basekernel=5.1
+_basever=51
+_sub=8
 url="http://www.kernel.org/"
 _pkgver=${_basekernel}.${_sub}
 license=(GPL2)
@@ -26,71 +26,71 @@ _srcname=archlinux-linux
 source=(
   "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.xz"
   "https://www.kernel.org/pub/linux/kernel/v5.x/patch-${_pkgver}.xz"
-  0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
-  saa716x-driver.tar.xz
-  config         # the main kernel config file
-  60-linux.hook  # pacman hook for depmod
-  90-linux.hook  # pacman hook for initramfs regeneration
-  linux.preset   # standard config files for mkinitcpio ramdisk
   macbook-wakeup.service # service file for suspend/resume events
-  RFC-PCI-Workaround-to-enable-poweroff-on-Mac-Pro-11.patch
-  # Condres Patches
+  saa716x-driver.tar.xz
   0001-Add-support-for-Acer-Predator-macro-keys.patch
-  0001-gcctunes-4.18-merge-graysky-s-patchset.patch
-  0001-uksm-5.0-initial-submission.patch
-  0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
-  0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
-  0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
-  0101-i8042-decrease-debug-message-level-to-info.patch
-  0103-Increase-the-ext4-default-commit-age.patch
-  0103-silence-rapl.patch
-  0105-pci-pme-wakeups.patch
-  0107-intel_idle-tweak-cpuidle-cstates.patch
-  0110-fs-ext4-fsync-optimize-double-fsync-a-bunch.patch
-  0112-give-rdrand-some-credit.patch
-  0116-Initialize-ata-before-graphics.patch
-  0117-reduce-e1000e-boot-time-by-tightening-sleep-ranges.patch
-  0119-e1000e-change-default-policy.patch
-  0120-ipv4-tcp-allow-the-memory-tuning-for-tcp-to-go-a-lit.patch
-  0122-tweak-perfbias.patch
-  0123-e1000e-increase-pause-and-refresh-time.patch
-  0124-Extend-FEC-enum.patch
-  0124-kernel-time-reduce-ntp-wakeups.patch
-  0125-init-wait-for-partition-and-retry-scan.patch
-  0502-locking-rwsem-spin-faster.patch
-  0915-fixes-from-pfkernel.patch
-  android-enable-building-ashmem-and-binder-as-modules.patch
-  ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
-  die-floppy-die.patch
-  drop_ancient-and-wrong-msg.patch
-  export-symbols-needed-by-android-drivers.patch
-  fix-C2D-CPUs-booting.patch
-  kernel-5.0-rc8-lima.patch
-  linux-4.7-intel-dvi-duallink.patch
-  linux-4.8.1-buildfix.patch
-  linux-5.0-rc7-fix-speakers-on-acer-predator-helios-500.patch
-  long-long.patch
-  RFC-v3-01-13-bootsplash-Initial-implementation-showing-black-screen.patch
-  RFC-v3-02-13-bootsplash-Add-file-reading-and-picture-rendering.patch
-  RFC-v3-03-13-bootsplash-Flush-framebuffer-after-drawing.patch
-  RFC-v3-04-13-bootsplash-Add-corner-positioning.patch
-  RFC-v3-05-13-bootsplash-Add-animation-support.patch
-  RFC-v3-06-13-vt-Redraw-bootsplash-fully-on-console_unblank.patch
-  RFC-v3-07-13-vt-Add-keyboard-hook-to-disable-bootsplash.patch
-  RFC-v3-08-13-sysrq-Disable-bootsplash-on-SAK.patch
-  RFC-v3-09-13-fbcon-Disable-bootsplash-on-oops.patch
-  RFC-v3-10-13-Documentation-Add-bootsplash-main-documentation.patch
-  RFC-v3-11-13-bootsplash-sysfs-entries-to-load-and-unload-files.patch
-  RFC-v3-12-13-tools-bootsplash-Add-a-basic-splash-file-creation-tool.patch
-  RFC-v3-13-13-tools-bootsplash-Add-script-and-data-to-create-sample-file.patch
-  saa716x-4.15.patch
-  saa716x-driver-integration.patch
-  saa716x-linux-4.19.patch
-  Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
-  v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
-  v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
-  v7-fs-Add-VirtualBox-guest-shared-folder-vboxsf-support.patch
-  vbox-4.18.patch
+0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
+0001-cpu-5.1-merge-graysky-s-patchset.patch
+0001-loop-Better-discard-for-block-devices.patch
+0001-nfp-make-friends-with-O3.patch
+0001-uksm-5.1-apply-52d1e606ee733.patch
+0001-uksm-5.1-initial-submission.patch
+0002-cpu-5.1-add-a-CONFIG-option-that-sets-O3.patch
+0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
+0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
+0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
+0101-i8042-decrease-debug-message-level-to-info.patch
+0103-Increase-the-ext4-default-commit-age.patch
+0103-silence-rapl.patch
+0105-pci-pme-wakeups.patch
+0107-intel_idle-tweak-cpuidle-cstates.patch
+0110-fs-ext4-fsync-optimize-double-fsync-a-bunch.patch
+0112-give-rdrand-some-credit.patch
+0116-Initialize-ata-before-graphics.patch
+0117-reduce-e1000e-boot-time-by-tightening-sleep-ranges.patch
+0119-e1000e-change-default-policy.patch
+0120-ipv4-tcp-allow-the-memory-tuning-for-tcp-to-go-a-lit.patch
+0122-tweak-perfbias.patch
+0123-e1000e-increase-pause-and-refresh-time.patch
+0124-Extend-FEC-enum.patch
+0124-kernel-time-reduce-ntp-wakeups.patch
+0125-init-wait-for-partition-and-retry-scan.patch
+0502-locking-rwsem-spin-faster.patch
+60-linux.hook
+90-linux.hook
+acpi-use-kern_warning_even_when_error.patch
+android-enable-building-ashmem-and-binder-as-modules.patch
+config
+die-floppy-die.patch
+drop_ancient-and-wrong-msg.patch
+export-symbols-needed-by-android-drivers.patch
+fix-acpi_dbg_level.patch
+fix-C2D-CPUs-booting.patch
+linux-4.7-intel-dvi-duallink.patch
+linux-4.8.1-buildfix.patch
+linux.install
+linux.preset
+RFC-v3-01-13-bootsplash-Initial-implementation-showing-black-screen.patch
+RFC-v3-02-13-bootsplash-Add-file-reading-and-picture-rendering.patch
+RFC-v3-03-13-bootsplash-Flush-framebuffer-after-drawing.patch
+RFC-v3-04-13-bootsplash-Add-corner-positioning.patch
+RFC-v3-05-13-bootsplash-Add-animation-support.patch
+RFC-v3-06-13-vt-Redraw-bootsplash-fully-on-console_unblank.patch
+RFC-v3-07-13-vt-Add-keyboard-hook-to-disable-bootsplash.patch
+RFC-v3-08-13-sysrq-Disable-bootsplash-on-SAK.patch
+RFC-v3-09-13-fbcon-Disable-bootsplash-on-oops.patch
+RFC-v3-10-13-Documentation-Add-bootsplash-main-documentation.patch
+RFC-v3-11-13-bootsplash-sysfs-entries-to-load-and-unload-files.patch
+RFC-v3-12-13-tools-bootsplash-Add-a-basic-splash-file-creation-tool.patch
+RFC-v3-13-13-tools-bootsplash-Add-script-and-data-to-create-sample-file.patch
+saa716x-4.15.patch
+saa716x-driver-integration.patch
+saa716x-linux-4.19.patch
+Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
+v10-fs-Add-VirtualBox-guest-shared-folder-vboxsf-support.diff
+v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
+v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
+0001-dm-make-sure-to-obey-max_io_len_target_boundary.patch #bug issu https://bugs.archlinux.org/task/62693
 )
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
@@ -100,72 +100,71 @@ validpgpkeys=(
 )
 sha256sums=('SKIP'
             'SKIP'
-            '37b86ca3de148a34258e3176dbf41488d9dbd19e93adbd22a062b3c41332ce85'
-            'e40086e3148f8dacd761f308cdd747775e0b065f9f824bfc81b0bb47b9aec2f3'
-            'f863b3e9640161f61e859f22f2d1258c940101de8f007a207c1ede2f71d36206'
-            'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
-            'c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636'
-            'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
-             c5a714823c3418692bc5c212dd5d094a0e2ae6147d6726822911f1c26e3a1d1b
-            a4e044fb954f035aa70af4c7d79f8a6076933bdbbf9efee749304829621d77ed
-            'd6c6db6d20d24e7f4153abc5b0434dc2205a65cfa609139e2eff5839252b07c8'
-            '65d8e8879b718c825eba24da995174661fcf8a9d262a3255e1a23338dd36313e'
-            'a336eac26de35e7801cdba88566573ce65aedc9d12d8b5829df0a68df3768af3'
-            'e7c102e3af34cd6bd48d9ee1c4bd1c7775820999225f87c4433403384130bc23'
-            '2b581e62941df0d5e80cbce13d8c7c473914a8f4306ea8e74348a688856f56a1'
-            'ee41e90278251d4d13ff7e0c679fb07a3579b9d4e3a1699c263e7a1f3353937e'
-            'ddb7eca777b81172809796e7bd31d1591fab411c765496f0cb11481bd78ff866'
-            '90f35bbc3e62ac613d4f336b4cefd8a56761c3a8441f70a36f5eb252ac0e6306'
-            '742074f41787d9596e9ebf0dee347979032095bdc4ca87f4af79f0c1596b9310'
-            ebdd4b1414c69cd56e2f48546a15aea5d6f65b7a05ab26439d19aab6318a967f
-            0aa9f603f614cadaf6faf8b5d7ead0a111fc1e9faf68a4044d63db60fa8b15c4
-            3e4023e93a5b21b73747469a9850414016ebda56822f2424a98e81ef90130853
-            16d2ed058a378b23e17dcfe7ab8c9fe532b0f324480c5eeb2a860351ac718aec
-            84125f671a35ef993ecfb1034796f319b45b3657a1539e9ebcad7303f7ec8ac3
-            1f9294be3d470b7f0fda668af33439b6aec6f7cb2338a36c86d4f07e643a0b07
-            35aa851cb4c6e1444390fc7541afb8e9b24e2b126407e73280da6565549797c6
-            0a8e7b7e12c5c08068cd35c7384a3dd01db8864a4d21946828126542da8332e2
-            871dd1755b03a693e2fb5dbe177c99359a8f5d0a1abd83b3bdd3210d19b6a65b
-            7fc194fc210ec5771efc790c5ea4a0694b25b1a4710937886494a7f5b162ad25
-            62a19331b3184f2ad0d1c37ec77fe4949760dd8418121496c6710508c9c9e137
-            45672256c8c19dae493c98894b61850b727e66d428b492a03e1c886b3b53853a
-            73ae32826620674aef05fdf8f0ada92f3b9734a27de47aba772825bbccea47a1
-            b7f84870dd0c9bba4bae2e177c57485e428a4097d28b1765afad6796694296ca
-            e2126038cd9b86a3db9ca24b7fd6d47cb87c81c9282e976a87844e820675dc16
-            83b413b280f51fb3913fc916ffc4061f89d7838a1522ab962ae97aae01b26edf
-            ea49fcd736fbbaa24f142fdbdd9b00345a96fcd5eba3781ac79679e30ed82dd1
-            e7042319f1e33b5706348c21e4f0999fc78e71c6ee8f63042af7871e3e910485
-            1f8835750131a697203a81bdfc1f9caad53b6cfc43f1826b86123b55c7ae4cc3
-            332ac118612263193a7ad9012846401d329c2723ed0ea28d3f01d0571ad89877
-            1696c962b3d8fb6e100dc8221cef9bdc1188c7a5cb9e9512b8fa0c1cbc5e410e
-            bba335b6c6b3eeeae737297f658a1deb63bf8121b57827149686b0200b2e22f7
-            56d589f6d2ac67ca8454707b25cfcde1a4f45bc9b83b2eb178a5ab6a1aec78e7
-            5a488e6b2e362fc690588c792d23a6b29ccdfb30eee22fec5f5822fc624f3d81
-            d2138c3de4e876e716517793e71e22eebaf821f43dcb9a17b54923f50b98a136
-            b4f490ffdb87aa67b712c6e4113b6873d6ca038948c237812b4d00578e2ea853
-            64586ed066276401cad2c0e0ccfe9f020903280b688adfb15f2a6856ef5bc689
-            e096b127a5208f56d368d2cb938933454d7200d70c86b763aa22c38e0ddb8717
-            8c1c880f2caa9c7ae43281a35410203887ea8eae750fe8d360d0c8bf80fcc6e0
-            1144d51e5eb980fceeec16004f3645ed04a60fac9e0c7cf88a15c5c1e7a4b89e
-            dd4b69def2efacf4a6c442202ad5cb93d492c03886d7c61de87696e5a83e2846
-            d87af329bce4d96a3d77e4d62f9c3e84b2bf064000b09a00863a22f6c191712a
-            c8b0cb231659d33c3cfaed4b1f8d7c8305ab170bdd4c77fce85270d7b6a68000
-            8dbb5ab3cb99e48d97d4e2f2e3df5d0de66f3721b4f7fd94a708089f53245c77
-            a7aefeacf22c600fafd9e040a985a913643095db7272c296b77a0a651c6a140a
-            e9f22cbb542591087d2d66dc6dc912b1434330ba3cd13d2df741d869a2c31e89
-            27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc
-            e379ccb92622f95a890e0625acb225c9c37d734ee6c41a84b367e119ebac835a
-            035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef
-            9ef842aa7a9da8cefbecd17abec3cfb350db920c4e617e00106c73dadba11b83
-            ce7b0296797fce25132ff8953a6524d2fe99f127811d5df58f720c916872f898
-            40e6734891091d6cdd4561e4388189ab712b6fe8313ea8a0d3e013afdc99b93a
-            a1868acbeb5cb30b15b33d4a06a82ee9e93994b75b5e51bb04cb3e1e8dd472b4
-            8c320ce780caa5458badc08129319fad7be391bf544d419cdb428d231d1579b5
-            20dcf46b290d5f4045704604b0508c304187a54e317107ed525262956191f155
-            2c1097b6fa1b511a1f5771e234c97aa293dfd5c3e23e7a5f03373ec0ab1f830e
-            80934a09c08a0f01869b9bc478eea28db318b39a8c5e4c6227fc1556cea73988
-            
-            
+            'SKIP'
+           e40086e3148f8dacd761f308cdd747775e0b065f9f824bfc81b0bb47b9aec2f3
+           d6c6db6d20d24e7f4153abc5b0434dc2205a65cfa609139e2eff5839252b07c8
+37b86ca3de148a34258e3176dbf41488d9dbd19e93adbd22a062b3c41332ce85
+46331c7966e99c5934731be4d60a4ea4ecead092ba5552965fe6f9bacc7bca94
+51f0ccce8a497df957d34872f321436db64076c02e35e78ef454a45bd6359c83
+b47f05ca9cfaeebd37c6224c59bf5f8932f6753c7fd57b0043247159ec927c29
+06d5ea7472c2af577ec1ab756dccead814609f5989f8eabe3cfa1181d5c07923
+088c5d7fb0ccfcecb7553358c6dea46395b410368dffae3b87a66ed0779e7623
+e5a7ef4d4e8a15ee511ce571ae59dff6b3e43fd22e1cb24b6fc04d6bd1fdbb85
+e7c102e3af34cd6bd48d9ee1c4bd1c7775820999225f87c4433403384130bc23
+2b581e62941df0d5e80cbce13d8c7c473914a8f4306ea8e74348a688856f56a1
+ee41e90278251d4d13ff7e0c679fb07a3579b9d4e3a1699c263e7a1f3353937e
+ddb7eca777b81172809796e7bd31d1591fab411c765496f0cb11481bd78ff866
+90f35bbc3e62ac613d4f336b4cefd8a56761c3a8441f70a36f5eb252ac0e6306
+742074f41787d9596e9ebf0dee347979032095bdc4ca87f4af79f0c1596b9310
+ebdd4b1414c69cd56e2f48546a15aea5d6f65b7a05ab26439d19aab6318a967f
+0aa9f603f614cadaf6faf8b5d7ead0a111fc1e9faf68a4044d63db60fa8b15c4
+3e4023e93a5b21b73747469a9850414016ebda56822f2424a98e81ef90130853
+16d2ed058a378b23e17dcfe7ab8c9fe532b0f324480c5eeb2a860351ac718aec
+8055b94b0c395e145cd488b8250f96b43606e4fe8b630be6ed9e4deab0089bfe
+1f9294be3d470b7f0fda668af33439b6aec6f7cb2338a36c86d4f07e643a0b07
+35aa851cb4c6e1444390fc7541afb8e9b24e2b126407e73280da6565549797c6
+0a8e7b7e12c5c08068cd35c7384a3dd01db8864a4d21946828126542da8332e2
+e88581fcec2f0eb3f5fe5265e20ea0e79d1d6690bbc6c27a82b0c7b441200789
+7fc194fc210ec5771efc790c5ea4a0694b25b1a4710937886494a7f5b162ad25
+62a19331b3184f2ad0d1c37ec77fe4949760dd8418121496c6710508c9c9e137
+45672256c8c19dae493c98894b61850b727e66d428b492a03e1c886b3b53853a
+73ae32826620674aef05fdf8f0ada92f3b9734a27de47aba772825bbccea47a1
+b7f84870dd0c9bba4bae2e177c57485e428a4097d28b1765afad6796694296ca
+ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21
+c043f3033bb781e2688794a59f6d1f7ed49ef9b13eb77ff9a425df33a244a636
+77dfd4f6ddaa754502206fbb8c5aad461f4b79ce450fb1aafce225c9c88facc1
+45b24a23c8a8992529d7b6d746c1cbfa0a4c4b34f027f5d1c4bd927558292533
+f863b3e9640161f61e859f22f2d1258c940101de8f007a207c1ede2f71d36206
+e7042319f1e33b5706348c21e4f0999fc78e71c6ee8f63042af7871e3e910485
+1f8835750131a697203a81bdfc1f9caad53b6cfc43f1826b86123b55c7ae4cc3
+332ac118612263193a7ad9012846401d329c2723ed0ea28d3f01d0571ad89877
+2a8a01d846ce8c388b1ec80742b0bcb3fecec41d32decfa98801da4b8bf38ce9
+1696c962b3d8fb6e100dc8221cef9bdc1188c7a5cb9e9512b8fa0c1cbc5e410e
+175a096fb21c74e279a389e1afd204d54f735a39b5e8bf46524be7f8b58d7f9c
+5a488e6b2e362fc690588c792d23a6b29ccdfb30eee22fec5f5822fc624f3d81
+59bb7dd2de6963de672135f3f48e4103b69c7e76944067e55ecbabd3f647a871
+ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65
+64586ed066276401cad2c0e0ccfe9f020903280b688adfb15f2a6856ef5bc689
+e096b127a5208f56d368d2cb938933454d7200d70c86b763aa22c38e0ddb8717
+8c1c880f2caa9c7ae43281a35410203887ea8eae750fe8d360d0c8bf80fcc6e0
+1144d51e5eb980fceeec16004f3645ed04a60fac9e0c7cf88a15c5c1e7a4b89e
+dd4b69def2efacf4a6c442202ad5cb93d492c03886d7c61de87696e5a83e2846
+d87af329bce4d96a3d77e4d62f9c3e84b2bf064000b09a00863a22f6c191712a
+c8b0cb231659d33c3cfaed4b1f8d7c8305ab170bdd4c77fce85270d7b6a68000
+8dbb5ab3cb99e48d97d4e2f2e3df5d0de66f3721b4f7fd94a708089f53245c77
+a7aefeacf22c600fafd9e040a985a913643095db7272c296b77a0a651c6a140a
+e9f22cbb542591087d2d66dc6dc912b1434330ba3cd13d2df741d869a2c31e89
+27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc
+e379ccb92622f95a890e0625acb225c9c37d734ee6c41a84b367e119ebac835a
+035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef
+9ef842aa7a9da8cefbecd17abec3cfb350db920c4e617e00106c73dadba11b83  
+ce7b0296797fce25132ff8953a6524d2fe99f127811d5df58f720c916872f898
+40e6734891091d6cdd4561e4388189ab712b6fe8313ea8a0d3e013afdc99b93a
+a1868acbeb5cb30b15b33d4a06a82ee9e93994b75b5e51bb04cb3e1e8dd472b4
+e5e56d34add691c88a800526ff14e367c6a30ae3f0b9a8d3f8c1031de6f47108
+70d72ca753c4e7868173de7fe4b9a1ab35d40b09bd45c24403c892f2b813c23d
+20dcf46b290d5f4045704604b0508c304187a54e317107ed525262956191f155
+aa377aee7585911972e61925314c764e9fbeb3f3227e4e37a8cf0821a4a7951b
 )
 #_kernelname=${pkgbase#linux}
 #: ${_kernelname:=-CONDRES}
@@ -176,63 +175,63 @@ prepare() {
  # add upstream patch
   patch -p1 -i "${srcdir}/patch-${_pkgver}"
   cp -rv ${srcdir}/drivers/* ${srcdir}/$_srcname/drivers/
- patch -Np1 -i ${srcdir}/0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
  patch -Np1 -i ${srcdir}/0001-Add-support-for-Acer-Predator-macro-keys.patch
- patch -Np1 -i ${srcdir}/0001-gcctunes-4.18-merge-graysky-s-patchset.patch
- #patch -Np1 -i ${srcdir}/0001-uksm-5.0-initial-submission.patch
- patch -Np1 -i ${srcdir}/0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
- patch -Np1 -i ${srcdir}/0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
- patch -Np1 -i ${srcdir}/0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
- patch -Np1 -i ${srcdir}/0101-i8042-decrease-debug-message-level-to-info.patch
- patch -Np1 -i ${srcdir}/0103-Increase-the-ext4-default-commit-age.patch
- patch -Np1 -i ${srcdir}/0103-silence-rapl.patch
- patch -Np1 -i ${srcdir}/0105-pci-pme-wakeups.patch
- patch -Np1 -i ${srcdir}/0107-intel_idle-tweak-cpuidle-cstates.patch
- patch -Np1 -i ${srcdir}/0110-fs-ext4-fsync-optimize-double-fsync-a-bunch.patch
- patch -Np1 -i ${srcdir}/0112-give-rdrand-some-credit.patch
- patch -Np1 -i ${srcdir}/0116-Initialize-ata-before-graphics.patch
- patch -Np1 -i ${srcdir}/0117-reduce-e1000e-boot-time-by-tightening-sleep-ranges.patch
- patch -Np1 -i ${srcdir}/0119-e1000e-change-default-policy.patch
- patch -Np1 -i ${srcdir}/0120-ipv4-tcp-allow-the-memory-tuning-for-tcp-to-go-a-lit.patch
- patch -Np1 -i ${srcdir}/0122-tweak-perfbias.patch
- patch -Np1 -i ${srcdir}/0123-e1000e-increase-pause-and-refresh-time.patch
- patch -Np1 -i ${srcdir}/0124-Extend-FEC-enum.patch
- patch -Np1 -i ${srcdir}/0124-kernel-time-reduce-ntp-wakeups.patch
- patch -Np1 -i ${srcdir}/0125-init-wait-for-partition-and-retry-scan.patch
- patch -Np1 -i ${srcdir}/0502-locking-rwsem-spin-faster.patch
- #patch -Np1 -i ${srcdir}/0915-fixes-from-pfkernel.patch
- patch -Np1 -i ${srcdir}/android-enable-building-ashmem-and-binder-as-modules.patch
- #patch -Np1 -i ${srcdir}/ath10k-drop-WARN_ON-added-in-cd93b83ad927b2c7979e0add0343ace59328b461.patch
- patch -Np1 -i ${srcdir}/die-floppy-die.patch
- patch -Np1 -i ${srcdir}/drop_ancient-and-wrong-msg.patch
- patch -Np1 -i ${srcdir}/export-symbols-needed-by-android-drivers.patch
- patch -Np1 -i ${srcdir}/fix-C2D-CPUs-booting.patch
- patch -Np1 -i ${srcdir}/kernel-5.0-rc8-lima.patch
- patch -Np1 -i ${srcdir}/linux-4.7-intel-dvi-duallink.patch
- patch -Np1 -i ${srcdir}/linux-4.8.1-buildfix.patch
- #patch -Np1 -i ${srcdir}/linux-5.0-rc7-fix-speakers-on-acer-predator-helios-500.patch
- patch -Np1 -i ${srcdir}/long-long.patch
- patch -Np1 -i ${srcdir}/RFC-v3-01-13-bootsplash-Initial-implementation-showing-black-screen.patch
- patch -Np1 -i ${srcdir}/RFC-v3-02-13-bootsplash-Add-file-reading-and-picture-rendering.patch
- patch -Np1 -i ${srcdir}/RFC-v3-03-13-bootsplash-Flush-framebuffer-after-drawing.patch
- patch -Np1 -i ${srcdir}/RFC-v3-04-13-bootsplash-Add-corner-positioning.patch
- patch -Np1 -i ${srcdir}/RFC-v3-05-13-bootsplash-Add-animation-support.patch
- patch -Np1 -i ${srcdir}/RFC-v3-06-13-vt-Redraw-bootsplash-fully-on-console_unblank.patch
- patch -Np1 -i ${srcdir}/RFC-v3-07-13-vt-Add-keyboard-hook-to-disable-bootsplash.patch
- patch -Np1 -i ${srcdir}/RFC-v3-08-13-sysrq-Disable-bootsplash-on-SAK.patch
- patch -Np1 -i ${srcdir}/RFC-v3-09-13-fbcon-Disable-bootsplash-on-oops.patch
- patch -Np1 -i ${srcdir}/RFC-v3-10-13-Documentation-Add-bootsplash-main-documentation.patch
- patch -Np1 -i ${srcdir}/RFC-v3-11-13-bootsplash-sysfs-entries-to-load-and-unload-files.patch
- patch -Np1 -i ${srcdir}/RFC-v3-12-13-tools-bootsplash-Add-a-basic-splash-file-creation-tool.patch
- git apply -p1 < ${srcdir}/RFC-v3-13-13-tools-bootsplash-Add-script-and-data-to-create-sample-file.patch
- patch -Np1 -i ${srcdir}/saa716x-4.15.patch
- patch -Np1 -i ${srcdir}/saa716x-driver-integration.patch
- patch -Np1 -i ${srcdir}/saa716x-linux-4.19.patch
- patch -Np1 -i ${srcdir}/Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
- patch -Np1 -i ${srcdir}/v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
- patch -Np1 -i ${srcdir}/v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
- patch -Np1 -i ${srcdir}/v7-fs-Add-VirtualBox-guest-shared-folder-vboxsf-support.patch
- patch -Np1 -i ${srcdir}/vbox-4.18.patch
+patch -Np1 -i ${srcdir}/0001-add-sysctl-to-disallow-unprivileged-CLONE_NEWUSER-by.patch
+patch -Np1 -i ${srcdir}/0001-cpu-5.1-merge-graysky-s-patchset.patch
+patch -Np1 -i ${srcdir}/0001-loop-Better-discard-for-block-devices.patch
+patch -Np1 -i ${srcdir}/0001-nfp-make-friends-with-O3.patch
+git apply -p1 < ${srcdir}/0001-uksm-5.1-apply-52d1e606ee733.patch
+git apply -p1 < ${srcdir}/0001-uksm-5.1-initial-submission.patch
+patch -Np1 -i ${srcdir}/0002-cpu-5.1-add-a-CONFIG-option-that-sets-O3.patch
+patch -Np1 -i ${srcdir}/0023-tda18212-Added-2-extra-options.-Based-on-CrazyCat-re.patch
+patch -Np1 -i ${srcdir}/0075-cx24117-Use-a-pointer-to-config-instead-of-storing-i.patch
+patch -Np1 -i ${srcdir}/0076-cx24117-Add-LNB-power-down-callback.-TBS6984-uses-pc.patch
+patch -Np1 -i ${srcdir}/0101-i8042-decrease-debug-message-level-to-info.patch
+patch -Np1 -i ${srcdir}/0103-Increase-the-ext4-default-commit-age.patch
+patch -Np1 -i ${srcdir}/0103-silence-rapl.patch
+patch -Np1 -i ${srcdir}/0105-pci-pme-wakeups.patch
+patch -Np1 -i ${srcdir}/0107-intel_idle-tweak-cpuidle-cstates.patch
+patch -Np1 -i ${srcdir}/0110-fs-ext4-fsync-optimize-double-fsync-a-bunch.patch
+patch -Np1 -i ${srcdir}/0112-give-rdrand-some-credit.patch
+patch -Np1 -i ${srcdir}/0116-Initialize-ata-before-graphics.patch
+patch -Np1 -i ${srcdir}/0117-reduce-e1000e-boot-time-by-tightening-sleep-ranges.patch
+patch -Np1 -i ${srcdir}/0119-e1000e-change-default-policy.patch
+patch -Np1 -i ${srcdir}/0120-ipv4-tcp-allow-the-memory-tuning-for-tcp-to-go-a-lit.patch
+patch -Np1 -i ${srcdir}/0122-tweak-perfbias.patch
+patch -Np1 -i ${srcdir}/0123-e1000e-increase-pause-and-refresh-time.patch
+patch -Np1 -i ${srcdir}/0124-Extend-FEC-enum.patch
+patch -Np1 -i ${srcdir}/0124-kernel-time-reduce-ntp-wakeups.patch
+patch -Np1 -i ${srcdir}/0125-init-wait-for-partition-and-retry-scan.patch
+patch -Np1 -i ${srcdir}/0502-locking-rwsem-spin-faster.patch
+patch -Np1 -i ${srcdir}/acpi-use-kern_warning_even_when_error.patch
+patch -Np1 -i ${srcdir}/android-enable-building-ashmem-and-binder-as-modules.patch
+patch -Np1 -i ${srcdir}/die-floppy-die.patch
+patch -Np1 -i ${srcdir}/drop_ancient-and-wrong-msg.patch
+patch -Np1 -i ${srcdir}/export-symbols-needed-by-android-drivers.patch
+patch -Np1 -i ${srcdir}/fix-acpi_dbg_level.patch
+patch -Np1 -i ${srcdir}/fix-C2D-CPUs-booting.patch
+patch -Np1 -i ${srcdir}/linux-4.7-intel-dvi-duallink.patch
+patch -Np1 -i ${srcdir}/linux-4.8.1-buildfix.patch
+patch -Np1 -i ${srcdir}/RFC-v3-01-13-bootsplash-Initial-implementation-showing-black-screen.patch
+patch -Np1 -i ${srcdir}/RFC-v3-02-13-bootsplash-Add-file-reading-and-picture-rendering.patch
+patch -Np1 -i ${srcdir}/RFC-v3-03-13-bootsplash-Flush-framebuffer-after-drawing.patch
+patch -Np1 -i ${srcdir}/RFC-v3-04-13-bootsplash-Add-corner-positioning.patch
+patch -Np1 -i ${srcdir}/RFC-v3-05-13-bootsplash-Add-animation-support.patch
+patch -Np1 -i ${srcdir}/RFC-v3-06-13-vt-Redraw-bootsplash-fully-on-console_unblank.patch
+patch -Np1 -i ${srcdir}/RFC-v3-07-13-vt-Add-keyboard-hook-to-disable-bootsplash.patch
+patch -Np1 -i ${srcdir}/RFC-v3-08-13-sysrq-Disable-bootsplash-on-SAK.patch
+patch -Np1 -i ${srcdir}/RFC-v3-09-13-fbcon-Disable-bootsplash-on-oops.patch
+patch -Np1 -i ${srcdir}/RFC-v3-10-13-Documentation-Add-bootsplash-main-documentation.patch
+patch -Np1 -i ${srcdir}/RFC-v3-11-13-bootsplash-sysfs-entries-to-load-and-unload-files.patch
+patch -Np1 -i ${srcdir}/RFC-v3-12-13-tools-bootsplash-Add-a-basic-splash-file-creation-tool.patch
+git apply -p1 < ${srcdir}/RFC-v3-13-13-tools-bootsplash-Add-script-and-data-to-create-sample-file.patch
+patch -Np1 -i ${srcdir}/saa716x-4.15.patch
+patch -Np1 -i ${srcdir}/saa716x-driver-integration.patch
+patch -Np1 -i ${srcdir}/saa716x-linux-4.19.patch
+patch -Np1 -i ${srcdir}/Unknow-SSD-HFM128GDHTNG-8310B-QUIRK_NO_APST.patch
+patch -Np1 -i ${srcdir}/v10-fs-Add-VirtualBox-guest-shared-folder-vboxsf-support.diff
+patch -Np1 -i ${srcdir}/v2-1-2-lib-Add-support-for-ZSTD-compressed-kernel.patch
+patch -Np1 -i ${srcdir}/v2-2-2-x86-Add-support-for-ZSTD-compressed-kernel.patch
   
   msg2 "Setting config..."
   cp ../config .config
@@ -252,11 +251,11 @@ prepare() {
 
 build() {
   cd $_srcname
-  make bzImage modules 
+  make bzImage modules
 }
 
 _package() {
-  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules"
+  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules custom Condres OS"
   [[ $pkgbase = linux ]] && groups=(base)
   depends=(coreutils linux-firmware kmod mkinitcpio)
   optdepends=('crda: to set the correct wireless channels of your country')
@@ -286,11 +285,7 @@ _package() {
 
   # remove build and source links
   rm "$modulesdir"/{source,build}
-  
-  # copy macbook-wakeup.service to systemd
-  mkdir -p "${pkgdir}/usr/lib/systemd/system"
-  cp "${srcdir}/macbook-wakeup.service" "${pkgdir}/usr/lib/systemd/system"
-  
+
   msg2 "Installing hooks..."
   # sed expression for following substitutions
   local subst="
@@ -313,10 +308,14 @@ _package() {
 
   msg2 "Fixing permissions..."
   chmod -Rc u=rwX,go=rX "$pkgdir"
+  
+    # copy macbook-wakeup.service to systemd
+  mkdir -p "${pkgdir}/usr/lib/systemd/system"
+  cp "${srcdir}/macbook-wakeup.service" "${pkgdir}/usr/lib/systemd/system"
 }
 
 _package-headers() {
-  pkgdesc="Header files and scripts for building modules for ${pkgbase/linux/Linux} kernel"
+  pkgdesc="Header files and scripts for building modules for ${pkgbase/linux/Linux} kernel custom Condres OS"
 
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
 
@@ -422,3 +421,5 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
+
+# vim:set ts=8 sts=2 sw=2 et:

@@ -2,7 +2,7 @@
 
 pkgname=powerline-vim-condres
 pkgver=1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Condres Powerline Vim"
 arch=('any')
 license=('GPL')
