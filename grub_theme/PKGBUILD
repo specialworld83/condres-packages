@@ -19,6 +19,6 @@ _allowed_in='main, staging'
 package() {
   cd ${srcdir}
   mkdir -p ${pkgdir}/boot/grub/themes/Condres-Default
-  cp -R ${pkgname}-${pkgver}/Condres-Default/* ${pkgdir}/boot/grub/themes/Condres-Default
+  cp -R ${pkgname}-${_pkgver}/Condres-Default/* ${pkgdir}/boot/grub/themes/Condres-Default
 }
 
