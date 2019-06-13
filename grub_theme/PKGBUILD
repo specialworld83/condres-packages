@@ -2,6 +2,7 @@
 
 pkgname=grub2-theme-condres
 pkgver=1.1
+_pkgver=1.0
 pkgrel=1
 pkgdesc="Condres default Grub2 theme"
 arch=('any')
@@ -9,7 +10,7 @@ license=('GPL')
 url="https://www.codelinsoft.it/sitogrub2-theme-antergos"
 depends=('grub' 'gfxboot')
 install=$pkgname.install
-source=("grub2-theme-condres-${pkgver}.tar.gz"
+source=("grub2-theme-condres-${_pkgver}.tar.gz"
         'grub2-theme-condres.install')
 sha256sums=('SKIP'
             'SKIP')
