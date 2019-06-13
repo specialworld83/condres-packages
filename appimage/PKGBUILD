@@ -1,101 +1,69 @@
+# Maintainer: JP Cimalando <jp-dev@inbox.ru>
+# Maintainer: Jefferson Gonzalez <jgmdev@gmail.com>
+
 pkgname=appimage
-_gitname=AppImageKit-11
+_gitname=AppImageKit
 pkgdesc="Package desktop applications as AppImages that run on common Linux-based operating systems, such as RHEL, CentOS, Ubuntu, Fedora, debian and derivatives."
-pkgver=11
+pkgver=r1587.ce61b83
 pkgrel=1
-epoch=1
 arch=('i686' 'x86_64')
 url="http://appimage.org"
 license=('MIT')
-depends=('fuse' 'glib2' 'glibc' 'binutils' 'coreutils' 'zlib' 'lz4' 'zsync' 'inotify-tools' 'openssl' 'libarchive' 'xz' 'squashfuse')
-makedepends=('git' 'cmake' 'wget' 'vim')
+depends=('fuse' 'glib2' 'glibc' 'binutils' 'coreutils' 'zlib' 'lz4' 'zsync' 'inotify-tools' 'openssl' 'libarchive' 'xz' 'cairo')
+makedepends=('git' 'cmake' 'wget' 'vim' 'desktop-file-utils')
 provides=('appimage')
 conflicts=('appimage')
 options=('!strip')
 install="$pkgname.install"
-source=(
-  'https://github.com/AppImage/AppImageKit/archive/11.tar.gz'
-  'https://github.com/AppImage/libappimage/archive/v0.1.6.tar.gz'
-  'git://github.com/arsenm/sanitizers-cmake.git'
-  'remove_deb_cpack.patch'
-  'https://github.com/google/googletest/archive/release-1.8.1.tar.gz'
-  'mksquashfs-mkfs-fixed-timestamp.patch'
-  'patch_nonstd.patch'
-)
-md5sums=(
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-  'SKIP'
-)
+source=('git://github.com/probonopd/AppImageKit'
+        'https://patch-diff.githubusercontent.com/raw/AppImage/AppImageKit/pull/952.diff')
+md5sums=('SKIP'
+         '608c5ead3266d58da38b4d7eb3a83c4a')
 
-
+pkgver() {
+  cd "${srcdir}/${_gitname}"
+  ( set -o pipefail
+    git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" \
+      "$(git rev-list --count HEAD)" \
+      "$(git log | head -n 1 | cut -d" " -f2 | awk '{print substr($0,0,7)}')"
+  )
+}
 
 prepare() {
-  cp -rv sanitizers-cmake/* ${srcdir}/${_gitname}/cmake/sanitizers-cmake/
-  bsdtar xvzf v0.1.6.tar.gz
-  cp -rv ${srcdir}/libappimage-0.1.6/* ${srcdir}/${_gitname}/lib/libappimage/
-  cp -rv ${srcdir}/libappimage-0.1.6/src/patches/* ${srcdir}/${_gitname}/src/
-  bsdtar xvzf release-1.8.1.tar.gz
-  cp -rv ${srcdir}/googletest-release-1.8.1/* ${srcdir}/${_gitname}/lib/libappimage/lib/gtest/
-  patch -p1 -i ${srcdir}/remove_deb_cpack.patch ${srcdir}/${_gitname}/CMakeLists.txt
-  cp -rv mksquashfs-mkfs-fixed-timestamp.patch "${srcdir}/${_gitname}"/src/mksquashfs-mkfs-fixed-timestamp.patch
-  patch -p1 -i ${srcdir}/patch_nonstd.patch ${srcdir}/${_gitname}/src/runtime.c
-  cd "${srcdir}/${_gitname}" 
+  cd "${srcdir}/${_gitname}"
 
+  ./build.sh --clean
+
+  patch -p1 -i "${srcdir}"/952.diff
 
   sed -i "s/ctest -V/echo 'Skip Tests...'/g" build.sh
-
-  # Generate appimaged.service file
-  echo "[Unit]" > appimaged.service
-  echo "Description=AppImage daemon" >> appimaged.service
-  echo "After=display-manager.service" >> appimaged.service
-  echo "[Service]" >> appimaged.service
-  echo "ExecStart=/usr/bin/appimaged" >> appimaged.service
-  echo "Restart=always" >> appimaged.service
-  echo "RestartSec=5s" >> appimaged.service
-  echo "StartLimitInterval=0" >> appimaged.service
-  echo "[Install]" >> appimaged.service
-  echo "WantedBy=default.target" >> appimaged.service
 }
 
 build() {
   cd "${srcdir}/${_gitname}"
-  cd ${srcdir}/${_gitname}/cmake/sanitizers-cmake/
-  cmake .
-  cd "${srcdir}/${_gitname}"
-  
   ./build.sh --no-dependencies --use-shared-libs
-
 
   # Copy metainfo files
   mkdir -p appimagetool.AppDir/usr/share/metainfo/
-  mkdir -p appimaged.AppDir/usr/share/metainfo/
 
   cp resources/usr/share/metainfo/appimagetool.appdata.xml appimagetool.AppDir/usr/share/metainfo/
- 
 
   # Generate appimage files
   cd build/out
   appimagetool.AppDir/AppRun -n appimagetool.AppDir appimagetool
-  appimagetool.AppDir/AppRun -n appimaged.AppDir appimaged
 }
 
 package(){
   cd "$srcdir/${_gitname}"
 
-  mkdir -p $pkgdir/usr/bin
-  mkdir -p $pkgdir/usr/share/appimage
-  mkdir -p $pkgdir/usr/lib/systemd/user/
+  mkdir -p "$pkgdir"/usr/bin
+  mkdir -p "$pkgdir"/usr/share/appimage
 
-  cp build/out/appimagetool $pkgdir/usr/bin/
-  cp build/out/appimaged $pkgdir/usr/bin/
+  cp build/out/appimagetool "$pkgdir"/usr/bin/
 
-  cp src/AppRun.c $pkgdir/usr/share/appimage/
-  cp README.md $pkgdir/usr/share/appimage/
+  cp src/AppRun.c "$pkgdir"/usr/share/appimage/
+  cp README.md "$pkgdir"/usr/share/appimage/
 
-  cp appimaged.service $pkgdir/usr/lib/systemd/user/
-} 
+  install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
+}
