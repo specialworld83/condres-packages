@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=stacer
-pkgver=1.0.9
-pkgrel=3
+pkgver=1.1.0
+pkgrel=4
 pkgdesc="Ubuntu System Optimizer"
 url="https://github.com/oguzhaninan/Stacer"
 arch=('any')

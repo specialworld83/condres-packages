@@ -2,38 +2,30 @@
 
 _pkgname='github-desktop'
 pkgname="${_pkgname}"
-pkgver=1.6.5_linux14
-gitname="release-${pkgver//_/-}"
-pkgrel=2
+pkgver=2.0.3
+_pkgver="${pkgver}-linux1"
+gitname="release-${_pkgver}"
+pkgrel=1
 pkgdesc="GUI for managing Git and GitHub."
 arch=('x86_64')
 url="https://desktop.github.com"
 license=('MIT')
-depends=('gnome-keyring' 'git' 'libcurl-openssl-1.0')
+depends=('gnome-keyring' 'libsecret' 'git' 'curl' 'libxss' 'gconf' 'nss' 'nspr')
 optdepends=('hub: CLI interface for GitHub.')
-makedepends=('xorg-server-xvfb' 'nodejs-lts-carbon' 'yarn' 'python2')
-DLAGENTS=("http::/usr/bin/git clone --branch ${gitname} --single-branch %u")
+provides=(${_pkgname})
+conflicts=(${_pkgname}-bin)
 source=(
-  git+https://github.com/shiftkey/desktop.git#tag=${gitname}
+    https://github.com/shiftkey/desktop/releases/download/${gitname}/GitHubDesktop-linux-${_pkgver}.deb
   ${_pkgname}.desktop
 )
 sha256sums=(
   'SKIP'
   'SKIP'
 )
-build() {
-  cd desktop
-  export DISPLAY=':99.0'
-  Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-  yarn install
-  yarn build:prod
-}
 package() {
-  install -d "${pkgdir}/opt/${_pkgname}"
-  cp -r --preserve=mode desktop/dist/github-desktop-linux-x64/* "${pkgdir}/opt/${_pkgname}/"
-  install -Dm644 "${_pkgname}.desktop" "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
-  install -Dm644 "desktop/app/static/logos/1024x1024.png" "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps/${_pkgname}.png"
-  install -Dm644 "desktop/app/static/logos/512x512.png" "${pkgdir}/usr/share/icons/hicolor/512x512/apps/${_pkgname}.png"
-  install -Dm644 "desktop/app/static/logos/256x256.png" "${pkgdir}/usr/share/icons/hicolor/256x256/apps/${_pkgname}.png"
-  printf "#!/bin/sh\n\nLD_PRELOAD=/usr/lib/libcurl-openssl-1.0.so /opt/${_pkgname}/github-desktop \"\$@\"\n" | install -Dm755 /dev/stdin "${pkgdir}/usr/bin/${_pkgname}"
+    tar xf data.tar.xz -C "${pkgdir}"
+    mv "${pkgdir}/opt/GitHub Desktop" "${pkgdir}/opt/${_pkgname}"
+    rm "${pkgdir}/usr/share/applications/github-desktop.desktop"
+    install -Dm644 "${_pkgname}.desktop" "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+    printf "#!/bin/sh\n\n/opt/${_pkgname}/github-desktop \"\$@\"\n" | install -Dm755 /dev/stdin "${pkgdir}/usr/bin/${_pkgname}"
 }

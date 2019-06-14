@@ -1,8 +1,8 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=kinfocenter
-pkgver=5.15.5
-pkgrel=1.2
+pkgver=5.16.0
+pkgrel=1.3
 pkgdesc='A utility that provides information about a computer system'
 arch=('i686' 'x86_64')
 url='https://www.kde.org/applications/system/kinfocenter/'
