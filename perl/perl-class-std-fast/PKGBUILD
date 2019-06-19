@@ -2,7 +2,7 @@
 
 pkgname='perl-class-std-fast'
 pkgver='0.0.8'
-pkgrel='1'
+pkgrel='2'
 pkgdesc="faster but less secure than Class::Std"
 arch=('any')
 license=('PerlArtistic' 'GPL')

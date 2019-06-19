@@ -2,7 +2,7 @@
 
 pkgname='perl-expect'
 pkgver='1.33'
-pkgrel='2'
+pkgrel='3'
 pkgdesc="automate interactions with command line programs that expose a text terminal interface."
 arch=('any')
 license=('PerlArtistic' 'GPL')

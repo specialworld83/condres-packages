@@ -2,7 +2,7 @@
 
 pkgname='perl-sys-mmap'
 pkgver='0.19'
-pkgrel='3'
+pkgrel='4'
 pkgdesc="uses mmap to map in a file as a Perl variable"
 arch=('any')
 license=('PerlArtistic' 'GPL')

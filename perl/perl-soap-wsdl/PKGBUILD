@@ -2,7 +2,7 @@
 
 pkgname='perl-soap-wsdl'
 pkgver='3.003'
-pkgrel='1'
+pkgrel='2'
 pkgdesc="SOAP with WSDL support"
 arch=('any')
 license=('PerlArtistic' 'GPL')

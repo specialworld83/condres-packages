@@ -5,7 +5,7 @@
 
 pkgname=perl-sys-cpu
 pkgver=0.61
-pkgrel=1
+pkgrel=2
 pkgdesc="Perl extension for getting CPU information. Currently only number of CPU's supported."
 arch=('any')
 url="http://search.cpan.org/~mkoderer/Sys-CPU-$pkgver/"

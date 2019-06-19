@@ -3,7 +3,7 @@
 
 pkgname='perl-sys-meminfo'
 pkgver='0.99'
-pkgrel='1'
+pkgrel='2'
 pkgdesc="Perl extension for return the total amount of physical memory"
 arch=('any')
 license=('PerlArtistic' 'GPL')
