@@ -23,7 +23,8 @@ conflicts=("lumina-de-git" "lumina-desktop-git" "insight-fm")
 provides=("${pkgname%-*}" "insight-fm")
 install="${pkgname%-*}.install"
 source=("https://github.com/trueos/lumina/archive/v${pkgver}.tar.gz")
-sha512sums=('37106d71a9ba7188c4ded0614d2d4424f732519e11288ae312dfcd9a0b5b26dd31dfa812e74a96c0e3e0fb99fae4dc00806fd7a24183746688c72d997054af7d')
+sha512sums=('37106d71a9ba7188c4ded0614d2d4424f732519e11288ae312dfcd9a0b'
+            'SKIP')
 
 build() {
     cd "${srcdir}/${pkgfullname}"
