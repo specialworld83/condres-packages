@@ -31,7 +31,7 @@ source=(https://openresty.org/download/$pkgname-$pkgver.tar.gz{,.asc}
         $pkgname.sh
         )
 noextract=()
-sha256sums=('946e1958273032db43833982e2cec0766154a9b5cb8e67868944113208ff2942'
+sha256sums=('SKIP'
             'SKIP'
             'ec55ac7da98f5f5ec54d096c5f79b656edec0ebca835b6b9f1d20fb7be7119c5'
             '613b0ed3fe4b5ee505ddb5122ee41604f464a5049be81c97601ee93970763a23'
