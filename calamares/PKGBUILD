@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares
-pkgver=3.2.7
+pkgver=3.2.10
 pkgrel=16
 epoch=7
 options=(staticlibs)
