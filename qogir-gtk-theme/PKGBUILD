@@ -23,7 +23,7 @@ sha256sums=('SKIP')
 package() {
   cd Qogir-theme
   mkdir -p "${pkgdir}/usr/share/themes"
-  ./Install -d "${pkgdir}/usr/share/themes"
+  ./install.sh -d "${pkgdir}/usr/share/themes"
 }
 
 
