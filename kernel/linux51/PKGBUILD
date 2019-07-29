@@ -8,7 +8,7 @@
 
 pkgbase=linux51               # Build stock -CONDRES kernel
 #pkgbase=linux-custom       # Build kernel with a different name
-_srcver=5.1.19-51
+_srcver=5.1.21-51
 pkgver=${_srcver//-/.}
 pkgrel=1
 epoch=3
@@ -16,7 +16,7 @@ arch=(x86_64)
 _kernelname=-Condres
 _basekernel=5.1
 _basever=51
-_sub=19
+_sub=21
 url="http://www.kernel.org/"
 _pkgver=${_basekernel}.${_sub}
 license=(GPL2)

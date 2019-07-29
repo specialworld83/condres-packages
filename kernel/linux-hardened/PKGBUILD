@@ -7,7 +7,7 @@
 #Maintainer: Condres OS Dev Team
 
 pkgbase=linux-hardened
-_pkgver=5.1.19
+_pkgver=5.2.4
 epoch=1
 _hardenedver=a
 _srcname=linux-${_pkgver}
