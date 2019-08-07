@@ -3,7 +3,7 @@
 
 pkgname='tde-tdebase'
 pkgver=14.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Trinity Desktop Enviroment base components"
 arch=('i686' 'x86_64')
 url='http://scm.trinitydesktop.org/scm/git/tdebase'
@@ -19,7 +19,7 @@ depends=('libraw1394'
          'tde-dbus-tqt'
          'tde-dbus-1-tqt'
          'ttf-dejavu'
-         'ttf-freefont'
+         'gnu-free-fonts'
          'xorg-server'
          'xorg-xinit'
          'htdig'
