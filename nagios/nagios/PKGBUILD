@@ -1,7 +1,7 @@
 # Maintainer: Condres OS Dev Team (x86_64) <info@codelinsoft.it>
 
 pkgname=nagios
-pkgver=4.4.3
+pkgver=4.4.5
 pkgrel=1
 pkgdesc="Nagios is an open source host, service and network monitoring program."
 license=('GPL')

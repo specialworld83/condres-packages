@@ -1,6 +1,6 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname=plymouth-kcm
-pkgver=5.12.4
+pkgver=5.16.4
 pkgrel=1
 pkgdesc="A KCM for configuring Plymouth"
 arch=('any')

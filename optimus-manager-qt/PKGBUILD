@@ -4,7 +4,7 @@
 _plasma=false
 
 pkgname=optimus-manager-qt
-pkgver=1.2.6
+pkgver=1.2.7
 pkgrel=1
 pkgdesc="A Qt interface for Optimus Manager that allows to configure and switch GPUs on Optimus laptops using the tray menu"
 arch=('x86_64')

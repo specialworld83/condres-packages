@@ -2,7 +2,7 @@
 # Contributor: 
 
 pkgname=qogir-gtk-theme
-_date=20190315
+_date=20190503
 _gnomever=3.32
 pkgver=${_gnomever}.${_date}
 pkgrel=1

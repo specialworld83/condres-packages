@@ -1,6 +1,6 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 pkgname=etcher
-_realver=1.5.52
+_realver=1.5.56
 pkgver=${_realver//-/_}
 pkgrel=1
 pkgdesc="Burn images to SD cards & USB drives, safe & easy"

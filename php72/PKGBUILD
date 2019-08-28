@@ -3,7 +3,7 @@ _pkgbase=${pkgbase%72}
 _realpkg=${pkgbase%}
 pkgname=("${pkgbase}"
          "${_realpkg}-"{cgi,apache,fpm,embed,phpdbg,dblib,enchant,gd,imap,intl,odbc,pgsql,pspell,snmp,sqlite,tidy,xsl,sodium}"")
-pkgver=7.2.19
+pkgver=7.2.21
 pkgrel=1
 pkgdesc="php 7.2 compiled as to not conflict with mainline php"
 arch=('i686' 'x86_64')
