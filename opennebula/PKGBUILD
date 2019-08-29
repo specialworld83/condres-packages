@@ -2,7 +2,7 @@
 
 pkgname=opennebula
 _pkgname=one-release
-pkgver=5.8.2
+pkgver=5.8.4
 pkgrel=3
 pkgdesc="Virtual management infrastructure as a service (IaaS) toolkit for cloud computing"
 arch=('i686' 'x86_64')
@@ -95,7 +95,10 @@ source=("https://github.com/OpenNebula/one/archive/release-${pkgver}.zip"
         'chown_fix.patch'
         'set_locations.patch'
         'fix_kvm_emulator.patch'
-        'opennebula.install')
+        'opennebula.install'
+        '0001-Port-build-scripts-to-Python3.patch'
+        'SConstruct'
+       )
 sha512sums=('SKIP' #package
             'e651669847686a3170420485c6181261f5459336f5c5dc3735ba937b1a4cb1876baac60b5b998cb2ae7d04c4f449656c154391ccd62d7181d2a6d60e0c0ac0b1' #opennebula.service
             'a563f1c6458d16c6b13f92aaf0b515127a2c30f25cd398eba0571d511fd38dfcfc0a3374d2df242dbd1963f6a0fd85fa95ee8ac1766f8d39717d7998479d9db9' #opennebula-scheduler.service
@@ -110,9 +113,11 @@ sha512sums=('SKIP' #package
             'cee672a3fb9bffdac836a9aa00c898a38303144be44521363ad8e5109aebaa00e31fc0ae921e3a71a87e734fc614f6b3350009d5ec899bc5d78e6fe6d6c8fc01' #set_locations.patch
             '18b1964cb4e3fc2eaa93a7ef79e4b9b185584d33ad4f7fa33cd33a74516334136d9cf0ee25921c189250420b751c753cb0142227e8de39e14f8d110e97cd8e30' #fix_kvm_emulator.patch
             'SKIP' #opennebula.install
-            )
+            'SKIP' #fix build opennebula
+            SKIP)
 
 prepare() {
+  cp -rv ../SConstruct ${srcdir}/${_pkgname}-${pkgver}
   cd "${_pkgname}-${pkgver}"
 
   # Patch upstream install script to not attempt to chown the install
@@ -121,9 +126,11 @@ prepare() {
   patch < "${srcdir}/chown_fix.patch"
   patch < "${srcdir}/set_locations.patch"
   patch -p0 < "${srcdir}/fix_kvm_emulator.patch"
+  patch -p1 < ${srcdir}/0001-Port-build-scripts-to-Python3.patch
 }
 
 build() {
+  
   cd "${_pkgname}-${pkgver}"
 
   ###########################################################################

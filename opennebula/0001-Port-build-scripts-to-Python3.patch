@@ -1,0 +1,208 @@
+From bacd0f7f7ef75d54826d60f456d1e7ca17ab3ffa Mon Sep 17 00:00:00 2001
+From: Mats Wichmann <mats@linux.com>
+Date: Fri, 9 Aug 2019 08:42:44 -0600
+Subject: [PATCH] Port build scripts to Python3
+
+scons scripts are written in Python; when Python 3 is used
+to run scons, the code has to be Python3-ready.
+
+Biggest change in line count is print statement -> function,
+to retain Py2 compatibility scripts import print_function
+from __futures__ module.
+
+Signed-off-by: Mats Wichmann <mats@linux.com>
+---
+ SConstruct                     | 69 ++++++++++++++++++----------------
+ share/rubygems/SConstruct      |  6 ++-
+ src/docker_machine/SConstruct  |  6 ++-
+ src/sunstone/public/SConstruct |  6 ++-
+ 4 files changed, 48 insertions(+), 39 deletions(-)
+
+diff --git a/SConstruct b/SConstruct
+index e758fc2dd..ef3f96ca7 100755
+--- a/SConstruct
++++ b/SConstruct
+@@ -15,6 +15,8 @@
+ # limitations under the License.                                             #
+ #--------------------------------------------------------------------------- #
+ 
++from __future__ import print_function
++
+ import os
+ import sys
+ import shutil
+@@ -24,7 +26,8 @@ from subprocess import Popen,PIPE,STDOUT
+ 
+ # Get git version
+ try:
+-    out = Popen(["git", "describe", "--dirty", "--always", "--abbrev=8"],stdout=PIPE)
++    out = Popen(["git", "describe", "--dirty", "--always", "--abbrev=8"],
++                stdout=PIPE, universal_newlines=True)
+     git_version = out.communicate()[0].rstrip()
+ except OSError:
+     git_version = "not known"
+@@ -40,15 +43,15 @@ main_env['CXXFLAGS'] = " -DGITVERSION=\'\"" + git_version + "\"\'"
+ 
+ # snippet borrowed from http://dev.gentoo.org/~vapier/scons-blows.txt
+ # makes scons aware of build related environment variables
+-if os.environ.has_key('CC'):
++if 'CC' in os.environ:
+     main_env['CC'] = os.environ['CC']
+-if os.environ.has_key('CFLAGS'):
++if 'CFLAGS' in os.environ:
+     main_env['CCFLAGS'] += SCons.Util.CLVar(os.environ['CFLAGS'])
+-if os.environ.has_key('CXX'):
++if 'CXX' in os.environ:
+     main_env['CXX'] = os.environ['CXX']
+-if os.environ.has_key('CXXFLAGS'):
++if 'CXXFLAGS' in os.environ:
+     main_env['CXXFLAGS'] += SCons.Util.CLVar(os.environ['CXXFLAGS'])
+-if os.environ.has_key('LDFLAGS'):
++if 'LDFLAGS' in os.environ:
+     main_env['LINKFLAGS'] += SCons.Util.CLVar(os.environ['LDFLAGS'])
+ else:
+     os.environ['LDFLAGS'] = ""
+@@ -186,15 +189,15 @@ if not main_env.GetOption('clean'):
+     try:
+         if mysql == 'yes':
+             main_env.ParseConfig('mysql_config --cflags --libs')
+-    except Exception, e:
+-        print ""
+-        print "mysql_config was not found in the path"
+-        print ""
+-        print "Check that mysql development package is installed and"
+-        print "mysql_config is in the path. If your mysql config tool"
+-        print "is called mysql5_config make a symlink as mysql_config"
+-        print "to a directory in the path."
+-        print ""
++    except Exception as e:
++        print("")
++        print("mysql_config was not found in the path")
++        print("")
++        print("Check that mysql development package is installed and")
++        print("mysql_config is in the path. If your mysql config tool")
++        print("is called mysql5_config make a symlink as mysql_config")
++        print("to a directory in the path.")
++        print("")
+         exit(-1)
+ 
+     try:
+@@ -203,24 +206,24 @@ if not main_env.GetOption('clean'):
+         main_env.ParseConfig(("LDFLAGS='%s' share/scons/get_xmlrpc_config" +
+                               " client") % (os.environ['LDFLAGS'],))
+ 
+-    except Exception, e:
+-        print ""
+-        print "Error searching for xmlrpc-c libraries. Please check this" +\
+-            " things:"
+-        print ""
+-        print " * You have installed development libraries for xmlrpc-c. One" +\
+-            " way to check"
+-        print "   this is calling xmlrpc-c-config that is provided with the" +\
+-            " development"
+-        print "   package."
+-        print " * Check that the version of xmlrpc-c is at least 1.06. You" +\
+-            " can do this also"
+-        print "   calling:"
+-        print "   $ xmlrpc-c-config --version"
+-        print " * If all this requirements are already met please send log" +\
+-            " files located in"
+-        print "   .xmlrpc_test to the mailing list."
+-        print ""
++    except Exception as e:
++        print("")
++        print("Error searching for xmlrpc-c libraries. Please check this" +\
++            " things:")
++        print("")
++        print(" * You have installed development libraries for xmlrpc-c. One" +\
++            " way to check")
++        print("   this is calling xmlrpc-c-config that is provided with the" +\
++            " development")
++        print("   package.")
++        print(" * Check that the version of xmlrpc-c is at least 1.06. You" +\
++            " can do this also")
++        print("   calling:")
++        print("   $ xmlrpc-c-config --version")
++        print(" * If all this requirements are already met please send log" +\
++            " files located in")
++        print("   .xmlrpc_test to the mailing list.")
++        print("")
+         exit(-1)
+ else:
+     main_env.Replace(mysql='yes')
+diff --git a/share/rubygems/SConstruct b/share/rubygems/SConstruct
+index b3e3d8e14..d2200fc13 100644
+--- a/share/rubygems/SConstruct
++++ b/share/rubygems/SConstruct
+@@ -16,15 +16,17 @@
+ # limitations under the License.                                             #
+ #--------------------------------------------------------------------------- #
+ 
++from __future__ import print_function
++
+ import os
+ 
+ Import('env')
+ 
+ if env['rubygems']=='yes':
+-    print "Generating rubygems packages\n"
++    print("Generating rubygems packages\n")
+     exit_code=os.system("./generate")
+ 
+     if exit_code != 0:
+-        print "Error generating rubygem packages\n"
++        print("Error generating rubygem packages\n")
+         exit(-1)
+ 
+diff --git a/src/docker_machine/SConstruct b/src/docker_machine/SConstruct
+index 6027a5cc3..2f304841d 100644
+--- a/src/docker_machine/SConstruct
++++ b/src/docker_machine/SConstruct
+@@ -16,14 +16,16 @@
+ # limitations under the License.                                             #
+ #--------------------------------------------------------------------------- #
+ 
++from __future__ import print_function
++
+ import os
+ 
+ Import('env')
+ 
+ if env['docker_machine']=='yes':
+-    print "Generating docker-machine-driver-opennebula\n"
++    print("Generating docker-machine-driver-opennebula\n")
+     exit_code=os.system("make -C src/docker_machine build")
+ 
+     if exit_code != 0:
+-        print "Error generating docker-machine-driver-opennebula\n"
++        print("Error generating docker-machine-driver-opennebula\n")
+         exit(-1)
+diff --git a/src/sunstone/public/SConstruct b/src/sunstone/public/SConstruct
+index bf5e588d6..62f1eaa59 100644
+--- a/src/sunstone/public/SConstruct
++++ b/src/sunstone/public/SConstruct
+@@ -16,17 +16,19 @@
+ # limitations under the License.                                             #
+ #--------------------------------------------------------------------------- #
+ 
++from __future__ import print_function
++
+ import os
+ 
+ Import('env')
+ 
+ 
+ if env['sunstone']=='yes':
+-    print "Generating Sunstone minified files\n"
++    print("Generating Sunstone minified files\n")
+ 
+     exit_code=os.system("./build.sh")
+ 
+     if exit_code != 0:
+-        print "Error generating minifying Sunstone files\n"
++        print("Error generating minifying Sunstone files\n")
+         exit(-1)
+ 
+-- 
+2.21.0
+
