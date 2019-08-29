@@ -2,8 +2,8 @@
 
 pkgname=calamares
 pkgver=3.2.12
-pkgrel=16
-epoch=7
+pkgrel=17
+epoch=8
 options=(staticlibs)
 pkgdesc='Distribution-independent installer framework'
 arch=('any')
