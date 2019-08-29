@@ -13,7 +13,7 @@ url="http://e2guardian.org"
 optdepends=('squid' 'clamav' 'c-icap')
 conflicts=('dansguardian' 'dansguardian-dev')
 install=${pkgname}.install
-source=(https://github.com/e2guardian/${pkgname}/archive/v${pkgver}.tar.gz
+source=(https://github.com/e2guardian/${pkgname}/archive/${pkgver}.tar.gz
          e2guardian
         e2guardian.service)
 sha1sums=('SKIP'

@@ -30,7 +30,7 @@ sha256sums=('SKIP' 'SKIP'
 
 build() {
   
-  patch -p1 -i ${srcdir}/fix_start.patch ${srcdir}/flowblade-2.0/flowblade-trunk/installdata/io.github.jliljebl.Flowblade.desktop
+  #patch -p1 -i ${srcdir}/fix_start.patch ${srcdir}/flowblade-2.0/flowblade-trunk/installdata/io.github.jliljebl.Flowblade.desktop
 }
 package() {
   cd $pkgname-$pkgver/$pkgname-trunk
