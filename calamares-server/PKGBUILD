@@ -1,7 +1,7 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=calamares-server
-pkgver=3.2.12
+pkgver=3.2.13
 pkgrel=17
 epoch=8
 options=(staticlibs)
@@ -12,7 +12,7 @@ url="https://github.com/calamares"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap' 'dmidecode' 'libpwquality'
          'boost-libs' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gptfdisk' 'gtk-update-icon-cache' 'rsync' 'squashfs-tools' 'kcrash' 'pythonqt')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'git' 'boost' 'plasma-framework' 'qt5-xmlpatterns')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/initcpio.conf'
@@ -20,12 +20,13 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 
 source+=("https://github.com/calamares/calamares/releases/download/v${pkgver}/calamares-${pkgver}.tar.gz"
-         calamares-condres.tar.gz)
-
+         'calamares-condres.tar.gz')
+         
 sha256sums=('SKIP'
             'SKIP')
 
 prepare() {
+    rm -rf ${srcdir}/calamares-${pkgver}/src/modules/initcpio/*
     bsdtar xvzf calamares-condres.tar.gz
     cp -a ${srcdir}/calamares-condres/* ${srcdir}/calamares-${pkgver}
     rm -rf ${srcdir}/calamares-condres
@@ -58,7 +59,7 @@ package() {
 	install -Dm755 "../data/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
     install -Dm644 "../data/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
     chmod 750 "$pkgdir"/etc/polkit-1/rules.d
-    
+    install -Dm755 "../calamares.png" "$pkgdir/usr/share/icons/calamares.png"
     
 
 }
