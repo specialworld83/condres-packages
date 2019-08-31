@@ -2,7 +2,7 @@
 
 pkgname=flowblade
 pkgver=2.2
-pkgrel=5
+pkgrel=6
 pkgdesc="a multitrack non-linear video editor for Linux"
 arch=('any')
 url="https://github.com/jliljebl/$pkgname"
@@ -13,7 +13,7 @@ depends=('dbus-glib'
          'gtk3'
          'librsvg'
          'mlt'
-         'mlt-python-bindings'
+         'mlt-python2-bindings'
          'movit'
          'pygtk'
          'python2-dbus'
@@ -24,16 +24,19 @@ depends=('dbus-glib'
          'sox'
          'swh-plugins')
 source=("$url/archive/v$pkgver.tar.gz"
-        "fix_start.patch")
-sha256sums=('SKIP' 'SKIP'
-            )
+        "patch_start.patch")
+sha256sums=('4c7bc61d2d38dbf91bbae9f835fbf82504a47d973983427264706a0596573e70'
+            'SKIP')
+build() {
+  cd $pkgname-$pkgver/$pkgname-trunk
+  patch -p1 -i ${srcdir}/patch_start.patch ${srcdir}/$pkgname-$pkgver/$pkgname-trunk/flowblade
+  }
 
-
+            
 package() {
   cd $pkgname-$pkgver/$pkgname-trunk
   python2 setup.py install \
     --root=$pkgdir \
     --install-lib=/usr/share/pyshared \
     --optimize=1
-  chmod 775 $pkgdir/usr/bin/flowblade 
 }

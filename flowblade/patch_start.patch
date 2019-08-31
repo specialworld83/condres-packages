@@ -1,0 +1,11 @@
+--- flowblade	2019-08-26 09:46:04.000000000 +0200
++++ flowblade_new	2019-08-31 10:31:33.266617716 +0200
+@@ -50,7 +50,7 @@
+ # When running in filesystem
+ else:
+     print "Running from filesystem..."
+-    modules_path = launch_dir + "/Flowblade"
++    modules_path = "/usr/share/pyshared/Flowblade"
+ 
+ sys.path.insert(0, modules_path)
+ 
