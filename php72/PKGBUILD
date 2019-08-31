@@ -349,7 +349,7 @@ package_php72-sodium() {
     depends=("${pkgbase}" 'libsodium')
     install -D -m755 ${srcdir}/build/modules/sodium.so ${pkgdir}/usr/lib/${_realpkg}/modules/sodium.so
 }
-md5sums=('070a43f5ef2e05418d526b75d2114c0b'
+md5sums=('SKIP'
          '13cda50a6a420d04ddc26935ded3164e'
          'cfba2dac9e201eccdffa00c5e0fd0af0'
          'f248c783449f310291905b5551c57e48'

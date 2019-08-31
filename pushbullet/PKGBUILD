@@ -11,7 +11,7 @@ arch=('i686' 'x86_64')
 license=('MIT')
 makedepends=('unzip')
 depends=('libnotify' 'gconf' 'libappindicator-gtk2' 'libappindicator-gtk3' 'libxtst' 'nss')
-source=("https://github.com/sidneys/pb-for-desktop/releases/download/${_pkgver}/pb-for-desktop_${pkgver}_amd64.deb")
+source=("https://github.com/sidneys/pb-for-desktop/releases/download/${_pkgver}/pb-for-desktop-${pkgver}-amd64.deb")
 sha256sums=('SKIP')
 
 package() {

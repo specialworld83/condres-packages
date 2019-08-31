@@ -40,7 +40,7 @@ license=('PHP')
 makedepends=(
     'apache' 'aspell' 'db' 'enchant' 'gd' 'gmp' 'icu' 'libmcrypt' 'libxslt'
     'libzip' 'net-snmp' 'postgresql-libs' 'sqlite' 'systemd' 'tidy' 'unixodbc'
-    'curl' 'libtool' 'postfix' 'freetds' 'pcre' 'c-client' 'tidyhtml'
+    'curl' 'libtool' 'freetds' 'pcre' 'c-client' 'tidyhtml'
 )
 
 source=(

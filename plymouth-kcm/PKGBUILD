@@ -11,7 +11,7 @@ makedepends=('cmake' 'kdoctools' 'extra-cmake-modules')
 optdepends=()
 options=()
 source=("https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('76724ee5875d622a5771c4017f7b2d31d16d0dc5f2949b8515dbda95b17053a9'
+sha256sums=('SKIP'
 )
 
 
