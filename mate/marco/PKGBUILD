@@ -1,14 +1,14 @@
 # Maintainer: Condres OS team <info@codelinsoft.it>
 
 pkgname=marco
-pkgver=1.22.1
+pkgver=1.22.2
 pkgrel=2
 pkgdesc="A window manager for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
 license=('GPL')
 depends=('gtk3' 'libcanberra' 'libgtop' 'libice' 'libsm' 'libxt'
-		'mate-desktop' 'startup-notification' 'zenity')
+		'mate-desktop' 'startup-notification' 'zenity' 'libxpresent')
 makedepends=('wget' 'mate-common' 'yelp-tools')
 optdepends=('yelp: for reading MATE help documents')
 groups=('mate')
