@@ -2,7 +2,7 @@
 
 pkgname=('anbox-git' 'anbox-modules-dkms-git')
 _pkgname=anbox
-pkgver=r1096.ea2b7a3
+pkgver=r1112.32cd10e
 pkgrel=2
 epoch=1
 arch=('x86_64')
@@ -52,10 +52,10 @@ prepare() {
   truncate -s 0 tests/CMakeLists.txt
   # Fix build google::protobuf
   cd "$srcdir/anbox-modules"
-  patch -p0 binder/binder.c < ${srcdir}/19.patch
+  #patch -p0 binder/binder.c < ${srcdir}/19.patch
   # Build modules
-  #patch -p1 -i ${srcdir}/extramodule_ashmem.patch ${srcdir}/anbox-modules/ashmem/Makefile
-  #patch -p2 -i ${srcdir}/extramodule_binder.patch ${srcdir}/anbox-modules/binder/Makefile
+  patch -p1 -i ${srcdir}/extramodule_ashmem.patch ${srcdir}/anbox-modules/ashmem/Makefile
+  patch -p2 -i ${srcdir}/extramodule_binder.patch ${srcdir}/anbox-modules/binder/Makefile
 }
 
 build() {
