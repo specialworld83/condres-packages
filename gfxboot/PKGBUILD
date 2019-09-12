@@ -2,7 +2,7 @@
 # Contributor: Alessio Biancalana <dottorblaster@gmail.com>
 
 pkgname=gfxboot
-pkgver=4.5.47
+pkgver=4.5.51
 _pkgver=1.2
 pkgrel=2
 epoch=2
