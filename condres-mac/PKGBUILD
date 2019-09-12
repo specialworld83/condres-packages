@@ -3,7 +3,7 @@
 _pkgname='Condres Icons'
 pkgname=condres-mac-icons
 pkgver=1.0.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Icons Apple for Condres OS'
 arch=(any)
 license=(GPL)
@@ -19,5 +19,5 @@ prepare() {
 
 package() {
 	mkdir -p "${pkgdir}/usr/share/icons"
-	cp -rf "${srcdir}/Cupertino-macOS-iCons-4.5.1" "${pkgdir}/usr/share/icons"
+	cp -rf "${srcdir}/Cupertino-iCons-4.5.1" "${pkgdir}/usr/share/icons"
 } 
