@@ -16,7 +16,7 @@ source=(http://download.opensuse.org/tumbleweed/repo/src-oss/src/${pkgname}-${pk
 	gfxboot.html)
 options=(docs)
 
-md5sums=('684d77fd88f8bbee3e5753b8c56525af'
+md5sums=('SKIP'
          'f824c5bc2f716f8029677cae6956c1c7')
 
 build() {
