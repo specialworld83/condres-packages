@@ -3,7 +3,7 @@
 pkgname=ktrans-theme-condres
 pkgver=0.98
 epoch=1
-pkgrel=2
+pkgrel=3
 pkgdesc='Plasma theme for Condres OS'
 arch=(any)
 license=(GPL)
@@ -14,7 +14,7 @@ sha256sums=('SKIP' 'SKIP')
 
 prepare() {
     cd ${srcdir}
-    bsdtar xvzf KTrans-0.98.tar.gz
+    tar xvzf KTrans-0.98.tar.gz
 }
 
 package() {
