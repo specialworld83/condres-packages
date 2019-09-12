@@ -3,7 +3,7 @@
 
 pkgname=gfxboot
 pkgver=4.5.51
-_pkgver=1.2
+_pkgver=1.1
 pkgrel=2
 epoch=2
 arch=('i686' 'x86_64')
