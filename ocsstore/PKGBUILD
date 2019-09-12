@@ -13,7 +13,7 @@ noextract=('opendesktop-app-${pkgver}-${pkgrel}-${arch.AppImage}')
 _hash_time=($(curl -s "$url"|grep -e "hash =" -e "timetamp ="|sed "s/.*= '\(.*\)';/\1/"))
 source=("https://dl.opendesktop.org/api/files/downloadfile/id/1525953341/s/${_hash_time[0]}/t/${_hash_time[1]}/u/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage")
 
-md5sums=('6a1dc04d5622efe28704422924591365')
+md5sums=('SKIP')
 
 prepare() {
   chmod ugo+x "${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage"
