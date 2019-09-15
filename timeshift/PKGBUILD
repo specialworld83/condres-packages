@@ -57,7 +57,6 @@ prepare() {
   cd "${_srcdir}"
   # ndowens04 2019-01-30 02:45
   #sed -e 's:--thread:& Core/AppExcludeEntry.vala:' -i 'src/makefile'
-  sed -e 's:--thread:& Core/AppExcludeEntry.vala:' -i 'src/makefile'
   set +u
 }
 
