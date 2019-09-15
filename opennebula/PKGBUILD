@@ -3,7 +3,7 @@
 pkgname=opennebula
 _pkgname=one-release
 pkgver=5.8.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Virtual management infrastructure as a service (IaaS) toolkit for cloud computing"
 arch=('i686' 'x86_64')
 url='http://docs.opennebula.org/stable'
@@ -20,6 +20,7 @@ depends=('ruby'
          'nfs-utils'
          'cdrkit'
          'log4cpp'
+         'libvncserver'
          'python2' #needed for novnc
          'mariadb'
          'libmariadbclient')
@@ -27,6 +28,7 @@ makedepends=('xmlrpc-c'
              'pkgconfig'
              'scons'
              'mariadb'
+             'libvncserver'
              'libmariadbclient')
 optdepends=('nfs-utils: for using the shared file system storage model'
             'ruby-sequel: required when upgrading the database'

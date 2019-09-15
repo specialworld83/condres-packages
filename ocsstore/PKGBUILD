@@ -16,9 +16,9 @@ source=("https://dl.opendesktop.org/api/files/downloadfile/id/1525953341/s/${_ha
 md5sums=('SKIP')
 
 prepare() {
-  chmod ugo+x "${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage"
-  "${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage" --appimage-extract
-  chmod ugo-x "${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage"
+  chmod ugo+x ${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage
+  ${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage --appimage-extract
+  chmod ugo-x ${srcdir}/opendesktop-app-${pkgver}-${pkgrel}-${arch}.AppImage
 }
 
 package() {
