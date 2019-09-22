@@ -1,8 +1,8 @@
 _pkgname='Condres Themes'
 pkgname=condres-themes-gnome
 _pkgver=4.2
-pkgrel=6
-_gnomever=3.32
+pkgrel=7
+_gnomever=3.34
 pkgver=${_gnomever}.${_pkgver}
 pkgdesc='Gnome Assets for Condres OS'
 arch=(any)

@@ -2,8 +2,8 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org>
 
 pkgname=cryptsetup
-_pkgver=2.1.0
-pkgver=2.1.0
+_pkgver=2.2.1
+pkgver=2.2.1
 pkgrel=1.2
 pkgdesc='Userspace setup tool for transparent encryption of block devices using dm-crypt'
 arch=(x86_64)
@@ -18,7 +18,7 @@ source=("https://www.kernel.org/pub/linux/utils/cryptsetup/v${_pkgver%.*}/${pkgn
         'hooks-encrypt'
         'install-encrypt'
         'install-sd-encrypt')
-sha256sums=('a3eeb2741f8f3376d16585191f3c60e067dd987e096c3c4b073fab7748b1c897'
+sha256sums=('94e79a31ed38bdb0acd9af7ccca1605a2ac62ca850ed640202876b1ee11c1c61'
             'SKIP'
             '416aa179ce3c6a7a5eee0861f1f0a4fafac91b69e84a2aae82b6e5a6140e31e2'
             '7b8c8a189f1b63cb4a0c0dd93d3452615bdc05f0e33570c78b338446a59ca750'
